@@ -24,8 +24,7 @@ repo](https://github.com/AppleEducate/plugins/issues/new).
 If you wish to contribute a new plugin to the Flutter ecosystem, please
 see the documentation for [developing packages](https://flutter.io/developing-packages/) and
 [platform channels](https://flutter.io/platform-channels/). You can store
-your plugin source code in any GitHub repository (the present repo is only
-intended for plugins developed by the core Flutter team). Once your plugin
+your plugin source code in any GitHub repository. Once your plugin
 is ready you can [publish](https://flutter.io/developing-packages/#publish)
 to the [pub repository](https://pub.dartlang.org/).
 
