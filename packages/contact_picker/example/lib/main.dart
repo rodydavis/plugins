@@ -43,16 +43,20 @@ class _MyAppState extends State<MyApp> {
   void _updateContactInfo(Contact c) {
     if (c != null) {
       //Name
-      String _firstName = "";
-      String _middleName = "";
-      String _lastName = "";
+      String _firstName;
+      String _middleName;
+      String _lastName;
       try {
         _firstName = c.givenName.toString();
         _middleName = c.middleName.toString();
         _lastName = c.familyName.toString();
-      } catch (e) {}
+      } catch (e) {
+        _firstName = "";
+        _middleName = "";
+        _lastName = "";
+      }
       print(
-          "Name => ${c.fullName}\nFirst: ${c.givenName}\nMiddle: ${c.middleName}\nLast: ${c.familyName}");
+          "Name => ${c.fullName}\nFirst: $_firstName\nMiddle: $_middleName\nLast: $_lastName");
 
       //Phone Numbers
       String _home = "";
@@ -72,13 +76,15 @@ class _MyAppState extends State<MyApp> {
       print("Phones\nHome: $_home\nOffice: $_office\nCell: $_cell");
 
       //Email
-      String _email = "";
+      String _email;
       try {
-        if (c.emails != null && c.emails.length > 0) {
+        if (c.emails != null && c.emails.isNotEmpty) {
           _email = c.emails.first.email.toString();
           print("Email: $_email\n ");
         }
-      } catch (e) {}
+      } catch (e) {
+        _email = "";
+      }
 
       //Address Info
       String _street = "";
@@ -86,7 +92,7 @@ class _MyAppState extends State<MyApp> {
       String _state = "";
       String _zip = "";
 
-      if (c.postalAddresses != null && c.postalAddresses.length > 0) {
+      if (c.postalAddresses != null && c.postalAddresses.isNotEmpty) {
         _street = c.postalAddresses.first.street.toString();
         _city = c.postalAddresses.first.city.toString();
         _state = c.postalAddresses.first.region.toString();
@@ -122,7 +128,7 @@ class _MyAppState extends State<MyApp> {
               new RaisedButton(
                 child: const Text(
                   "Select Contact",
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
                   final Contact contact = await _contactPicker.selectContact();
