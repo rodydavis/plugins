@@ -1,0 +1,25 @@
+name: contact_picker
+description: Flutter plugin for selecting contacts with the native UI and then working with the contacts object.
+authors:
+  - Flutter Team <flutter-dev@googlegroups.com>
+  - Rhodes Davis Jr. <rody.davis.jr@gmail.com>
+homepage: https://github.com/appleeducate/contact_picker
+version: 0.0.6
+
+flutter:
+  plugin:
+    androidPackage: com.appleeducate.flutter.contactpicker
+    pluginClass: ContactPickerPlugin
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  video_player: 0.5.2
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=0.1.4 <2.0.0"
