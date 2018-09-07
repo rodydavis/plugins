@@ -16,8 +16,8 @@ These plugins are also available on
 
 ## Issues
 
-Please file any issues, bugs, or feature requests in the [main flutter
-repo](https://github.com/flutter/flutter/issues/new).
+Please file any issues, bugs, or feature requests in the [
+repo](https://github.com/AppleEducate/plugins/issues/new).
 
 ## Contributing
 
