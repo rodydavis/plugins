@@ -4,7 +4,7 @@
 
 This repo is a companion repo to the main [flutter
 repo](https://github.com/flutter/flutter). It contains the source code for
-Flutter first-party plugins (i.e., plugins developed by the core Flutter team).
+Flutter third-party plugins (i.e., plugins developed by Rody Davis).
 Check the `packages` directory for all plugins.
 
 Flutter plugins enable access to platform-specific APIs. For more information
@@ -44,4 +44,3 @@ These are the available plugins in this repository.
 | [flutter_whatsnew](./packages/flutter_whatsnew/) | [![pub package](https://img.shields.io/pub/v/flutter_whatsnew.svg)](https://pub.dartlang.org/packages/flutter_whatsnew) |
 | [native_widgets](./packages/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
 
-Learn more about [FlutterFire](https://github.com/flutter/plugins/blob/master/FlutterFire.md).
