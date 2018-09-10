@@ -42,4 +42,5 @@ These are the available plugins in this repository.
 | [flutter_sms](./packages/flutter_sms/) | [![pub package](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dartlang.org/packages/flutter_sms) |
 | [flutter_whatsnew](./packages/flutter_whatsnew/) | [![pub package](https://img.shields.io/pub/v/flutter_whatsnew.svg)](https://pub.dartlang.org/packages/flutter_whatsnew) |
 | [native_widgets](./packages/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
+| [number_control](./packages/number_control/) | [![pub package](https://img.shields.io/pub/v/number_control.svg)](https://pub.dartlang.org/packages/number_control) |
 
