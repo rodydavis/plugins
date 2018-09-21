@@ -10,6 +10,11 @@ class FlutterMidi {
     return result;
   }
 
+  static Future<String> stopMidiNote() async {
+    final String result = await _channel.invokeMethod('stop_midi_note');
+    return result;
+  }
+
   static Future<String> playMidiNote({
     @required int midi,
   }) async {
