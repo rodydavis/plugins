@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _initPlatformState() async {
-    var _message = await FlutterMidi.prepare();
+    final String _message = await FlutterMidi.prepare();
     print(_message);
   }
 
@@ -30,12 +30,8 @@ class _MyAppState extends State<MyApp> {
         ),
         body: new Center(
           child: RaisedButton(
-            child: Icon(Icons.play_arrow),
-            onPressed: () {
-              var _midi = 60;
-              print('Button Pressed: $_midi');
-              FlutterMidi.playMidiNote(midi: _midi);
-            },
+            child: const Icon(Icons.play_arrow),
+            onPressed: () => FlutterMidi.playMidiNote(midi: 60),
           ),
         ),
       ),
