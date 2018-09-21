@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Android Permission Fix
+
 ## 0.0.4
 
 * Updated Example
