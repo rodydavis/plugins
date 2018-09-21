@@ -16,7 +16,6 @@ class _MyAppState extends State<MyApp> {
   /// When [false] the sound will be play when the button is pressed.
   /// If the user cancels the touch on drag the sound will not be played.
   /// In this mode the sound will play for a default time.
-
   bool _toggle = true;
 
   @override
@@ -25,26 +24,27 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  /// Need to Load the sound_font.SF2 file in memory to play midi without lag.
   void _initPlatformState() async {
-    /// Needed so that the sound font is loaded
-    /// On iOS make sure to include the sound_font.SF2 in the Runner folder.
-    /// This does not work in the simulator.
     final String _message = await FlutterMidi.prepare();
     print(_message);
   }
 
+  /// Starts playing the midi note
   void _playMidi(int midi) {
     FlutterMidi.playMidiNote(midi: midi)
         .then((dynamic message) => print(message))
         .catchError((dynamic e) => print(e));
   }
 
+  /// Stops playing the midi note
   void _stopMidi() {
     FlutterMidi.stopMidiNote()
         .then((dynamic message) => print(message))
         .catchError((dynamic e) => print(e));
   }
 
+  /// Creates a general resuable button that can toggle or just play a note.
   Widget _playButton({int midi, String name}) {
     return Container(
       color: Colors.blue,
