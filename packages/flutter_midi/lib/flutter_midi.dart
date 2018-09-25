@@ -14,6 +14,12 @@ class FlutterMidi {
     return result;
   }
 
+  /// Unmute the device temporarly even if the mute switch is on or toggled in settings.
+  static Future<String> unmute() async {
+    final String result = await _channel.invokeMethod('unmute');
+    return result;
+  }
+
   /// Use this when stopping the sound onTouchUp or to cancel a long file.
   /// Not needed if playing midi onTap.
   static Future<String> stopMidiNote() async {

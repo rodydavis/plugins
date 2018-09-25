@@ -23,6 +23,16 @@ public class SwiftFlutterMidiPlugin: NSObject, FlutterPlugin {
         au = AudioUnitMIDISynth()
         let message = "Prepared Sound Font"
         result(message)
+      case "unmute":
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: AVAudioSessionCategoryOptions.duckOthers)
+        }
+        catch {
+            let message = "Device Still Muted"
+            result(message)
+        }
+        let message = "unmuted Device"
+        result(message)
       case "play_midi_note_unmute":
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: AVAudioSessionCategoryOptions.duckOthers)

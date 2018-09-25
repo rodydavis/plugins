@@ -26,13 +26,15 @@ class _MyAppState extends State<MyApp> {
 
   /// Need to Load the sound_font.SF2 file in memory to play midi without lag.
   void _initPlatformState() async {
-    final String _message = await FlutterMidi.prepare();
+    String _message = await FlutterMidi.prepare();
+    print(_message);
+    _message = await FlutterMidi.unmute();
     print(_message);
   }
 
   /// Starts playing the midi note
   void _playMidi(int midi) {
-    FlutterMidi.playMidiNote(midi: midi, unmute: true)
+    FlutterMidi.playMidiNote(midi: midi)
         .then((dynamic message) => print(message))
         .catchError((dynamic e) => print(e));
   }
