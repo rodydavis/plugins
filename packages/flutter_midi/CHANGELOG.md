@@ -1,3 +1,7 @@
+## 0.0.2
+
+* Optional force unmute
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Added Midi for iOS.

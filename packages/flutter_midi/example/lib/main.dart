@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   /// Starts playing the midi note
   void _playMidi(int midi) {
-    FlutterMidi.playMidiNote(midi: midi)
+    FlutterMidi.playMidiNote(midi: midi, unmute: true)
         .then((dynamic message) => print(message))
         .catchError((dynamic e) => print(e));
   }
@@ -45,14 +45,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// Creates a general resuable button that can toggle or just play a note.
-  Widget _playButton({int midi, String name}) {
+  Widget _playButton({int midi, String name, bool toggle}) {
     return Container(
       color: Colors.blue,
       child: Listener(
-        onPointerDown: (dynamic e) => _toggle ? _playMidi(midi) : null,
-        onPointerUp: (dynamic e) => _toggle ? _stopMidi() : null,
+        onPointerDown: (dynamic e) => toggle ? _playMidi(midi) : null,
+        onPointerUp: (dynamic e) => toggle ? _stopMidi() : null,
         child: InkWell(
-          onTap: _toggle ? null : () => _playMidi(midi),
+          onTap: toggle ? null : () => _playMidi(midi),
           child: Container(
             padding: const EdgeInsets.all(20.0),
             child: Text(
@@ -83,9 +83,9 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             ButtonBar(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              _playButton(midi: 60, name: "C"),
-              _playButton(midi: 64, name: "E"),
-              _playButton(midi: 67, name: "G"),
+              _playButton(midi: 60, name: "C", toggle: _toggle),
+              _playButton(midi: 64, name: "E", toggle: _toggle),
+              _playButton(midi: 67, name: "G", toggle: _toggle),
             ]),
           ])),
         ),

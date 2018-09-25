@@ -21,16 +21,22 @@ class FlutterMidi {
     return result;
   }
 
+  /// Play a midi note from the sound_font.SF2 library bundled with the application.
   /// Play a midi note in the range between 0-256
   /// Multiple notes can be played at once as seperate calls.
   static Future<String> playMidiNote({
     @required int midi,
+
+    /// Force play the sound even if the mute switch is on or toggled on in the settings.
+    /// This will not always work on every device, but is required this way by Apple.
+    bool unmute,
   }) async {
     final Map<dynamic, dynamic> mapData = <dynamic, dynamic>{};
     print("Pressed: $midi");
     mapData["note"] = midi;
-    final String result =
-        await _channel.invokeMethod('play_midi_note', mapData);
-    return result;
+    if (unmute != null && unmute) {
+      return await _channel.invokeMethod('play_midi_note_unmute', mapData);
+    }
+    return await _channel.invokeMethod('play_midi_note', mapData);
   }
 }
