@@ -245,10 +245,6 @@ class SheetMusic extends StatelessWidget {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          _buildClef(),
-          _buildScale(),
-          _buildPitch(),
-        ]);
+        children: <Widget>[_buildClef(), _buildScale(), _buildPitch()]);
   }
 }
