@@ -2,7 +2,7 @@ name: get_version
 description: Get the Version Name, Version Code, Platform and OS Version, and App ID on iOS and Android.
 version: 0.0.7
 author: Rody Davis <rody.davis.jr@gmail.com>
-homepage: https://github.com/AppleEducate/get_version
+homepage: https://github.com/AppleEducate/plugins
 environment:
   sdk: ">=2.0.0 <3.0.0"
   flutter: ">=0.1.4 <2.2.0"

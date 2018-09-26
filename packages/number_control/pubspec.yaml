@@ -2,7 +2,7 @@ name: number_control
 description: A Flutter Plugin for a SImple Add and Subtract Widget for int.
 version: 0.1.0
 author: Rody Davis <rody.davis.jr@gmail.com>
-homepage: https://github.com/AppleEducate/plugins/tree/master/packages/number_control
+homepage: https://github.com/AppleEducate/plugins
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
   flutter: ">=0.1.4 <2.0.0"

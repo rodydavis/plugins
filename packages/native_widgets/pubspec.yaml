@@ -2,7 +2,7 @@ name: native_widgets
 description: A new Flutter package for using Android and iOS natively on each platform.
 version: 0.1.2
 author: Rhodes Davis Jr. <rody.davis.jr@gmail.com>
-homepage: https://github.com/appleeducate/native_widgets
+homepage: https://github.com/AppleEducate/plugins
 
 dependencies:
   flutter:

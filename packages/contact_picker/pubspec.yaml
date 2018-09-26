@@ -3,7 +3,7 @@ description: Flutter plugin for selecting contacts with the native UI and then w
 authors:
   - Flutter Team <flutter-dev@googlegroups.com>
   - Rhodes Davis Jr. <rody.davis.jr@gmail.com>
-homepage: https://github.com/appleeducate/contact_picker
+homepage: https://github.com/AppleEducate/plugins
 version: 0.0.6
 
 flutter:
