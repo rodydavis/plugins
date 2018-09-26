@@ -1,4 +1,11 @@
-const List<String> scales = <String>[
+const List<String> scalesMajor = <String>[
+  "Cb Major",
+  "Gb Major",
+  "Db Major",
+  "Ab Major",
+  "Eb Major",
+  "Bb Major",
+  "F Major",
   "C Major",
   "G Major",
   "D Major",
@@ -7,11 +14,22 @@ const List<String> scales = <String>[
   "B Major",
   "F# Major",
   "C# Major",
-  "F Major",
-  "Bb Major",
-  "Eb Major",
-  "Ab Major",
-  "Db Major",
-  "Gb Major",
-  "Cb Major",
+];
+
+const List<String> scalesMinor = <String>[
+  "Ab Minor",
+  "Eb Minor",
+  "Bb Minor",
+  "F Minor",
+  "C Minor",
+  "G Minor",
+  "D Minor",
+  "A Minor",
+  "E Minor",
+  "B Minor",
+  "F# Minor",
+  "C# Minor",
+  "G# Minor",
+  "D# Minor",
+  "A# Minor",
 ];
