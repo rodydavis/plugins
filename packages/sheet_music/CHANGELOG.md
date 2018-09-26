@@ -1,3 +1,7 @@
+## [0.0.3] - Added Minor Support
+
+* Added Minor Scale Parsing Support
+
 ## [0.0.2] - Added Functions
 
 * Added Utility Fuctions for Getting Assets Names
