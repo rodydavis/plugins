@@ -5,21 +5,36 @@ import 'package:flutter/material.dart';
 import 'models/scale.dart';
 import 'util/sheet_music_assets.dart';
 
+/// Transparent Sheet Music View with [black] color.
 class SheetMusic extends StatelessWidget {
   final bool trebleClef;
-  final PossibleScales scale;
-  final String pitch;
+  final String pitch, scale;
 
+  /// Hide the Sheet Music View.
+  final bool hide;
+
+  /// Color of the [background], everything else will be [black].
+  /// Defaults to [transparent].
+  final Color backgroundColor;
+
+  /// Called when the [clef] section is tapped.
   final VoidCallback clefTap;
+
+  /// Called when the [scale] section is tapped.
   final VoidCallback scaleTap;
+
+  /// Called when the [note] section is tapped.
   final VoidCallback pitchTap;
+
   SheetMusic({
     @required this.trebleClef,
-    @required this.clefTap,
-    @required this.scaleTap,
     @required this.scale,
     @required this.pitch,
-    @required this.pitchTap,
+    this.pitchTap,
+    this.clefTap,
+    this.scaleTap,
+    this.backgroundColor,
+    this.hide,
   });
 
   Widget _buildClef() {
@@ -49,8 +64,9 @@ class SheetMusic extends StatelessWidget {
   }
 
   Widget _buildScale() {
+    final PossibleScales _scale = ScaleInfo.parse(scale).scale;
     if (trebleClef) {
-      switch (scale) {
+      switch (_scale) {
         case PossibleScales.cMajor:
           return _scaleImage(cmajor_treble_asset);
         case PossibleScales.gMajor:
@@ -83,7 +99,7 @@ class SheetMusic extends StatelessWidget {
           return _scaleImage(cbmajor_treble_asset);
       }
     }
-    switch (scale) {
+    switch (_scale) {
       case PossibleScales.cMajor:
         return _scaleImage(cmajor_bass_asset);
       case PossibleScales.gMajor:
@@ -242,9 +258,14 @@ class SheetMusic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[_buildClef(), _buildScale(), _buildPitch()]);
+    if (hide != null && hide) return Container();
+
+    return Container(
+      color: backgroundColor,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[_buildClef(), _buildScale(), _buildPitch()]),
+    );
   }
 }
