@@ -1,6 +1,6 @@
 name: sheet_music
 description: A Flutter Widget for Sheet Music (All Major Flat and Sharp Scales, Notes from 5 below and 5 above the bar, Treble and Bass Clef).
-version: 0.0.3
+version: 0.0.4+2
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
@@ -24,81 +24,79 @@ dev_dependencies:
 flutter:
 
   assets:
-   ## Sheet Music View
-
    # Clef
-   - assets/images/sheet_music/clef/treble_clef.png
-   - assets/images/sheet_music/clef/bass_clef.png
+   - assets/images/clef/treble_clef.png
+   - assets/images/clef/bass_clef.png
 
    # Scale
-   - assets/images/sheet_music/scale/treble/c_major.png
-   - assets/images/sheet_music/scale/bass/c_major.png
-   - assets/images/sheet_music/scale/treble/g_major.png
-   - assets/images/sheet_music/scale/bass/g_major.png
-   - assets/images/sheet_music/scale/treble/d_major.png
-   - assets/images/sheet_music/scale/bass/d_major.png
-   - assets/images/sheet_music/scale/treble/a_major.png
-   - assets/images/sheet_music/scale/bass/a_major.png
-   - assets/images/sheet_music/scale/treble/e_major.png
-   - assets/images/sheet_music/scale/bass/e_major.png
-   - assets/images/sheet_music/scale/treble/b_major.png
-   - assets/images/sheet_music/scale/bass/b_major.png
-   - assets/images/sheet_music/scale/treble/fs_major.png
-   - assets/images/sheet_music/scale/bass/fs_major.png
-   - assets/images/sheet_music/scale/treble/cs_major.png
-   - assets/images/sheet_music/scale/bass/cs_major.png
-   - assets/images/sheet_music/scale/treble/f_major.png
-   - assets/images/sheet_music/scale/bass/f_major.png
-   - assets/images/sheet_music/scale/treble/bb_major.png
-   - assets/images/sheet_music/scale/bass/bb_major.png
-   - assets/images/sheet_music/scale/treble/eb_major.png
-   - assets/images/sheet_music/scale/bass/eb_major.png
-   - assets/images/sheet_music/scale/treble/ab_major.png
-   - assets/images/sheet_music/scale/bass/ab_major.png
-   - assets/images/sheet_music/scale/treble/db_major.png
-   - assets/images/sheet_music/scale/bass/db_major.png
-   - assets/images/sheet_music/scale/treble/gb_major.png
-   - assets/images/sheet_music/scale/bass/gb_major.png
-   - assets/images/sheet_music/scale/treble/cb_major.png
-   - assets/images/sheet_music/scale/bass/cb_major.png
+   - assets/images/scale/treble/c_major.png
+   - assets/images/scale/bass/c_major.png
+   - assets/images/scale/treble/g_major.png
+   - assets/images/scale/bass/g_major.png
+   - assets/images/scale/treble/d_major.png
+   - assets/images/scale/bass/d_major.png
+   - assets/images/scale/treble/a_major.png
+   - assets/images/scale/bass/a_major.png
+   - assets/images/scale/treble/e_major.png
+   - assets/images/scale/bass/e_major.png
+   - assets/images/scale/treble/b_major.png
+   - assets/images/scale/bass/b_major.png
+   - assets/images/scale/treble/fs_major.png
+   - assets/images/scale/bass/fs_major.png
+   - assets/images/scale/treble/cs_major.png
+   - assets/images/scale/bass/cs_major.png
+   - assets/images/scale/treble/f_major.png
+   - assets/images/scale/bass/f_major.png
+   - assets/images/scale/treble/bb_major.png
+   - assets/images/scale/bass/bb_major.png
+   - assets/images/scale/treble/eb_major.png
+   - assets/images/scale/bass/eb_major.png
+   - assets/images/scale/treble/ab_major.png
+   - assets/images/scale/bass/ab_major.png
+   - assets/images/scale/treble/db_major.png
+   - assets/images/scale/bass/db_major.png
+   - assets/images/scale/treble/gb_major.png
+   - assets/images/scale/bass/gb_major.png
+   - assets/images/scale/treble/cb_major.png
+   - assets/images/scale/bass/cb_major.png
 
    # Pitch
-   - assets/images/sheet_music/note/none.png
-   - assets/images/sheet_music/note/bass/b1.png
-   - assets/images/sheet_music/note/bass/c2.png
-   - assets/images/sheet_music/note/bass/d2.png
-   - assets/images/sheet_music/note/bass/e2.png
-   - assets/images/sheet_music/note/bass/f2.png
-   - assets/images/sheet_music/note/bass/g2.png
-   - assets/images/sheet_music/note/bass/a2.png
-   - assets/images/sheet_music/note/bass/b2.png
-   - assets/images/sheet_music/note/bass/c3.png
-   - assets/images/sheet_music/note/bass/d3.png
-   - assets/images/sheet_music/note/bass/e3.png
-   - assets/images/sheet_music/note/bass/f3.png
-   - assets/images/sheet_music/note/bass/g3.png
-   - assets/images/sheet_music/note/bass/a3.png
-   - assets/images/sheet_music/note/bass/b3.png
-   - assets/images/sheet_music/note/bass/c4.png
-   - assets/images/sheet_music/note/bass/d4.png
-   - assets/images/sheet_music/note/bass/e4.png
-   - assets/images/sheet_music/note/bass/f4.png
-   - assets/images/sheet_music/note/treble/g3.png
-   - assets/images/sheet_music/note/treble/a3.png
-   - assets/images/sheet_music/note/treble/b3.png
-   - assets/images/sheet_music/note/treble/c4.png
-   - assets/images/sheet_music/note/treble/d4.png
-   - assets/images/sheet_music/note/treble/e4.png
-   - assets/images/sheet_music/note/treble/f4.png
-   - assets/images/sheet_music/note/treble/g4.png
-   - assets/images/sheet_music/note/treble/a4.png
-   - assets/images/sheet_music/note/treble/b4.png
-   - assets/images/sheet_music/note/treble/c5.png
-   - assets/images/sheet_music/note/treble/d5.png
-   - assets/images/sheet_music/note/treble/e5.png
-   - assets/images/sheet_music/note/treble/f5.png
-   - assets/images/sheet_music/note/treble/g5.png
-   - assets/images/sheet_music/note/treble/a5.png
-   - assets/images/sheet_music/note/treble/b5.png
-   - assets/images/sheet_music/note/treble/c6.png
-   - assets/images/sheet_music/note/treble/d6.png
+   - assets/images/note/none.png
+   - assets/images/note/bass/b1.png
+   - assets/images/note/bass/c2.png
+   - assets/images/note/bass/d2.png
+   - assets/images/note/bass/e2.png
+   - assets/images/note/bass/f2.png
+   - assets/images/note/bass/g2.png
+   - assets/images/note/bass/a2.png
+   - assets/images/note/bass/b2.png
+   - assets/images/note/bass/c3.png
+   - assets/images/note/bass/d3.png
+   - assets/images/note/bass/e3.png
+   - assets/images/note/bass/f3.png
+   - assets/images/note/bass/g3.png
+   - assets/images/note/bass/a3.png
+   - assets/images/note/bass/b3.png
+   - assets/images/note/bass/c4.png
+   - assets/images/note/bass/d4.png
+   - assets/images/note/bass/e4.png
+   - assets/images/note/bass/f4.png
+   - assets/images/note/treble/g3.png
+   - assets/images/note/treble/a3.png
+   - assets/images/note/treble/b3.png
+   - assets/images/note/treble/c4.png
+   - assets/images/note/treble/d4.png
+   - assets/images/note/treble/e4.png
+   - assets/images/note/treble/f4.png
+   - assets/images/note/treble/g4.png
+   - assets/images/note/treble/a4.png
+   - assets/images/note/treble/b4.png
+   - assets/images/note/treble/c5.png
+   - assets/images/note/treble/d5.png
+   - assets/images/note/treble/e5.png
+   - assets/images/note/treble/f5.png
+   - assets/images/note/treble/g5.png
+   - assets/images/note/treble/a5.png
+   - assets/images/note/treble/b5.png
+   - assets/images/note/treble/c6.png
+   - assets/images/note/treble/d6.png

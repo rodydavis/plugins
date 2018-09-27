@@ -1,7 +1,10 @@
 import 'assets.dart';
 
 String getPitchAsset(String name, {bool trebleClef}) {
-  final String pitch = name;
+  String pitch = name;
+  pitch = pitch.replaceAll("#", "");
+  pitch = pitch.replaceAll("b", "");
+  pitch = pitch.replaceAll("♭", "");
   if (trebleClef != null && trebleClef) {
     switch (pitch) {
       case "G3":

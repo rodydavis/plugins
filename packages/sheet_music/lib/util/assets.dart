@@ -1,6 +1,10 @@
-const String _clef_path = "assets/images/sheet_music/clef";
-const String _scale_path = "assets/images/sheet_music/scale";
-const String _note_path = "assets/images/sheet_music/note";
+const String package = "sheet_music";
+
+const String _assetPath = "assets/images";
+
+const String _clef_path = "$_assetPath/clef";
+const String _scale_path = "$_assetPath/scale";
+const String _note_path = "$_assetPath/note";
 
 const String _treble_path = "treble";
 const String _bass_path = "bass";

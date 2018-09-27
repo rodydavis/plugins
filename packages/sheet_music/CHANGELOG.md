@@ -1,3 +1,8 @@
+## [0.0.4] - Bundled Assets
+
+* Added Assets to /lib
+* Added Width and Height
+
 ## [0.0.3] - Added Minor Support
 
 * Added Minor Scale Parsing Support

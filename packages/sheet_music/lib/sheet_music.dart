@@ -2,6 +2,7 @@ library sheet_music;
 
 import 'package:flutter/material.dart';
 
+import 'util/assets.dart';
 import 'util/clef_asset.dart';
 import 'util/pitch_asset.dart';
 import 'util/scale_asset.dart';
@@ -27,6 +28,9 @@ class SheetMusic extends StatelessWidget {
   /// Called when the [note] section is tapped.
   final VoidCallback pitchTap;
 
+  /// Specify a [height] and [width] for the view. Default [197x100].
+  final double width, height;
+
   SheetMusic({
     @required this.trebleClef,
     @required this.scale,
@@ -36,17 +40,21 @@ class SheetMusic extends StatelessWidget {
     this.scaleTap,
     this.backgroundColor,
     this.hide,
+    this.height,
+    this.width,
   });
 
-  Widget _buildClef() {
+  Widget _buildClef({double width, double height}) {
+    final double _width = width * 0.1979;
     return Container(
       child: InkWell(
         onTap: clefTap,
         child: SizedBox(
-          height: 100.0,
-          width: 39.0,
+          height: height,
+          width: _width,
           child: Image.asset(
             getClefAsset(trebleClef),
+            package: package,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -54,15 +62,17 @@ class SheetMusic extends StatelessWidget {
     );
   }
 
-  Widget _buildScale() {
+  Widget _buildScale({double width, double height}) {
+    final double _width = width * 0.5076;
     return Container(
       child: InkWell(
         onTap: scaleTap,
         child: SizedBox(
-          height: 100.0,
-          width: 100.0,
+          height: height,
+          width: _width,
           child: Image.asset(
             getScaleAsset(scale, trebleClef: trebleClef),
+            package: package,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -70,15 +80,17 @@ class SheetMusic extends StatelessWidget {
     );
   }
 
-  Widget _buildPitch() {
+  Widget _buildPitch({double width, double height}) {
+    final double _width = width * 0.2944;
     return Container(
       child: InkWell(
         onTap: pitchTap,
         child: SizedBox(
-          height: 100.0,
-          width: 58.0,
+          height: height,
+          width: _width,
           child: Image.asset(
             getPitchAsset(pitch, trebleClef: trebleClef),
+            package: package,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -89,13 +101,24 @@ class SheetMusic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (hide != null && hide) return Container();
-
-    return Container(
-      color: backgroundColor,
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[_buildClef(), _buildScale(), _buildPitch()]),
+    final double _aspectRatio = 197.0 / 100.0;
+    final double _width = (height ?? 197.0) * _aspectRatio;
+    final double _height = (width ?? 100.0) * _aspectRatio;
+    return SizedBox(
+      width: _width,
+      height: _height,
+      child: Container(
+        color: backgroundColor,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              _buildClef(width: _width, height: _height),
+              _buildScale(width: _width, height: _height),
+              _buildPitch(width: _width, height: _height),
+            ]),
+      ),
     );
   }
 }
