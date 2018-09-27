@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
+
+import '../models/scale.dart';
 import 'assets.dart';
 
 String getPitchAsset(String name, {bool trebleClef}) {
   String pitch = name;
+  pitch = pitch.replaceAll("♯", "");
   pitch = pitch.replaceAll("#", "");
   pitch = pitch.replaceAll("b", "");
   pitch = pitch.replaceAll("♭", "");
@@ -91,4 +95,112 @@ String getPitchAsset(String name, {bool trebleClef}) {
     default:
       return none_asset;
   }
+}
+
+String getPitchName({String scale, @required String pitch}) {
+  final PossibleScales _scale = ScaleInfo.parse(scale ?? "C Major").scale;
+  switch (_scale) {
+    case PossibleScales.cMajor:
+      //C Major
+      break;
+    case PossibleScales.gMajor:
+      //G Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      break;
+    case PossibleScales.dMajor:
+      //D Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C#");
+      break;
+    case PossibleScales.aMajor:
+      //A Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C#");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G#");
+      break;
+    case PossibleScales.eMajor:
+      //E Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C#");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G#");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D#");
+      break;
+    case PossibleScales.bMajor:
+      //B Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C#");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G#");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D#");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A#");
+      break;
+    case PossibleScales.fSMajor:
+      //F# Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C#");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G#");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D#");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A#");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E#");
+      break;
+    case PossibleScales.cSMajor:
+      //C# Major
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F#");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C#");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G#");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D#");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A#");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E#");
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B#");
+      break;
+    case PossibleScales.fMajor:
+      //F Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      break;
+    case PossibleScales.bbMajor:
+      //Bb Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E♭");
+      break;
+    case PossibleScales.ebMajor:
+      //Eb Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E♭");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A♭");
+      break;
+    case PossibleScales.abMajor:
+      //Ab Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E♭");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A♭");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D♭");
+      break;
+    case PossibleScales.dbMajor:
+      //Db Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E♭");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A♭");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D♭");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G♭");
+      break;
+    case PossibleScales.gbMajor:
+      //Gb Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E♭");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A♭");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D♭");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G♭");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C♭");
+      break;
+    case PossibleScales.cbMajor:
+      //Cb Major
+      if (pitch.contains("B")) return pitch.replaceAll("B", "B♭");
+      if (pitch.contains("E")) return pitch.replaceAll("E", "E♭");
+      if (pitch.contains("A")) return pitch.replaceAll("A", "A♭");
+      if (pitch.contains("D")) return pitch.replaceAll("D", "D♭");
+      if (pitch.contains("G")) return pitch.replaceAll("G", "G♭");
+      if (pitch.contains("C")) return pitch.replaceAll("C", "C♭");
+      if (pitch.contains("F")) return pitch.replaceAll("F", "F♭");
+      break;
+  }
+  return pitch;
 }

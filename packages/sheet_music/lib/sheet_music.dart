@@ -2,10 +2,11 @@ library sheet_music;
 
 import 'package:flutter/material.dart';
 
-import 'util/assets.dart';
 import 'util/clef_asset.dart';
 import 'util/pitch_asset.dart';
 import 'util/scale_asset.dart';
+
+const String sheetMusicPackageName = "sheet_music";
 
 /// Transparent Sheet Music View with [black] color.
 class SheetMusic extends StatelessWidget {
@@ -40,8 +41,8 @@ class SheetMusic extends StatelessWidget {
     this.scaleTap,
     this.backgroundColor,
     this.hide,
-    this.height,
     this.width,
+    this.height,
   });
 
   Widget _buildClef({double width, double height}) {
@@ -54,7 +55,7 @@ class SheetMusic extends StatelessWidget {
           width: _width,
           child: Image.asset(
             getClefAsset(trebleClef),
-            package: package,
+            package: sheetMusicPackageName,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -72,7 +73,7 @@ class SheetMusic extends StatelessWidget {
           width: _width,
           child: Image.asset(
             getScaleAsset(scale, trebleClef: trebleClef),
-            package: package,
+            package: sheetMusicPackageName,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -90,7 +91,7 @@ class SheetMusic extends StatelessWidget {
           width: _width,
           child: Image.asset(
             getPitchAsset(pitch, trebleClef: trebleClef),
-            package: package,
+            package: sheetMusicPackageName,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -101,9 +102,9 @@ class SheetMusic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (hide != null && hide) return Container();
-    final double _aspectRatio = 197.0 / 100.0;
-    final double _width = (height ?? 197.0) * _aspectRatio;
-    final double _height = (width ?? 100.0) * _aspectRatio;
+    final double _width = ((height ?? 100.0) * 197.0) / 100.0;
+    final double _height = ((width ?? 197.0) * 100.0) / 197.0;
+
     return SizedBox(
       width: _width,
       height: _height,

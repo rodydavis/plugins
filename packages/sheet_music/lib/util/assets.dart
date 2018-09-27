@@ -1,5 +1,3 @@
-const String package = "sheet_music";
-
 const String _assetPath = "assets/images";
 
 const String _clef_path = "$_assetPath/clef";

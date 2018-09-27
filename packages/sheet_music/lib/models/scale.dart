@@ -59,18 +59,25 @@ class ScaleInfo {
         return PossibleScales.dMajor;
       case "A Major":
       case "F# Minor":
+      case "F♯ Minor":
         return PossibleScales.aMajor;
       case "E Major":
       case "C# Minor":
+      case "C♯ Minor":
         return PossibleScales.eMajor;
       case "B Major":
       case "G# Minor":
+      case "G♯ Minor":
         return PossibleScales.bMajor;
       case "F# Major":
+      case "F♯ Major":
       case "D# Minor":
+      case "D♯ Minor":
         return PossibleScales.fSMajor;
       case "C# Major":
+      case "C♯ Major":
       case "A# Minor":
+      case "A♯ Minor":
         return PossibleScales.cSMajor;
       case "F Major":
       case "D Minor":

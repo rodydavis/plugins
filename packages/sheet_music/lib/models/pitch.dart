@@ -16,6 +16,7 @@ class PitchInfo {
 
   static PitchTune _getTune(String pitch) {
     if (pitch.contains("#")) return PitchTune.sharp;
+    if (pitch.contains("♯")) return PitchTune.sharp;
     if (pitch.contains("b")) return PitchTune.flat;
     if (pitch.contains("♭")) return PitchTune.flat;
     return PitchTune.natural;
