@@ -4,11 +4,12 @@ import '../models/scale.dart';
 import 'assets.dart';
 
 String getPitchAsset(String name, {bool trebleClef}) {
-  String pitch = name;
-  pitch = pitch.replaceAll("♯", "");
-  pitch = pitch.replaceAll("#", "");
-  pitch = pitch.replaceAll("b", "");
-  pitch = pitch.replaceAll("♭", "");
+  final String pitch = name
+      .replaceAll("♯", "")
+      .replaceAll("#", "")
+      .replaceAll("b", "")
+      .replaceAll("♭", "");
+
   if (trebleClef != null && trebleClef) {
     switch (pitch) {
       case "G3":
