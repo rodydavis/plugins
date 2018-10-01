@@ -1,13 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
-import 'package:sheet_music/sheet_music.dart';
-import 'package:sheet_music/util/pitch_asset.dart';
-import 'package:sheet_music/util/scale_asset.dart';
 import 'package:tonic/tonic.dart';
+
+import 'sheet_music.dart';
 import 'util/notes.dart';
+import 'util/pitch_asset.dart';
+import 'util/scale_asset.dart';
 import 'util/scales.dart';
 
 class SheetMusicExample extends StatefulWidget {
@@ -25,7 +22,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
+              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             ListTile(
               title: Text(
                 'Scales',
@@ -39,7 +36,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
                       final String _currentScale =
                           scalesMajor[index].toString();
                       return ListTile(
-                        contentPadding: EdgeInsets.all(5.0),
+                        contentPadding: const EdgeInsets.all(5.0),
                         leading: SizedBox(
                           height: 60.0,
                           width: 60.0,
@@ -60,7 +57,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
                       );
                     })),
           ]));
-        }).then((value) {
+        }).then((String value) {
       if (value != null) {
         setState(() => scale = value);
       }
@@ -68,14 +65,14 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
   }
 
   void _pickPitch(BuildContext context) {
-    var _notesList = trebleClef
+    final List<String> _notesList = trebleClef
         ? pitchesTreble.reversed.toList()
         : pitchesBass.reversed.toList();
     showModalBottomSheet<String>(
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
+              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             ListTile(
               title: Text(
                 'Notes',
@@ -115,7 +112,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
               ),
             ),
           ]));
-        }).then((value) {
+        }).then((String value) {
       if (value != null) {
         setState(() => pitch = value);
       }
@@ -127,9 +124,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
     return new Scaffold(
       appBar: AppBar(
         elevation: 1.0,
-        title: Text(
-          'Sheet Music Example',
-        ),
+        title: const Text('Sheet Music Example'),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: SafeArea(
