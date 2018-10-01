@@ -1,3 +1,8 @@
+## [0.0.5] - Updating
+
+* Added Example
+* Added Classes and Models
+
 ## [0.0.4] - Bundled Assets
 
 * Added Assets to /lib
