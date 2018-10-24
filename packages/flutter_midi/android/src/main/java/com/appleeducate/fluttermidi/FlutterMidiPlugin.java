@@ -27,10 +27,11 @@ public class FlutterMidiPlugin implements MethodCallHandler, MidiDriver.OnMidiSt
       midiDriver.setOnMidiStartListener(this);
       midiDriver.start();
     } else if (call.method.equals("play_midi_note")) {
-       String _note = call.argument("note");
+        int _note = call.argument("note");
+        String strNote = String.valueOf(_note);
        byte[] event = new byte[3];
        event[0] = (byte) (0x90 | 0x00);  // 0x90 = note On, 0x00 = channel 1
-       event[1] = (byte) Byte.valueOf(_note);  // 0x3C = middle C
+       event[1] = (byte) Byte.parseByte(strNote);  // 0x3C = middle C
        event[2] = (byte) 0x7F;  // 0x7F = the maximum velocity (127)
 
       // Internally this just calls write() and can be considered obsoleted:
@@ -40,7 +41,7 @@ public class FlutterMidiPlugin implements MethodCallHandler, MidiDriver.OnMidiSt
       midiDriver.write(event);
 
     } else if (call.method.equals("stop_midi_note")) {
-      String _note = call.argument("note");
+
       byte[] event = new byte[3];
       // Construct a note OFF message for the middle C at minimum velocity on channel 1:
       event[0] = (byte) (0x80 | 0x00);  // 0x80 = note Off, 0x00 = channel 1

@@ -114,7 +114,7 @@ class ScaleInfo {
   }
 }
 
-int getScaleMidi(String scaleName) {
+Pitch getScaleRoot(String scaleName) {
   final Pitch _root = Chord.parse(scaleName).root;
   final String _newRoot =
       _root.toString().replaceAllMapped(new RegExp(r'[0-9]'), (Match match) {
@@ -122,9 +122,9 @@ int getScaleMidi(String scaleName) {
   }).trim();
   final String scaleRoot = _newRoot.toString();
   try {
-    return Pitch.parse(scaleRoot).midiNumber;
+    return Pitch.parse(scaleRoot);
   } catch (e) {
     print("$scaleRoot => $e");
-    return 60;
+    return null;
   }
 }
