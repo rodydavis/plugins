@@ -32,12 +32,12 @@ class ScaleInfo {
 
   static String _getNote(String name) {
     if (name.isEmpty) return "";
-    String _note = name.trim();
+    String _note = name;
     _note = _note.replaceAll(" ", "");
     _note = _note.toLowerCase().replaceAll("major", "");
     _note = _note.toLowerCase().replaceAll("minor", "");
     _note = _note.toUpperCase();
-    return _note;
+    return _note.trim() + "4";
   }
 
   static String _getPattern(String name) {
@@ -114,9 +114,17 @@ class ScaleInfo {
   }
 }
 
-Scale getScale(String scaleName) {
-  final ScaleInfo _currentScale = ScaleInfo.parse(scaleName);
-  final ScalePattern scalePattern =
-      ScalePattern.findByName(_currentScale?.pattern);
-  return scalePattern.at(PitchClass.parse(_currentScale?.note));
+int getScaleMidi(String scaleName) {
+  final Pitch _root = Chord.parse(scaleName).root;
+  final String _newRoot =
+      _root.toString().replaceAllMapped(new RegExp(r'[0-9]'), (Match match) {
+    return '4'; // Default Octave
+  }).trim();
+  final String scaleRoot = _newRoot.toString();
+  try {
+    return Pitch.parse(scaleRoot).midiNumber;
+  } catch (e) {
+    print("$scaleRoot => $e");
+    return 60;
+  }
 }

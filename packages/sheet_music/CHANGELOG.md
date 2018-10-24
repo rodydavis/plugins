@@ -1,3 +1,8 @@
+## [0.1.0] - Updating
+
+* Fixing Scale Midi Bug
+* BREAKING - getScale => getScaleMidi
+
 ## [0.0.5] - Updating
 
 * Added Example
