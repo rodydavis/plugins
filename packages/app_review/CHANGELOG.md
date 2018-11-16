@@ -1,3 +1,11 @@
+## [0.0.9] - Bug Fix
+
+* Updating Swift Version
+
+## [0.0.8] - Bug Fix
+
+* Latest Flutter Fix
+
 ## [0.0.7] - Support
 
 * Updating Example
