@@ -25,12 +25,12 @@ public class SwiftFlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControl
         )
       #else
         if (MFMessageComposeViewController.canSendText()) {
+          self.result = result
           let controller = MFMessageComposeViewController()
           controller.body = _arguments["message"] as? String
           controller.recipients = _arguments["recipients"] as? [String]
           controller.messageComposeDelegate = self
           UIApplication.shared.keyWindow?.rootViewController?.present(controller, animated: true, completion: nil)
-//          result(message)
         } else {
           result(FlutterError(
               code: "device_not_capable",
