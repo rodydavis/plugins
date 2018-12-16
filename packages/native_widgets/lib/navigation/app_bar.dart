@@ -7,7 +7,10 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget leading;
   final Widget title;
   final List<Widget> actions;
+  final List<Widget> tabs;
   final bool showMaterial;
+  final ValueChanged<dynamic> onValueChanged;
+  final dynamic groupValue;
 
   // final TabBar bottom;
 
@@ -18,8 +21,11 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.title,
     this.actions,
+    this.tabs,
     this.showMaterial = false,
     this.preferredSize = const Size.fromHeight(56.0),
+    this.groupValue,
+    this.onValueChanged,
   });
 
   @override
@@ -28,10 +34,24 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final bool _isIos = showCupertino(showMaterial: showMaterial);
+    final Map<int, Widget> iosTabs = const <int, Widget>{};
+
+    int _index = 0;
+    for (Widget item in tabs) {
+      final Map<int, Widget> _tab = <int, Widget>{_index: item};
+      iosTabs.addAll(_tab);
+    }
+    _index++;
 
     if (_isIos) {
       return CupertinoNavigationBar(
-        middle: title,
+        middle: tabs == null
+            ? title
+            : CupertinoSegmentedControl<dynamic>(
+                onValueChanged: onValueChanged,
+                children: iosTabs,
+                groupValue: groupValue,
+              ),
         backgroundColor:
             backgroundColor == null ? Colors.transparent : backgroundColor,
         leading: leading,
@@ -52,6 +72,11 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title,
       actions: actions,
       leading: leading,
+      bottom: tabs == null
+          ? null
+          : TabBar(
+              tabs: tabs,
+            ),
     );
   }
 }
