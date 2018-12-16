@@ -12,3 +12,5 @@ part 'switch/switch.dart';
 part 'tabs/bottom_navigation.dart';
 part 'picker/picker.dart';
 part 'navigation/app_bar.dart';
+part 'tabs/top_navigation.dart';
+part 'utils/platform_switch.dart';

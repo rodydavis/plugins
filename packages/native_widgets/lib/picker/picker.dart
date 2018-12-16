@@ -10,6 +10,7 @@ class NativePicker extends StatefulWidget {
   final bool setFirstDefault;
   final String noneSelectedMessage;
   final String defaultItem;
+  final bool showMaterial;
 
   NativePicker({
     this.leading,
@@ -21,6 +22,7 @@ class NativePicker extends StatefulWidget {
     @required this.onSelection,
     this.setFirstDefault,
     this.noneSelectedMessage,
+    this.showMaterial = false,
   });
 
   @override
@@ -53,96 +55,105 @@ class _NativePickerState extends State<NativePicker> {
   Widget _buildPicker() {
     final FixedExtentScrollController scrollController =
         new FixedExtentScrollController(initialItem: _index);
+    final bool _isIos = showCupertino(showMaterial: widget.showMaterial);
 
-    return Platform.isIOS
-        ? Container(
-            height: _kPickerSheetHeight,
-            color: CupertinoColors.white,
-            child: new DefaultTextStyle(
-              style: const TextStyle(
-                color: CupertinoColors.black,
-                fontSize: 22.0,
-              ),
-              child: new GestureDetector(
-                // Blocks taps from propagating to the modal sheet and popping.
-                onTap: () {},
-                child: new SafeArea(
-                  child: new CupertinoPicker(
-                    scrollController: scrollController,
-                    itemExtent: _kPickerItemHeight,
-                    backgroundColor: CupertinoColors.white,
-                    onSelectedItemChanged: (int index) {
-                      setState(() {
-                        _index = index;
-                        _selection = widget.items[_index];
-                        itemSelected(_selection);
-                      });
-                    },
-                    children: new List<Widget>.generate(widget.items.length,
-                        (int index) {
-                      return new Center(
-                        child: new Text(
-                          widget.items[index],
-                          textScaleFactor: 1.0,
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
+    if (_isIos) {
+      return Container(
+        height: _kPickerSheetHeight,
+        color: CupertinoColors.white,
+        child: new DefaultTextStyle(
+          style: const TextStyle(
+            color: CupertinoColors.black,
+            fontSize: 22.0,
+          ),
+          child: new GestureDetector(
+            // Blocks taps from propagating to the modal sheet and popping.
+            onTap: () {},
+            child: new SafeArea(
+              child: new CupertinoPicker(
+                scrollController: scrollController,
+                itemExtent: _kPickerItemHeight,
+                backgroundColor: CupertinoColors.white,
+                onSelectedItemChanged: (int index) {
+                  setState(() {
+                    _index = index;
+                    _selection = widget.items[_index];
+                    itemSelected(_selection);
+                  });
+                },
+                children:
+                    new List<Widget>.generate(widget.items.length, (int index) {
+                  return new Center(
+                    child: new Text(
+                      widget.items[index],
+                      textScaleFactor: 1.0,
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  );
+                }),
               ),
             ),
-          )
-        : DropdownButton<String>(
-            value: _selection,
-            items: widget.items
-                .map(
-                  (String item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: SizedBox(
-                          width: 200.0,
-                          child: Text(
-                            item,
-                            textScaleFactor: 1.0,
-                            style: widget.style,
-                          ))),
-                )
-                .toList(),
-            onChanged: (String s) {
-              setState(() {
-                _selection = s;
-                itemSelected(_selection);
-              });
-            });
+          ),
+        ),
+      );
+    }
+    return DropdownButton<String>(
+        value: _selection,
+        items: widget.items
+            .map(
+              (String item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: SizedBox(
+                      width: 200.0,
+                      child: Text(
+                        item,
+                        textScaleFactor: 1.0,
+                        style: widget.style,
+                      ))),
+            )
+            .toList(),
+        onChanged: (String s) {
+          setState(() {
+            _selection = s;
+            itemSelected(_selection);
+          });
+        });
   }
 
   @override
   Widget build(BuildContext context) {
+    final bool _isIos = showCupertino(showMaterial: widget.showMaterial);
+
+    if (_isIos) {
+      return ListTile(
+        leading: widget.leading,
+        title: widget.title,
+        subtitle: widget.items == null
+            ? null
+            : Text(
+                _selection == null || _selection.isEmpty
+                    ? widget.noneSelectedMessage
+                    : _selection,
+                textScaleFactor: 1.0,
+                style: widget.style,
+              ),
+        trailing: widget.trailing,
+        onTap: () {
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return _buildPicker();
+            },
+          );
+        },
+      );
+    }
+
     return ListTile(
       leading: widget.leading,
       title: widget.title,
-      subtitle: widget.items == null
-          ? null
-          : Platform.isIOS
-              ? Text(
-                  _selection == null || _selection.isEmpty
-                      ? widget.noneSelectedMessage
-                      : _selection,
-                  textScaleFactor: 1.0,
-                  style: widget.style,
-                )
-              : _buildPicker(),
+      subtitle: widget.items == null ? null : _buildPicker(),
       trailing: widget.trailing,
-      onTap: !Platform.isIOS
-          ? null
-          : () {
-              showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return _buildPicker();
-                },
-              );
-            },
     );
   }
 }
