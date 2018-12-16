@@ -7,6 +7,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget leading;
   final Widget title;
   final List<Widget> actions;
+  final bool showMaterial;
 
   // final TabBar bottom;
 
@@ -17,6 +18,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.title,
     this.actions,
+    this.showMaterial = false,
     this.preferredSize = const Size.fromHeight(56.0),
   });
 
@@ -25,28 +27,31 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: title,
-            backgroundColor:
-                backgroundColor == null ? Colors.transparent : backgroundColor,
-            leading: leading,
-            actionsForegroundColor: foregroundColor,
-            trailing: actions == null
-                ? null
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: actions.map((Widget item) => item).toList(),
-                  ),
-          )
-        : AppBar(
-            backgroundColor: backgroundColor,
-            key: key,
-            title: title,
-            actions: actions,
-            leading: leading,
-          ));
+    final bool _isIos = showCupertino(showMaterial: showMaterial);
+
+    if (_isIos) {
+      return CupertinoNavigationBar(
+        middle: title,
+        backgroundColor:
+            backgroundColor == null ? Colors.transparent : backgroundColor,
+        leading: leading,
+        actionsForegroundColor: foregroundColor,
+        trailing: actions == null
+            ? null
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: actions.map((Widget item) => item).toList(),
+              ),
+      );
+    }
+    return AppBar(
+      backgroundColor: backgroundColor,
+      key: key,
+      title: title,
+      actions: actions,
+      leading: leading,
+    );
   }
 }
