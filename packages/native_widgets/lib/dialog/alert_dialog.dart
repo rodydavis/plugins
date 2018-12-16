@@ -1,7 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+part of native_widgets;
 
 // Native Dialog Action for Native Dialog
 class NativeDialogAction {

@@ -1,5 +1,10 @@
 library native_widgets;
 
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 part 'button/raised_button.dart';
 part 'dialog/alert_dialog.dart';
 part 'status/circle_indicator.dart';
