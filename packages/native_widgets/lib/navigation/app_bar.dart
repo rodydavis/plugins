@@ -44,7 +44,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     if (_isIos) {
       return CupertinoNavigationBar(
-        middle: tabs == null
+        middle: tabs ==  null || tabs.length < 2
             ? title
             : CupertinoSegmentedControl<dynamic>(
                 onValueChanged: onValueChanged,

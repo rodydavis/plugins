@@ -1,7 +1,7 @@
 part of native_widgets;
 
 class NativeScaffold extends StatelessWidget {
-  final bool showMaterial;
+  final bool showMaterial, tabIcon, tabLabel;
   final Color backgroundColor;
   final Widget body, title, leading;
   final List<Widget> pages, actions;
@@ -25,6 +25,8 @@ class NativeScaffold extends StatelessWidget {
   final Drawer drawer;
 
   NativeScaffold({
+    this.tabIcon = true,
+    this.tabLabel = true,
     this.itemChanged,
     this.showMaterial = false,
 

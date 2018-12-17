@@ -34,6 +34,8 @@ class _NativeAppLookState extends State<NativeAppLook> {
     print(MaterialLocalizations.of(context));
     return Scaffold(
       appBar: NativeAppBar(
+        tabs: <Widget>[],
+      
         title: const Text('Native Widgets'),
         leading: const IconButton(
           icon: Icon(Icons.menu),
