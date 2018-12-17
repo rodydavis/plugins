@@ -24,8 +24,7 @@ class NativeTopTabs extends StatelessWidget {
 
     int _index = 0;
     for (Widget item in tabs) {
-      final Map<int, Widget> _tab = <int, Widget>{_index: item};
-      iosTabs.addAll(_tab);
+      iosTabs[_index] = item;
     }
     _index++;
 
