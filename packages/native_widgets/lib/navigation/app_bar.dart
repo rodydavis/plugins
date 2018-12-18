@@ -36,15 +36,17 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
     final bool _isIos = showCupertino(showMaterial: showMaterial);
     final Map<int, Widget> iosTabs = const <int, Widget>{};
 
-    int _index = 0;
-    for (Widget item in tabs) {
-      iosTabs[_index] = item;
+    if (tabs != null && tabs.isNotEmpty) {
+      int _index = 0;
+      for (Widget item in tabs) {
+        iosTabs[_index] = item;
+      }
+      _index++;
     }
-    _index++;
 
     if (_isIos) {
       return CupertinoNavigationBar(
-        middle: tabs ==  null || tabs.length < 2
+        middle: tabs == null || tabs.length < 2
             ? title
             : CupertinoSegmentedControl<dynamic>(
                 onValueChanged: onValueChanged,

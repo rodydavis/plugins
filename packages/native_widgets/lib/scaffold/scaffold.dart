@@ -1,7 +1,7 @@
 part of native_widgets;
 
 class NativeScaffold extends StatelessWidget {
-  final bool showMaterial, tabIcon, tabLabel;
+  final bool showMaterial, tabIcon, tabLabel, hideAppBar;
   final Color backgroundColor;
   final Widget body, title, leading;
   final List<Widget> pages, actions;
@@ -29,6 +29,7 @@ class NativeScaffold extends StatelessWidget {
     this.tabLabel = true,
     this.itemChanged,
     this.showMaterial = false,
+    this.hideAppBar = false,
 
     /// Shown when rows || pages == null
     this.body,
@@ -51,11 +52,9 @@ class NativeScaffold extends StatelessWidget {
     final bool _isIos = showCupertino(showMaterial: showMaterial);
 
     if (_isIos) {
-      if ((tabs == null || tabs.isEmpty) && (pages == null || pages.isEmpty)) {
-        return Scaffold(
-          body: CupertinoPageScaffold(
-            backgroundColor: backgroundColor,
-            navigationBar: CupertinoNavigationBar(
+      final Widget appBar = hideAppBar
+          ? null
+          : CupertinoNavigationBar(
               leading: leading,
               middle: title,
               trailing: actions == null
@@ -66,55 +65,48 @@ class NativeScaffold extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: actions.map((Widget item) => item).toList(),
                     ),
-            ),
-            child: body,
+            );
+      if ((tabs == null || tabs.isEmpty) && (pages == null || pages.isEmpty)) {
+        return Scaffold(
+          body: CupertinoPageScaffold(
+            backgroundColor: backgroundColor,
+            navigationBar: appBar,
+            child: body ?? Container(),
           ),
-          floatingActionButton: floatingActionButton,
-          floatingActionButtonLocation: floatingActionButtonLocation,
-          floatingActionButtonAnimator: floatingActionButtonAnimator,
         );
       }
       return Scaffold(
         body: CupertinoPageScaffold(
           backgroundColor: backgroundColor,
-          navigationBar: CupertinoNavigationBar(
-            leading: leading,
-            middle: title,
-            trailing: actions == null
-                ? null
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: actions.map((Widget item) => item).toList(),
-                  ),
-          ),
+          navigationBar: appBar,
           child: CupertinoTabScaffold(
             tabBar: CupertinoTabBar(
               items: tabs,
             ),
             tabBuilder: (BuildContext context, int index) {
               final Widget _currentPage = pages[index];
-              return CupertinoTabView(
-                builder: (BuildContext context) {
-                  return _currentPage;
-                },
+              return Container(
+                padding: hideAppBar ? null : EdgeInsets.only(top: 50.0),
+                child: CupertinoTabView(
+                  builder: (BuildContext context) {
+                    return _currentPage;
+                  },
+                ),
               );
             },
           ),
         ),
-        floatingActionButton: floatingActionButton,
-        floatingActionButtonLocation: floatingActionButtonLocation,
-        floatingActionButtonAnimator: floatingActionButtonAnimator,
       );
     }
     if ((tabs == null || tabs.isEmpty) && (pages == null || pages.isEmpty)) {
       return Scaffold(
-        appBar: AppBar(
-          leading: leading,
-          title: title,
-          actions: actions,
-        ),
+        appBar: hideAppBar
+            ? null
+            : AppBar(
+                leading: leading,
+                title: title,
+                actions: actions,
+              ),
         body: body,
         drawer: drawer,
         floatingActionButton: floatingActionButton,
@@ -125,12 +117,16 @@ class NativeScaffold extends StatelessWidget {
 
     if (androidTopNavigation) {
       return _AndroidPagesTop(
+        topTabChanged: (int index) {},
         leading: leading,
         actions: actions,
         title: title,
         tabs: tabs,
+        hideAppBar: hideAppBar,
         pages: pages,
         drawer: drawer,
+        tabIcon: tabIcon,
+        tabLabel: tabLabel,
         floatingActionButton: floatingActionButton,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButtonAnimator: floatingActionButtonAnimator,
@@ -141,10 +137,12 @@ class NativeScaffold extends StatelessWidget {
       leading: leading,
       actions: actions,
       title: title,
+      hideAppBar: hideAppBar,
       tabs: tabs,
       initalIndex: initalIndex,
       pages: pages,
       drawer: drawer,
+      bottomTabChanged: (int index) {},
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
       floatingActionButtonAnimator: floatingActionButtonAnimator,
@@ -162,10 +160,12 @@ class _AndroidPagesBottom extends StatefulWidget {
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final FloatingActionButtonAnimator floatingActionButtonAnimator;
   final Drawer drawer;
+  final bool hideAppBar;
 
   _AndroidPagesBottom({
     this.initalIndex = 0,
     this.tabs,
+    this.hideAppBar = false,
     this.pages,
     this.title,
     this.bottomTabChanged,
@@ -200,11 +200,13 @@ class __AndroidPagesBottomState extends State<_AndroidPagesBottom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: widget.leading,
-        title: widget.title,
-        actions: widget.actions,
-      ),
+      appBar: widget.hideAppBar
+          ? null
+          : AppBar(
+              leading: widget.leading,
+              title: widget.title,
+              actions: widget.actions,
+            ),
       body: widget.pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -220,6 +222,7 @@ class __AndroidPagesBottomState extends State<_AndroidPagesBottom> {
 }
 
 class _AndroidPagesTop extends StatefulWidget {
+  final bool tabIcon, tabLabel, hideAppBar;
   final List<Widget> pages, actions;
   final List<BottomNavigationBarItem> tabs;
   final Widget title, leading;
@@ -233,6 +236,7 @@ class _AndroidPagesTop extends StatefulWidget {
   _AndroidPagesTop({
     @required this.tabs,
     @required this.pages,
+    this.hideAppBar = false,
     this.title,
     this.initalIndex = 0,
     this.topTabChanged,
@@ -242,6 +246,8 @@ class _AndroidPagesTop extends StatefulWidget {
     this.drawer,
     this.leading,
     this.actions,
+    this.tabLabel = true,
+    this.tabIcon = true,
   });
 
   @override
@@ -272,9 +278,9 @@ class __AndroidPagesTopState extends State<_AndroidPagesTop>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: widget.leading,
-        title: widget.title,
-        actions: widget.actions,
+        leading: widget.hideAppBar ? null : widget.leading,
+        title: widget.hideAppBar ? null : widget.title,
+        actions: widget.hideAppBar ? null : widget.actions,
         bottom: TabBar(
           controller: _tabController,
           tabs: widget.tabs.map((BottomNavigationBarItem tab) {
@@ -282,7 +288,10 @@ class __AndroidPagesTopState extends State<_AndroidPagesTop>
               onTap: () {
                 widget.topTabChanged(_tabController?.index);
               },
-              child: Tab(icon: tab?.icon, child: tab?.title),
+              child: Tab(
+                icon: widget.tabIcon ? tab?.icon : null,
+                child: widget.tabLabel ? tab?.title : null,
+              ),
             );
           }).toList(),
         ),
