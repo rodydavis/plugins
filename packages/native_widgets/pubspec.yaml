@@ -8,6 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.15.7
+  flutter_platform_widgets: ^0.5.0
   flutter_localizations:
     sdk: flutter
 
