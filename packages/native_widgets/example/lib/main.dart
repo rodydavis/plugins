@@ -122,8 +122,8 @@ class _Page1State extends State<Page1> {
             ),
             NativeButton(
               child: const Text("Submit"),
-              paddingExternal: const EdgeInsets.all(20.0),
-              buttonColor: Colors.blue,
+              padding: const EdgeInsets.all(20.0),
+              color: Colors.blue,
               onPressed: () =>
                   showAlertPopup(context, "Native Dialog", "Button Submitted!"),
             ),
