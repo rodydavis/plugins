@@ -8,7 +8,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 part 'button/raised_button.dart';
 part 'dialog/alert_dialog.dart';
-part 'navigation/app_bar.dart';
+part 'app_bar/app_bar.dart';
 part 'picker/picker.dart';
 part 'scaffold/scaffold.dart';
 part 'status/circle_indicator.dart';
