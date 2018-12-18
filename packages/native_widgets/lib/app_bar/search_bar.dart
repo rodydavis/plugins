@@ -5,13 +5,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
-class SearchBar extends StatelessWidget {
+class CupertinoSearchBar extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final TextStyle searchText;
   final Color searchBackground, searchIconColor, searchCursorColor;
 
-  SearchBar({
+  CupertinoSearchBar({
     @required this.controller,
     @required this.focusNode,
     this.searchBackground,
