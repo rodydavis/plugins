@@ -51,14 +51,12 @@ class NativeSearchAppBar extends StatelessWidget {
 }
 
 class CupertinoSearchBar extends StatefulWidget {
-  final FocusNode focusNode;
   final TextStyle searchText;
   final Color searchBackground, searchIconColor, searchCursorColor;
   final ValueChanged<String> onChanged;
   final String initialValue;
 
   CupertinoSearchBar({
-    @required this.focusNode,
     this.searchBackground,
     this.searchCursorColor,
     this.searchIconColor,
@@ -75,8 +73,10 @@ class CupertinoSearchBar extends StatefulWidget {
 
 class CupertinoSearchBarState extends State<CupertinoSearchBar> {
   TextEditingController controller;
+  FocusNode focusNode;
   @override
   void initState() {
+    focusNode = FocusNode();
     controller = TextEditingController(text: widget.initialValue);
     super.initState();
   }
@@ -102,7 +102,7 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar> {
             Expanded(
               child: EditableText(
                 controller: controller,
-                focusNode: widget.focusNode,
+                focusNode: focusNode,
                 style: widget.searchText,
                 cursorColor: widget.searchCursorColor,
                 onChanged: widget.onChanged,
