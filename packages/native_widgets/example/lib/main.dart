@@ -111,8 +111,9 @@ class Page2State extends State<Page2> {
             _isSearching = !_isSearching;
           });
         },
-        onChanged: (String value) {},
-      
+        onChanged: (String value) {
+          print(value);
+        },
       ),
     );
   }
