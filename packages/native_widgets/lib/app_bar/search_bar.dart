@@ -23,15 +23,9 @@ class NativeSearchAppBar extends StatelessWidget {
     if (isSearching) {
       return PlatformWidget(
         android: (BuildContext context) {
-          return AppBar(
-            title: MaterialSearchBar(),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(isSearching ? Icons.close : Icons.search),
-                tooltip: 'Search',
-                onPressed: onSearchPressed,
-              ),
-            ],
+          return MaterialSearchBar(
+            search: initialValue,
+            onSearchChanged: onChanged,
           );
         },
         ios: (BuildContext context) {
@@ -44,6 +38,13 @@ class NativeSearchAppBar extends StatelessWidget {
     }
 
     return PlatformAppBar(
+      trailingActions: <Widget>[
+        IconButton(
+          icon: Icon(isSearching ? Icons.close : Icons.search),
+          tooltip: 'Search',
+          onPressed: onSearchPressed,
+        ),
+      ],
       ios: (BuildContext context) => cupertinoNavigationBarData,
       android: (BuildContext context) => materialAppBarData,
     );
