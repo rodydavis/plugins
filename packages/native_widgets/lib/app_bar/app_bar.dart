@@ -67,17 +67,14 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
       );
     }
+
     return AppBar(
       backgroundColor: backgroundColor,
       key: key,
       title: title,
       actions: actions,
       leading: leading,
-      bottom: tabs == null
-          ? null
-          : TabBar(
-              tabs: tabs,
-            ),
+      bottom: tabs == null ? null : TabBar(tabs: tabs),
     );
   }
 }
