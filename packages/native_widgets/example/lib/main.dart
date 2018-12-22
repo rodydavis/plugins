@@ -45,9 +45,7 @@ class NativeAppLook extends StatelessWidget {
       ],
       pages: <Widget>[
         Page1(),
-        Container(
-          child: Center(child: Icon(Icons.settings)),
-        ),
+        Page2(),
       ],
       leading: Icon(Icons.menu),
       actions: <Widget>[
@@ -91,6 +89,33 @@ void showAlertPopup(BuildContext context, String title, String detail) async {
               }),
         ],
       ));
+}
+
+class Page2 extends StatefulWidget {
+  @override
+  Page2State createState() {
+    return new Page2State();
+  }
+}
+
+class Page2State extends State<Page2> {
+  bool _isSearching = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: NativeSearchAppBar(
+        title: Text("Second Page"),
+        isSearching: _isSearching,
+        onSearchPressed: () {
+          setState(() {
+            _isSearching = !_isSearching;
+          });
+        },
+        onChanged: (String value) {},
+      
+      ),
+    );
+  }
 }
 
 class Page1 extends StatefulWidget {
