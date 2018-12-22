@@ -3,7 +3,7 @@ part of native_widgets;
 class NativePicker extends StatelessWidget {
   final bool showMaterial;
   final String selection;
-  final Widget label, noItemsLabel;
+  final Widget label, noItemsLabel, leading, trailing;
   final List<String> items;
   final ValueChanged<String> onSelected;
 
@@ -14,6 +14,8 @@ class NativePicker extends StatelessWidget {
     this.onSelected,
     this.label,
     this.noItemsLabel,
+    this.leading,
+    this.trailing,
   });
 
   @override
@@ -42,8 +44,8 @@ class NativePicker extends StatelessWidget {
       );
     }
     return ListTile(
-      leading: const Icon(Icons.label),
-      title: Text(label ?? 'Select an Item'),
+      leading: leading,
+      title: label ?? const Text('Select an Item'),
       subtitle: NativeSelection(
         showMaterial: showMaterial,
         value: selection,
@@ -51,8 +53,7 @@ class NativePicker extends StatelessWidget {
         onChanged: onSelected,
         noItemsLabel: noItemsLabel ?? const Text("No Items Found"),
       ),
-      trailing:
-          items != null && items.length == 1 ? NativeLoadingIndicator() : null,
+      trailing: trailing,
     );
   }
 }
