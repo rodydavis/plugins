@@ -19,3 +19,4 @@ part 'tabs/top_navigation.dart';
 part 'utils/platform_switch.dart';
 part 'app/main_app.dart';
 part 'app_bar/search_bar.dart';
+part 'picker/selection.dart';
