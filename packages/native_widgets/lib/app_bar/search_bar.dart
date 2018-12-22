@@ -8,15 +8,15 @@ class NativeSearchAppBar extends StatelessWidget
   final List<Widget> actions;
   final ValueChanged<String> onChanged;
   final VoidCallback onSearchPressed;
-  final MaterialAppBarData materialAppBarData;
-  final CupertinoNavigationBarData cupertinoNavigationBarData;
+  final MaterialAppBarData android;
+  final CupertinoNavigationBarData ios;
   final Color backgroundColor;
 
   NativeSearchAppBar({
     this.isSearching = false,
     this.onChanged,
-    this.cupertinoNavigationBarData,
-    this.materialAppBarData,
+    this.ios,
+    this.android,
     this.onSearchPressed,
     this.search,
     this.leading,
@@ -69,8 +69,8 @@ class NativeSearchAppBar extends StatelessWidget
           onPressed: onSearchPressed,
         ),
       ]..addAll(actions ?? []),
-      ios: (BuildContext context) => cupertinoNavigationBarData,
-      android: (BuildContext context) => materialAppBarData,
+      ios: (BuildContext context) => ios,
+      android: (BuildContext context) => android,
     );
   }
 }

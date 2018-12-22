@@ -8,6 +8,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'utils/ios_search_bar.dart';
 
+export 'package:flutter/cupertino.dart';
+export 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 part 'button/raised_button.dart';
 part 'dialog/alert_dialog.dart';
 part 'app_bar/app_bar.dart';
@@ -21,3 +24,4 @@ part 'utils/platform_switch.dart';
 part 'app/main_app.dart';
 part 'app_bar/search_bar.dart';
 part 'picker/selection.dart';
+part 'button/icon_button.dart';
