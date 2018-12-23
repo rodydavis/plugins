@@ -58,6 +58,8 @@ class NativeSearchAppBar extends StatelessWidget
       );
     }
 
+   
+
     return PlatformAppBar(
       backgroundColor: backgroundColor,
       leading: leading,
@@ -81,6 +83,7 @@ class _CupertinoSearchBar extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final String initialValue;
   final VoidCallback onSearchPressed;
+  final bool alwaysShowAppBar;
 
   _CupertinoSearchBar({
     this.searchBackground,
@@ -90,6 +93,7 @@ class _CupertinoSearchBar extends StatefulWidget {
     this.onChanged,
     this.initialValue,
     this.onSearchPressed,
+    this.alwaysShowAppBar = false,
   });
 
   @override
@@ -132,14 +136,15 @@ class _CupertinoSearchBarState extends State<_CupertinoSearchBar>
 
   void _startSearch() {
     _searchTextController.clear();
-    // _searchFocusNode.unfocus();
     _animationController.forward();
   }
 
   void _cancelSearch() {
-    // _searchTextController.clear();
-    // _searchFocusNode.unfocus();
-    // _animationController.reverse();
+    if (widget.alwaysShowAppBar) {
+      _searchTextController.clear();
+      _searchFocusNode.unfocus();
+      _animationController.reverse();
+    }
     widget.onSearchPressed();
   }
 

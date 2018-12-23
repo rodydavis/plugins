@@ -29,34 +29,34 @@ class NativeAppLook extends StatelessWidget {
     final bool showMaterial = false;
 
     return NativeScaffold(
-      hideAppBar: true,
-      androidTopNavigation: false,
-      showMaterial: showMaterial,
-      title: Text("Native Appbar"),
+      // hideAppBar: true,
+      // androidTopNavigation: false,
+      // showMaterial: showMaterial,
+      // title: Text("Native Appbar"),
       body: Container(),
-      tabs: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.info),
-          title: Text("Info"),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          title: Text("About"),
-        ),
-      ],
-      pages: <Widget>[
-        Page1(),
-        Page2(),
-      ],
-      leading: Icon(Icons.menu),
-      actions: <Widget>[
-        Icon(Icons.share),
-      ],
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.info),
-        onPressed: () =>
-            showAlertPopup(context, "Native Dialog", "Button Submitted!"),
-      ),
+      // tabs: [
+      //   BottomNavigationBarItem(
+      //     icon: Icon(Icons.info),
+      //     title: Text("Info"),
+      //   ),
+      //   BottomNavigationBarItem(
+      //     icon: Icon(Icons.settings),
+      //     title: Text("About"),
+      //   ),
+      // ],
+      // pages: <Widget>[
+      //   Page1(),
+      //   Page2(),
+      // ],
+      // leading: Icon(Icons.menu),
+      // actions: <Widget>[
+      //   Icon(Icons.share),
+      // ],
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.info),
+      //   onPressed: () =>
+      //       showAlertPopup(context, "Native Dialog", "Button Submitted!"),
+      // ),
     );
   }
 }
@@ -140,11 +140,7 @@ class Page2 extends StatefulWidget {
   }
 }
 
-class Page2State extends State<Page2> {
-  final List<Color> colorItems;
-  final List<String> colorNameItems;
-  bool _isSearching = false;
-
+class Page2State extends State<Page2> with SingleTickerProviderStateMixin {
   Page2State()
       : colorItems = List<Color>.generate(_kChildCount, (int index) {
           return coolColors[math.Random().nextInt(coolColors.length)];
@@ -153,61 +149,78 @@ class Page2State extends State<Page2> {
           return coolColorNames[math.Random().nextInt(coolColorNames.length)];
         });
 
+  TextStyle searchText;
+  Color searchBackground, searchIconColor, searchCursorColor;
+
+  TextEditingController _searchTextController;
+  FocusNode _searchFocusNode = new FocusNode();
+  Animation _animation;
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    _searchTextController = TextEditingController();
+
+    _animationController = new AnimationController(
+      duration: new Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _animation = new CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+    _searchFocusNode.addListener(() {
+      if (!_animationController.isAnimating) {
+        _animationController.forward();
+      }
+    });
+    _startSearch();
+    super.initState();
+  }
+
+  void _startSearch() {
+    _searchTextController.clear();
+    _animationController.forward();
+  }
+
+  void _cancelSearch() {
+    // if (widget.alwaysShowAppBar) {
+    _searchTextController.clear();
+    _searchFocusNode.unfocus();
+    _animationController.reverse();
+    // }
+    // widget.onSearchPressed();
+  }
+
+  void _clearSearch() {
+    _searchTextController.clear();
+  }
+
+  final List<Color> colorItems;
+  final List<String> colorNameItems;
+  bool _isSearching = false;
+
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   appBar: NativeSearchAppBar(
-    //     title: const Text("Second Page"),
-    //     isSearching: _isSearching,
-    //     onSearchPressed: () {
-    //       setState(() {
-    //         _isSearching = !_isSearching;
-    //       });
-    //     },
-    //     onChanged: (String value) {
-    //       print(value);
-    //     },
-    //     // actions: <Widget>[
-    //     //   NativeIconButton(
-    //     //     icon: Icon(Icons.info_outline),
-    //     //     iosIcon: Icon(CupertinoIcons.info),
-    //     //   ),
-    //     // ],
-    //   ),
-    // );
-    return CupertinoPageScaffold(
-      child: CustomScrollView(
-        semanticChildCount: _kChildCount,
-        slivers: <Widget>[
-          CupertinoSliverNavigationBar(
-            largeTitle: Text("Large Title"),
-            trailing: Icon(Icons.info),
-          ),
-          SliverPadding(
-            // Top media padding consumed by CupertinoSliverNavigationBar.
-            // Left/Right media padding consumed by Tab1RowItem.
-            padding: MediaQuery.of(context)
-                .removePadding(
-                  removeTop: true,
-                  removeLeft: true,
-                  removeRight: true,
-                )
-                .padding,
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Tab1RowItem(
-                    index: index,
-                    lastItem: index == _kChildCount - 1,
-                    color: colorItems[index],
-                    colorName: colorNameItems[index],
-                  );
-                },
-                childCount: _kChildCount,
-              ),
-            ),
-          ),
-        ],
+    return Scaffold(
+      appBar: NativeSearchAppBar(
+        title: const Text("Second Page"),
+        isSearching: _isSearching,
+        onSearchPressed: () {
+          setState(() {
+            _isSearching = !_isSearching;
+          });
+        },
+        onChanged: (String value) {
+          print(value);
+        },
+        // actions: <Widget>[
+        //   NativeIconButton(
+        //     icon: Icon(Icons.info_outline),
+        //     iosIcon: Icon(CupertinoIcons.info),
+        //   ),
+        // ],
       ),
     );
   }
