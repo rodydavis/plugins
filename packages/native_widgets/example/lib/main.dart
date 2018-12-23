@@ -29,6 +29,9 @@ class NativeAppLook extends StatelessWidget {
     final bool showMaterial = false;
 
     return NativeScaffold(
+      appBar: NativeAppBar(
+        title: Text("Second Page"),
+      ),
       // hideAppBar: true,
       // androidTopNavigation: false,
       // showMaterial: showMaterial,
