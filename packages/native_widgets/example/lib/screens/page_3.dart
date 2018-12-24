@@ -10,14 +10,7 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage>
     with SingleTickerProviderStateMixin {
-  // SearchPageState()
-  //     : colorItems = List<Color>.generate(_kChildCount, (int index) {
-  //         return coolColors[math.Random().nextInt(coolColors.length)];
-  //       }),
-  //       colorNameItems = List<String>.generate(_kChildCount, (int index) {
-  //         return coolColorNames[math.Random().nextInt(coolColorNames.length)];
-  //       });
-
+      
   TextStyle searchText;
   Color searchBackground, searchIconColor, searchCursorColor;
 
