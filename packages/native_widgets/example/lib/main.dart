@@ -37,8 +37,8 @@ class NativeAppLookState extends State<NativeAppLook> {
 
   final _pages = <Widget>[
     Page1(),
-    SearchPage(),
     Page2(),
+    Page3(),
   ];
 
   @override

@@ -14,6 +14,13 @@ class _Page1State extends State<Page1> {
     return Scaffold(
       appBar: NativeAppBar(
         title: const Text("Home"),
+        actions: <Widget>[
+          NativeIconButton(
+            icon: Icon(Icons.share),
+            iosIcon: Icon(CupertinoIcons.share),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: ListBody(
