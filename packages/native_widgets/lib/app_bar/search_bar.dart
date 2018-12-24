@@ -151,6 +151,15 @@ class _CupertinoSearchBarState extends State<_CupertinoSearchBar>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    _searchFocusNode.dispose();
+    _searchTextController.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     FocusScope.of(context).requestFocus(_searchFocusNode);
     // return DecoratedBox(
