@@ -29,3 +29,5 @@ part 'tabs/top_navigation.dart';
 part 'toolbar/bottom_toolbar.dart';
 part 'utils/platform_switch.dart';
 part 'input/text_field.dart';
+part 'icon/icon.dart';
+part 'input/group_select.dart';

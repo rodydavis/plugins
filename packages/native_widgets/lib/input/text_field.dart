@@ -5,7 +5,12 @@ class NativeTextInput extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final TextInputAction kayboardAction;
-  final bool autoFocus, autoCorrect;
+  final bool autoFocus, autoCorrect, obscureText, enabled, maxLengthEnforced;
+  final FocusNode focusNode;
+  final TextAlign textAlign;
+  final int maxLength, maxLines;
+  final ValueChanged<String> onChanged, onSubmitted;
+  final VoidCallback onEditingComplete;
 
   NativeTextInput({
     this.leading,
@@ -15,6 +20,16 @@ class NativeTextInput extends StatelessWidget {
     this.kayboardAction = TextInputAction.done,
     this.autoCorrect = true,
     this.autoFocus = false,
+    this.obscureText = false,
+    this.enabled = true,
+    this.focusNode,
+    this.textAlign = TextAlign.start,
+    this.maxLength,
+    this.maxLines = 1,
+    this.maxLengthEnforced = true,
+    this.onChanged,
+    this.onSubmitted,
+    this.onEditingComplete,
   });
 
   @override
@@ -30,18 +45,38 @@ class NativeTextInput extends StatelessWidget {
           keyboardType: keyboardType,
           autocorrect: autoCorrect,
           autofocus: autoFocus,
+          obscureText: obscureText,
+          enabled: enabled,
+          focusNode: focusNode,
+          textAlign: textAlign,
+          maxLength: maxLength,
+          maxLines: maxLines,
+          maxLengthEnforced: maxLengthEnforced,
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
+          onEditingComplete: onEditingComplete,
         );
       },
       android: (BuildContext context) {
         return ListTile(
           leading: leading,
           trailing: trailing,
-          title: TextFormField(
+          title: TextField(
             controller: controller,
             textInputAction: kayboardAction,
             keyboardType: keyboardType,
             autocorrect: autoCorrect,
             autofocus: autoFocus,
+            obscureText: obscureText,
+            enabled: enabled,
+            focusNode: focusNode,
+            textAlign: textAlign,
+            maxLength: maxLength,
+            maxLines: maxLines,
+            maxLengthEnforced: maxLengthEnforced,
+            onChanged: onChanged,
+            onSubmitted: onSubmitted,
+            onEditingComplete: onEditingComplete,
           ),
         );
       },
