@@ -50,11 +50,17 @@ class NativeAppLookState extends State<NativeAppLook> {
           bottomBar: NativeBottomTabBar(
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.info), title: Text("Info")),
+                icon: Icon(Icons.info),
+                title: Text("Info"),
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), title: Text("Search")),
+                icon: Icon(Icons.search),
+                title: Text("Search"),
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), title: Text("Settings")),
+                icon: Icon(Icons.settings),
+                title: Text("Settings"),
+              ),
             ],
             onTap: (int index) {
               setState(() {
