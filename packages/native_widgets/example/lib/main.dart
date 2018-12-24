@@ -22,45 +22,107 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class NativeAppLook extends StatelessWidget {
+class NativeAppLook extends StatefulWidget {
+  @override
+  NativeAppLookState createState() {
+    return new NativeAppLookState();
+  }
+}
+
+class NativeAppLookState extends State<NativeAppLook> {
+  int _currentIndex = 0;
+  TabController _tabController;
+
+  Widget _buildCurrentIndex(BuildContext context) {
+    switch (_currentIndex) {
+      case 0:
+        return Page1();
+      case 1:
+        return Page2();
+      case 2:
+        return SearchPage();
+      default:
+        return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // print(MaterialLocalizations.of(context));
-    final bool showMaterial = false;
+    return DefaultTabController(
+        length: 3,
+        child: NativeScaffold(
+          // appBar: NativeAppBar(
+          //   // foregroundColor: Colors.red,
+          //   leading: Icon(Icons.menu),
+          //   title: Text("Second Page"),
+          //   actions: <Widget>[
+          //     NativeIconButton(
+          //       icon: Icon(Icons.search),
+          //       onPressed: () {
+          //         Navigator.push<MaterialPageRoute>(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => SearchPage(),
+          //             fullscreenDialog: true,
+          //           ),
+          //         );
+          //       },
+          //     ),
+          //     Icon(Icons.share),
+          //   ],
+          // ),
+          // hideAppBar: true,
+          // androidTopNavigation: false,
+          // showMaterial: showMaterial,
+          // title: Text("Native Appbar"),
+          // body: TabBarView(
+          //   children: [
+          //     Icon(Icons.directions_car),
+          //     Icon(Icons.directions_transit),
+          //     Icon(Icons.directions_bike),
+          //   ],
+          // ),
+          body: _buildCurrentIndex(context),
+          bottomBar: NativeBottomTabBar(
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.info), title: Text("Info")),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.help), title: Text("Help")),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), title: Text("Settings")),
+            ],
+            onTap: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
 
-    return NativeScaffold(
-      appBar: NativeAppBar(
-        title: Text("Second Page"),
-      ),
-      // hideAppBar: true,
-      // androidTopNavigation: false,
-      // showMaterial: showMaterial,
-      // title: Text("Native Appbar"),
-      body: Container(),
-      // tabs: [
-      //   BottomNavigationBarItem(
-      //     icon: Icon(Icons.info),
-      //     title: Text("Info"),
-      //   ),
-      //   BottomNavigationBarItem(
-      //     icon: Icon(Icons.settings),
-      //     title: Text("About"),
-      //   ),
-      // ],
-      // pages: <Widget>[
-      //   Page1(),
-      //   Page2(),
-      // ],
-      // leading: Icon(Icons.menu),
-      // actions: <Widget>[
-      //   Icon(Icons.share),
-      // ],
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.info),
-      //   onPressed: () =>
-      //       showAlertPopup(context, "Native Dialog", "Button Submitted!"),
-      // ),
-    );
+          // tabs: [
+          //   BottomNavigationBarItem(
+          //     icon: Icon(Icons.info),
+          //     title: Text("Info"),
+          //   ),
+          //   BottomNavigationBarItem(
+          //     icon: Icon(Icons.settings),
+          //     title: Text("About"),
+          //   ),
+          // ],
+          // pages: <Widget>[
+          //   Page1(),
+          //   SearchPage(),
+          // ],
+          // leading: Icon(Icons.menu),
+          // actions: <Widget>[
+          //   Icon(Icons.share),
+          // ],
+          // floatingActionButton: FloatingActionButton(
+          //   child: Icon(Icons.info),
+          //   onPressed: () =>
+          //       showAlertPopup(context, "Native Dialog", "Button Submitted!"),
+          // ),
+        ));
   }
 }
 
@@ -95,6 +157,13 @@ void showAlertPopup(BuildContext context, String title, String detail) async {
       ));
 }
 
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class Page1 extends StatefulWidget {
   @override
   _Page1State createState() => _Page1State();
@@ -122,12 +191,15 @@ class _Page1State extends State<Page1> {
                 onChanged: (bool value) => setState(() => _active = value),
               ),
             ),
-            NativeButton(
-              child: const Text("Submit"),
+            Container(
               padding: const EdgeInsets.all(20.0),
-              color: Colors.blue,
-              onPressed: () =>
-                  showAlertPopup(context, "Native Dialog", "Button Submitted!"),
+              child: NativeButton(
+                child: const Text("Submit"),
+                // padding: const EdgeInsets.all(20.0),
+                color: Colors.blue,
+                onPressed: () => showAlertPopup(
+                    context, "Native Dialog", "Button Submitted!"),
+              ),
             ),
           ],
         ),
@@ -136,15 +208,16 @@ class _Page1State extends State<Page1> {
   }
 }
 
-class Page2 extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   @override
-  Page2State createState() {
-    return new Page2State();
+  SearchPageState createState() {
+    return new SearchPageState();
   }
 }
 
-class Page2State extends State<Page2> with SingleTickerProviderStateMixin {
-  Page2State()
+class SearchPageState extends State<SearchPage>
+    with SingleTickerProviderStateMixin {
+  SearchPageState()
       : colorItems = List<Color>.generate(_kChildCount, (int index) {
           return coolColors[math.Random().nextInt(coolColors.length)];
         }),
@@ -202,13 +275,13 @@ class Page2State extends State<Page2> with SingleTickerProviderStateMixin {
 
   final List<Color> colorItems;
   final List<String> colorNameItems;
-  bool _isSearching = false;
+  bool _isSearching = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NativeSearchAppBar(
-        title: const Text("Second Page"),
+        title: const Text("Search Page"),
         isSearching: _isSearching,
         onSearchPressed: () {
           setState(() {

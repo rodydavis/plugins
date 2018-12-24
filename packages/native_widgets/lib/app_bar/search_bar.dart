@@ -58,8 +58,6 @@ class NativeSearchAppBar extends StatelessWidget
       );
     }
 
-   
-
     return PlatformAppBar(
       backgroundColor: backgroundColor,
       leading: leading,

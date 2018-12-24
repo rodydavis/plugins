@@ -324,11 +324,13 @@ class NativeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      appBar: PlatformAppBar(
-        leading: appBar?.leading,
-        title: appBar?.title,
-        trailingActions: appBar?.actions,
-      ),
+      appBar: appBar == null
+          ? null
+          : PlatformAppBar(
+              leading: appBar?.leading,
+              title: appBar?.title,
+              trailingActions: appBar?.actions,
+            ),
       body: body,
       bottomNavBar: bottomBar?.items == null
           ? null
