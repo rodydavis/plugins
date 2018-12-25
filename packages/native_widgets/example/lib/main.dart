@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'screens/page_1.dart';
 import 'screens/page_2.dart';
 import 'screens/page_3.dart';
+import 'screens/page_4.dart';
 
 void main() => runApp(new MyApp());
 
@@ -39,6 +40,7 @@ class NativeAppLookState extends State<NativeAppLook> {
     Page1(),
     Page2(),
     Page3(),
+    CupertinoPickerDemo(),
   ];
 
   @override
@@ -60,6 +62,10 @@ class NativeAppLookState extends State<NativeAppLook> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 title: Text("Settings"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.security),
+                title: Text("Demo"),
               ),
             ],
             onTap: (int index) {

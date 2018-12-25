@@ -3,14 +3,14 @@ part of native_widgets;
 // Native App Bar
 class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
-  final Color foregroundColor;
+  // final Color foregroundColor;
   final Widget leading;
   final Widget title;
   final List<Widget> actions;
-  final List<Widget> tabs;
-  final bool showMaterial;
-  final ValueChanged<dynamic> onValueChanged;
-  final dynamic groupValue;
+  // final List<Widget> tabs;
+  // final bool showMaterial;
+  // final ValueChanged<dynamic> onValueChanged;
+  // final dynamic groupValue;
   final MaterialAppBarData android;
   final CupertinoNavigationBarData ios;
 
@@ -18,16 +18,16 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   NativeAppBar({
     Key key,
-    this.foregroundColor,
+    // this.foregroundColor,
     this.backgroundColor,
     this.leading,
     this.title,
     this.actions,
-    this.tabs,
-    this.showMaterial = false,
+    // this.tabs,
+    // this.showMaterial = false,
     this.preferredSize = const Size.fromHeight(56.0),
-    this.groupValue,
-    this.onValueChanged,
+    // this.groupValue,
+    // this.onValueChanged,
     this.ios,
     this.android,
   });

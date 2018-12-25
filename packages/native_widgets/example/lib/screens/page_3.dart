@@ -16,7 +16,20 @@ class Page3State extends State<Page3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NativeAppBar(
+        leading: NativeButton(
+          child: Text("Cancel"),
+          onPressed: () {},
+        ),
         title: const Text("Input Form"),
+        actions: <Widget>[
+          NativeButton(
+            child: Text(
+              "Save",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[
