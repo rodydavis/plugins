@@ -11,6 +11,8 @@ class NativeTextInput extends StatelessWidget {
   final int maxLength, maxLines;
   final ValueChanged<String> onChanged, onSubmitted;
   final VoidCallback onEditingComplete;
+  final TextCapitalization textCapitalization;
+  final InputDecoration decoration;
 
   NativeTextInput({
     this.leading,
@@ -30,6 +32,8 @@ class NativeTextInput extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.onEditingComplete,
+    this.textCapitalization,
+    this.decoration,
   });
 
   @override
@@ -38,6 +42,7 @@ class NativeTextInput extends StatelessWidget {
       ios: (BuildContext context) {
         return CupertinoTextField(
           controller: controller,
+          placeholder: decoration?.labelText ?? "",
           prefix: leading,
           suffix: trailing,
           clearButtonMode: OverlayVisibilityMode.editing,
@@ -45,6 +50,7 @@ class NativeTextInput extends StatelessWidget {
           keyboardType: keyboardType,
           autocorrect: autoCorrect,
           autofocus: autoFocus,
+          textCapitalization: textCapitalization,
           obscureText: obscureText,
           enabled: enabled,
           focusNode: focusNode,
@@ -62,6 +68,8 @@ class NativeTextInput extends StatelessWidget {
           leading: leading,
           trailing: trailing,
           title: TextField(
+            decoration: decoration,
+            textCapitalization: textCapitalization,
             controller: controller,
             textInputAction: kayboardAction,
             keyboardType: keyboardType,

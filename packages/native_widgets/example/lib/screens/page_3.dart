@@ -9,13 +9,7 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-  final Map<int, Widget> children = const <int, Widget>{
-    0: Text('Midnight'),
-    1: Text('Viridian'),
-    2: Text('Cerulean'),
-  };
   int _selected = 0;
-
   String _value = "Apple";
 
   @override
@@ -30,13 +24,18 @@ class Page3State extends State<Page3> {
             padding: EdgeInsets.all(12.0),
             child: NativeTextInput(
               leading: Icon(Icons.person),
+              decoration: InputDecoration(labelText: "Input Placeholder"),
               // trailing: Icon(Icons.help),
             ),
           ),
           Container(height: 20.0),
           NativeGroupSelect<int>(
             groupValue: _selected,
-            children: children,
+            children: <int, Widget>{
+              0: Text('Midnight'),
+              1: Text('Viridian'),
+              2: Text('Cerulean'),
+            },
             onValueChanged: (int value) {
               setState(() {
                 _selected = value;
