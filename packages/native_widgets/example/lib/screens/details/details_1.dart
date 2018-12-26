@@ -9,6 +9,7 @@ class DetailsScreen extends StatelessWidget {
         title: Text("Details"),
         ios: CupertinoNavigationBarData(
           heroTag: "Details",
+          previousPageTitle: "List View",
           transitionBetweenRoutes: false,
         ),
       ),

@@ -10,6 +10,7 @@ class Page5 extends StatelessWidget {
         title: Text("Page 5"),
         ios: CupertinoNavigationBarData(
           heroTag: "List",
+        
           transitionBetweenRoutes: false,
         ),
       ),
@@ -63,7 +64,7 @@ class Page5 extends StatelessWidget {
               //     }));
               Navigator.push<dynamic>(
                   context,
-                  MaterialPageRoute<dynamic>(
+                  NativeRoute<dynamic>(
                       builder: (BuildContext context) => DetailsScreen()));
             },
           );
