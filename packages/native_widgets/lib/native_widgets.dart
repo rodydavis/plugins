@@ -38,3 +38,4 @@ part 'tabs/top_navigation.dart';
 part 'toolbar/bottom_toolbar.dart';
 part 'utils/platform_switch.dart';
 part 'common/routing.dart';
+part 'scaffold/table_view_controller.dart';
