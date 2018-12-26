@@ -24,7 +24,7 @@ class NativeSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     if (items == null || items.isEmpty) {
       return Container(
-        child: noItemsLabel ?? const  Text( "No Items"),
+        child: noItemsLabel ?? const Text("No Items"),
       );
     }
     int _initialIndex = 0;
@@ -39,7 +39,7 @@ class NativeSelection extends StatelessWidget {
     if (Platform.isIOS && !showMaterial) {
       return new Container(
         height: _kPickerSheetHeight,
-        color: CupertinoColors.white,
+        color: Colors.transparent,
         child: new DefaultTextStyle(
           style: const TextStyle(
             color: CupertinoColors.black,

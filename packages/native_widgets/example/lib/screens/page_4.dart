@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 
 // import '../../gallery/demo.dart';
 // import 'cupertino_navigation_demo.dart' show coolColorNames;
@@ -235,20 +236,45 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
   Widget _buildDateAndTimePicker(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return _buildBottomPicker(
-              CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.dateAndTime,
-                initialDateTime: dateTime,
-                onDateTimeChanged: (DateTime newDateTime) {
-                  setState(() => dateTime = newDateTime);
-                },
-              ),
-            );
-          },
-        );
+        // showCupertinoModalPopup<void>(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return _buildBottomPicker(
+        //       CupertinoDatePicker(
+        //         mode: CupertinoDatePickerMode.dateAndTime,
+        //         initialDateTime: dateTime,
+        //         onDateTimeChanged: (DateTime newDateTime) {
+        //           setState(() => dateTime = newDateTime);
+        //         },
+        //       ),
+        //     );
+        //   },
+        // );
+        showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return SafeArea(
+                child: new Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    SizedBox(
+                      height: _kDatePickerTitleHeight,
+                      child: _renderTitleActionsView(context),
+                    ),
+                    SizedBox(
+                      height: 250.0,
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.dateAndTime,
+                        initialDateTime: dateTime,
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          setState(() => dateTime = newDateTime);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
       },
       child: _buildMenu(
         <Widget>[
@@ -256,6 +282,66 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
           Text(
             DateFormat.yMMMd().add_jm().format(dateTime),
             style: const TextStyle(color: CupertinoColors.inactiveGray),
+          ),
+        ],
+      ),
+    );
+  }
+
+  double _kDatePickerTitleHeight = 44.0;
+
+  // Title View
+  Widget _renderTitleActionsView(BuildContext context) {
+    String done = "Done";
+    String cancel = "Cancel";
+
+    Widget cancelWidget;
+    if (cancelWidget == null) {
+      cancelWidget = Text(
+        '$cancel',
+        style: TextStyle(
+          color: Theme.of(context).unselectedWidgetColor,
+          fontSize: 16.0,
+        ),
+      );
+    }
+
+    Widget confirmWidget;
+    if (confirmWidget == null) {
+      confirmWidget = Text(
+        '$done',
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontSize: 16.0,
+        ),
+      );
+    }
+
+    return Container(
+      height: _kDatePickerTitleHeight,
+      decoration: BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            height: _kDatePickerTitleHeight,
+            child: FlatButton(
+              child: cancelWidget,
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+          Container(
+            height: _kDatePickerTitleHeight,
+            child: FlatButton(
+              child: confirmWidget,
+              onPressed: () {
+                // if (widget.route.onConfirm != null) {
+                //   widget.route
+                //       .onConfirm(_currentYear, _currentMonth, _currentDate);
+                // }
+                Navigator.pop(context);
+              },
+            ),
           ),
         ],
       ),

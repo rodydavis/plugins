@@ -6,6 +6,7 @@ import 'screens/page_1.dart';
 import 'screens/page_2.dart';
 import 'screens/page_3.dart';
 import 'screens/page_4.dart';
+import 'screens/page_5.dart';
 
 void main() => runApp(new MyApp());
 
@@ -41,6 +42,7 @@ class NativeAppLookState extends State<NativeAppLook> {
     Page2(),
     Page3(),
     CupertinoPickerDemo(),
+    Page5(),
   ];
 
   @override
@@ -66,6 +68,10 @@ class NativeAppLookState extends State<NativeAppLook> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.security),
                 title: Text("Demo"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                title: Text("List"),
               ),
             ],
             onTap: (int index) {

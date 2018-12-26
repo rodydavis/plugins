@@ -11,6 +11,7 @@ class Page3 extends StatefulWidget {
 class Page3State extends State<Page3> {
   int _selected = 0;
   String _value = "Apple";
+  bool _switch = true;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +65,41 @@ class Page3State extends State<Page3> {
               });
             },
           ),
+          NativeListTile(
+            title: Text("Power Saver"),
+            // subtitle: Text("Puts Device into Low Power Mode"),
+            // hideLeadingIcon: true,
+            ios: CupertinoListTileData(
+              showTrailingDisclosureIndicator: true,
+            ),
+            trailing: <Widget>[
+              NativeSwitch(
+                  value: _switch,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _switch = value;
+                    });
+                  }),
+            ],
+          ),
         ],
       ),
+      persistentFooterButtons: <Widget>[
+        NativeToolBar(
+          leading: NativeIconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {},
+          ),
+          // middle: NativeIconButton(
+          //   icon: Icon(Icons.search),
+          //   onPressed: () {},
+          // ),
+          trailing: NativeIconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {},
+          ),
+        ),
+      ],
     );
   }
 }
