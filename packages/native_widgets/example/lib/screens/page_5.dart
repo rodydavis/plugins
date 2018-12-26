@@ -1,5 +1,6 @@
 import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter/material.dart';
+import 'details/details_1.dart';
 
 class Page5 extends StatelessWidget {
   @override
@@ -7,14 +8,18 @@ class Page5 extends StatelessWidget {
     return Scaffold(
       appBar: NativeAppBar(
         title: Text("Page 5"),
+        ios: CupertinoNavigationBarData(
+          heroTag: "List",
+          transitionBetweenRoutes: false,
+        ),
       ),
       body: ListView.builder(
         itemCount: presidents.length,
         itemBuilder: (BuildContext context, int index) {
           final _president = presidents[index];
-          final _name = _president[0];
-          final _county = _president[1];
-          final _date = _president[2];
+          final String _name = _president[0];
+          final String _county = _president[1];
+          final String _date = _president[2];
           // print("Index: $index / ${presidents?.length}");
           return NativeListTile(
             selected: false,
@@ -38,13 +43,8 @@ class Page5 extends StatelessWidget {
             hideLeadingIcon: false,
             singleLine: false,
             title: Text(_name),
-            // subtitle: Text(_county),
+            subtitle: Text(_county),
             trailing: [
-              // NativeIconButton(
-              //   icon: Icon(Icons.add),
-              //   iosIcon: Icon(CupertinoIcons.add_circled),
-              //   onPressed: () {},
-              // ),
               NativeText(_date, type: NativeTextTheme.detail),
               NativeIconButton(
                 icon: Icon(Icons.info),
@@ -52,6 +52,20 @@ class Page5 extends StatelessWidget {
                 onPressed: () {},
               ),
             ],
+            ios: CupertinoListTileData(
+              showTrailingDisclosureIndicator: true,
+            ),
+            onTap: () {
+              // Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
+              //     // title: "Details",
+              //     builder: (BuildContext context) {
+              //       return DetailsScreen();
+              //     }));
+              Navigator.push<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                      builder: (BuildContext context) => DetailsScreen()));
+            },
           );
         },
       ),

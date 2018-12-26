@@ -69,9 +69,7 @@ class Page3State extends State<Page3> {
             title: Text("Power Saver"),
             // subtitle: Text("Puts Device into Low Power Mode"),
             // hideLeadingIcon: true,
-            ios: CupertinoListTileData(
-              showTrailingDisclosureIndicator: true,
-            ),
+            
             trailing: <Widget>[
               NativeSwitch(
                   value: _switch,

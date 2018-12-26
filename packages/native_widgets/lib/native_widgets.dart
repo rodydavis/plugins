@@ -37,3 +37,4 @@ part 'tabs/bottom_navigation.dart';
 part 'tabs/top_navigation.dart';
 part 'toolbar/bottom_toolbar.dart';
 part 'utils/platform_switch.dart';
+part 'common/routing.dart';
