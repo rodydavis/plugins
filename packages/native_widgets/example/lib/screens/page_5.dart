@@ -10,7 +10,6 @@ class Page5 extends StatelessWidget {
         title: Text("Page 5"),
         ios: CupertinoNavigationBarData(
           heroTag: "List",
-        
           transitionBetweenRoutes: false,
         ),
       ),
@@ -25,10 +24,6 @@ class Page5 extends StatelessWidget {
           return NativeListTile(
             selected: false,
             lastItem: index + 1 == presidents.length,
-            // avatar: CircleAvatar(
-            //   child: Text(_name.substring(0, 2).toUpperCase()),
-            //   backgroundColor: Colors.blue,
-            // ),
             // avatar: Container(
             //   height: 60.0,
             //   width: 60.0,
@@ -57,11 +52,6 @@ class Page5 extends StatelessWidget {
               showTrailingDisclosureIndicator: true,
             ),
             onTap: () {
-              // Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
-              //     // title: "Details",
-              //     builder: (BuildContext context) {
-              //       return DetailsScreen();
-              //     }));
               Navigator.push<dynamic>(
                   context,
                   NativeRoute<dynamic>(
