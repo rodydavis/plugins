@@ -327,9 +327,11 @@ class _CupertinoTableViewControllerState
       editingActionTap: () {
         if (widget.cellEditingAction == CupertinoEditingAction.remove) {
           _removeCell(cell);
-          // slidableController?.activeState?.open(
-          //     actionType: SlideActionType.secondary,
-          //     );
+        } else if (widget.cellEditingAction == CupertinoEditingAction.select) {
+          setState(() {
+            cell.selected = !cell.selected;
+          });
+          _updateSelectedItems();
         }
       },
     );
