@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'details/details_1.dart';
 import 'package:native_widgets/native_widgets.dart';
 
 class Page3 extends StatefulWidget {
@@ -87,6 +88,10 @@ class Page3State extends State<Page3> {
         if (item != null) {
           print(item?.title?.data);
         }
+        Navigator.push<dynamic>(
+            context,
+            NativeRoute<dynamic>(
+                builder: (BuildContext context) => DetailsScreen()));
       },
       ios: NativeListViewScaffoldData(
         cellEditingAccessory: CupertinoEditingAccessory.disclosureIndicator,
