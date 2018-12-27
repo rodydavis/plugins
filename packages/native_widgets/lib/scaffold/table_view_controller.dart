@@ -12,8 +12,12 @@ class NativeListViewScaffold extends StatelessWidget {
   final List<NativeListTile> items;
   final Widget trailing;
   // final Function(BuildContext context, int index) item;
-  final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
+  final VoidCallback viewDetails,
+      onEditingComplete,
+      onEditingStarted,
+      onRefresh;
   final ValueChanged<NativeListTile> onItemTap;
+  final Duration refreshDuration;
 
   NativeListViewScaffold({
     // this.item,
@@ -25,6 +29,8 @@ class NativeListViewScaffold extends StatelessWidget {
     this.title,
     this.trailing,
     this.onItemTap,
+    this.onRefresh,
+    this.refreshDuration = const Duration(seconds: 3),
   });
 
   @override
@@ -62,6 +68,8 @@ class CupertinoTableViewController extends StatefulWidget {
   final ValueChanged<bool> onEditing;
   final ValueChanged<NativeListTile> onItemTap;
   final List<NativeListTile> items;
+  final Duration refreshDuration;
+  final VoidCallback onRefresh;
 
   CupertinoTableViewController({
     @required this.title,
@@ -70,6 +78,8 @@ class CupertinoTableViewController extends StatefulWidget {
     this.onEditing,
     this.onItemTap,
     this.items,
+    this.onRefresh,
+    this.refreshDuration = const Duration(seconds: 3),
   });
 
   @override
@@ -92,25 +102,20 @@ class _CupertinoTableViewControllerState
 
   @override
   void initState() {
-    _items = widget.items
-        .map((NativeListTile item) => new CupertinoTableCell<NativeListTile>(
-            selected: item?.selected ?? false, data: item, editable: true))
-        .toList();
-    setState(() {});
+    _init();
     super.initState();
-    repopulateList();
-  }
-
-  void repopulateList() {
-    // final Random random = Random();
-    // randomizedContacts = List<List<String>>.generate(100, (int index) {
-    //   return contacts[random.nextInt(contacts.length)]
-    //     // Randomly adds a telephone icon next to the contact or not.
-    //     ..add(random.nextBool().toString());
-    // });
   }
 
   bool _isEditing = false;
+
+  void _init() {
+    setState(() {
+      _items = widget.items
+          .map((NativeListTile item) => new CupertinoTableCell<NativeListTile>(
+              selected: item?.selected ?? false, data: item, editable: true))
+          .toList();
+    });
+  }
 
   void _deselectAll() {
     for (var item in _items) {
@@ -173,10 +178,11 @@ class _CupertinoTableViewControllerState
             ),
             CupertinoSliverRefreshControl(
               onRefresh: () {
-                return Future<void>.delayed(const Duration(seconds: 2))
+                return Future<void>.delayed(widget.refreshDuration)
                   ..then<void>((_) {
-                    if (mounted) {
-                      setState(() => repopulateList());
+                    _init();
+                    if (widget?.onRefresh != null) {
+                      widget.onRefresh();
                     }
                   });
               },
@@ -186,14 +192,6 @@ class _CupertinoTableViewControllerState
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    // return _ListItem(
-                    //   editing: _isEditing,
-                    //   name: randomizedContacts[index][0],
-                    //   place: randomizedContacts[index][1],
-                    //   date: randomizedContacts[index][2],
-                    //   called: randomizedContacts[index][3] == 'true',
-                    // );
-                    // final _item = _items[index];
                     CupertinoTableCell _cell = _items[index];
                     NativeListTile _item = _cell?.data;
 
@@ -240,18 +238,8 @@ class _CupertinoTableViewControllerState
                           accessoryTap: _item?.ios?.accessoryTap,
                         ),
                         onTap: () {
-                          print("Item Tapped...");
-                          // if (!_isEditing) {
-                          // setState(() {
-                          //   _cell.selected = !_cell.selected;
-                          // });
-                          //   if (widget?.onItemTap != null)
-                          //     widget.onItemTap(_cell?.data);
-                          // } else {
-                          //   if (widget?.onSelected != null)
-                          //     widget.onSelected(_cell?.data, _cell.selected);
-                          // }
                           if (!_isEditing) {
+                            print("Item Tapped...");
                             setState(() {
                               _cell.selected = false;
                             });
@@ -287,6 +275,8 @@ class _CupertinoTableViewControllerState
   }
 }
 
+typedef RefreshCallback = Future<void> Function();
+
 class CupertinoTableCell<T> {
   bool selected;
   final bool editable;
@@ -298,50 +288,3 @@ class CupertinoTableCell<T> {
     this.data,
   });
 }
-
-// List<List<String>> contacts = <List<String>>[
-//   <String>['George Washington', 'Westmoreland County', ' 4/30/1789'],
-//   <String>['John Adams', 'Braintree', ' 3/4/1797'],
-//   <String>['Thomas Jefferson', 'Shadwell', ' 3/4/1801'],
-//   <String>['James Madison', 'Port Conway', ' 3/4/1809'],
-//   <String>['James Monroe', 'Monroe Hall', ' 3/4/1817'],
-//   <String>['Andrew Jackson', 'Waxhaws Region South/North', ' 3/4/1829'],
-//   <String>['John Quincy Adams', 'Braintree', ' 3/4/1825'],
-//   <String>['William Henry Harrison', 'Charles City County', ' 3/4/1841'],
-//   <String>['Martin Van Buren', 'Kinderhook New', ' 3/4/1837'],
-//   <String>['Zachary Taylor', 'Barboursville', ' 3/4/1849'],
-//   <String>['John Tyler', 'Charles City County', ' 4/4/1841'],
-//   <String>['James Buchanan', 'Cove Gap', ' 3/4/1857'],
-//   <String>['James K. Polk', 'Pineville North', ' 3/4/1845'],
-//   <String>['Millard Fillmore', 'Summerhill New', '7/9/1850'],
-//   <String>['Franklin Pierce', 'Hillsborough New', ' 3/4/1853'],
-//   <String>['Andrew Johnson', 'Raleigh North', ' 4/15/1865'],
-//   <String>['Abraham Lincoln', 'Sinking Spring', ' 3/4/1861'],
-//   <String>['Ulysses S. Grant', 'Point Pleasant', ' 3/4/1869'],
-//   <String>['Rutherford B. Hayes', 'Delaware', ' 3/4/1877'],
-//   <String>['Chester A. Arthur', 'Fairfield', ' 9/19/1881'],
-//   <String>['James A. Garfield', 'Moreland Hills', ' 3/4/1881'],
-//   <String>['Benjamin Harrison', 'North Bend', ' 3/4/1889'],
-//   <String>['Grover Cleveland', 'Caldwell New', ' 3/4/1885'],
-//   <String>['William McKinley', 'Niles', ' 3/4/1897'],
-//   <String>['Woodrow Wilson', 'Staunton', ' 3/4/1913'],
-//   <String>['William H. Taft', 'Cincinnati', ' 3/4/1909'],
-//   <String>['Theodore Roosevelt', 'New York City New', ' 9/14/1901'],
-//   <String>['Warren G. Harding', 'Blooming Grove', ' 3/4/1921'],
-//   <String>['Calvin Coolidge', 'Plymouth', '8/2/1923'],
-//   <String>['Herbert Hoover', 'West Branch', ' 3/4/1929'],
-//   <String>['Franklin D. Roosevelt', 'Hyde Park New', ' 3/4/1933'],
-//   <String>['Harry S. Truman', 'Lamar', ' 4/12/1945'],
-//   <String>['Dwight D. Eisenhower', 'Denison', ' 1/20/1953'],
-//   <String>['Lyndon B. Johnson', 'Stonewall', '11/22/1963'],
-//   <String>['Ronald Reagan', 'Tampico', ' 1/20/1981'],
-//   <String>['Richard Nixon', 'Yorba Linda', ' 1/20/1969'],
-//   <String>['Gerald Ford', 'Omaha', 'August 9/1974'],
-//   <String>['John F. Kennedy', 'Brookline', ' 1/20/1961'],
-//   <String>['George H. W. Bush', 'Milton', ' 1/20/1989'],
-//   <String>['Jimmy Carter', 'Plains', ' 1/20/1977'],
-//   <String>['George W. Bush', 'New Haven', ' 1/20, 2001'],
-//   <String>['Bill Clinton', 'Hope', ' 1/20/1993'],
-//   <String>['Barack Obama', 'Honolulu', ' 1/20/2009'],
-//   <String>['Donald J. Trump', 'New York City', ' 1/20/2017'],
-// ];

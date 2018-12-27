@@ -40,23 +40,12 @@ class CupertinoAvatarListTile extends StatelessWidget {
       ),
     ];
 
-    // final Widget row = GestureDetector(
-    //   behavior: HitTestBehavior.opaque,
-    //   onTap: onTap,
-    //   onLongPress: onLongPressed,
-    //   child: SafeArea(
-    //     top: false,
-    //     bottom: false,
-    //     child: Container(
-    //       color: selected ? Colors.grey[400] : Colors.transparent,
-    //       padding: const EdgeInsets.only(
-    //           left: 16.0, top: 8.0, bottom: 8.0, right: 8.0),
-    //       child: Row(children: _widgets..addAll(actions ?? <Widget>[])),
-    //     ),
-    //   ),
-    // );
-
-    final Widget row = Row(children: _widgets..addAll(actions ?? <Widget>[]));
+    final Widget row = Container(
+      padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+      child: Row(
+        children: _widgets..addAll(actions ?? <Widget>[]),
+      ),
+    );
 
     return row;
   }
