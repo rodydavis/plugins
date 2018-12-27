@@ -13,6 +13,8 @@ class CupertinoBaseTile extends StatelessWidget {
     this.editingAction = CupertinoEditingAction.remove,
     this.accessoryTap,
     this.onLongPressed,
+    this.onTapDown,
+    this.onTapCancel,
     this.onTap,
   });
 
@@ -21,8 +23,8 @@ class CupertinoBaseTile extends StatelessWidget {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap;
-  final VoidCallback onTap, onLongPressed;
+  final VoidCallback accessoryTap, onTap, onLongPressed, onTapCancel;
+  final ValueChanged<TapDownDetails> onTapDown;
 
   @override
   Widget build(BuildContext context) {
@@ -141,15 +143,27 @@ class CupertinoBaseTile extends StatelessWidget {
       }
     }
 
+    Color _rowColor = Colors.transparent;
+
+    if (selected && editing) {
+      _rowColor = Colors.lightBlue[50];
+    }
+
+    if (!editing && selected) {
+      _rowColor = Colors.lightBlue[50];
+    }
+
     final Widget row = GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
       onLongPress: onLongPressed,
+      onTapDown: (TapDownDetails details) => onTapDown(details),
+      onTapCancel: () => onTapCancel(),
       child: SafeArea(
         top: false,
         bottom: false,
         child: Container(
-          color: selected ? Colors.lightBlue[50] : Colors.transparent,
+          color: _rowColor,
           padding: const EdgeInsets.only(top: 9.0),
           child: Row(
             children: <Widget>[
@@ -158,7 +172,7 @@ class CupertinoBaseTile extends StatelessWidget {
                 child: editing ? _editingAction : null,
               ),
               Expanded(child: child),
-            ]..addAll(_widgets ?? []),
+            ]..addAll(_widgets ?? <Widget>[]),
           ),
         ),
       ),

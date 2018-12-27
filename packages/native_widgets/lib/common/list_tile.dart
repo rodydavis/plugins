@@ -83,6 +83,8 @@ class NativeListTile extends StatelessWidget {
         }
 
         final Widget _row = CupertinoBaseTile(
+          onTapDown: ios?.onTapDown,
+          onTapCancel: ios?.onTapCancel,
           selected: selected,
           onTap: onTap,
           onLongPressed: onLongPressed,
@@ -119,7 +121,8 @@ class CupertinoListTileData {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap;
+  final VoidCallback accessoryTap, onTapCancel;
+  final ValueChanged<TapDownDetails> onTapDown;
   final bool hideLeadingIcon;
 
   CupertinoListTileData({
@@ -129,6 +132,8 @@ class CupertinoListTileData {
     this.editingAction = CupertinoEditingAction.remove,
     this.accessoryTap,
     this.hideLeadingIcon = false,
+    this.onTapDown,
+    this.onTapCancel,
   });
 }
 

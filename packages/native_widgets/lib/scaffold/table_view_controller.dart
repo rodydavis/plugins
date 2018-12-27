@@ -95,6 +95,11 @@ class _CupertinoTableViewControllerState
 
   bool _isEditing = false;
 
+  final _items = contacts
+      .map((var item) => new CupertinoTableCell<List<List<String>>>(
+          selected: false, data: item, editable: true))
+      .toList();
+
   @override
   Widget build(BuildContext context) {
     final _editingButton = Container(
@@ -159,10 +164,12 @@ class _CupertinoTableViewControllerState
                     //   date: randomizedContacts[index][2],
                     //   called: randomizedContacts[index][3] == 'true',
                     // );
+                    final _item = _items[index];
+
                     return NativeListTile(
                       editing: _isEditing,
-                      selected: index.isEven && index > 5 && index < 10,
-                      lastItem: index == 20,
+                      selected: _item.selected,
+                      lastItem: index == _items.length,
                       // avatar: Container(
                       //   height: 60.0,
                       //   width: 60.0,
@@ -171,16 +178,16 @@ class _CupertinoTableViewControllerState
                       //     borderRadius: BorderRadius.circular(8.0),
                       //   ),
                       // ),
+
                       leading: NativeIcon(
                         Icons.phone,
                         iosIcon: CupertinoIcons.phone_solid,
                       ),
 
-                      title: Text(randomizedContacts[index][0]),
-                      subtitle: Text(randomizedContacts[index][1]),
+                      title: Text(_item.data[0]),
+                      subtitle: Text(_item.data[1]),
                       trailing: [
-                        NativeText(randomizedContacts[index][2],
-                            type: NativeTextTheme.detail),
+                        NativeText(_item.data[2], type: NativeTextTheme.detail),
                         // NativeIconButton(
                         //   icon: Icon(Icons.info),
                         //   iosIcon: Icon(CupertinoIcons.info),
@@ -194,6 +201,22 @@ class _CupertinoTableViewControllerState
                         editingAction: CupertinoEditingAction.select,
                         editingAccessory: CupertinoEditingAccessory.dragHandle,
                         accessoryTap: () {},
+                        onTapDown: (TapDownDetails details) {
+                          if (!_isEditing) {
+                            print("On Tap Down..");
+                            setState(() {
+                              _item.selected = true;
+                            });
+                          }
+                        },
+                        onTapCancel: () {
+                          if (!_isEditing) {
+                            print("On Tap Cancel..");
+                            setState(() {
+                              _item.selected = false;
+                            });
+                          }
+                        },
                       ),
                       onTap: () {
                         // Navigator.push<dynamic>(
@@ -201,10 +224,20 @@ class _CupertinoTableViewControllerState
                         //     NativeRoute<dynamic>(
                         //         builder: (BuildContext context) =>
                         //             DetailsScreen()));
+                        print("Item Tapped...");
+                        if (_isEditing) {
+                          setState(() {
+                            _item.selected = !_item.selected;
+                          });
+                        } else {
+                          setState(() {
+                            _item.selected = false;
+                          });
+                        }
                       },
                     );
                   },
-                  childCount: 20,
+                  childCount: _items.length,
                 ),
               ),
             ),
@@ -227,6 +260,18 @@ class _CupertinoTableViewControllerState
       ),
     );
   }
+}
+
+class CupertinoTableCell<T> {
+  bool selected;
+  final bool editable;
+  dynamic data;
+
+  CupertinoTableCell({
+    this.selected = false,
+    this.editable = true,
+    this.data,
+  });
 }
 
 List<List<String>> contacts = <List<String>>[
@@ -275,125 +320,3 @@ List<List<String>> contacts = <List<String>>[
   <String>['Barack Obama', 'Honolulu', ' 1/20/2009'],
   <String>['Donald J. Trump', 'New York City', ' 1/20/2017'],
 ];
-
-// class _ListItem extends StatelessWidget {
-//   const _ListItem({
-//     this.name,
-//     this.place,
-//     this.date,
-//     this.called,
-//     this.selected = false,
-//     this.editing = false,
-//   });
-
-//   final String name;
-//   final String place;
-//   final String date;
-//   final bool called, editing, selected;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: Theme.of(context).scaffoldBackgroundColor,
-//       height: 60.0,
-//       padding: const EdgeInsets.only(top: 9.0),
-//       child: Row(
-//         children: <Widget>[
-//           Container(
-//             padding: editing ? const EdgeInsets.only(left: 12.0) : null,
-//             child: editing
-//                 ? Container(
-//                     height: 25.0,
-//                     width: 25.0,
-//                     decoration: BoxDecoration(
-//                       color: Colors.red,
-//                       borderRadius: BorderRadius.circular(25.0),
-//                     ),
-//                     child: NativeIconButton(
-//                       icon: Icon(
-//                         Icons.remove,
-//                         color: CupertinoColors.white,
-//                         // size: 18.0,
-//                       ),
-//                       onPressed: () {},
-//                     ),
-//                   )
-//                 : null,
-//           ),
-//           Container(
-//             width: 38.0,
-//             child: called
-//                 ? const Align(
-//                     alignment: Alignment.topCenter,
-//                     child: Icon(
-//                       CupertinoIcons.phone_solid,
-//                       color: CupertinoColors.inactiveGray,
-//                       size: 18.0,
-//                     ),
-//                   )
-//                 : null,
-//           ),
-//           Expanded(
-//             child: Container(
-//               decoration: const BoxDecoration(
-//                 border: Border(
-//                   bottom: BorderSide(color: Color(0xFFBCBBC1), width: 0.0),
-//                 ),
-//               ),
-//               padding:
-//                   const EdgeInsets.only(left: 1.0, bottom: 9.0, right: 10.0),
-//               child: Row(
-//                 children: <Widget>[
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: <Widget>[
-//                         Text(
-//                           name,
-//                           maxLines: 1,
-//                           overflow: TextOverflow.ellipsis,
-//                           style: const TextStyle(
-//                             fontWeight: FontWeight.w600,
-//                             letterSpacing: -0.18,
-//                           ),
-//                         ),
-//                         Text(
-//                           place,
-//                           maxLines: 1,
-//                           overflow: TextOverflow.ellipsis,
-//                           style: const TextStyle(
-//                             fontSize: 15.0,
-//                             letterSpacing: -0.24,
-//                             color: CupertinoColors.inactiveGray,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   Text(
-//                     date,
-//                     style: const TextStyle(
-//                       color: CupertinoColors.inactiveGray,
-//                       fontSize: 15.0,
-//                       letterSpacing: -0.41,
-//                     ),
-//                   ),
-//                   editing
-//                       ? Container()
-//                       : Padding(
-//                           padding: const EdgeInsets.only(left: 9.0),
-//                           child: Icon(
-//                             CupertinoIcons.info,
-//                             color: Theme.of(context).primaryColor,
-//                           ),
-//                         ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
