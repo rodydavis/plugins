@@ -9,15 +9,25 @@ class Page1 extends StatefulWidget {
 
 class _Page1State extends State<Page1> {
   bool _active = false;
+  int _selected = 0;
+  String _value = "Apple";
+  bool _switch = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NativeAppBar(
-        title: const Text("Home"),
+        leading: NativeButton(
+          child: Text("Cancel"),
+          onPressed: () {},
+        ),
+        title: const Text("Input Form"),
         actions: <Widget>[
-          NativeIconButton(
-            icon: Icon(Icons.share),
-            iosIcon: Icon(CupertinoIcons.share),
+          NativeButton(
+            child: Text(
+              "Save",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             onPressed: () {},
           ),
         ],
@@ -35,6 +45,52 @@ class _Page1State extends State<Page1> {
                 value: _active,
                 onChanged: (bool value) => setState(() => _active = value),
               ),
+            ),
+            Container(
+              padding: EdgeInsets.all(12.0),
+              child: NativeTextInput(
+                leading: Icon(Icons.person),
+                decoration: InputDecoration(labelText: "Input Placeholder"),
+                // trailing: Icon(Icons.help),
+              ),
+            ),
+            Container(height: 20.0),
+            NativeGroupSelect<int>(
+              groupValue: _selected,
+              children: <int, Widget>{
+                0: Text('Midnight'),
+                1: Text('Viridian'),
+                2: Text('Cerulean'),
+              },
+              onValueChanged: (int value) {
+                setState(() {
+                  _selected = value;
+                });
+              },
+            ),
+            NativeSelection(
+              value: _value,
+              items: ["Apple", "Orange", "Pineapple", "Cherry"],
+              onChanged: (String value) {
+                setState(() {
+                  _value = value;
+                });
+              },
+            ),
+            NativeListTile(
+              title: Text("Power Saver"),
+              // subtitle: Text("Puts Device into Low Power Mode"),
+              // hideLeadingIcon: true,
+
+              trailing: <Widget>[
+                NativeSwitch(
+                    value: _switch,
+                    onChanged: (bool value) {
+                      setState(() {
+                        _switch = value;
+                      });
+                    }),
+              ],
             ),
             Container(
               padding: const EdgeInsets.all(20.0),
