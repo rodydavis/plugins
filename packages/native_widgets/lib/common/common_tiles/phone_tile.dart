@@ -7,15 +7,13 @@ class CupertinoPhoneListTile extends StatelessWidget {
   final String subtitle, title;
   final List<Widget> actions;
   final NativeIcon icon;
-  final bool lastItem, selected, hideLeadingIcon;
+  final bool  hideLeadingIcon;
 
   const CupertinoPhoneListTile({
     this.actions,
     this.subtitle,
     @required this.title,
     this.icon,
-    this.lastItem = false,
-    this.selected = false,
     this.hideLeadingIcon = true,
   });
 
@@ -24,7 +22,7 @@ class CupertinoPhoneListTile extends StatelessWidget {
     Widget row;
     if (subtitle == null) {
       row = Container(
-        color: selected ? Colors.grey[400] : Colors.transparent,
+        // color: selected ? Colors.grey[400] : Colors.transparent,
         height: 40.0,
         padding: EdgeInsets.only(top: subtitle == null ? 0.0 : 9.0),
         child: Row(
@@ -67,7 +65,7 @@ class CupertinoPhoneListTile extends StatelessWidget {
       );
     } else {
       row = Container(
-        color: selected ? Colors.grey[400] : Colors.transparent,
+        // color: selected ? Colors.grey[400] : Colors.transparent,
         height: 60.0,
         padding: const EdgeInsets.only(top: 9.0),
         child: Row(
@@ -111,18 +109,6 @@ class CupertinoPhoneListTile extends StatelessWidget {
       );
     }
 
-    if (lastItem) {
-      return row;
-    }
-
-    return Column(
-      children: <Widget>[
-        row,
-        Container(
-          height: 1.0,
-          color: const Color(0xFFD9D9D9),
-        ),
-      ],
-    );
+   return row;
   }
 }

@@ -47,11 +47,9 @@ class NativeListTile extends StatelessWidget {
           case CupertinoCellStyle.avatarDetail:
             _child = CupertinoAvatarListTile(
               avatar: avatar,
-              lastItem: lastItem,
               title: title?.data,
               subtitle: subtitle?.data,
               actions: trailing,
-              selected: selected,
             );
             break;
           case CupertinoCellStyle.subtitle:
@@ -61,8 +59,6 @@ class NativeListTile extends StatelessWidget {
               actions: trailing,
               icon: leading,
               hideLeadingIcon: ios?.hideLeadingIcon,
-              lastItem: lastItem,
-              selected: selected,
             );
             break;
           case CupertinoCellStyle.basic:
@@ -86,7 +82,8 @@ class NativeListTile extends StatelessWidget {
             break;
         }
 
-        return CupertinoBaseTile(
+        final Widget _row = CupertinoBaseTile(
+          selected: selected,
           onTap: onTap,
           onLongPressed: onLongPressed,
           accessory: ios?.accessory,
@@ -95,6 +92,20 @@ class NativeListTile extends StatelessWidget {
           editingAction: ios?.editingAction,
           accessoryTap: ios?.accessoryTap,
           child: _child,
+        );
+
+        if (lastItem) {
+          return _row;
+        }
+
+        return Column(
+          children: <Widget>[
+            _row,
+            Container(
+              height: 1.0,
+              color: const Color(0xFFD9D9D9),
+            ),
+          ],
         );
       },
     );

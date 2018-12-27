@@ -6,14 +6,11 @@ import '../../native_widgets.dart';
 class CupertinoAvatarListTile extends StatelessWidget {
   const CupertinoAvatarListTile({
     @required this.title,
-    this.lastItem = false,
     this.subtitle,
     this.actions,
     this.avatar,
-    this.selected = false,
   });
 
-  final bool lastItem, selected;
   final Widget avatar;
   final String title, subtitle;
   final List<Widget> actions;
@@ -61,18 +58,6 @@ class CupertinoAvatarListTile extends StatelessWidget {
 
     final Widget row = Row(children: _widgets..addAll(actions ?? <Widget>[]));
 
-    if (lastItem) {
-      return row;
-    }
-
-    return Column(
-      children: <Widget>[
-        row,
-        Container(
-          height: 1.0,
-          color: const Color(0xFFD9D9D9),
-        ),
-      ],
-    );
+    return row;
   }
 }

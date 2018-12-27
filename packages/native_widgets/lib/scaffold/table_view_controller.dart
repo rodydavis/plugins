@@ -156,7 +156,7 @@ class __CupertinoResfreshControllerState
                     // );
                     return NativeListTile(
                       editing: _isEditing,
-                      selected: false,
+                      selected: index.isEven && index > 5 && index < 10,
                       lastItem: index == 20,
                       // avatar: Container(
                       //   height: 60.0,
