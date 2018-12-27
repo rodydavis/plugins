@@ -9,36 +9,54 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-  final _items = contacts.map((var item) {
-    return NativeListTile(
-      avatar: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          color: Colors.lightBlue,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-      leading: NativeIcon(
-        Icons.phone,
-        iosIcon: CupertinoIcons.phone_solid,
-      ),
-      title: Text(item[0]),
-      subtitle: Text(item[1]),
-      trailing: <Widget>[
-        NativeText(item[2], type: NativeTextTheme.detail),
-      ],
-      ios: CupertinoListTileData(
-        hideLeadingIcon: true,
-        style: CupertinoCellStyle.avatarDetail,
-        accessory: CupertinoAccessory.disclosureIndicator,
-        editingAction: CupertinoEditingAction.select,
-        editingAccessory: CupertinoEditingAccessory.dragHandle,
-        accessoryTap: () {},
-      ),
-      onTap: () {},
-    );
-  }).toList();
+  List<NativeListTile> _items = [];
+
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
+
+  void _init({bool force = false}) {
+    if (force) {
+      setState(() {
+        _items?.clear();
+      });
+    }
+    setState(() {
+      _items = contacts.map((var item) {
+        return NativeListTile(
+          avatar: Container(
+            height: 60.0,
+            width: 60.0,
+            decoration: BoxDecoration(
+              color: Colors.lightBlue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+          leading: NativeIcon(
+            Icons.phone,
+            iosIcon: CupertinoIcons.phone_solid,
+          ),
+          title: Text(item[0]),
+          subtitle: Text(item[1]),
+          trailing: <Widget>[
+            NativeText(item[2], type: NativeTextTheme.detail),
+          ],
+          ios: CupertinoListTileData(
+            hideLeadingIcon: true,
+            style: CupertinoCellStyle.subtitle,
+            accessory: CupertinoAccessory.disclosureIndicator,
+            editingAction: CupertinoEditingAction.select,
+            editingAccessory: CupertinoEditingAccessory.dragHandle,
+            accessoryTap: () {},
+          ),
+          onTap: () {},
+        );
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return NativeListViewScaffold(
@@ -52,7 +70,11 @@ class Page3State extends State<Page3> {
         onPressed: () {},
       ),
       items: _items,
-      onRefresh: () {},
+      onRefresh: () async {
+        await Future<void>.delayed(Duration(seconds: 1));
+        _init(force: true);
+        return _items;
+      },
 
       onItemTap: (NativeListTile item) {
         if (item != null) {

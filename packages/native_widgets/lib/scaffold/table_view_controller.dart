@@ -12,12 +12,10 @@ class NativeListViewScaffold extends StatelessWidget {
   final List<NativeListTile> items;
   final Widget trailing;
   // final Function(BuildContext context, int index) item;
-  final VoidCallback viewDetails,
-      onEditingComplete,
-      onEditingStarted,
-      onRefresh;
+  final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
   final ValueChanged<NativeListTile> onItemTap;
   final Duration refreshDuration;
+  final RefreshCallback onRefresh;
 
   NativeListViewScaffold({
     // this.item,
@@ -40,6 +38,7 @@ class NativeListViewScaffold extends StatelessWidget {
         return CupertinoTableViewController(
           action: trailing,
           title: title,
+          onRefresh: onRefresh,
           // item: item,
           previousTitle: previousTitle,
           onItemTap: onItemTap,
@@ -69,7 +68,7 @@ class CupertinoTableViewController extends StatefulWidget {
   final ValueChanged<NativeListTile> onItemTap;
   final List<NativeListTile> items;
   final Duration refreshDuration;
-  final VoidCallback onRefresh;
+  final RefreshCallback onRefresh;
 
   CupertinoTableViewController({
     @required this.title,
@@ -108,12 +107,25 @@ class _CupertinoTableViewControllerState
 
   bool _isEditing = false;
 
-  void _init() {
+  void _init({List<NativeListTile> newItems}) {
     setState(() {
-      _items = widget.items
-          .map((NativeListTile item) => new CupertinoTableCell<NativeListTile>(
-              selected: item?.selected ?? false, data: item, editable: true))
-          .toList();
+      if (newItems != null) {
+        _items = newItems
+            .map((NativeListTile item) =>
+                new CupertinoTableCell<NativeListTile>(
+                    selected: item?.selected ?? false,
+                    data: item,
+                    editable: true))
+            .toList();
+      } else {
+        _items = widget.items
+            .map((NativeListTile item) =>
+                new CupertinoTableCell<NativeListTile>(
+                    selected: item?.selected ?? false,
+                    data: item,
+                    editable: true))
+            .toList();
+      }
     });
   }
 
@@ -178,13 +190,12 @@ class _CupertinoTableViewControllerState
             ),
             CupertinoSliverRefreshControl(
               onRefresh: () {
-                return Future<void>.delayed(widget.refreshDuration)
-                  ..then<void>((_) {
-                    _init();
-                    if (widget?.onRefresh != null) {
-                      widget.onRefresh();
-                    }
-                  });
+                setState(() {
+                  _items?.clear();
+                });
+                return widget.onRefresh().then((newItems) {
+                  _init(newItems: newItems);
+                });
               },
             ),
             SliverSafeArea(
@@ -275,7 +286,7 @@ class _CupertinoTableViewControllerState
   }
 }
 
-typedef RefreshCallback = Future<void> Function();
+typedef RefreshCallback = Future<List<NativeListTile>> Function();
 
 class CupertinoTableCell<T> {
   bool selected;
