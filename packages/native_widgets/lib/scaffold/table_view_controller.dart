@@ -9,14 +9,15 @@ part of native_widgets;
 class NativeListViewScaffold extends StatelessWidget {
   // Make Stateful for Editing, Refreshing, Searching
   final String title, previousTitle;
-  final List<NativeListTile> items;
+  final List<dynamic> items;
   final Widget trailing;
   // final Function(BuildContext context, int index) item;
   final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
-  final ValueChanged<NativeListTile> onItemTap;
-  final ValueChanged<List<NativeListTile>> selectedItemsChanged;
+  final ValueChanged<dynamic> onCellTap;
+  final ValueChanged<List<dynamic>> selectedItemsChanged;
   final Duration refreshDuration;
   final RefreshCallback onRefresh;
+  final NativeListViewScaffoldData ios;
 
   const NativeListViewScaffold({
     // this.item,
@@ -28,8 +29,9 @@ class NativeListViewScaffold extends StatelessWidget {
     this.title,
     this.trailing,
     this.selectedItemsChanged,
-    this.onItemTap,
+    this.onCellTap,
     this.onRefresh,
+    this.ios,
     this.refreshDuration = const Duration(seconds: 3),
   });
 
@@ -43,8 +45,13 @@ class NativeListViewScaffold extends StatelessWidget {
           onRefresh: onRefresh,
           selectedItems: selectedItemsChanged,
           previousTitle: previousTitle,
-          onItemTap: onItemTap,
+          onCellTap: onCellTap,
           items: items,
+          cellAccessory: ios?.cellAccessory,
+          cellEditingAccessory: ios?.cellEditingAccessory,
+          cellEditingAction: ios?.cellEditingAction,
+          onCellAccessoryTap: ios?.onCellAccessoryTap,
+          onCellEditingAccessoryTap: ios?.onCellEditingAccessoryTap,
           onEditing: (bool editing) {
             if (editing != null) {
               if (editing) {
@@ -63,19 +70,39 @@ class NativeListViewScaffold extends StatelessWidget {
   }
 }
 
+class NativeListViewScaffoldData {
+  final CupertinoEditingAction cellEditingAction;
+  final CupertinoAccessory cellAccessory;
+  final CupertinoEditingAccessory cellEditingAccessory;
+  final ValueChanged<dynamic> onCellEditingAccessoryTap, onCellAccessoryTap;
+
+  NativeListViewScaffoldData({
+    this.onCellAccessoryTap,
+    this.onCellEditingAccessoryTap,
+    this.cellEditingAction = CupertinoEditingAction.select,
+    this.cellAccessory = CupertinoAccessory.disclosureIndicator,
+    this.cellEditingAccessory = CupertinoEditingAccessory.detail,
+  });
+}
+
 typedef RefreshCallback = Future<List<NativeListTile>> Function();
 
 class CupertinoTableViewController extends StatefulWidget {
   final String title, previousTitle;
   final Widget action;
   final ValueChanged<bool> onEditing;
-  final ValueChanged<NativeListTile> onItemTap;
-  final List<NativeListTile> items;
+  final ValueChanged<dynamic> onCellTap,
+      onCellEditingAccessoryTap,
+      onCellAccessoryTap;
+  final List<dynamic> items;
   final Duration refreshDuration;
   final bool reorder;
   final RefreshCallback onRefresh;
   final List<IconSlideAction> leadingActions, trailingActions;
-  final ValueChanged<List<NativeListTile>> selectedItems;
+  final ValueChanged<List<dynamic>> selectedItems;
+  final CupertinoEditingAction cellEditingAction;
+  final CupertinoAccessory cellAccessory;
+  final CupertinoEditingAccessory cellEditingAccessory;
 
   const CupertinoTableViewController({
     @required this.title,
@@ -83,13 +110,18 @@ class CupertinoTableViewController extends StatefulWidget {
     this.action,
     this.onEditing,
     this.selectedItems,
-    this.onItemTap,
+    this.onCellTap,
     this.items,
     this.onRefresh,
     this.reorder = true,
     this.refreshDuration = const Duration(seconds: 3),
     this.leadingActions,
     this.trailingActions,
+    this.onCellAccessoryTap,
+    this.onCellEditingAccessoryTap,
+    this.cellEditingAction = CupertinoEditingAction.select,
+    this.cellAccessory = CupertinoAccessory.disclosureIndicator,
+    this.cellEditingAccessory = CupertinoEditingAccessory.detail,
   });
 
   @override
@@ -100,7 +132,6 @@ class CupertinoTableViewController extends StatefulWidget {
 class _CupertinoTableViewControllerState
     extends State<CupertinoTableViewController> {
   final SlidableController slidableController = SlidableController();
-  List<NativeListTile> selectedItems = [];
 
   bool _isDisposed = false;
   @override
@@ -109,7 +140,8 @@ class _CupertinoTableViewControllerState
     super.dispose();
   }
 
-  List<CupertinoTableCell<NativeListTile>> _items = [];
+  List<CupertinoTableCell<dynamic>> _items = [];
+  List<dynamic> selectedItems = <dynamic>[];
 
   @override
   void initState() {
@@ -119,23 +151,17 @@ class _CupertinoTableViewControllerState
 
   bool _isEditing = false;
 
-  void _init({List<NativeListTile> newItems}) {
+  void _init({List<dynamic> newItems}) {
     setState(() {
       if (newItems != null) {
         _items = newItems
-            .map((NativeListTile item) =>
-                new CupertinoTableCell<NativeListTile>(
-                    selected: item?.selected ?? false,
-                    data: item,
-                    editable: true))
+            .map((dynamic item) => new CupertinoTableCell<dynamic>(
+                selected: item?.selected ?? false, data: item, editable: true))
             .toList();
       } else {
         _items = widget.items
-            .map((NativeListTile item) =>
-                new CupertinoTableCell<NativeListTile>(
-                    selected: item?.selected ?? false,
-                    data: item,
-                    editable: true))
+            .map((dynamic item) => new CupertinoTableCell<dynamic>(
+                selected: item?.selected ?? false, data: item, editable: true))
             .toList();
       }
     });
@@ -167,7 +193,8 @@ class _CupertinoTableViewControllerState
         selectedItems.add(item?.data);
       }
     }
-    if (widget?.selectedItems != null) widget.selectedItems(selectedItems);
+    if (widget?.selectedItems != null && selectedItems.isNotEmpty)
+      widget.selectedItems(selectedItems);
   }
 
   @override
@@ -245,9 +272,13 @@ class _CupertinoTableViewControllerState
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                      final CupertinoTableCell<NativeListTile> _cell =
-                          _items[index];
-                      return _buildCell(context, cell: _cell);
+                      final CupertinoTableCell<dynamic> _cell = _items[index];
+                      return _buildCell(
+                        context,
+                        cell: _cell,
+                        lastItem: index == _items?.length,
+                        index: index,
+                      );
                     },
                     childCount: _items.length,
                   ),
@@ -273,10 +304,37 @@ class _CupertinoTableViewControllerState
   }
 
   Widget _buildCell(BuildContext context,
-      {@required CupertinoTableCell<NativeListTile> cell}) {
+      {@required CupertinoTableCell<dynamic> cell,
+      bool lastItem = true,
+      int index = 0}) {
     Widget _child;
-    NativeListTile _item = cell?.data;
-    if (_item?.ios?.editingAction == CupertinoEditingAction.select) {
+    // NativeListTile _item = cell?.data as NativeListTile;
+
+    final CupertinoListTileData _ios = CupertinoListTileData(
+      hideLeadingIcon: true,
+      style: CupertinoCellStyle.custom,
+      accessory: widget.cellAccessory,
+      editingAction: widget.cellEditingAction,
+      editingAccessory: widget.cellEditingAccessory,
+      padding: null,
+      editingAccessoryTap: () {
+        if (widget?.onCellTap != null)
+          widget.onCellEditingAccessoryTap(cell?.data);
+      },
+      accessoryTap: () {
+        if (widget?.onCellTap != null) widget.onCellAccessoryTap(cell?.data);
+      },
+      editingActionTap: () {
+        if (widget.cellEditingAction == CupertinoEditingAction.remove) {
+          _removeCell(cell);
+          // slidableController?.activeState?.open(
+          //     actionType: SlideActionType.secondary,
+          //     );
+        }
+      },
+    );
+
+    if (widget.cellEditingAction == CupertinoEditingAction.select) {
       _child = GestureDetector(
         onTapDown: (TapDownDetails details) {
           if (!_isEditing) {
@@ -297,27 +355,16 @@ class _CupertinoTableViewControllerState
         child: NativeListTile(
           editing: _isEditing,
           selected: cell.selected,
-          // lastItem: index == _items.length,
-          avatar: _item?.avatar,
-          leading: _item?.leading,
-          title: _item?.title,
-          subtitle: _item?.subtitle,
-          trailing: _item?.trailing,
-          ios: CupertinoListTileData(
-            hideLeadingIcon: _item?.ios?.hideLeadingIcon,
-            style: _item?.ios?.style,
-            accessory: _item?.ios?.accessory,
-            editingAction: _item?.ios?.editingAction,
-            editingAccessory: _item?.ios?.editingAccessory,
-            accessoryTap: _item?.ios?.accessoryTap,
-          ),
+          child: cell?.data,
+          ios: _ios,
+          lastItem: lastItem,
           onTap: () {
             if (!_isEditing) {
               print("Item Tapped...");
               setState(() {
                 cell.selected = false;
               });
-              if (widget?.onItemTap != null) widget.onItemTap(cell?.data);
+              if (widget?.onCellTap != null) widget.onCellTap(cell?.data);
             } else {
               print("On Tap Down..");
               setState(() {
@@ -347,37 +394,16 @@ class _CupertinoTableViewControllerState
         child: NativeListTile(
           editing: _isEditing,
           selected: cell.selected,
-          // lastItem: index == _items.length,
-          avatar: _item?.avatar,
-          leading: _item?.leading,
-          title: _item?.title,
-          subtitle: _item?.subtitle,
-          trailing: _item?.trailing,
-          ios: CupertinoListTileData(
-            hideLeadingIcon: _item?.ios?.hideLeadingIcon,
-            style: _item?.ios?.style,
-            accessory: _item?.ios?.accessory,
-            editingAction: _item?.ios?.editingAction,
-            editingAccessory: _item?.ios?.editingAccessory,
-            accessoryTap: _item?.ios?.accessoryTap,
-            editingActionTap: () {
-              if (_item?.ios?.editingAction == CupertinoEditingAction.remove) {
-                _removeCell(cell);
-                // slidableController?.activeState?.open(
-                //     actionType: SlideActionType.secondary,
-                //     );
-              }
-              if (_item?.ios?.editingActionTap != null)
-                _item.ios.editingActionTap();
-            },
-          ),
+          child: cell?.data,
+          ios: _ios,
+          lastItem: lastItem,
           onTap: () {
             if (!_isEditing) {
               print("Item Tapped...");
               setState(() {
                 cell.selected = false;
               });
-              if (widget?.onItemTap != null) widget.onItemTap(cell?.data);
+              if (widget?.onCellTap != null) widget.onCellTap(cell?.data);
             }
           },
         ),
@@ -400,7 +426,7 @@ class _CupertinoTableViewControllerState
     );
 
     return Slidable(
-      key: new Key(_item?.title?.data),
+      key: Key(index.toString()),
       controller: slidableController,
       slideToDismissDelegate: new SlideToDismissDrawerDelegate(
         onDismissed: (SlideActionType actionType) {

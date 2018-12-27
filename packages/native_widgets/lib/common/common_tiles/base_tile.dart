@@ -16,10 +16,12 @@ class CupertinoBaseTile extends StatelessWidget {
     this.onTap,
     this.editingAccessoryTap,
     this.editingActionTap,
+    this.padding,
   });
 
   final bool editing, selected;
   final Widget child;
+  final EdgeInsets padding;
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
@@ -178,7 +180,7 @@ class CupertinoBaseTile extends StatelessWidget {
         bottom: false,
         child: Container(
           color: _rowColor,
-          padding: const EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+          padding: padding,
           child: Row(
             children: <Widget>[
               Container(

@@ -46,12 +46,17 @@ class Page3State extends State<Page3> {
           ios: CupertinoListTileData(
             hideLeadingIcon: true,
             style: CupertinoCellStyle.subtitle,
-            accessory: CupertinoAccessory.detailDisclosure,
-            editingAction: CupertinoEditingAction.select,
-            editingAccessory: CupertinoEditingAccessory.dragHandle,
-            accessoryTap: () {},
+            // accessory: CupertinoAccessory.detailDisclosure,
+            // editingAction: CupertinoEditingAction.select,
+            // editingAccessory: CupertinoEditingAccessory.detail,
+            // editingAccessoryTap: () {
+            //   print("Editing Detail Tapped");
+            // },
+            // accessoryTap: () {
+            //   print("Accessory Detail Tapped");
+            // },
           ),
-          onTap: () {},
+          // onTap: () {},
         );
       }).toList();
     });
@@ -75,14 +80,21 @@ class Page3State extends State<Page3> {
         _init(force: true);
         return _items;
       },
-      selectedItemsChanged: (List<NativeListTile> selected) {
+      selectedItemsChanged: (List<dynamic> selected) {
         print(selected);
       },
-      onItemTap: (NativeListTile item) {
+      onCellTap: (dynamic item) {
         if (item != null) {
           print(item?.title?.data);
         }
       },
+      ios: NativeListViewScaffoldData(
+        cellEditingAccessory: CupertinoEditingAccessory.disclosureIndicator,
+        cellAccessory: CupertinoAccessory.detailDisclosure,
+        cellEditingAction: CupertinoEditingAction.select,
+        onCellAccessoryTap: (dynamic item) {},
+        onCellEditingAccessoryTap: (dynamic item) {},
+      ),
     );
   }
 }

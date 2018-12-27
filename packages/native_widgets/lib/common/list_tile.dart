@@ -12,7 +12,7 @@ class NativeListTile extends StatelessWidget {
   final bool lastItem;
 
   NativeListTile({
-    @required this.title,
+    this.title,
     this.id,
     this.subtitle,
     this.leading,
@@ -23,10 +23,11 @@ class NativeListTile extends StatelessWidget {
     this.onLongPressed,
     this.ios,
     this.child,
-    this.lastItem = false,
+    this.lastItem = true,
     this.selected = false,
     this.editing = false,
   });
+  // : assert(ios?.style == CupertinoCellStyle.custom && child != null);
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +97,7 @@ class NativeListTile extends StatelessWidget {
           editingAccessoryTap: ios?.editingAccessoryTap,
           editingActionTap: ios?.editingActionTap,
           child: _child,
+          padding: ios?.padding,
         );
 
         if (lastItem) {
@@ -125,6 +127,7 @@ class CupertinoListTileData {
   final CupertinoAccessory accessory;
   final VoidCallback accessoryTap, editingAccessoryTap, editingActionTap;
   final bool hideLeadingIcon, enableReorder;
+  final EdgeInsets padding;
 
   CupertinoListTileData({
     this.style = CupertinoCellStyle.custom,
@@ -136,6 +139,7 @@ class CupertinoListTileData {
     this.enableReorder = true,
     this.editingAccessoryTap,
     this.editingActionTap,
+    this.padding = const EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
   });
 }
 
