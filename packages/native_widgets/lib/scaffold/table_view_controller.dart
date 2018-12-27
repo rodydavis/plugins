@@ -14,10 +14,11 @@ class NativeListViewScaffold extends StatelessWidget {
   // final Function(BuildContext context, int index) item;
   final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
   final ValueChanged<NativeListTile> onItemTap;
+  final ValueChanged<List<NativeListTile>> selectedItemsChanged;
   final Duration refreshDuration;
   final RefreshCallback onRefresh;
 
-  NativeListViewScaffold({
+  const NativeListViewScaffold({
     // this.item,
     this.items,
     this.viewDetails,
@@ -26,6 +27,7 @@ class NativeListViewScaffold extends StatelessWidget {
     this.previousTitle,
     this.title,
     this.trailing,
+    this.selectedItemsChanged,
     this.onItemTap,
     this.onRefresh,
     this.refreshDuration = const Duration(seconds: 3),
@@ -39,7 +41,7 @@ class NativeListViewScaffold extends StatelessWidget {
           action: trailing,
           title: title,
           onRefresh: onRefresh,
-          // item: item,
+          selectedItems: selectedItemsChanged,
           previousTitle: previousTitle,
           onItemTap: onItemTap,
           items: items,
@@ -73,12 +75,14 @@ class CupertinoTableViewController extends StatefulWidget {
   final bool reorder;
   final RefreshCallback onRefresh;
   final List<IconSlideAction> leadingActions, trailingActions;
+  final ValueChanged<List<NativeListTile>> selectedItems;
 
-  CupertinoTableViewController({
+  const CupertinoTableViewController({
     @required this.title,
     this.previousTitle = "Back",
     this.action,
     this.onEditing,
+    this.selectedItems,
     this.onItemTap,
     this.items,
     this.onRefresh,
@@ -96,6 +100,7 @@ class CupertinoTableViewController extends StatefulWidget {
 class _CupertinoTableViewControllerState
     extends State<CupertinoTableViewController> {
   final SlidableController slidableController = SlidableController();
+  List<NativeListTile> selectedItems = [];
 
   bool _isDisposed = false;
   @override
@@ -137,11 +142,13 @@ class _CupertinoTableViewControllerState
   }
 
   void _deselectAll() {
+    selectedItems.clear();
     for (var item in _items) {
       setState(() {
         item.selected = false;
       });
     }
+    _updateSelectedItems();
   }
 
   void _selectAll() {
@@ -150,6 +157,17 @@ class _CupertinoTableViewControllerState
         item.selected = true;
       });
     }
+    _updateSelectedItems();
+  }
+
+  void _updateSelectedItems() {
+    selectedItems.clear();
+    for (var item in _items) {
+      if (item.selected) {
+        selectedItems.add(item?.data);
+      }
+    }
+    if (widget?.selectedItems != null) widget.selectedItems(selectedItems);
   }
 
   @override
@@ -261,24 +279,16 @@ class _CupertinoTableViewControllerState
     if (_item?.ios?.editingAction == CupertinoEditingAction.select) {
       _child = GestureDetector(
         onTapDown: (TapDownDetails details) {
-          if (_isEditing) {
+          if (!_isEditing) {
             print("On Tap Down..");
-            setState(() {
-              cell.selected = !cell.selected;
-            });
-          } else {
             setState(() {
               cell.selected = true;
             });
           }
         },
         onTapCancel: () {
-          if (_isEditing) {
+          if (!_isEditing) {
             print("On Tap Cancel..");
-            setState(() {
-              cell.selected = !cell.selected;
-            });
-          } else {
             setState(() {
               cell.selected = false;
             });
@@ -308,6 +318,12 @@ class _CupertinoTableViewControllerState
                 cell.selected = false;
               });
               if (widget?.onItemTap != null) widget.onItemTap(cell?.data);
+            } else {
+              print("On Tap Down..");
+              setState(() {
+                cell.selected = !cell.selected;
+              });
+              _updateSelectedItems();
             }
           },
         ),
@@ -351,7 +367,8 @@ class _CupertinoTableViewControllerState
                 //     actionType: SlideActionType.secondary,
                 //     );
               }
-              _item?.ios?.editingActionTap();
+              if (_item?.ios?.editingActionTap != null)
+                _item.ios.editingActionTap();
             },
           ),
           onTap: () {

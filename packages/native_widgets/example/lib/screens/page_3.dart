@@ -47,7 +47,7 @@ class Page3State extends State<Page3> {
             hideLeadingIcon: true,
             style: CupertinoCellStyle.subtitle,
             accessory: CupertinoAccessory.detailDisclosure,
-            editingAction: CupertinoEditingAction.remove,
+            editingAction: CupertinoEditingAction.select,
             editingAccessory: CupertinoEditingAccessory.dragHandle,
             accessoryTap: () {},
           ),
@@ -75,21 +75,14 @@ class Page3State extends State<Page3> {
         _init(force: true);
         return _items;
       },
-
+      selectedItemsChanged: (List<NativeListTile> selected) {
+        print(selected);
+      },
       onItemTap: (NativeListTile item) {
         if (item != null) {
-          // Navigator.push<dynamic>(
-          //     context,
-          //     NativeRoute<dynamic>(
-          //         builder: (BuildContext context) =>
-          //             DetailsScreen()));
-
           print(item?.title?.data);
         }
       },
-      // item: (BuildContext context, int index) {
-
-      // },
     );
   }
 }
