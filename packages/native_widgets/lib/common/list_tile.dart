@@ -123,7 +123,7 @@ class CupertinoListTileData {
   final CupertinoAccessory accessory;
   final VoidCallback accessoryTap, onTapCancel;
   final ValueChanged<TapDownDetails> onTapDown;
-  final bool hideLeadingIcon;
+  final bool hideLeadingIcon, enableReorder;
 
   CupertinoListTileData({
     this.style = CupertinoCellStyle.custom,
@@ -134,6 +134,7 @@ class CupertinoListTileData {
     this.hideLeadingIcon = false,
     this.onTapDown,
     this.onTapCancel,
+    this.enableReorder = true,
   });
 }
 
