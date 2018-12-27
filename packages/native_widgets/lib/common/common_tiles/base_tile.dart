@@ -159,7 +159,7 @@ class CupertinoBaseTile extends StatelessWidget {
         bottom: false,
         child: Container(
           color: _rowColor,
-          padding: const EdgeInsets.only(top: 9.0),
+          padding: const EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
           child: Row(
             children: <Widget>[
               Container(
