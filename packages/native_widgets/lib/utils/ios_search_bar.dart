@@ -13,6 +13,7 @@ class IOSSearchBar extends AnimatedWidget {
     this.onClear,
     this.onSubmit,
     this.onUpdate,
+    this.autoFocus = true,
   })  : assert(controller != null),
         assert(focusNode != null),
         super(key: key, listenable: animation);
@@ -38,6 +39,7 @@ class IOSSearchBar extends AnimatedWidget {
   static final _opacityTween = new Tween(begin: 1.0, end: 0.0);
   static final _paddingTween = new Tween(begin: 0.0, end: 60.0);
   static final _kFontSize = 13.0;
+  final bool autoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,7 @@ class IOSSearchBar extends AnimatedWidget {
                             controller: controller,
                             focusNode: focusNode,
                             onChanged: onUpdate,
-                            autofocus: true,
+                            autofocus: autoFocus,
                             onSubmitted: onSubmit,
                             style: new TextStyle(
                               color: CupertinoColors.black,

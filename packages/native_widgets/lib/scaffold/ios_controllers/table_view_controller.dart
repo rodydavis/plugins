@@ -101,7 +101,7 @@ class _CupertinoTableViewControllerState
         _animationController.forward();
       }
     });
-    _startSearch();
+    _cancelSearch();
     super.initState();
   }
 
@@ -177,18 +177,26 @@ class _CupertinoTableViewControllerState
   };
   int sharedValue = 0;
 
+  bool _isSearching = false;
+
   void _startSearch() {
     _searchTextController.clear();
     _animationController.forward();
+    setState(() {
+      _isSearching = true;
+    });
   }
 
   void _cancelSearch() {
     if (widget.alwaysShowAppBar) {
-      _searchTextController.clear();
-      _searchFocusNode.unfocus();
-      _animationController.reverse();
+      _searchTextController?.clear();
+      _searchFocusNode?.unfocus();
+      _animationController?.reverse();
     }
-    widget.onSearchPressed();
+    setState(() {
+      _isSearching = false;
+    });
+    if (widget?.onSearchPressed != null) widget.onSearchPressed();
   }
 
   void _clearSearch() {
@@ -259,6 +267,7 @@ class _CupertinoTableViewControllerState
                 onCancel: _cancelSearch,
                 onClear: _clearSearch,
                 onUpdate: widget?.onChanged,
+                autoFocus: false,
               ),
             ),
             SliverToBoxAdapter(
