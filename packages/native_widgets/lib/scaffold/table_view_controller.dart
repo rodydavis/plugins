@@ -137,11 +137,55 @@ class __CupertinoResfreshControllerState
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return _ListItem(
-                      name: randomizedContacts[index][0],
-                      place: randomizedContacts[index][1],
-                      date: randomizedContacts[index][2],
-                      called: randomizedContacts[index][3] == 'true',
+                    // return _ListItem(
+                    //   editing: _isEditing,
+                    //   name: randomizedContacts[index][0],
+                    //   place: randomizedContacts[index][1],
+                    //   date: randomizedContacts[index][2],
+                    //   called: randomizedContacts[index][3] == 'true',
+                    // );
+                    return NativeListTile(
+                      editing: _isEditing,
+                      selected: false,
+                      lastItem: index == 20,
+                      // avatar: Container(
+                      //   height: 60.0,
+                      //   width: 60.0,
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.lightBlue,
+                      //     borderRadius: BorderRadius.circular(8.0),
+                      //   ),
+                      // ),
+                      leading: NativeIcon(
+                        Icons.phone,
+                        iosIcon: CupertinoIcons.phone_solid,
+                      ),
+
+                      title: Text(randomizedContacts[index][0]),
+                      subtitle: Text(randomizedContacts[index][1]),
+                      trailing: [
+                        NativeText(randomizedContacts[index][2],
+                            type: NativeTextTheme.detail),
+                        // NativeIconButton(
+                        //   icon: Icon(Icons.info),
+                        //   iosIcon: Icon(CupertinoIcons.info),
+                        //   onPressed: () {},
+                        // ),
+                      ],
+                      ios: CupertinoListTileData(
+                        hideLeadingIcon: true,
+                        style: CupertinoCellStyle.subtitle,
+                        accessory: CupertinoAccessory.disclosureIndicator,
+                        editingAccessory: CupertinoEditingAccessory.dragHandle,
+                        accessoryTap: () {},
+                      ),
+                      onTap: () {
+                        // Navigator.push<dynamic>(
+                        //     context,
+                        //     NativeRoute<dynamic>(
+                        //         builder: (BuildContext context) =>
+                        //             DetailsScreen()));
+                      },
                     );
                   },
                   childCount: 20,
@@ -216,99 +260,124 @@ List<List<String>> contacts = <List<String>>[
   <String>['Donald J. Trump', 'New York City', ' 1/20/2017'],
 ];
 
-class _ListItem extends StatelessWidget {
-  const _ListItem({
-    this.name,
-    this.place,
-    this.date,
-    this.called,
-  });
+// class _ListItem extends StatelessWidget {
+//   const _ListItem({
+//     this.name,
+//     this.place,
+//     this.date,
+//     this.called,
+//     this.selected = false,
+//     this.editing = false,
+//   });
 
-  final String name;
-  final String place;
-  final String date;
-  final bool called;
+//   final String name;
+//   final String place;
+//   final String date;
+//   final bool called, editing, selected;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      height: 60.0,
-      padding: const EdgeInsets.only(top: 9.0),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 38.0,
-            child: called
-                ? const Align(
-                    alignment: Alignment.topCenter,
-                    child: Icon(
-                      CupertinoIcons.phone_solid,
-                      color: CupertinoColors.inactiveGray,
-                      size: 18.0,
-                    ),
-                  )
-                : null,
-          ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Color(0xFFBCBBC1), width: 0.0),
-                ),
-              ),
-              padding:
-                  const EdgeInsets.only(left: 1.0, bottom: 9.0, right: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: -0.18,
-                          ),
-                        ),
-                        Text(
-                          place,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 15.0,
-                            letterSpacing: -0.24,
-                            color: CupertinoColors.inactiveGray,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    date,
-                    style: const TextStyle(
-                      color: CupertinoColors.inactiveGray,
-                      fontSize: 15.0,
-                      letterSpacing: -0.41,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 9.0),
-                    child: Icon(
-                      CupertinoIcons.info,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Theme.of(context).scaffoldBackgroundColor,
+//       height: 60.0,
+//       padding: const EdgeInsets.only(top: 9.0),
+//       child: Row(
+//         children: <Widget>[
+//           Container(
+//             padding: editing ? const EdgeInsets.only(left: 12.0) : null,
+//             child: editing
+//                 ? Container(
+//                     height: 25.0,
+//                     width: 25.0,
+//                     decoration: BoxDecoration(
+//                       color: Colors.red,
+//                       borderRadius: BorderRadius.circular(25.0),
+//                     ),
+//                     child: NativeIconButton(
+//                       icon: Icon(
+//                         Icons.remove,
+//                         color: CupertinoColors.white,
+//                         // size: 18.0,
+//                       ),
+//                       onPressed: () {},
+//                     ),
+//                   )
+//                 : null,
+//           ),
+//           Container(
+//             width: 38.0,
+//             child: called
+//                 ? const Align(
+//                     alignment: Alignment.topCenter,
+//                     child: Icon(
+//                       CupertinoIcons.phone_solid,
+//                       color: CupertinoColors.inactiveGray,
+//                       size: 18.0,
+//                     ),
+//                   )
+//                 : null,
+//           ),
+//           Expanded(
+//             child: Container(
+//               decoration: const BoxDecoration(
+//                 border: Border(
+//                   bottom: BorderSide(color: Color(0xFFBCBBC1), width: 0.0),
+//                 ),
+//               ),
+//               padding:
+//                   const EdgeInsets.only(left: 1.0, bottom: 9.0, right: 10.0),
+//               child: Row(
+//                 children: <Widget>[
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: <Widget>[
+//                         Text(
+//                           name,
+//                           maxLines: 1,
+//                           overflow: TextOverflow.ellipsis,
+//                           style: const TextStyle(
+//                             fontWeight: FontWeight.w600,
+//                             letterSpacing: -0.18,
+//                           ),
+//                         ),
+//                         Text(
+//                           place,
+//                           maxLines: 1,
+//                           overflow: TextOverflow.ellipsis,
+//                           style: const TextStyle(
+//                             fontSize: 15.0,
+//                             letterSpacing: -0.24,
+//                             color: CupertinoColors.inactiveGray,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   Text(
+//                     date,
+//                     style: const TextStyle(
+//                       color: CupertinoColors.inactiveGray,
+//                       fontSize: 15.0,
+//                       letterSpacing: -0.41,
+//                     ),
+//                   ),
+//                   editing
+//                       ? Container()
+//                       : Padding(
+//                           padding: const EdgeInsets.only(left: 9.0),
+//                           child: Icon(
+//                             CupertinoIcons.info,
+//                             color: Theme.of(context).primaryColor,
+//                           ),
+//                         ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

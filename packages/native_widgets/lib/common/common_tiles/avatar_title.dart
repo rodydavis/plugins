@@ -8,8 +8,6 @@ class CupertinoAvatarListTile extends StatelessWidget {
     @required this.title,
     this.lastItem = false,
     this.subtitle,
-    this.onLongPressed,
-    this.onTap,
     this.actions,
     this.avatar,
     this.selected = false,
@@ -19,7 +17,6 @@ class CupertinoAvatarListTile extends StatelessWidget {
   final Widget avatar;
   final String title, subtitle;
   final List<Widget> actions;
-  final VoidCallback onTap, onLongPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -46,21 +43,23 @@ class CupertinoAvatarListTile extends StatelessWidget {
       ),
     ];
 
-    final Widget row = GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      onLongPress: onLongPressed,
-      child: SafeArea(
-        top: false,
-        bottom: false,
-        child: Container(
-          color: selected ? Colors.grey[400] : Colors.transparent,
-          padding: const EdgeInsets.only(
-              left: 16.0, top: 8.0, bottom: 8.0, right: 8.0),
-          child: Row(children: _widgets..addAll(actions ?? <Widget>[])),
-        ),
-      ),
-    );
+    // final Widget row = GestureDetector(
+    //   behavior: HitTestBehavior.opaque,
+    //   onTap: onTap,
+    //   onLongPress: onLongPressed,
+    //   child: SafeArea(
+    //     top: false,
+    //     bottom: false,
+    //     child: Container(
+    //       color: selected ? Colors.grey[400] : Colors.transparent,
+    //       padding: const EdgeInsets.only(
+    //           left: 16.0, top: 8.0, bottom: 8.0, right: 8.0),
+    //       child: Row(children: _widgets..addAll(actions ?? <Widget>[])),
+    //     ),
+    //   ),
+    // );
+
+    final Widget row = Row(children: _widgets..addAll(actions ?? <Widget>[]));
 
     if (lastItem) {
       return row;

@@ -70,7 +70,12 @@ class _Page1State extends State<Page1> {
             ),
             NativeSelection(
               value: _value,
-              items: ["Apple", "Orange", "Pineapple", "Cherry"],
+              items: [
+                "Apple",
+                "Orange",
+                "Pineapple",
+                "Cherry",
+              ],
               onChanged: (String value) {
                 setState(() {
                   _value = value;
@@ -78,10 +83,12 @@ class _Page1State extends State<Page1> {
               },
             ),
             NativeListTile(
-              title: Text("Power Saver"),
+              title: const Text("Power Saver"),
               // subtitle: Text("Puts Device into Low Power Mode"),
               // hideLeadingIcon: true,
-
+              ios: CupertinoListTileData(
+                style: CupertinoCellStyle.basic,
+              ),
               trailing: <Widget>[
                 NativeSwitch(
                     value: _switch,

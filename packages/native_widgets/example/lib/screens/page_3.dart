@@ -9,9 +9,6 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-  int _selected = 0;
-  String _value = "Apple";
-  bool _switch = true;
 
   @override
   Widget build(BuildContext context) {

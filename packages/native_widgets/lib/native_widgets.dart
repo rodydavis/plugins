@@ -12,6 +12,7 @@ import 'common/common_tiles/avatar_title.dart';
 import 'common/common_tiles/basic_tile.dart';
 import 'common/common_tiles/phone_tile.dart';
 import 'utils/ios_search_bar.dart';
+import 'common/common_tiles/base_tile.dart';
 
 export 'package:flutter/cupertino.dart';
 export 'package:flutter_platform_widgets/flutter_platform_widgets.dart';

@@ -36,20 +36,22 @@ class Page5 extends StatelessWidget {
               Icons.phone,
               iosIcon: CupertinoIcons.phone_solid,
             ),
-            hideLeadingIcon: false,
-            singleLine: false,
+
             title: Text(_name),
             subtitle: Text(_county),
             trailing: [
               NativeText(_date, type: NativeTextTheme.detail),
-              NativeIconButton(
-                icon: Icon(Icons.info),
-                iosIcon: Icon(CupertinoIcons.info),
-                onPressed: () {},
-              ),
+              // NativeIconButton(
+              //   icon: Icon(Icons.info),
+              //   iosIcon: Icon(CupertinoIcons.info),
+              //   onPressed: () {},
+              // ),
             ],
             ios: CupertinoListTileData(
-              showTrailingDisclosureIndicator: true,
+              hideLeadingIcon: true,
+              style: CupertinoCellStyle.subtitle,
+              accessory: CupetinoAccessory.none,
+              accessoryTap: () {},
             ),
             onTap: () {
               Navigator.push<dynamic>(

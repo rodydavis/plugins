@@ -5,6 +5,7 @@ class NativeIconButton extends StatelessWidget {
   final Key widgetKey;
   final VoidCallback onPressed;
   final EdgeInsets padding;
+  final Color color;
 
   NativeIconButton({
     Key key,
@@ -13,6 +14,7 @@ class NativeIconButton extends StatelessWidget {
     this.onPressed,
     this.widgetKey,
     this.padding,
+    this.color,
   });
 
   @override
@@ -25,6 +27,7 @@ class NativeIconButton extends StatelessWidget {
       iosIcon: iosIcon,
       androidIcon: icon,
       onPressed: onPressed,
+      color: color,
     );
   }
 }

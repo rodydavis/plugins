@@ -8,7 +8,7 @@ class NativeListTile extends StatelessWidget {
   final MaterialListTileData android;
   final CupertinoListTileData ios;
   final VoidCallback onTap, onLongPressed;
-  final bool lastItem, selected, hideLeadingIcon, singleLine;
+  final bool lastItem, selected, editing;
 
   NativeListTile({
     @required this.title,
@@ -23,8 +23,7 @@ class NativeListTile extends StatelessWidget {
     this.child,
     this.lastItem = false,
     this.selected = false,
-    this.hideLeadingIcon = true,
-    this.singleLine = false,
+    this.editing = false,
   });
 
   @override
@@ -42,57 +41,61 @@ class NativeListTile extends StatelessWidget {
         );
       },
       ios: (BuildContext context) {
-        if (ios?.showTrailingDisclosureIndicator != null &&
-            ios.showTrailingDisclosureIndicator) {
-          trailing..add(const Icon(CupertinoIcons.right_chevron));
+        Widget _child = Container();
+
+        switch (ios?.style) {
+          case CupertinoCellStyle.avatarDetail:
+            _child = CupertinoAvatarListTile(
+              avatar: avatar,
+              lastItem: lastItem,
+              title: title?.data,
+              subtitle: subtitle?.data,
+              actions: trailing,
+              selected: selected,
+            );
+            break;
+          case CupertinoCellStyle.subtitle:
+            _child = CupertinoPhoneListTile(
+              title: title?.data,
+              subtitle: subtitle?.data,
+              actions: trailing,
+              icon: leading,
+              hideLeadingIcon: ios?.hideLeadingIcon,
+              lastItem: lastItem,
+              selected: selected,
+            );
+            break;
+          case CupertinoCellStyle.basic:
+            _child = CupertinoTextMenu(
+              children: <Widget>[title]..addAll(trailing ?? []),
+            );
+            break;
+
+          case CupertinoCellStyle.leftDetail:
+            _child = Row(
+              children: <Widget>[subtitle, title],
+            );
+            break;
+          case CupertinoCellStyle.rightDetail:
+            _child = CupertinoTextMenu(
+              children: <Widget>[title, subtitle],
+            );
+            break;
+          case CupertinoCellStyle.custom:
+            _child = child ?? Container();
+            break;
         }
 
-        if (avatar != null && !singleLine) {
-          return CupertinoAvatarListTile(
-            onTap: onTap,
-            onLongPressed: onLongPressed,
-            avatar: avatar,
-            lastItem: lastItem,
-            title: title?.data,
-            subtitle: subtitle?.data,
-            actions: trailing,
-            selected: selected,
-          );
-        }
-
-        if (!singleLine) {
-          return CupertinoPhoneListTile(
-            onTap: onTap,
-            onLongPressed: onLongPressed,
-            title: title?.data,
-            subtitle: subtitle?.data,
-            actions: trailing,
-            icon: leading,
-            hideLeadingIcon: hideLeadingIcon,
-            lastItem: lastItem,
-            selected: selected,
-          );
-        }
-
-        if (subtitle != null) {
-          return CupertinoTextMenu(
-            children: <Widget>[title, subtitle],
-          );
-        }
-
-        if (trailing != null) {
-          return CupertinoTextMenu(
-            children: <Widget>[title]..addAll(trailing ?? []),
-          );
-        }
-
-        if (title != null) {
-          return CupertinoTextMenu(
-            children: <Widget>[title],
-          );
-        }
-
-        return child;
+        return CupertinoBaseTile(
+          onTap: onTap,
+          onLongPressed: onLongPressed,
+          accessory: ios?.accessory,
+          editing: editing,
+          editingAccessory: ios?.editingAccessory,
+          editingAction: ios?.editingAction,
+          accessoryTap: ios?.accessoryTap,
+          child: _child,
+        );
       },
     );
   }
@@ -101,9 +104,51 @@ class NativeListTile extends StatelessWidget {
 class MaterialListTileData {}
 
 class CupertinoListTileData {
-  final bool showTrailingDisclosureIndicator;
+  final CupertinoCellStyle style;
+  final CupertinoEditingAction editingAction;
+  final CupertinoEditingAccessory editingAccessory;
+  final CupertinoAccessory accessory;
+  final VoidCallback accessoryTap;
+  final bool hideLeadingIcon;
 
   CupertinoListTileData({
-    this.showTrailingDisclosureIndicator = false,
+    this.style = CupertinoCellStyle.custom,
+    this.accessory = CupertinoAccessory.none,
+    this.editingAccessory = CupertinoEditingAccessory.none,
+    this.editingAction = CupertinoEditingAction.remove,
+    this.accessoryTap,
+    this.hideLeadingIcon = false,
   });
+}
+
+enum CupertinoCellStyle {
+  basic,
+  rightDetail,
+  leftDetail,
+  subtitle,
+  avatarDetail,
+  custom,
+}
+
+enum CupertinoEditingAction {
+  none,
+  remove,
+  select,
+}
+
+enum CupertinoAccessory {
+  none,
+  disclosureIndicator,
+  detailDisclosure,
+  checkmark,
+  detail
+}
+
+enum CupertinoEditingAccessory {
+  none,
+  disclosureIndicator,
+  detailDisclosure,
+  checkmark,
+  detail,
+  dragHandle
 }
