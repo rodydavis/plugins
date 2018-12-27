@@ -46,8 +46,8 @@ class Page3State extends State<Page3> {
           ios: CupertinoListTileData(
             hideLeadingIcon: true,
             style: CupertinoCellStyle.subtitle,
-            accessory: CupertinoAccessory.disclosureIndicator,
-            editingAction: CupertinoEditingAction.select,
+            accessory: CupertinoAccessory.detailDisclosure,
+            editingAction: CupertinoEditingAction.remove,
             editingAccessory: CupertinoEditingAccessory.dragHandle,
             accessoryTap: () {},
           ),

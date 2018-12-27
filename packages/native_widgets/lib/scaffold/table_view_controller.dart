@@ -203,29 +203,77 @@ class _CupertinoTableViewControllerState
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    CupertinoTableCell _cell = _items[index];
+                    final CupertinoTableCell<NativeListTile> _cell =
+                        _items[index];
                     NativeListTile _item = _cell?.data;
+                    if (_item?.ios?.editingAction ==
+                        CupertinoEditingAction.select) {
+                      return GestureDetector(
+                        onTapDown: (TapDownDetails details) {
+                          if (_isEditing) {
+                            print("On Tap Down..");
+                            setState(() {
+                              _cell.selected = !_cell.selected;
+                            });
+                          } else {
+                            setState(() {
+                              _cell.selected = true;
+                            });
+                          }
+                        },
+                        onTapCancel: () {
+                          if (_isEditing) {
+                            print("On Tap Cancel..");
+                            setState(() {
+                              _cell.selected = !_cell.selected;
+                            });
+                          } else {
+                            setState(() {
+                              _cell.selected = false;
+                            });
+                          }
+                        },
+                        child: NativeListTile(
+                          editing: _isEditing,
+                          selected: _cell.selected,
+                          lastItem: index == _items.length,
+                          avatar: _item?.avatar,
+                          leading: _item?.leading,
+                          title: _item?.title,
+                          subtitle: _item?.subtitle,
+                          trailing: _item?.trailing,
+                          ios: CupertinoListTileData(
+                            hideLeadingIcon: _item?.ios?.hideLeadingIcon,
+                            style: _item?.ios?.style,
+                            accessory: _item?.ios?.accessory,
+                            editingAction: _item?.ios?.editingAction,
+                            editingAccessory: _item?.ios?.editingAccessory,
+                            accessoryTap: _item?.ios?.accessoryTap,
+                          ),
+                          onTap: () {
+                            if (!_isEditing) {
+                              print("Item Tapped...");
+                              setState(() {
+                                _cell.selected = false;
+                              });
+                              if (widget?.onItemTap != null)
+                                widget.onItemTap(_cell?.data);
+                            }
+                          },
+                        ),
+                      );
+                    }
 
                     return GestureDetector(
                       onTapDown: (TapDownDetails details) {
-                        if (_isEditing) {
-                          print("On Tap Down..");
-                          setState(() {
-                            _cell.selected = !_cell.selected;
-                          });
-                        } else {
+                        if (!_isEditing) {
                           setState(() {
                             _cell.selected = true;
                           });
                         }
                       },
                       onTapCancel: () {
-                        if (_isEditing) {
-                          print("On Tap Cancel..");
-                          setState(() {
-                            _cell.selected = !_cell.selected;
-                          });
-                        } else {
+                        if (!_isEditing) {
                           setState(() {
                             _cell.selected = false;
                           });

@@ -14,6 +14,7 @@ class CupertinoBaseTile extends StatelessWidget {
     this.accessoryTap,
     this.onLongPressed,
     this.onTap,
+    this.editingAccessoryTap,
   });
 
   final bool editing, selected;
@@ -21,7 +22,7 @@ class CupertinoBaseTile extends StatelessWidget {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, onTap, onLongPressed;
+  final VoidCallback accessoryTap, onTap, onLongPressed, editingAccessoryTap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +32,37 @@ class CupertinoBaseTile extends StatelessWidget {
       if (editingAccessory != null)
         switch (editingAccessory) {
           case CupertinoEditingAccessory.disclosureIndicator:
-            _widgets..add(const Icon(CupertinoIcons.right_chevron));
+            _widgets
+              ..add(
+                const Icon(CupertinoIcons.right_chevron),
+              );
             break;
           case CupertinoEditingAccessory.detailDisclosure:
             _widgets
               ..addAll([
-                const Icon(CupertinoIcons.info),
+                IconButton(
+                  icon: const Icon(CupertinoIcons.info,
+                      color: CupertinoColors.activeBlue),
+                  onPressed: editingAccessoryTap,
+                ),
                 const Icon(CupertinoIcons.right_chevron),
               ]);
             break;
           case CupertinoEditingAccessory.detail:
-            _widgets..add(const Icon(CupertinoIcons.info));
+            _widgets
+              ..add(
+                IconButton(
+                  icon: const Icon(CupertinoIcons.info,
+                      color: CupertinoColors.activeBlue),
+                  onPressed: editingAccessoryTap,
+                ),
+              );
             break;
           case CupertinoEditingAccessory.checkmark:
-            _widgets..add(const Icon(CupertinoIcons.check_mark));
+            _widgets
+              ..add(
+                const Icon(CupertinoIcons.check_mark),
+              );
             break;
           case CupertinoEditingAccessory.dragHandle:
             _widgets
