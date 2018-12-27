@@ -100,6 +100,22 @@ class _CupertinoTableViewControllerState
           selected: false, data: item, editable: true))
       .toList();
 
+  void _deselectAll() {
+    for (var item in _items) {
+      setState(() {
+        item.selected = false;
+      });
+    }
+  }
+
+  void _selectAll() {
+    for (var item in _items) {
+      setState(() {
+        item.selected = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _editingButton = Container(
@@ -111,6 +127,7 @@ class _CupertinoTableViewControllerState
               _isEditing = !_isEditing;
             });
           if (widget?.onEditing != null) widget.onEditing(_isEditing);
+          if (!_isEditing) _deselectAll();
         },
         child: _isEditing
             ? const Text("Cancel",
@@ -202,20 +219,16 @@ class _CupertinoTableViewControllerState
                         editingAccessory: CupertinoEditingAccessory.dragHandle,
                         accessoryTap: () {},
                         onTapDown: (TapDownDetails details) {
-                          if (!_isEditing) {
-                            print("On Tap Down..");
-                            setState(() {
-                              _item.selected = true;
-                            });
-                          }
+                          print("On Tap Down..");
+                          setState(() {
+                            _item.selected = !_item.selected;
+                          });
                         },
                         onTapCancel: () {
-                          if (!_isEditing) {
-                            print("On Tap Cancel..");
-                            setState(() {
-                              _item.selected = false;
-                            });
-                          }
+                          print("On Tap Cancel..");
+                          setState(() {
+                            _item.selected = false;
+                          });
                         },
                       ),
                       onTap: () {
@@ -225,11 +238,7 @@ class _CupertinoTableViewControllerState
                         //         builder: (BuildContext context) =>
                         //             DetailsScreen()));
                         print("Item Tapped...");
-                        if (_isEditing) {
-                          setState(() {
-                            _item.selected = !_item.selected;
-                          });
-                        } else {
+                        if (!_isEditing) {
                           setState(() {
                             _item.selected = false;
                           });
@@ -250,7 +259,7 @@ class _CupertinoTableViewControllerState
                   height: 35.0,
                   leading: NativeTextButton(
                     label: "Select All",
-                    onPressed: () {},
+                    onPressed: () => _selectAll(),
                   ),
                   trailing: NativeTextButton(
                     label: "Delete",
