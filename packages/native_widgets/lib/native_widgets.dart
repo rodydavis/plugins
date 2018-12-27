@@ -38,7 +38,7 @@ part 'picker/picker.dart';
 part 'picker/selection.dart';
 part 'scaffold/scaffold.dart';
 part 'scaffold/search_scaffold.dart';
-part 'scaffold/table_view_controller.dart';
+part 'scaffold/list_view_scaffold.dart';
 part 'status/circle_indicator.dart';
 part 'switch/switch.dart';
 part 'tabs/bottom_navigation.dart';
