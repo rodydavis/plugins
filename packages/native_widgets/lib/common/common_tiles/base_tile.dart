@@ -88,6 +88,59 @@ class CupertinoBaseTile extends StatelessWidget {
         }
     }
 
+    Widget _editingAction;
+
+    if (editingAction != null) {
+      switch (editingAction) {
+        case CupertinoEditingAction.remove:
+          _editingAction = Container(
+            height: 25.0,
+            width: 25.0,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(25.0),
+            ),
+            child: NativeIconButton(
+              icon: Icon(
+                Icons.remove,
+                color: CupertinoColors.white,
+                // size: 18.0,
+              ),
+              onPressed: () {},
+            ),
+          );
+          break;
+        case CupertinoEditingAction.select:
+          _editingAction = Container(
+            height: 25.0,
+            width: 25.0,
+            decoration: selected
+                ? BoxDecoration(
+                    color: CupertinoColors.activeBlue,
+                    borderRadius: BorderRadius.circular(25.0),
+                  )
+                : new BoxDecoration(
+                    border: new Border.all(
+                        color: CupertinoColors.lightBackgroundGray),
+                    shape: BoxShape.circle),
+            child: NativeIconButton(
+              icon: Icon(
+                CupertinoIcons.check_mark,
+                color: selected ? CupertinoColors.white : Colors.transparent,
+              ),
+              onPressed: () {},
+            ),
+          );
+          break;
+        case CupertinoEditingAction.none:
+          _editingAction = Container(
+            height: 25.0,
+            width: 25.0,
+          );
+          break;
+      }
+    }
+
     final Widget row = GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
@@ -102,24 +155,7 @@ class CupertinoBaseTile extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: editing ? const EdgeInsets.only(left: 12.0) : null,
-                child: editing
-                    ? Container(
-                        height: 25.0,
-                        width: 25.0,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        child: NativeIconButton(
-                          icon: Icon(
-                            Icons.remove,
-                            color: CupertinoColors.white,
-                            // size: 18.0,
-                          ),
-                          onPressed: () {},
-                        ),
-                      )
-                    : null,
+                child: editing ? _editingAction : null,
               ),
               Expanded(child: child),
             ]..addAll(_widgets ?? []),

@@ -50,7 +50,7 @@ class Page5 extends StatelessWidget {
             ios: CupertinoListTileData(
               hideLeadingIcon: true,
               style: CupertinoCellStyle.subtitle,
-              accessory: CupetinoAccessory.none,
+              accessory: CupertinoAccessory.none,
               accessoryTap: () {},
             ),
             onTap: () {

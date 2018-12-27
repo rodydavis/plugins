@@ -10,17 +10,18 @@ class NativeListViewScaffold extends StatelessWidget {
   // Make Stateful for Editing, Refreshing, Searching
   final String title, previousTitle;
   final List<dynamic> items;
-  final Widget item;
-  final VoidCallback viewDetails;
-  final ValueChanged<bool> onEditing;
+  final Widget item, trailing;
+  final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
 
   NativeListViewScaffold({
     this.item,
     this.items,
     this.viewDetails,
-    this.onEditing,
+    this.onEditingComplete,
+    this.onEditingStarted,
     this.previousTitle,
     this.title,
+    this.trailing,
   });
 
   @override
@@ -28,9 +29,18 @@ class NativeListViewScaffold extends StatelessWidget {
     return PlatformWidget(
       ios: (BuildContext context) {
         return _CupertinoResfreshController(
+          trailing: trailing,
           title: title,
           previousTitle: previousTitle,
-          onEditing: onEditing,
+          onEditing: (bool editing) {
+            if (editing != null) {
+              if (editing) {
+                if (onEditingStarted != null) onEditingStarted();
+              } else {
+                if (onEditingComplete != null) onEditingComplete();
+              }
+            }
+          },
         );
       },
       android: (BuildContext context) {
@@ -176,6 +186,7 @@ class __CupertinoResfreshControllerState
                         hideLeadingIcon: true,
                         style: CupertinoCellStyle.subtitle,
                         accessory: CupertinoAccessory.disclosureIndicator,
+                        editingAction: CupertinoEditingAction.select,
                         editingAccessory: CupertinoEditingAccessory.dragHandle,
                         accessoryTap: () {},
                       ),

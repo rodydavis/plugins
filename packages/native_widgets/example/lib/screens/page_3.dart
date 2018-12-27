@@ -9,9 +9,18 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-
   @override
   Widget build(BuildContext context) {
-    return NativeListViewScaffold();
+    return NativeListViewScaffold(
+      trailing: NativeIconButton(
+        icon: Icon(Icons.add),
+        iosIcon: Icon(
+          CupertinoIcons.add,
+          color: CupertinoColors.activeBlue,
+          size: 30.0,
+        ),
+        onPressed: () {},
+      ),
+    );
   }
 }
