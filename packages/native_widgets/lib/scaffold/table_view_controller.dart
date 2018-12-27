@@ -61,6 +61,8 @@ class NativeListViewScaffold extends StatelessWidget {
   }
 }
 
+typedef RefreshCallback = Future<List<NativeListTile>> Function();
+
 class CupertinoTableViewController extends StatefulWidget {
   final String title, previousTitle;
   final Widget action;
@@ -70,6 +72,7 @@ class CupertinoTableViewController extends StatefulWidget {
   final Duration refreshDuration;
   final bool reorder;
   final RefreshCallback onRefresh;
+  final List<IconSlideAction> leadingActions, trailingActions;
 
   CupertinoTableViewController({
     @required this.title,
@@ -81,6 +84,8 @@ class CupertinoTableViewController extends StatefulWidget {
     this.onRefresh,
     this.reorder = true,
     this.refreshDuration = const Duration(seconds: 3),
+    this.leadingActions,
+    this.trailingActions,
   });
 
   @override
@@ -90,9 +95,9 @@ class CupertinoTableViewController extends StatefulWidget {
 
 class _CupertinoTableViewControllerState
     extends State<CupertinoTableViewController> {
-  List<List<String>> randomizedContacts;
-  bool _isDisposed = false;
+  final SlidableController slidableController = SlidableController();
 
+  bool _isDisposed = false;
   @override
   void dispose() {
     _isDisposed = true;
@@ -249,7 +254,8 @@ class _CupertinoTableViewControllerState
     );
   }
 
-  Widget _buildCell(BuildContext context, {@required CupertinoTableCell cell}) {
+  Widget _buildCell(BuildContext context,
+      {@required CupertinoTableCell<NativeListTile> cell}) {
     Widget _child;
     NativeListTile _item = cell?.data;
     if (_item?.ios?.editingAction == CupertinoEditingAction.select) {
@@ -338,6 +344,15 @@ class _CupertinoTableViewControllerState
             editingAction: _item?.ios?.editingAction,
             editingAccessory: _item?.ios?.editingAccessory,
             accessoryTap: _item?.ios?.accessoryTap,
+            editingActionTap: () {
+              if (_item?.ios?.editingAction == CupertinoEditingAction.remove) {
+                _removeCell(cell);
+                // slidableController?.activeState?.open(
+                //     actionType: SlideActionType.secondary,
+                //     );
+              }
+              _item?.ios?.editingActionTap();
+            },
           ),
           onTap: () {
             if (!_isEditing) {
@@ -352,59 +367,43 @@ class _CupertinoTableViewControllerState
       );
     }
 
+    final List<Widget> _trailingActions = <Widget>[];
+
+    if (widget?.trailingActions != null) {
+      _trailingActions..addAll(widget.trailingActions);
+    }
+
+    _trailingActions.add(
+      new IconSlideAction(
+        caption: 'Delete',
+        color: Colors.red,
+        icon: Icons.delete,
+        onTap: () => _removeCell(cell),
+      ),
+    );
+
     return Slidable(
       key: new Key(_item?.title?.data),
-      // controller: slidableController,
-      // direction: direction,
+      controller: slidableController,
       slideToDismissDelegate: new SlideToDismissDrawerDelegate(
-        onDismissed: (actionType) {
-          // _showSnackBar(
-          //     context,
-          //     actionType == SlideActionType.primary
-          //         ? 'Dismiss Archive'
-          //         : 'Dimiss Delete');
-          // setState(() {
-          //   items.removeAt(index);
-          // });
+        onDismissed: (SlideActionType actionType) {
+          _removeCell(cell);
         },
       ),
       delegate: new SlidableScrollDelegate(),
       actionExtentRatio: 0.25,
       child: _child,
-      actions: <Widget>[
-        new IconSlideAction(
-          caption: 'Archive',
-          color: Colors.blue,
-          icon: Icons.archive,
-          // onTap: () => _showSnackBar(context, 'Archive'),
-        ),
-        new IconSlideAction(
-          caption: 'Share',
-          color: Colors.indigo,
-          icon: Icons.share,
-          // onTap: () => _showSnackBar(context, 'Share'),
-        ),
-      ],
-      secondaryActions: <Widget>[
-        new IconSlideAction(
-          caption: 'More',
-          color: Colors.grey.shade200,
-          icon: Icons.more_horiz,
-          // onTap: () => _showSnackBar(context, 'More'),
-          closeOnTap: false,
-        ),
-        new IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-          // onTap: () => _showSnackBar(context, 'Delete'),
-        ),
-      ],
+      actions: widget?.leadingActions,
+      secondaryActions: _trailingActions,
     );
   }
-}
 
-typedef RefreshCallback = Future<List<NativeListTile>> Function();
+  void _removeCell(CupertinoTableCell cell) {
+    setState(() {
+      _items.remove(cell);
+    });
+  }
+}
 
 class CupertinoTableCell<T> {
   bool selected;

@@ -15,6 +15,7 @@ class CupertinoBaseTile extends StatelessWidget {
     this.onLongPressed,
     this.onTap,
     this.editingAccessoryTap,
+    this.editingActionTap,
   });
 
   final bool editing, selected;
@@ -22,7 +23,7 @@ class CupertinoBaseTile extends StatelessWidget {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, onTap, onLongPressed, editingAccessoryTap;
+  final VoidCallback accessoryTap, onTap, onLongPressed, editingAccessoryTap, editingActionTap;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +124,7 @@ class CupertinoBaseTile extends StatelessWidget {
                 color: CupertinoColors.white,
                 // size: 18.0,
               ),
-              onPressed: () {},
+              onPressed: editingActionTap,
             ),
           );
           break;
@@ -145,7 +146,7 @@ class CupertinoBaseTile extends StatelessWidget {
                 CupertinoIcons.check_mark,
                 color: selected ? CupertinoColors.white : Colors.transparent,
               ),
-              onPressed: () {},
+              onPressed: editingActionTap,
             ),
           );
           break;

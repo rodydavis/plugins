@@ -94,6 +94,7 @@ class NativeListTile extends StatelessWidget {
           editingAction: ios?.editingAction,
           accessoryTap: ios?.accessoryTap,
           editingAccessoryTap: ios?.editingAccessoryTap,
+          editingActionTap: ios?.editingActionTap,
           child: _child,
         );
 
@@ -122,7 +123,7 @@ class CupertinoListTileData {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, editingAccessoryTap;
+  final VoidCallback accessoryTap, editingAccessoryTap, editingActionTap;
   final bool hideLeadingIcon, enableReorder;
 
   CupertinoListTileData({
@@ -134,6 +135,7 @@ class CupertinoListTileData {
     this.hideLeadingIcon = false,
     this.enableReorder = true,
     this.editingAccessoryTap,
+    this.editingActionTap,
   });
 }
 
