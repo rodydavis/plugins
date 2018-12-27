@@ -200,37 +200,35 @@ class _CupertinoTableViewControllerState
                 });
               },
             ),
+            //  if (widget.reorder) {
+            //         return new DragAndDropList<
+            //             CupertinoTableCell<NativeListTile>>(
+            //           _items,
+            //           itemBuilder: (BuildContext context,
+            //               CupertinoTableCell<NativeListTile> item) {
+            //             return _buildCell(context, cell: item);
+            //           },
+            //           onDragFinish: (before, after) {
+            //             var data = _items[before];
+            //             _items.removeAt(before);
+            //             _items.insert(after, data);
+            //           },
+            //           canBeDraggedTo: (one, two) => true,
+            //           dragElevation: 8.0,
+            //         );
+            //       }
             SliverSafeArea(
                 top: false, // Top safe area is consumed by the navigation bar.
-                sliver: widget.reorder 
-                    ?  SliverFillRemaining(
-                        child: new DragAndDropList<
-                            CupertinoTableCell<NativeListTile>>(
-                          _items,
-                          itemBuilder: (BuildContext context,
-                              CupertinoTableCell<NativeListTile> item) {
-                            return _buildCell(context, cell: item);
-                          },
-                          onDragFinish: (before, after) {
-                            var data = _items[before];
-                            _items.removeAt(before);
-                            _items.insert(after, data);
-                          },
-                          canBeDraggedTo: (one, two) => true,
-                          dragElevation: 8.0,
-                        ),
-                      ) : SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            final CupertinoTableCell<NativeListTile> _cell =
-                                _items[index];
-                            return _buildCell(context, cell: _cell);
-                          },
-                          childCount: _items.length,
-                        ),
-                      )
-                    ),
-            //
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      final CupertinoTableCell<NativeListTile> _cell =
+                          _items[index];
+                      return _buildCell(context, cell: _cell);
+                    },
+                    childCount: _items.length,
+                  ),
+                )),
           ],
         ),
         persistentFooterButtons: !_isEditing
@@ -252,9 +250,10 @@ class _CupertinoTableViewControllerState
   }
 
   Widget _buildCell(BuildContext context, {@required CupertinoTableCell cell}) {
+    Widget _child;
     NativeListTile _item = cell?.data;
     if (_item?.ios?.editingAction == CupertinoEditingAction.select) {
-      return GestureDetector(
+      _child = GestureDetector(
         onTapDown: (TapDownDetails details) {
           if (_isEditing) {
             print("On Tap Down..");
@@ -307,50 +306,100 @@ class _CupertinoTableViewControllerState
           },
         ),
       );
-    }
-
-    return GestureDetector(
-      onTapDown: (TapDownDetails details) {
-        if (!_isEditing) {
-          setState(() {
-            cell.selected = true;
-          });
-        }
-      },
-      onTapCancel: () {
-        if (!_isEditing) {
-          setState(() {
-            cell.selected = false;
-          });
-        }
-      },
-      child: NativeListTile(
-        editing: _isEditing,
-        selected: cell.selected,
-        // lastItem: index == _items.length,
-        avatar: _item?.avatar,
-        leading: _item?.leading,
-        title: _item?.title,
-        subtitle: _item?.subtitle,
-        trailing: _item?.trailing,
-        ios: CupertinoListTileData(
-          hideLeadingIcon: _item?.ios?.hideLeadingIcon,
-          style: _item?.ios?.style,
-          accessory: _item?.ios?.accessory,
-          editingAction: _item?.ios?.editingAction,
-          editingAccessory: _item?.ios?.editingAccessory,
-          accessoryTap: _item?.ios?.accessoryTap,
-        ),
-        onTap: () {
+    } else {
+      _child = GestureDetector(
+        onTapDown: (TapDownDetails details) {
           if (!_isEditing) {
-            print("Item Tapped...");
+            setState(() {
+              cell.selected = true;
+            });
+          }
+        },
+        onTapCancel: () {
+          if (!_isEditing) {
             setState(() {
               cell.selected = false;
             });
-            if (widget?.onItemTap != null) widget.onItemTap(cell?.data);
           }
         },
+        child: NativeListTile(
+          editing: _isEditing,
+          selected: cell.selected,
+          // lastItem: index == _items.length,
+          avatar: _item?.avatar,
+          leading: _item?.leading,
+          title: _item?.title,
+          subtitle: _item?.subtitle,
+          trailing: _item?.trailing,
+          ios: CupertinoListTileData(
+            hideLeadingIcon: _item?.ios?.hideLeadingIcon,
+            style: _item?.ios?.style,
+            accessory: _item?.ios?.accessory,
+            editingAction: _item?.ios?.editingAction,
+            editingAccessory: _item?.ios?.editingAccessory,
+            accessoryTap: _item?.ios?.accessoryTap,
+          ),
+          onTap: () {
+            if (!_isEditing) {
+              print("Item Tapped...");
+              setState(() {
+                cell.selected = false;
+              });
+              if (widget?.onItemTap != null) widget.onItemTap(cell?.data);
+            }
+          },
+        ),
+      );
+    }
+
+    return Slidable(
+      key: new Key(_item?.title?.data),
+      // controller: slidableController,
+      // direction: direction,
+      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
+        onDismissed: (actionType) {
+          // _showSnackBar(
+          //     context,
+          //     actionType == SlideActionType.primary
+          //         ? 'Dismiss Archive'
+          //         : 'Dimiss Delete');
+          // setState(() {
+          //   items.removeAt(index);
+          // });
+        },
       ),
+      delegate: new SlidableScrollDelegate(),
+      actionExtentRatio: 0.25,
+      child: _child,
+      actions: <Widget>[
+        new IconSlideAction(
+          caption: 'Archive',
+          color: Colors.blue,
+          icon: Icons.archive,
+          // onTap: () => _showSnackBar(context, 'Archive'),
+        ),
+        new IconSlideAction(
+          caption: 'Share',
+          color: Colors.indigo,
+          icon: Icons.share,
+          // onTap: () => _showSnackBar(context, 'Share'),
+        ),
+      ],
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+          caption: 'More',
+          color: Colors.grey.shade200,
+          icon: Icons.more_horiz,
+          // onTap: () => _showSnackBar(context, 'More'),
+          closeOnTap: false,
+        ),
+        new IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+          // onTap: () => _showSnackBar(context, 'Delete'),
+        ),
+      ],
     );
   }
 }
