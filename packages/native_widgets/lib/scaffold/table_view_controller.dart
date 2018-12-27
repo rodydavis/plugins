@@ -28,8 +28,8 @@ class NativeListViewScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlatformWidget(
       ios: (BuildContext context) {
-        return _CupertinoResfreshController(
-          trailing: trailing,
+        return CupertinoTableViewController(
+          action: trailing,
           title: title,
           previousTitle: previousTitle,
           onEditing: (bool editing) {
@@ -50,25 +50,25 @@ class NativeListViewScaffold extends StatelessWidget {
   }
 }
 
-class _CupertinoResfreshController extends StatefulWidget {
+class CupertinoTableViewController extends StatefulWidget {
   final String title, previousTitle;
-  final Widget trailing;
+  final Widget action;
   final ValueChanged<bool> onEditing;
 
-  _CupertinoResfreshController({
+  CupertinoTableViewController({
     @required this.title,
     this.previousTitle = "Back",
-    this.trailing,
+    this.action,
     this.onEditing,
   });
 
   @override
-  __CupertinoResfreshControllerState createState() =>
-      __CupertinoResfreshControllerState();
+  _CupertinoTableViewControllerState createState() =>
+      _CupertinoTableViewControllerState();
 }
 
-class __CupertinoResfreshControllerState
-    extends State<_CupertinoResfreshController> {
+class _CupertinoTableViewControllerState
+    extends State<CupertinoTableViewController> {
   List<List<String>> randomizedContacts;
   bool _isDisposed = false;
 
@@ -97,6 +97,28 @@ class __CupertinoResfreshControllerState
 
   @override
   Widget build(BuildContext context) {
+    final _editingButton = Container(
+      padding: EdgeInsets.only(top: 10.0),
+      child: GestureDetector(
+        onTap: () {
+          if (!_isDisposed)
+            setState(() {
+              _isEditing = !_isEditing;
+            });
+          if (widget?.onEditing != null) widget.onEditing(_isEditing);
+        },
+        child: _isEditing
+            ? const Text("Cancel",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: CupertinoColors.activeBlue,
+                ))
+            : const Text("Edit",
+                style: TextStyle(
+                  color: CupertinoColors.activeBlue,
+                )),
+      ),
+    );
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.title,
       child: Scaffold(
@@ -108,29 +130,12 @@ class __CupertinoResfreshControllerState
               // is a Material page. CupertinoPageRoutes could auto-populate
               // these back labels.
               previousPageTitle: widget?.previousTitle ?? "",
-              leading: Container(
-                padding: EdgeInsets.only(top: 10.0),
-                child: GestureDetector(
-                  onTap: () {
-                    if (!_isDisposed)
-                      setState(() {
-                        _isEditing = !_isEditing;
-                      });
-                    if (widget?.onEditing != null) widget.onEditing(_isEditing);
-                  },
-                  child: _isEditing
-                      ? const Text("Cancel",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: CupertinoColors.activeBlue,
-                          ))
-                      : const Text("Edit",
-                          style: TextStyle(
-                            color: CupertinoColors.activeBlue,
-                          )),
-                ),
-              ),
-              trailing: _isEditing ? null : widget?.trailing,
+              leading: widget?.previousTitle != null
+                  ? _isEditing ? null : widget?.action
+                  : _editingButton,
+              trailing: widget?.previousTitle != null
+                  ? _editingButton
+                  : _isEditing ? null : widget?.action,
             ),
             CupertinoSliverRefreshControl(
               onRefresh: () {
