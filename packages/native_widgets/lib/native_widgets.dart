@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'dart:async';
+import 'package:flutter_list_drag_and_drop/drag_and_drop_list.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'dart:math';
 
 import 'package:flutter/rendering.dart';
