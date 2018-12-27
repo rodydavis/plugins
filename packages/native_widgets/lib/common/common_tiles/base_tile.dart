@@ -13,8 +13,6 @@ class CupertinoBaseTile extends StatelessWidget {
     this.editingAction = CupertinoEditingAction.remove,
     this.accessoryTap,
     this.onLongPressed,
-    this.onTapDown,
-    this.onTapCancel,
     this.onTap,
   });
 
@@ -23,8 +21,7 @@ class CupertinoBaseTile extends StatelessWidget {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, onTap, onLongPressed, onTapCancel;
-  final ValueChanged<TapDownDetails> onTapDown;
+  final VoidCallback accessoryTap, onTap, onLongPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -157,8 +154,6 @@ class CupertinoBaseTile extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
       onLongPress: onLongPressed,
-      onTapDown: (TapDownDetails details) => onTapDown(details),
-      onTapCancel: () => onTapCancel(),
       child: SafeArea(
         top: false,
         bottom: false,

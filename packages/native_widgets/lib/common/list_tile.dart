@@ -1,17 +1,19 @@
 part of native_widgets;
 
 class NativeListTile extends StatelessWidget {
-  final Text subtitle, title;
+  final Text subtitle, title, id;
   final Widget avatar, child;
   final List<Widget> trailing;
   final NativeIcon leading;
   final MaterialListTileData android;
   final CupertinoListTileData ios;
-  final VoidCallback onTap, onLongPressed;
-  final bool lastItem, selected, editing;
+  VoidCallback onTap, onLongPressed;
+  bool selected, editing;
+  final bool lastItem;
 
   NativeListTile({
     @required this.title,
+    this.id,
     this.subtitle,
     this.leading,
     this.trailing,
@@ -83,8 +85,6 @@ class NativeListTile extends StatelessWidget {
         }
 
         final Widget _row = CupertinoBaseTile(
-          onTapDown: ios?.onTapDown,
-          onTapCancel: ios?.onTapCancel,
           selected: selected,
           onTap: onTap,
           onLongPressed: onLongPressed,
@@ -121,8 +121,7 @@ class CupertinoListTileData {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, onTapCancel;
-  final ValueChanged<TapDownDetails> onTapDown;
+  final VoidCallback accessoryTap;
   final bool hideLeadingIcon, enableReorder;
 
   CupertinoListTileData({
@@ -132,8 +131,6 @@ class CupertinoListTileData {
     this.editingAction = CupertinoEditingAction.remove,
     this.accessoryTap,
     this.hideLeadingIcon = false,
-    this.onTapDown,
-    this.onTapCancel,
     this.enableReorder = true,
   });
 }

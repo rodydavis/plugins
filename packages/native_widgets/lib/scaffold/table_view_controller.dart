@@ -13,7 +13,7 @@ class NativeListViewScaffold extends StatelessWidget {
   final Widget trailing;
   // final Function(BuildContext context, int index) item;
   final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
-  final ValueChanged<dynamic> onItemTap;
+  final ValueChanged<NativeListTile> onItemTap;
 
   NativeListViewScaffold({
     // this.item,
@@ -59,9 +59,8 @@ class NativeListViewScaffold extends StatelessWidget {
 class CupertinoTableViewController extends StatefulWidget {
   final String title, previousTitle;
   final Widget action;
-  final Function(NativeListTile item, bool selected) onSelected;
   final ValueChanged<bool> onEditing;
-  final ValueChanged<dynamic> onItemTap;
+  final ValueChanged<NativeListTile> onItemTap;
   final List<NativeListTile> items;
 
   CupertinoTableViewController({
@@ -71,7 +70,6 @@ class CupertinoTableViewController extends StatefulWidget {
     this.onEditing,
     this.onItemTap,
     this.items,
-    this.onSelected,
   });
 
   @override
@@ -96,7 +94,7 @@ class _CupertinoTableViewControllerState
   void initState() {
     _items = widget.items
         .map((NativeListTile item) => new CupertinoTableCell<NativeListTile>(
-            selected: false, data: item, editable: true))
+            selected: item?.selected ?? false, data: item, editable: true))
         .toList();
     setState(() {});
     super.initState();
@@ -197,62 +195,71 @@ class _CupertinoTableViewControllerState
                     // );
                     // final _item = _items[index];
                     CupertinoTableCell _cell = _items[index];
-                    final NativeListTile _item = _cell?.data;
+                    NativeListTile _item = _cell?.data;
 
-                    return NativeListTile(
-                      editing: _isEditing,
-                      selected: _cell.selected,
-                      lastItem: index == _items.length,
-                      // avatar: Container(
-                      //   height: 60.0,
-                      //   width: 60.0,
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.lightBlue,
-                      //     borderRadius: BorderRadius.circular(8.0),
-                      //   ),
-                      // ),
-
-                      leading: NativeIcon(
-                        Icons.phone,
-                        iosIcon: CupertinoIcons.phone_solid,
-                      ),
-
-                      title: _item?.title,
-                      subtitle: _item?.subtitle,
-                      trailing: _item?.trailing,
-                      ios: CupertinoListTileData(
-                        hideLeadingIcon: _item?.ios?.hideLeadingIcon,
-                        style: _item?.ios?.style,
-                        accessory: _item?.ios?.accessory,
-                        editingAction: _item?.ios?.editingAction,
-                        editingAccessory: _item?.ios?.editingAccessory,
-                        accessoryTap: _item?.ios?.accessoryTap,
-                        onTapDown: (TapDownDetails details) {
+                    return GestureDetector(
+                      onTapDown: (TapDownDetails details) {
+                        if (_isEditing) {
                           print("On Tap Down..");
                           setState(() {
                             _cell.selected = !_cell.selected;
                           });
-                        },
-                        onTapCancel: () {
-                          print("On Tap Cancel..");
-                          setState(() {
-                            _cell.selected = false;
-                          });
-                        },
-                      ),
-                      onTap: () {
-                        print("Item Tapped...");
-                        if (!_isEditing) {
-                          setState(() {
-                            _cell.selected = false;
-                          });
-                          if (widget?.onItemTap != null)
-                            widget.onItemTap(_cell?.data);
                         } else {
-                          if (widget?.onSelected != null)
-                            widget.onSelected(_cell?.data, _cell.selected);
+                          setState(() {
+                            _cell.selected = true;
+                          });
                         }
                       },
+                      onTapCancel: () {
+                        if (_isEditing) {
+                          print("On Tap Cancel..");
+                          setState(() {
+                            _cell.selected = !_cell.selected;
+                          });
+                        } else {
+                          setState(() {
+                            _cell.selected = false;
+                          });
+                        }
+                      },
+                      child: NativeListTile(
+                        editing: _isEditing,
+                        selected: _cell.selected,
+                        lastItem: index == _items.length,
+                        avatar: _item?.avatar,
+                        leading: _item?.leading,
+                        title: _item?.title,
+                        subtitle: _item?.subtitle,
+                        trailing: _item?.trailing,
+                        ios: CupertinoListTileData(
+                          hideLeadingIcon: _item?.ios?.hideLeadingIcon,
+                          style: _item?.ios?.style,
+                          accessory: _item?.ios?.accessory,
+                          editingAction: _item?.ios?.editingAction,
+                          editingAccessory: _item?.ios?.editingAccessory,
+                          accessoryTap: _item?.ios?.accessoryTap,
+                        ),
+                        onTap: () {
+                          print("Item Tapped...");
+                          // if (!_isEditing) {
+                          // setState(() {
+                          //   _cell.selected = !_cell.selected;
+                          // });
+                          //   if (widget?.onItemTap != null)
+                          //     widget.onItemTap(_cell?.data);
+                          // } else {
+                          //   if (widget?.onSelected != null)
+                          //     widget.onSelected(_cell?.data, _cell.selected);
+                          // }
+                          if (!_isEditing) {
+                            setState(() {
+                              _cell.selected = false;
+                            });
+                            if (widget?.onItemTap != null)
+                              widget.onItemTap(_cell?.data);
+                          }
+                        },
+                      ),
                     );
                   },
                   childCount: _items.length,

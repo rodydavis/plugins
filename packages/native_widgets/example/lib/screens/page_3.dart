@@ -51,7 +51,7 @@ class Page3State extends State<Page3> {
           onTap: () {},
         );
       }).toList(),
-      onItemTap: (dynamic item) {
+      onItemTap: (NativeListTile item) {
         if (item != null) {
           // Navigator.push<dynamic>(
           //     context,
@@ -59,7 +59,7 @@ class Page3State extends State<Page3> {
           //         builder: (BuildContext context) =>
           //             DetailsScreen()));
 
-          print(item);
+          print(item?.title?.data);
         }
       },
       // item: (BuildContext context, int index) {
