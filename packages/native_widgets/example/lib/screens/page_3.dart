@@ -77,11 +77,14 @@ class Page3State extends State<Page3> {
   };
   int sharedValue = 0;
 
+  final List<dynamic> selected = <dynamic>[];
+
   @override
   Widget build(BuildContext context) {
-    final _items = contacts.map((var item) {
+    final _items = contacts.map((List<String> item) {
       return NativeListTile(
         editing: _isEditing,
+        selected: selected?.contains(item) ?? false,
         avatar: Container(
           height: 60.0,
           width: 60.0,
@@ -99,6 +102,13 @@ class Page3State extends State<Page3> {
         trailing: <Widget>[
           NativeText(item[2], type: NativeTextTheme.detail),
         ],
+        onTap: () {
+          if (_isEditing) {
+            setState(() {
+              selected.add(item);
+            });
+          }
+        },
         ios: CupertinoListTileData(
           hideLeadingIcon: true,
           style: CupertinoCellStyle.subtitle,
