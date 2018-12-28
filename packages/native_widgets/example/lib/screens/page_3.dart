@@ -82,9 +82,10 @@ class Page3State extends State<Page3> {
   @override
   Widget build(BuildContext context) {
     final _items = contacts.map((List<String> item) {
+      final bool _selected = selected?.contains(item) ?? false;
       return NativeListTile(
         editing: _isEditing,
-        selected: selected?.contains(item) ?? false,
+        selected: _selected,
         avatar: Container(
           height: 60.0,
           width: 60.0,
@@ -104,9 +105,15 @@ class Page3State extends State<Page3> {
         ],
         onTap: () {
           if (_isEditing) {
-            setState(() {
-              selected.add(item);
-            });
+            if (_selected) {
+              setState(() {
+                selected.remove(item);
+              });
+            } else {
+              setState(() {
+                selected.add(item);
+              });
+            }
           }
         },
         ios: CupertinoListTileData(
