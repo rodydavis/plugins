@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../../utils/ios_search_bar.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../native_widgets.dart';
+import '../../../native_widgets.dart';
+import '../../../utils/ios_search_bar.dart';
+import 'cell.dart';
 
 typedef RefreshCallback = Future<List<dynamic>> Function();
 
@@ -85,7 +86,7 @@ class _CupertinoTableViewControllerState
     super.dispose();
   }
 
-  List<CupertinoTableCell<dynamic>> _items = [];
+  List<CupertinoTableCell> _items = [];
   List<dynamic> selectedItems = <dynamic>[];
 
   @override
@@ -120,29 +121,23 @@ class _CupertinoTableViewControllerState
 
   bool _isEditing = false;
 
-  void _init({List<dynamic> newItems}) {
-    var uuid = new Uuid();
-
+  void _init({bool force = false}) {
+    final Uuid uuid = new Uuid();
     setState(() {
-      if (newItems != null) {
-        _items = newItems
-            .map((dynamic item) => new CupertinoTableCell<dynamic>(
-                  selected: item?.selected ?? false,
-                  data: item,
-                  editable: true,
-                  id: uuid.v4(),
-                ))
-            .toList();
-      } else {
-        _items = widget.items
-            .map((dynamic item) => new CupertinoTableCell<dynamic>(
-                  selected: item?.selected ?? false,
-                  data: item,
-                  editable: true,
-                  id: uuid.v4(),
-                ))
-            .toList();
-      }
+      _items = widget.items
+          .map((dynamic item) => new CupertinoTableCell(
+                key: Key(uuid.v4()),
+                slideableController: slidableController,
+                onDelete: () {},
+                onSelected: (bool selected) {},
+                onTap: () {},
+                selected: item?.selected ?? false,
+                editing: _isEditing,
+                child: item,
+                canEdit: true,
+                id: uuid.v4(),
+              ))
+          .toList();
     });
   }
 
@@ -152,7 +147,7 @@ class _CupertinoTableViewControllerState
     selectedItems.clear();
     for (var item in _items) {
       setState(() {
-        item.selected = false;
+        // item.selected = false;
       });
     }
     _updateSelectedItems();
@@ -161,14 +156,14 @@ class _CupertinoTableViewControllerState
   void _selectAll() {
     for (var item in _items) {
       setState(() {
-        item.selected = true;
+        // item.selected = true;
       });
     }
     _updateSelectedItems();
   }
 
   void _deleteAll() {
-    final List<CupertinoTableCell<dynamic>> _cellsToDelete = [];
+    final List<CupertinoTableCell> _cellsToDelete = [];
     for (var item in _items) {
       if (item.selected) {
         _cellsToDelete.add(item);
@@ -188,7 +183,7 @@ class _CupertinoTableViewControllerState
     selectedItems.clear();
     for (var item in _items) {
       if (item.selected) {
-        selectedItems.add(item?.data);
+        selectedItems.add(item?.child);
       }
     }
     if (widget?.selectedItems != null && selectedItems.isNotEmpty)
@@ -283,8 +278,8 @@ class _CupertinoTableViewControllerState
             setState(() {
               _items?.clear();
             });
-            return widget.onRefresh().then((newItems) {
-              _init(newItems: newItems);
+            return widget.onRefresh().then((_) {
+              _init();
             });
           },
         ),
@@ -328,13 +323,14 @@ class _CupertinoTableViewControllerState
         sliver: SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              final CupertinoTableCell<dynamic> _cell = _items[index];
-              return _buildCell(
-                context,
-                cell: _cell,
-                lastItem: index == _items?.length,
-                index: index,
-              );
+              final CupertinoTableCell _cell = _items[index];
+              // return _buildCell(
+              //   context,
+              //   cell: _cell,
+              //   lastItem: index == _items?.length,
+              //   index: index,
+              // );
+              return _cell;
             },
             childCount: _items.length,
           ),
@@ -381,147 +377,147 @@ class _CupertinoTableViewControllerState
     );
   }
 
-  Widget _buildCell(BuildContext context,
-      {@required CupertinoTableCell<dynamic> cell,
-      bool lastItem = true,
-      int index = 0}) {
-    Widget _child;
-    // NativeListTile _item = cell?.data as NativeListTile;
+// Widget _buildCell(BuildContext context,
+//     {@required CupertinoTableCell<dynamic> cell,
+//     bool lastItem = true,
+//     int index = 0}) {
+//   Widget _child;
+//   // NativeListTile _item = cell?.data as NativeListTile;
 
-    final CupertinoListTileData _ios = CupertinoListTileData(
-      hideLeadingIcon: true,
-      style: CupertinoCellStyle.custom,
-      accessory: widget.cellAccessory,
-      editingAction: widget.cellEditingAction,
-      editingAccessory: widget.cellEditingAccessory,
-      padding: null,
-      editingAccessoryTap: () {
-        if (widget?.onCellTap != null)
-          widget.onCellEditingAccessoryTap(cell?.data);
-      },
-      accessoryTap: () {
-        if (widget?.onCellTap != null) widget.onCellAccessoryTap(cell?.data);
-      },
-      editingActionTap: () {
-        if (widget.cellEditingAction == CupertinoEditingAction.remove) {
-          _removeCell(cell);
-        } else if (widget.cellEditingAction == CupertinoEditingAction.select) {
-          setState(() {
-            cell.selected = !cell.selected;
-          });
-          _updateSelectedItems();
-        }
-      },
-    );
+//   final CupertinoListTileData _ios = CupertinoListTileData(
+//     hideLeadingIcon: true,
+//     style: CupertinoCellStyle.custom,
+//     accessory: widget.cellAccessory,
+//     editingAction: widget.cellEditingAction,
+//     editingAccessory: widget.cellEditingAccessory,
+//     padding: null,
+//     editingAccessoryTap: () {
+//       if (widget?.onCellTap != null)
+//         widget.onCellEditingAccessoryTap(cell?.data);
+//     },
+//     accessoryTap: () {
+//       if (widget?.onCellTap != null) widget.onCellAccessoryTap(cell?.data);
+//     },
+//     editingActionTap: () {
+//       if (widget.cellEditingAction == CupertinoEditingAction.remove) {
+//         _removeCell(cell);
+//       } else if (widget.cellEditingAction == CupertinoEditingAction.select) {
+//         setState(() {
+//           cell.selected = !cell.selected;
+//         });
+//         _updateSelectedItems();
+//       }
+//     },
+//   );
 
-    if (widget.cellEditingAction == CupertinoEditingAction.select) {
-      _child = GestureDetector(
-        onTapDown: (TapDownDetails details) {
-          if (!_isEditing) {
-            print("On Tap Down..");
-            setState(() {
-              cell.selected = true;
-            });
-          }
-        },
-        onTapCancel: () {
-          if (!_isEditing) {
-            print("On Tap Cancel..");
-            setState(() {
-              cell.selected = false;
-            });
-          }
-        },
-        child: NativeListTile(
-          editing: _isEditing,
-          selected: cell.selected,
-          child: cell?.data,
-          ios: _ios,
-          lastItem: lastItem,
-          onTap: () {
-            if (!_isEditing) {
-              print("Item Tapped...");
-              setState(() {
-                cell.selected = false;
-              });
-              if (widget?.onCellTap != null) widget.onCellTap(cell?.data);
-            } else {
-              print("On Tap Down..");
-              setState(() {
-                cell.selected = !cell.selected;
-              });
-              _updateSelectedItems();
-            }
-          },
-        ),
-      );
-    } else {
-      _child = GestureDetector(
-        onTapDown: (TapDownDetails details) {
-          if (!_isEditing) {
-            setState(() {
-              cell.selected = true;
-            });
-          }
-        },
-        onTapCancel: () {
-          if (!_isEditing) {
-            setState(() {
-              cell.selected = false;
-            });
-          }
-        },
-        child: NativeListTile(
-          editing: _isEditing,
-          selected: cell.selected,
-          child: cell?.data,
-          ios: _ios,
-          lastItem: lastItem,
-          onTap: () {
-            if (!_isEditing) {
-              print("Item Tapped...");
-              setState(() {
-                cell.selected = false;
-              });
-              if (widget?.onCellTap != null) widget.onCellTap(cell?.data);
-            }
-          },
-        ),
-      );
-    }
+//   if (widget.cellEditingAction == CupertinoEditingAction.select) {
+//     _child = GestureDetector(
+//       onTapDown: (TapDownDetails details) {
+//         if (!_isEditing) {
+//           print("On Tap Down..");
+//           setState(() {
+//             cell.selected = true;
+//           });
+//         }
+//       },
+//       onTapCancel: () {
+//         if (!_isEditing) {
+//           print("On Tap Cancel..");
+//           setState(() {
+//             cell.selected = false;
+//           });
+//         }
+//       },
+//       child: NativeListTile(
+//         editing: _isEditing,
+//         selected: cell.selected,
+//         child: cell?.data,
+//         ios: _ios,
+//         lastItem: lastItem,
+//         onTap: () {
+//           if (!_isEditing) {
+//             print("Item Tapped...");
+//             setState(() {
+//               cell.selected = false;
+//             });
+//             if (widget?.onCellTap != null) widget.onCellTap(cell?.data);
+//           } else {
+//             print("On Tap Down..");
+//             setState(() {
+//               cell.selected = !cell.selected;
+//             });
+//             _updateSelectedItems();
+//           }
+//         },
+//       ),
+//     );
+//   } else {
+//     _child = GestureDetector(
+//       onTapDown: (TapDownDetails details) {
+//         if (!_isEditing) {
+//           setState(() {
+//             cell.selected = true;
+//           });
+//         }
+//       },
+//       onTapCancel: () {
+//         if (!_isEditing) {
+//           setState(() {
+//             cell.selected = false;
+//           });
+//         }
+//       },
+//       child: NativeListTile(
+//         editing: _isEditing,
+//         selected: cell.selected,
+//         child: cell?.data,
+//         ios: _ios,
+//         lastItem: lastItem,
+//         onTap: () {
+//           if (!_isEditing) {
+//             print("Item Tapped...");
+//             setState(() {
+//               cell.selected = false;
+//             });
+//             if (widget?.onCellTap != null) widget.onCellTap(cell?.data);
+//           }
+//         },
+//       ),
+//     );
+//   }
 
-    final List<Widget> _trailingActions = <Widget>[];
+//   final List<Widget> _trailingActions = <Widget>[];
 
-    if (widget?.trailingActions != null) {
-      _trailingActions..addAll(widget.trailingActions);
-    }
+//   if (widget?.trailingActions != null) {
+//     _trailingActions..addAll(widget.trailingActions);
+//   }
 
-    _trailingActions.add(
-      new IconSlideAction(
-        caption: 'Delete',
-        color: Colors.red,
-        icon: Icons.delete,
-        onTap: () => _removeCell(cell),
-      ),
-    );
+//   _trailingActions.add(
+//     new IconSlideAction(
+//       caption: 'Delete',
+//       color: Colors.red,
+//       icon: Icons.delete,
+//       onTap: () => _removeCell(cell),
+//     ),
+//   );
 
-    return Slidable(
-      key: Key(index.toString()),
-      controller: slidableController,
-      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
-        onDismissed: (SlideActionType actionType) {
-          _removeCell(cell);
-        },
-      ),
-      delegate: new SlidableScrollDelegate(),
-      actionExtentRatio: 0.25,
-      child: _child,
-      actions: widget?.leadingActions,
-      secondaryActions: _trailingActions,
-    );
-  }
+//   return Slidable(
+//     key: Key(index.toString()),
+//     controller: slidableController,
+//     slideToDismissDelegate: new SlideToDismissDrawerDelegate(
+//       onDismissed: (SlideActionType actionType) {
+//         _removeCell(cell);
+//       },
+//     ),
+//     delegate: new SlidableScrollDelegate(),
+//     actionExtentRatio: 0.25,
+//     child: _child,
+//     actions: widget?.leadingActions,
+//     secondaryActions: _trailingActions,
+//   );
+// }
 
-  void _removeCell(CupertinoTableCell<dynamic> cell) {
+  void _removeCell(CupertinoTableCell cell) {
     if (_items.contains(cell)) {
       setState(() {
         _items.remove(cell);
@@ -529,18 +525,4 @@ class _CupertinoTableViewControllerState
       print("Removed Item... ${cell?.id}");
     }
   }
-}
-
-class CupertinoTableCell<T> {
-  bool selected;
-  final bool editable;
-  dynamic data;
-  final String id;
-
-  CupertinoTableCell({
-    this.selected = false,
-    this.editable = true,
-    this.data,
-    @required this.id,
-  });
 }

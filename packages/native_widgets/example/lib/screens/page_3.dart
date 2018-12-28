@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'details/details_1.dart';
+
 import 'package:native_widgets/native_widgets.dart';
 
 class Page3 extends StatefulWidget {
@@ -10,63 +11,111 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-  List<NativeListTile> _items, _filtered;
+  // List<NativeListTile> _items, _filtered;
+
+  bool _isEditing = false;
+  bool _isSearching = false;
 
   @override
   void initState() {
-    _items = [];
-    _init();
+    // _items = [];
+    // _init();
     super.initState();
   }
 
-  void _init({bool force = false}) {
-    if (force) {
-      setState(() {
-        _items?.clear();
-      });
-    }
-    setState(() {
-      _items = contacts.map((var item) {
-        return NativeListTile(
-          avatar: Container(
-            height: 60.0,
-            width: 60.0,
-            decoration: BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          leading: NativeIcon(
-            Icons.phone,
-            iosIcon: CupertinoIcons.phone_solid,
-          ),
-          title: Text(item[0]),
-          subtitle: Text(item[1]),
-          trailing: <Widget>[
-            NativeText(item[2], type: NativeTextTheme.detail),
-          ],
-          ios: CupertinoListTileData(
-            hideLeadingIcon: true,
-            style: CupertinoCellStyle.subtitle,
-            // accessory: CupertinoAccessory.detailDisclosure,
-            // editingAction: CupertinoEditingAction.select,
-            // editingAccessory: CupertinoEditingAccessory.detail,
-            // editingAccessoryTap: () {
-            //   print("Editing Detail Tapped");
-            // },
-            // accessoryTap: () {
-            //   print("Accessory Detail Tapped");
-            // },
-          ),
-          // onTap: () {},
-        );
-      }).toList();
-      _filtered = _items;
-    });
-  }
+  // void _init({bool force = false}) {
+  //   if (force) {
+  //     setState(() {
+  //       _items?.clear();
+  //     });
+  //   }
+  //   setState(() {
+  //     _items = contacts.map((var item) {
+  //       return NativeListTile(
+  //         editing: _isEditing,
+  //         avatar: Container(
+  //           height: 60.0,
+  //           width: 60.0,
+  //           decoration: BoxDecoration(
+  //             color: Colors.lightBlue,
+  //             borderRadius: BorderRadius.circular(8.0),
+  //           ),
+  //         ),
+  //         leading: NativeIcon(
+  //           Icons.phone,
+  //           iosIcon: CupertinoIcons.phone_solid,
+  //         ),
+  //         title: Text(item[0]),
+  //         subtitle: Text(item[1]),
+  //         trailing: <Widget>[
+  //           NativeText(item[2], type: NativeTextTheme.detail),
+  //         ],
+  //         ios: CupertinoListTileData(
+  //           hideLeadingIcon: true,
+  //           style: CupertinoCellStyle.subtitle,
+  //           // accessory: CupertinoAccessory.detailDisclosure,
+  //           // editingAction: CupertinoEditingAction.select,
+  //           // editingAccessory: CupertinoEditingAccessory.detail,
+  //           // editingAccessoryTap: () {
+  //           //   print("Editing Detail Tapped");
+  //           // },
+  //           // accessoryTap: () {
+  //           //   print("Accessory Detail Tapped");
+  //           // },
+  //         ),
+  //         // onTap: () {},
+  //       );
+  //     }).toList();
+  //     _filtered = _items;
+  //   });
+  // }
+
+  final Map<int, Widget> children = const <int, Widget>{
+    0: Text('Midnight'),
+    1: Text('Viridian'),
+    2: Text('Cerulean'),
+  };
+  int sharedValue = 0;
 
   @override
   Widget build(BuildContext context) {
+    final _items = contacts.map((var item) {
+      return NativeListTile(
+        editing: _isEditing,
+        avatar: Container(
+          height: 60.0,
+          width: 60.0,
+          decoration: BoxDecoration(
+            color: Colors.lightBlue,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        leading: NativeIcon(
+          Icons.phone,
+          iosIcon: CupertinoIcons.phone_solid,
+        ),
+        title: Text(item[0]),
+        subtitle: Text(item[1]),
+        trailing: <Widget>[
+          NativeText(item[2], type: NativeTextTheme.detail),
+        ],
+        ios: CupertinoListTileData(
+          hideLeadingIcon: true,
+          style: CupertinoCellStyle.subtitle,
+          accessory: CupertinoAccessory.detailDisclosure,
+          editingAction: CupertinoEditingAction.select,
+          editingAccessory: CupertinoEditingAccessory.detail,
+          editingAccessoryTap: () {
+            print("Editing Detail Tapped");
+          },
+          accessoryTap: () {
+            print("Accessory Detail Tapped");
+          },
+        ),
+        // onTap: () {},
+      );
+    }).toList();
+
     return NativeListViewScaffold(
       trailing: NativeIconButton(
         icon: Icon(Icons.add),
@@ -77,11 +126,47 @@ class Page3State extends State<Page3> {
         ),
         onPressed: () {},
       ),
-      items: _items,
+      sections: [
+        NativeListViewSection(
+          header: Text("A",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              )),
+          items: _items.getRange(0, 10).toList(),
+        ),
+        NativeListViewSection(
+          header: Text("B",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              )),
+          items: _items.getRange(11, 20).toList(),
+        ),
+        NativeListViewSection(
+          header: Text("C",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              )),
+          items: _items.getRange(21, 30).toList(),
+        ),
+      ],
+      widgets: <Widget>[
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: CupertinoSegmentedControl<int>(
+            children: children,
+            onValueChanged: (int newValue) {
+              setState(() {
+                sharedValue = newValue;
+              });
+            },
+            groupValue: sharedValue,
+          ),
+        ),
+        Divider(),
+      ],
       onRefresh: () async {
         await Future<void>.delayed(Duration(seconds: 1));
-        _init(force: true);
-        return _items;
+        return;
       },
       selectedItemsChanged: (List<dynamic> selected) {
         print(selected);
@@ -95,17 +180,25 @@ class Page3State extends State<Page3> {
             NativeRoute<dynamic>(
                 builder: (BuildContext context) => DetailsScreen()));
       },
-      ios: NativeListViewScaffoldData(
-        cellEditingAccessory: CupertinoEditingAccessory.detail,
-        cellAccessory: CupertinoAccessory.disclosureIndicator,
-        cellEditingAction: CupertinoEditingAction.select,
-        onCellAccessoryTap: (dynamic item) {},
-        onCellEditingAccessoryTap: (dynamic item) {
-          Navigator.push<dynamic>(
-              context,
-              NativeRoute<dynamic>(
-                  builder: (BuildContext context) => DetailsScreen()));
-        },
+      isEditing: _isEditing,
+      onEditing: (bool value) {
+        if (value != null) {
+          setState(() {
+            _isEditing = value;
+          });
+        }
+      },
+      isSearching: _isSearching,
+      onSearch: (bool value) {
+        if (value != null) {
+          setState(() {
+            _isSearching = value;
+          });
+          print("Search: $value");
+        }
+      },
+      ios: CupertinoListViewData(
+        showEditingButtonLeft: true,
       ),
     );
   }
