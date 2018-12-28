@@ -10,10 +10,11 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-  List<NativeListTile> _items = [];
+  List<NativeListTile> _items, _filtered;
 
   @override
   void initState() {
+    _items = [];
     _init();
     super.initState();
   }
@@ -60,6 +61,7 @@ class Page3State extends State<Page3> {
           // onTap: () {},
         );
       }).toList();
+      _filtered = _items;
     });
   }
 

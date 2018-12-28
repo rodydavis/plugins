@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../utils/ios_search_bar.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../native_widgets.dart';
 
@@ -17,7 +18,7 @@ class CupertinoTableViewController extends StatefulWidget {
   final List<dynamic> items;
   final Duration refreshDuration;
   final bool reorder;
-  final RefreshCallback onRefresh;
+  final RefreshCallback onRefresh, onSearch;
   final List<IconSlideAction> leadingActions, trailingActions;
   final ValueChanged<List<dynamic>> selectedItems;
   final CupertinoEditingAction cellEditingAction;
@@ -45,6 +46,7 @@ class CupertinoTableViewController extends StatefulWidget {
     this.trailingActions,
     this.initialValue = "",
     this.onChanged,
+    this.onSearch,
     this.onSearchPressed,
     this.onCellEditingAccessoryTap,
     this.onCellAccessoryTap,
@@ -119,16 +121,26 @@ class _CupertinoTableViewControllerState
   bool _isEditing = false;
 
   void _init({List<dynamic> newItems}) {
+    var uuid = new Uuid();
+
     setState(() {
       if (newItems != null) {
         _items = newItems
             .map((dynamic item) => new CupertinoTableCell<dynamic>(
-                selected: item?.selected ?? false, data: item, editable: true))
+                  selected: item?.selected ?? false,
+                  data: item,
+                  editable: true,
+                  id: uuid.v4(),
+                ))
             .toList();
       } else {
         _items = widget.items
             .map((dynamic item) => new CupertinoTableCell<dynamic>(
-                selected: item?.selected ?? false, data: item, editable: true))
+                  selected: item?.selected ?? false,
+                  data: item,
+                  editable: true,
+                  id: uuid.v4(),
+                ))
             .toList();
       }
     });
@@ -509,10 +521,13 @@ class _CupertinoTableViewControllerState
     );
   }
 
-  void _removeCell(CupertinoTableCell cell) {
-    setState(() {
-      _items.remove(cell);
-    });
+  void _removeCell(CupertinoTableCell<dynamic> cell) {
+    if (_items.contains(cell)) {
+      setState(() {
+        _items.remove(cell);
+      });
+      print("Removed Item... ${cell?.id}");
+    }
   }
 }
 
@@ -520,10 +535,12 @@ class CupertinoTableCell<T> {
   bool selected;
   final bool editable;
   dynamic data;
+  final String id;
 
   CupertinoTableCell({
     this.selected = false,
     this.editable = true,
     this.data,
+    @required this.id,
   });
 }
