@@ -94,11 +94,16 @@ class Page3State extends State<Page3> {
                 builder: (BuildContext context) => DetailsScreen()));
       },
       ios: NativeListViewScaffoldData(
-        cellEditingAccessory: CupertinoEditingAccessory.disclosureIndicator,
-        cellAccessory: CupertinoAccessory.detailDisclosure,
+        cellEditingAccessory: CupertinoEditingAccessory.detail,
+        cellAccessory: CupertinoAccessory.disclosureIndicator,
         cellEditingAction: CupertinoEditingAction.select,
         onCellAccessoryTap: (dynamic item) {},
-        onCellEditingAccessoryTap: (dynamic item) {},
+        onCellEditingAccessoryTap: (dynamic item) {
+          Navigator.push<dynamic>(
+              context,
+              NativeRoute<dynamic>(
+                  builder: (BuildContext context) => DetailsScreen()));
+        },
       ),
     );
   }

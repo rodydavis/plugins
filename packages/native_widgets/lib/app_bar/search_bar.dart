@@ -54,6 +54,8 @@ class NativeSearchAppBar extends StatelessWidget
                 onChanged: onChanged,
                 onSearchPressed: onSearchPressed,
               ),
+              transitionBetweenRoutes: ios?.transitionBetweenRoutes,
+              heroTag: ios?.heroTag,
             ),
       );
     }
@@ -157,7 +159,6 @@ class _CupertinoSearchBarState extends State<_CupertinoSearchBar>
     _searchTextController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {

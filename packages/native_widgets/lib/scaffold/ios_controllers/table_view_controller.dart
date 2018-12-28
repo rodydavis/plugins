@@ -27,6 +27,8 @@ class CupertinoTableViewController extends StatefulWidget {
   final String initialValue;
   final VoidCallback onSearchPressed;
   final bool alwaysShowAppBar;
+  final bool showSegmentedControl;
+  final bool showSearchBar;
 
   const CupertinoTableViewController({
     @required this.title,
@@ -50,6 +52,8 @@ class CupertinoTableViewController extends StatefulWidget {
     this.cellAccessory = CupertinoAccessory.disclosureIndicator,
     this.cellEditingAccessory = CupertinoEditingAccessory.detail,
     this.alwaysShowAppBar = true,
+    this.showSegmentedControl = false,
+    this.showSearchBar = false,
   });
 
   @override
@@ -99,6 +103,13 @@ class _CupertinoTableViewControllerState
     _searchFocusNode.addListener(() {
       if (!_animationController.isAnimating) {
         _animationController.forward();
+        setState(() {
+          _isSearching = true;
+        });
+      } else {
+        setState(() {
+          _isSearching = false;
+        });
       }
     });
     _cancelSearch();
@@ -122,6 +133,8 @@ class _CupertinoTableViewControllerState
       }
     });
   }
+
+  // -- Toolbar Buttons --
 
   void _deselectAll() {
     selectedItems.clear();
@@ -170,12 +183,16 @@ class _CupertinoTableViewControllerState
       widget.selectedItems(selectedItems);
   }
 
+  // -- Segmented Control --
+
   final Map<int, Widget> children = const <int, Widget>{
     0: Text('Midnight'),
     1: Text('Viridian'),
     2: Text('Cerulean'),
   };
   int sharedValue = 0;
+
+  // -- Search Controller --
 
   bool _isSearching = false;
 
@@ -229,76 +246,92 @@ class _CupertinoTableViewControllerState
                 )),
       ),
     );
+
+    final _list = <Widget>[];
+
+    if (!_isSearching) {
+      _list.addAll([
+        CupertinoSliverNavigationBar(
+          heroTag: widget?.title ?? "Title",
+          transitionBetweenRoutes: false,
+          largeTitle: Text(widget?.title ?? "Title"),
+          // We're specifying a back label here because the previous page
+          // is a Material page. CupertinoPageRoutes could auto-populate
+          // these back labels.
+          previousPageTitle: widget?.previousTitle ?? "",
+          leading: widget?.previousTitle != null
+              ? _isEditing ? null : widget?.action
+              : _editingButton,
+          trailing: widget?.previousTitle != null
+              ? _editingButton
+              : _isEditing ? null : widget?.action,
+        ),
+        CupertinoSliverRefreshControl(
+          onRefresh: () {
+            setState(() {
+              _items?.clear();
+            });
+            return widget.onRefresh().then((newItems) {
+              _init(newItems: newItems);
+            });
+          },
+        ),
+      ]);
+    }
+
+    if (widget.showSearchBar) {
+      _list.add(SliverSafeArea(
+        bottom: false,
+        top: _isSearching,
+        sliver: SliverToBoxAdapter(
+          child: IOSSearchBar(
+            controller: _searchTextController,
+            focusNode: _searchFocusNode,
+            animation: _animation,
+            onCancel: _cancelSearch,
+            onClear: _clearSearch,
+            onUpdate: widget?.onChanged,
+            autoFocus: false,
+          ),
+        ),
+      ));
+    }
+
+    if (widget.showSegmentedControl) {
+      _list.add(SliverToBoxAdapter(
+        child: CupertinoSegmentedControl<int>(
+          children: children,
+          onValueChanged: (int newValue) {
+            setState(() {
+              sharedValue = newValue;
+            });
+          },
+          groupValue: sharedValue,
+        ),
+      ));
+    }
+
+    _list.add(SliverSafeArea(
+        top: false, // Top safe area is consumed by the navigation bar.
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              final CupertinoTableCell<dynamic> _cell = _items[index];
+              return _buildCell(
+                context,
+                cell: _cell,
+                lastItem: index == _items?.length,
+                index: index,
+              );
+            },
+            childCount: _items.length,
+          ),
+        )));
+
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.title,
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              heroTag: widget?.title ?? "Title",
-              transitionBetweenRoutes: false,
-              largeTitle: Text(widget?.title ?? "Title"),
-              // We're specifying a back label here because the previous page
-              // is a Material page. CupertinoPageRoutes could auto-populate
-              // these back labels.
-              previousPageTitle: widget?.previousTitle ?? "",
-              leading: widget?.previousTitle != null
-                  ? _isEditing ? null : widget?.action
-                  : _editingButton,
-              trailing: widget?.previousTitle != null
-                  ? _editingButton
-                  : _isEditing ? null : widget?.action,
-            ),
-            CupertinoSliverRefreshControl(
-              onRefresh: () {
-                setState(() {
-                  _items?.clear();
-                });
-                return widget.onRefresh().then((newItems) {
-                  _init(newItems: newItems);
-                });
-              },
-            ),
-            SliverToBoxAdapter(
-              child: new IOSSearchBar(
-                controller: _searchTextController,
-                focusNode: _searchFocusNode,
-                animation: _animation,
-                onCancel: _cancelSearch,
-                onClear: _clearSearch,
-                onUpdate: widget?.onChanged,
-                autoFocus: false,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: CupertinoSegmentedControl<int>(
-                children: children,
-                onValueChanged: (int newValue) {
-                  setState(() {
-                    sharedValue = newValue;
-                  });
-                },
-                groupValue: sharedValue,
-              ),
-            ),
-            SliverSafeArea(
-                top: false, // Top safe area is consumed by the navigation bar.
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      final CupertinoTableCell<dynamic> _cell = _items[index];
-                      return _buildCell(
-                        context,
-                        cell: _cell,
-                        lastItem: index == _items?.length,
-                        index: index,
-                      );
-                    },
-                    childCount: _items.length,
-                  ),
-                )),
-          ],
-        ),
+        body: CustomScrollView(primary: true, slivers: _list),
         persistentFooterButtons: !_isEditing
             ? null
             : <Widget>[

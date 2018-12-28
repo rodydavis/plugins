@@ -62,16 +62,16 @@ class NativeAppLookState extends State<NativeAppLook> {
                 title: Text("Search"),
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                title: Text("Table"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.select_all),
+                title: Text("Selection"),
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 title: Text("Settings"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.security),
-                title: Text("Demo"),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.list),
-                title: Text("List"),
               ),
             ],
             onTap: (int index) {

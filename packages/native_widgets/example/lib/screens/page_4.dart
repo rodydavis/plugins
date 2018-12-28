@@ -236,45 +236,45 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
   Widget _buildDateAndTimePicker(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // showCupertinoModalPopup<void>(
-        //   context: context,
-        //   builder: (BuildContext context) {
-        //     return _buildBottomPicker(
-        //       CupertinoDatePicker(
-        //         mode: CupertinoDatePickerMode.dateAndTime,
-        //         initialDateTime: dateTime,
-        //         onDateTimeChanged: (DateTime newDateTime) {
-        //           setState(() => dateTime = newDateTime);
-        //         },
-        //       ),
-        //     );
-        //   },
-        // );
-        showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return SafeArea(
-                child: new Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    SizedBox(
-                      height: _kDatePickerTitleHeight,
-                      child: _renderTitleActionsView(context),
-                    ),
-                    SizedBox(
-                      height: 250.0,
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.dateAndTime,
-                        initialDateTime: dateTime,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          setState(() => dateTime = newDateTime);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            });
+        showCupertinoModalPopup<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return _buildBottomPicker(
+              CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.dateAndTime,
+                initialDateTime: dateTime,
+                onDateTimeChanged: (DateTime newDateTime) {
+                  setState(() => dateTime = newDateTime);
+                },
+              ),
+            );
+          },
+        );
+        // showModalBottomSheet<void>(
+        //     context: context,
+        //     builder: (BuildContext context) {
+        //       return SafeArea(
+        //         child: new Column(
+        //           mainAxisSize: MainAxisSize.min,
+        //           children: <Widget>[
+        //             SizedBox(
+        //               height: _kDatePickerTitleHeight,
+        //               child: _renderTitleActionsView(context),
+        //             ),
+        //             SizedBox(
+        //               height: 250.0,
+        //               child: CupertinoDatePicker(
+        //                 mode: CupertinoDatePickerMode.dateAndTime,
+        //                 initialDateTime: dateTime,
+        //                 onDateTimeChanged: (DateTime newDateTime) {
+        //                   setState(() => dateTime = newDateTime);
+        //                 },
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       );
+        //     });
       },
       child: _buildMenu(
         <Widget>[

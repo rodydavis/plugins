@@ -17,6 +17,7 @@ class NativeListViewScaffold extends StatelessWidget {
   final Duration refreshDuration;
   final RefreshCallback onRefresh;
   final NativeListViewScaffoldData ios;
+  final bool showListTabs, showSearchBar;
 
   const NativeListViewScaffold({
     // this.item,
@@ -31,6 +32,8 @@ class NativeListViewScaffold extends StatelessWidget {
     this.onCellTap,
     this.onRefresh,
     this.ios,
+    this.showListTabs = false,
+    this.showSearchBar = true,
     this.refreshDuration = const Duration(seconds: 3),
   });
 
@@ -46,6 +49,8 @@ class NativeListViewScaffold extends StatelessWidget {
           previousTitle: previousTitle,
           onCellTap: onCellTap,
           items: items,
+          showSearchBar: showSearchBar,
+          showSegmentedControl: showListTabs,
           cellAccessory: ios?.cellAccessory,
           cellEditingAccessory: ios?.cellEditingAccessory,
           cellEditingAction: ios?.cellEditingAction,
