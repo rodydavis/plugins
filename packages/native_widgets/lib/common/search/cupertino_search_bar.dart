@@ -102,7 +102,7 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar>
       onCancel: _cancelSearch,
       onClear: _clearSearch,
       onUpdate: widget?.onChanged,
-      autoFocus: !widget.alwaysShowAppBar,
+      autoFocus: widget.isSearching,
     );
   }
 }
