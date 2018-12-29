@@ -5,7 +5,8 @@ class CupertinoSearchBar extends StatefulWidget {
   final TextStyle searchText;
   final Color searchBackground, searchIconColor, searchCursorColor;
   final ValueChanged<String> onChanged;
-  final ValueChanged<bool> onSearching;
+  // final ValueChanged<bool> onSearching;
+  final VoidCallback onCancel, onSearch;
   final String initialValue;
   final bool alwaysShowAppBar, isSearching;
 
@@ -17,7 +18,8 @@ class CupertinoSearchBar extends StatefulWidget {
     this.onChanged,
     this.initialValue,
     this.alwaysShowAppBar = false,
-    this.onSearching,
+    this.onCancel,
+    this.onSearch,
     this.isSearching = false,
   });
 
@@ -53,10 +55,7 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar>
     _searchFocusNode.addListener(() {
       if (!_animationController.isAnimating) {
         _animationController.forward();
-        if (widget?.onSearching != null && _searchFocusNode.hasFocus)
-          widget.onSearching(true);
-      } else {
-        if (widget?.onSearching != null) widget.onSearching(false);
+        if (widget?.onSearch != null) widget.onSearch();
       }
     });
     if (!widget.alwaysShowAppBar || widget.isSearching) {
@@ -76,6 +75,7 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar>
       _searchFocusNode.unfocus();
       _animationController.reverse();
     }
+    if (widget?.onCancel != null) widget.onCancel();
   }
 
   void _clearSearch() {

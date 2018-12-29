@@ -3,12 +3,13 @@ part of native_widgets;
 class NativeSearchWidget extends StatelessWidget {
   final String search;
   final ValueChanged<String> onChanged;
-  final ValueChanged<bool> onSearching;
+  final VoidCallback onCancel, onSearch;
 
   NativeSearchWidget({
     this.onChanged,
     this.search,
-    this.onSearching,
+    this.onCancel,
+    this.onSearch,
   });
 
   @override
@@ -22,7 +23,8 @@ class NativeSearchWidget extends StatelessWidget {
             initialValue: search,
             onChanged: onChanged,
             alwaysShowAppBar: true,
-            onSearching: onSearching,
+            onCancel: onCancel,
+            onSearch: onSearch,
           ),
     );
   }

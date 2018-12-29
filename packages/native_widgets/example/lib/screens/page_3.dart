@@ -52,7 +52,6 @@ class Page3State extends State<Page3> {
 
       _sections = [
         NativeListViewSection(
-          
           children: filtered,
         )
       ];
@@ -114,13 +113,23 @@ class Page3State extends State<Page3> {
         }
       },
       isSearching: _isSearching,
-      onSearch: (bool value) {
-        if (value != null) {
-          setState(() {
-            _isSearching = value;
-          });
-          print("Search: $value");
-        }
+      // onSearch: (bool value) {
+      //   if (value != null) {
+      //     setState(() {
+      //       _isSearching = value;
+      //     });
+      //     print("Search: $value");
+      //   }
+      // },
+      onCancelSearch: () {
+        setState(() {
+          _isSearching = false;
+        });
+      },
+      onStartSearch: () {
+        setState(() {
+          _isSearching = true;
+        });
       },
       searchChanged: (String value) {
         if (value != null) {

@@ -14,11 +14,11 @@ typedef RefreshCallback = Future<void> Function();
 class CupertinoTableViewController extends StatelessWidget {
   final String title, previousTitle;
   final Widget leading, trailing;
-  final ValueChanged<bool> onEditing, onSearch;
+  final ValueChanged<bool> onEditing;
   final RefreshCallback onRefresh;
   final ValueChanged<String> onChanged;
   final String initialValue;
-  final VoidCallback onSearchPressed, onSelectAll, onDeleteAll;
+  final VoidCallback onSearchPressed, onSelectAll, onDeleteAll, onCancelSearch, onStartSearch;
   final bool showSearchBar, showEditingButtonLeft, showEditingButtonRight;
   final bool isEditing, isSearching;
   final List<CupertinoTableViewSection> sections;
@@ -31,7 +31,7 @@ class CupertinoTableViewController extends StatelessWidget {
     this.previousTitle = "Back",
     this.leading,
     this.trailing,
-    this.onSearch,
+    this.onCancelSearch,
     this.onEditing,
     this.onRefresh,
     this.initialValue = "",
@@ -41,6 +41,7 @@ class CupertinoTableViewController extends StatelessWidget {
     this.onDeleteAll,
     this.onSelectAll,
     this.toolbarButtons,
+    this.onStartSearch,
     this.showEditingButtonLeft = true,
     this.showEditingButtonRight = false,
     @required this.sections,
@@ -86,8 +87,9 @@ class CupertinoTableViewController extends StatelessWidget {
             initialValue: "",
             onChanged: onChanged,
             alwaysShowAppBar: true,
-            onSearching: onSearch,
+            onCancel: onCancelSearch,
             isSearching: isSearching,
+            onSearch: onStartSearch,
           ),
         ),
       ));
