@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'details/details_1.dart';
 
 import 'package:native_widgets/native_widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Page3 extends StatefulWidget {
   @override
@@ -11,64 +12,16 @@ class Page3 extends StatefulWidget {
 }
 
 class Page3State extends State<Page3> {
-  // List<NativeListTile> _items, _filtered;
+  // List<NativeListTile> _sectionA, _sectionB, _sectionC;
 
   bool _isEditing = false;
   bool _isSearching = false;
 
   @override
   void initState() {
-    // _items = [];
     // _init();
     super.initState();
   }
-
-  // void _init({bool force = false}) {
-  //   if (force) {
-  //     setState(() {
-  //       _items?.clear();
-  //     });
-  //   }
-  //   setState(() {
-  //     _items = contacts.map((var item) {
-  //       return NativeListTile(
-  //         editing: _isEditing,
-  //         avatar: Container(
-  //           height: 60.0,
-  //           width: 60.0,
-  //           decoration: BoxDecoration(
-  //             color: Colors.lightBlue,
-  //             borderRadius: BorderRadius.circular(8.0),
-  //           ),
-  //         ),
-  //         leading: NativeIcon(
-  //           Icons.phone,
-  //           iosIcon: CupertinoIcons.phone_solid,
-  //         ),
-  //         title: Text(item[0]),
-  //         subtitle: Text(item[1]),
-  //         trailing: <Widget>[
-  //           NativeText(item[2], type: NativeTextTheme.detail),
-  //         ],
-  //         ios: CupertinoListTileData(
-  //           hideLeadingIcon: true,
-  //           style: CupertinoCellStyle.subtitle,
-  //           // accessory: CupertinoAccessory.detailDisclosure,
-  //           // editingAction: CupertinoEditingAction.select,
-  //           // editingAccessory: CupertinoEditingAccessory.detail,
-  //           // editingAccessoryTap: () {
-  //           //   print("Editing Detail Tapped");
-  //           // },
-  //           // accessoryTap: () {
-  //           //   print("Accessory Detail Tapped");
-  //           // },
-  //         ),
-  //         // onTap: () {},
-  //       );
-  //     }).toList();
-  //     _filtered = _items;
-  //   });
-  // }
 
   final Map<int, Widget> children = const <int, Widget>{
     0: Text('Midnight'),
@@ -81,57 +34,11 @@ class Page3State extends State<Page3> {
 
   @override
   Widget build(BuildContext context) {
-    final _items = contacts.map((List<String> item) {
-      final bool _selected = selected?.contains(item) ?? false;
-      return NativeListTile(
-        editing: _isEditing,
-        selected: _selected,
-        avatar: Container(
-          height: 60.0,
-          width: 60.0,
-          decoration: BoxDecoration(
-            color: Colors.lightBlue,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-        ),
-        leading: NativeIcon(
-          Icons.phone,
-          iosIcon: CupertinoIcons.phone_solid,
-        ),
-        title: Text(item[0]),
-        subtitle: Text(item[1]),
-        trailing: <Widget>[
-          NativeText(item[2], type: NativeTextTheme.detail),
-        ],
-        onTap: () {
-          if (_isEditing) {
-            if (_selected) {
-              setState(() {
-                selected.remove(item);
-              });
-            } else {
-              setState(() {
-                selected.add(item);
-              });
-            }
-          }
-        },
-        ios: CupertinoListTileData(
-          hideLeadingIcon: true,
-          style: CupertinoCellStyle.subtitle,
-          accessory: CupertinoAccessory.detailDisclosure,
-          editingAction: CupertinoEditingAction.select,
-          editingAccessory: CupertinoEditingAccessory.detail,
-          editingAccessoryTap: () {
-            print("Editing Detail Tapped");
-          },
-          accessoryTap: () {
-            print("Accessory Detail Tapped");
-          },
-        ),
-        // onTap: () {},
-      );
-    }).toList();
+    final _sectionA = contacts.getRange(0, 10).toList();
+    final _sectionB = contacts.getRange(11, 20).toList();
+    final _sectionC = contacts.getRange(21, 30).toList();
+
+    final _sections = _buildSections(context);
 
     return NativeListViewScaffold(
       trailing: NativeIconButton(
@@ -143,29 +50,42 @@ class Page3State extends State<Page3> {
         ),
         onPressed: () {},
       ),
-      sections: [
-        NativeListViewSection(
-          header: Text("A",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              )),
-          children: _items.getRange(0, 10).toList(),
-        ),
-        NativeListViewSection(
-          header: Text("B",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              )),
-          children: _items.getRange(11, 20).toList(),
-        ),
-        NativeListViewSection(
-          header: Text("C",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              )),
-          children: _items.getRange(21, 30).toList(),
-        ),
-      ],
+      // sections: [
+      //   NativeListViewSection.builder(
+      //     header: Text("A",
+      //         style: TextStyle(
+      //           fontWeight: FontWeight.bold,
+      //         )),
+      //     itemBuilder: (BuildContext context, int index) {
+      //       final _item = _sectionA[index];
+      //       return _buildListTile(context, _item);
+      //     },
+      //     itemCount: _sectionA?.length ?? 0,
+      //   ),
+      //   NativeListViewSection.builder(
+      //     header: Text("B",
+      //         style: TextStyle(
+      //           fontWeight: FontWeight.bold,
+      //         )),
+      //     itemBuilder: (BuildContext context, int index) {
+      //       final _item = _sectionB[index];
+      //       return _buildListTile(context, _item);
+      //     },
+      //     itemCount: _sectionB?.length ?? 0,
+      //   ),
+      //   NativeListViewSection.builder(
+      //     header: Text("C",
+      //         style: TextStyle(
+      //           fontWeight: FontWeight.bold,
+      //         )),
+      //     itemBuilder: (BuildContext context, int index) {
+      //       final _item = _sectionC[index];
+      //       return _buildListTile(context, _item);
+      //     },
+      //     itemCount: _sectionC?.length ?? 0,
+      //   ),
+      // ],
+      sections: _sections ?? [],
       widgets: <Widget>[
         Container(
           padding: EdgeInsets.only(top: 8.0),
@@ -217,6 +137,141 @@ class Page3State extends State<Page3> {
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),
+    );
+  }
+
+  List<NativeListViewSection> _buildSections(BuildContext context) {
+    contacts.sort((a, b) {
+      return a[0].toLowerCase().compareTo(b[0].toLowerCase());
+    });
+
+    List<NativeListViewSection> sections = [];
+
+    var map = Map<String, dynamic>();
+
+    for (List<String> _contact in contacts) {
+      final String _letter = _contact[0].substring(0, 1).toUpperCase();
+      map[_letter] = <dynamic>[];
+    }
+
+    print(map.keys);
+
+    for (List<String> _contact in contacts) {
+      final String _letter = _contact[0].substring(0, 1).toUpperCase();
+      map[_letter].add(_contact);
+    }
+
+    for (String _key in map.keys) {
+      sections.add(NativeListViewSection.builder(
+        header: Text(_key,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            )),
+        itemBuilder: (BuildContext context, int index) {
+          return _buildListTile(context, map[_key][index]);
+        },
+        itemCount: map[_key]?.length ?? 0,
+      ));
+    }
+
+    return sections;
+  }
+
+  Widget _buildListTile(BuildContext context, List<String> item) {
+    final bool _selected = selected?.contains(item) ?? false;
+
+    return new Slidable(
+      key: Key(item[0]),
+      delegate: new SlidableDrawerDelegate(),
+      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
+        onDismissed: (actionType) {
+          setState(() {
+            contacts.remove(item);
+          });
+        },
+      ),
+      actionExtentRatio: 0.25,
+      closeOnScroll: true,
+      child: NativeListTile(
+        selected: _selected,
+        editing: _isEditing,
+        avatar: Container(
+          height: 60.0,
+          width: 60.0,
+          decoration: BoxDecoration(
+            color: Colors.lightBlue,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        leading: NativeIcon(
+          Icons.phone,
+          iosIcon: CupertinoIcons.phone_solid,
+        ),
+        title: Text(item[0]),
+        subtitle: Text(item[1]),
+        trailing: <Widget>[
+          NativeText(item[2], type: NativeTextTheme.detail),
+        ],
+        onTap: () {
+          if (_isEditing) {
+            if (_selected) {
+              setState(() {
+                selected.remove(item);
+              });
+            } else {
+              setState(() {
+                selected.add(item);
+              });
+            }
+          }
+        },
+        ios: CupertinoListTileData(
+          hideLeadingIcon: true,
+          style: CupertinoCellStyle.subtitle,
+          accessory: CupertinoAccessory.detailDisclosure,
+          editingAction: CupertinoEditingAction.select,
+          editingAccessory: CupertinoEditingAccessory.detail,
+          editingAccessoryTap: () {
+            print("Editing Detail Tapped");
+          },
+          accessoryTap: () {
+            print("Accessory Detail Tapped");
+          },
+        ),
+        // onTap: () {},
+      ),
+      // actions: <Widget>[
+      //   new IconSlideAction(
+      //     caption: 'Archive',
+      //     color: Colors.blue,
+      //     icon: Icons.archive,
+      //     onTap: () {},
+      //   ),
+      //   new IconSlideAction(
+      //     caption: 'Share',
+      //     color: Colors.indigo,
+      //     icon: Icons.share,
+      //     onTap: () {},
+      //   ),
+      // ],
+      secondaryActions: <Widget>[
+        // new IconSlideAction(
+        //   caption: 'More',
+        //   color: Colors.black45,
+        //   icon: Icons.more_horiz,
+        //   onTap: () {},
+        // ),
+        new IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () {
+            setState(() {
+              contacts.remove(item);
+            });
+          },
+        ),
+      ],
     );
   }
 }
