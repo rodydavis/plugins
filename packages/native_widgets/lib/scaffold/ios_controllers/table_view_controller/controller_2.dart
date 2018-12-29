@@ -87,6 +87,7 @@ class CupertinoTableViewController extends StatelessWidget {
             onChanged: onChanged,
             alwaysShowAppBar: true,
             onSearching: onSearch,
+            isSearching: isSearching,
           ),
         ),
       ));

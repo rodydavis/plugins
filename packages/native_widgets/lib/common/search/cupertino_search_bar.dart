@@ -7,7 +7,7 @@ class CupertinoSearchBar extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final ValueChanged<bool> onSearching;
   final String initialValue;
-  final bool alwaysShowAppBar;
+  final bool alwaysShowAppBar, isSearching;
 
   const CupertinoSearchBar({
     this.searchBackground,
@@ -18,6 +18,7 @@ class CupertinoSearchBar extends StatefulWidget {
     this.initialValue,
     this.alwaysShowAppBar = false,
     this.onSearching,
+    this.isSearching = false,
   });
 
   @override
@@ -52,12 +53,13 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar>
     _searchFocusNode.addListener(() {
       if (!_animationController.isAnimating) {
         _animationController.forward();
-        if (widget?.onSearching != null) widget.onSearching(true);
+        if (widget?.onSearching != null && _searchFocusNode.hasFocus)
+          widget.onSearching(true);
       } else {
         if (widget?.onSearching != null) widget.onSearching(false);
       }
     });
-    if (!widget.alwaysShowAppBar) {
+    if (!widget.alwaysShowAppBar || widget.isSearching) {
       _startSearch();
     }
     super.initState();

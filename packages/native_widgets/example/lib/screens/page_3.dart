@@ -16,6 +16,7 @@ class Page3State extends State<Page3> {
 
   bool _isEditing = false;
   bool _isSearching = false;
+  String search = "";
 
   @override
   void initState() {
@@ -34,7 +35,28 @@ class Page3State extends State<Page3> {
 
   @override
   Widget build(BuildContext context) {
-    final _sections = _buildSections(context);
+    var _sections = _buildSections(context);
+
+    if (_isSearching) {
+      List<Widget> filtered = [];
+
+      for (var _row in contacts) {
+        bool _contains = false;
+        if (_row[0].contains(search)) _contains = true;
+        if (_row[1].contains(search)) _contains = true;
+        if (_row[2].contains(search)) _contains = true;
+        if (_contains) {
+          filtered.add(_buildListTile(context, _row));
+        }
+      }
+
+      _sections = [
+        NativeListViewSection(
+          
+          children: filtered,
+        )
+      ];
+    }
 
     return NativeListViewScaffold(
       trailing: NativeIconButton(
@@ -100,6 +122,13 @@ class Page3State extends State<Page3> {
           print("Search: $value");
         }
       },
+      searchChanged: (String value) {
+        if (value != null) {
+          setState(() {
+            search = value;
+          });
+        }
+      },
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),
@@ -119,8 +148,6 @@ class Page3State extends State<Page3> {
       final String _letter = _contact[0].substring(0, 1).toUpperCase();
       map[_letter] = <dynamic>[];
     }
-
-    // print(map.keys);
 
     for (List<String> _contact in contacts) {
       final String _letter = _contact[0].substring(0, 1).toUpperCase();

@@ -19,6 +19,7 @@ class NativeListViewScaffold extends StatelessWidget {
   final bool showListTabs, showSearchBar;
   final bool isEditing, isSearching;
   final ValueChanged<bool> onEditing, onSearch;
+  final ValueChanged<String> searchChanged;
   final List<NativeListViewSection> sections;
   final List<Widget> widgets;
 
@@ -41,6 +42,7 @@ class NativeListViewScaffold extends StatelessWidget {
     this.isSearching = false,
     this.isEditing = false,
     this.onSearch,
+    this.searchChanged,
     this.onEditing,
     @required this.sections,
     this.widgets,
@@ -59,6 +61,7 @@ class NativeListViewScaffold extends StatelessWidget {
     this.onCellTap,
     this.onRefresh,
     this.ios,
+    this.searchChanged,
     this.showListTabs = false,
     this.showSearchBar = true,
     this.refreshDuration = const Duration(seconds: 3),
@@ -85,6 +88,7 @@ class NativeListViewScaffold extends StatelessWidget {
           onSearch: onSearch,
           isEditing: isEditing,
           isSearching: isSearching,
+          onChanged: searchChanged,
           widgets: widgets,
           showEditingButtonLeft: ios?.showEditingButtonLeft,
           showEditingButtonRight: ios?.showEditingButtonRight,
