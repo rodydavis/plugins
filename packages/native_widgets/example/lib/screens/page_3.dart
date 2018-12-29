@@ -34,10 +34,6 @@ class Page3State extends State<Page3> {
 
   @override
   Widget build(BuildContext context) {
-    final _sectionA = contacts.getRange(0, 10).toList();
-    final _sectionB = contacts.getRange(11, 20).toList();
-    final _sectionC = contacts.getRange(21, 30).toList();
-
     final _sections = _buildSections(context);
 
     return NativeListViewScaffold(
@@ -50,41 +46,6 @@ class Page3State extends State<Page3> {
         ),
         onPressed: () {},
       ),
-      // sections: [
-      //   NativeListViewSection.builder(
-      //     header: Text("A",
-      //         style: TextStyle(
-      //           fontWeight: FontWeight.bold,
-      //         )),
-      //     itemBuilder: (BuildContext context, int index) {
-      //       final _item = _sectionA[index];
-      //       return _buildListTile(context, _item);
-      //     },
-      //     itemCount: _sectionA?.length ?? 0,
-      //   ),
-      //   NativeListViewSection.builder(
-      //     header: Text("B",
-      //         style: TextStyle(
-      //           fontWeight: FontWeight.bold,
-      //         )),
-      //     itemBuilder: (BuildContext context, int index) {
-      //       final _item = _sectionB[index];
-      //       return _buildListTile(context, _item);
-      //     },
-      //     itemCount: _sectionB?.length ?? 0,
-      //   ),
-      //   NativeListViewSection.builder(
-      //     header: Text("C",
-      //         style: TextStyle(
-      //           fontWeight: FontWeight.bold,
-      //         )),
-      //     itemBuilder: (BuildContext context, int index) {
-      //       final _item = _sectionC[index];
-      //       return _buildListTile(context, _item);
-      //     },
-      //     itemCount: _sectionC?.length ?? 0,
-      //   ),
-      // ],
       sections: _sections ?? [],
       widgets: <Widget>[
         Container(
@@ -123,6 +84,11 @@ class Page3State extends State<Page3> {
           setState(() {
             _isEditing = value;
           });
+          if (!_isEditing) {
+            setState(() {
+              selected.clear();
+            });
+          }
         }
       },
       isSearching: _isSearching,
@@ -223,19 +189,24 @@ class Page3State extends State<Page3> {
                 selected.add(item);
               });
             }
+          } else {
+            Navigator.push<dynamic>(
+                context,
+                NativeRoute<dynamic>(
+                    builder: (BuildContext context) => DetailsScreen()));
           }
         },
         ios: CupertinoListTileData(
           hideLeadingIcon: true,
           style: CupertinoCellStyle.subtitle,
-          accessory: CupertinoAccessory.detailDisclosure,
+          accessory: CupertinoAccessory.disclosureIndicator,
           editingAction: CupertinoEditingAction.select,
           editingAccessory: CupertinoEditingAccessory.detail,
           editingAccessoryTap: () {
-            print("Editing Detail Tapped");
-          },
-          accessoryTap: () {
-            print("Accessory Detail Tapped");
+            Navigator.push<dynamic>(
+                context,
+                NativeRoute<dynamic>(
+                    builder: (BuildContext context) => DetailsScreen()));
           },
         ),
         // onTap: () {},
