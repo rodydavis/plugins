@@ -120,7 +120,7 @@ class Page3State extends State<Page3> {
       map[_letter] = <dynamic>[];
     }
 
-    print(map.keys);
+    // print(map.keys);
 
     for (List<String> _contact in contacts) {
       final String _letter = _contact[0].substring(0, 1).toUpperCase();
