@@ -11,7 +11,11 @@ class Page3 extends StatefulWidget {
   }
 }
 
-class Page3State extends State<Page3> {
+class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
+  TextEditingController _searchTextController;
+  FocusNode _searchFocusNode = new FocusNode();
+  Animation _animation;
+  AnimationController _animationController;
   // List<NativeListTile> _sectionA, _sectionB, _sectionC;
 
   bool _isEditing = false;
@@ -20,8 +24,47 @@ class Page3State extends State<Page3> {
 
   @override
   void initState() {
-    // _init();
+    _searchTextController = TextEditingController(text: search);
+
+    _animationController = new AnimationController(
+      duration: new Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _animation = new CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+    _searchFocusNode.addListener(() {
+      if (!_animationController.isAnimating) {
+        _animationController.forward();
+        // _startSearch();
+      }
+    });
     super.initState();
+  }
+
+  void _startSearch() {
+    _searchTextController.clear();
+    _animationController.forward();
+  }
+
+  void _cancelSearch() {
+    _searchTextController.clear();
+    _searchFocusNode.unfocus();
+    _animationController.reverse();
+  }
+
+  void _clearSearch() {
+    _searchTextController.clear();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _searchFocusNode.dispose();
+    _searchTextController.dispose();
+    super.dispose();
   }
 
   final Map<int, Widget> children = const <int, Widget>{
@@ -42,9 +85,12 @@ class Page3State extends State<Page3> {
 
       for (var _row in contacts) {
         bool _contains = false;
-        if (_row[0].contains(search)) _contains = true;
-        if (_row[1].contains(search)) _contains = true;
-        if (_row[2].contains(search)) _contains = true;
+        if (_row[0].toLowerCase().trim().contains(search.toLowerCase().trim()))
+          _contains = true;
+        if (_row[1].toLowerCase().trim().contains(search.toLowerCase().trim()))
+          _contains = true;
+        if (_row[2].toLowerCase().trim().contains(search.toLowerCase().trim()))
+          _contains = true;
         if (_contains) {
           filtered.add(_buildListTile(context, _row));
         }
@@ -57,7 +103,10 @@ class Page3State extends State<Page3> {
       ];
     }
 
-    return NativeListViewScaffold(
+    return NativeListViewScaffold.sectioned(
+      searchFocusNode: _searchFocusNode,
+      searchTextController: _searchTextController,
+      animation: _animation,
       trailing: NativeIconButton(
         icon: Icon(Icons.add),
         iosIcon: Icon(
@@ -124,6 +173,7 @@ class Page3State extends State<Page3> {
       onCancelSearch: () {
         setState(() {
           _isSearching = false;
+          search = "";
         });
       },
       onStartSearch: () {
@@ -138,6 +188,7 @@ class Page3State extends State<Page3> {
           });
         }
       },
+
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),

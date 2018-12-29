@@ -46,14 +46,14 @@ class _Page1State extends State<Page1> {
                 onChanged: (bool value) => setState(() => _active = value),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(12.0),
-              child: NativeTextInput(
-                leading: Icon(Icons.person),
-                decoration: InputDecoration(labelText: "Input Placeholder"),
-                // trailing: Icon(Icons.help),
-              ),
-            ),
+            // Container(
+            //   padding: EdgeInsets.all(12.0),
+            //   child: NativeTextInput(
+            //     leading: Icon(Icons.person),
+            //     decoration: InputDecoration(labelText: "Input Placeholder"),
+            //     // trailing: Icon(Icons.help),
+            //   ),
+            // ),
             Container(height: 20.0),
             NativeGroupSelect<int>(
               groupValue: _selected,

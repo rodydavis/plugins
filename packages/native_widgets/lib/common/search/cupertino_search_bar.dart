@@ -80,6 +80,7 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar>
 
   void _clearSearch() {
     _searchTextController.clear();
+    widget?.onChanged("");
   }
 
   @override

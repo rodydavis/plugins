@@ -18,11 +18,19 @@ class CupertinoTableViewController extends StatelessWidget {
   final RefreshCallback onRefresh;
   final ValueChanged<String> onChanged;
   final String initialValue;
-  final VoidCallback onSearchPressed, onSelectAll, onDeleteAll, onCancelSearch, onStartSearch;
+  final VoidCallback onSearchPressed,
+      onSelectAll,
+      onDeleteAll,
+      onCancelSearch,
+      onStartSearch;
   final bool showSearchBar, showEditingButtonLeft, showEditingButtonRight;
   final bool isEditing, isSearching;
   final List<CupertinoTableViewSection> sections;
   final List<Widget> widgets, toolbarButtons;
+
+  final TextEditingController searchTextController;
+  final FocusNode searchFocusNode;
+  final Animation animation;
 
   const CupertinoTableViewController({
     @required this.title,
@@ -44,6 +52,9 @@ class CupertinoTableViewController extends StatelessWidget {
     this.onStartSearch,
     this.showEditingButtonLeft = true,
     this.showEditingButtonRight = false,
+    this.searchTextController,
+    this.animation,
+    this.searchFocusNode,
     @required this.sections,
     this.widgets,
   }) : assert(showEditingButtonLeft != showEditingButtonRight);
@@ -83,13 +94,23 @@ class CupertinoTableViewController extends StatelessWidget {
         bottom: false,
         top: isSearching,
         sliver: SliverToBoxAdapter(
-          child: CupertinoSearchBar(
-            initialValue: "",
-            onChanged: onChanged,
-            alwaysShowAppBar: true,
+          // child: CupertinoSearchBar(
+          //   initialValue: "",
+          //   onChanged: onChanged,
+          //   alwaysShowAppBar: true,
+          //   onCancel: onCancelSearch,
+          //   isSearching: isSearching,
+          //   onSearch: onStartSearch,
+
+          // ),
+          child: new IOSSearchBar(
+            controller: searchTextController,
+            focusNode: searchFocusNode,
+            animation: animation,
             onCancel: onCancelSearch,
-            isSearching: isSearching,
-            onSearch: onStartSearch,
+            onClear: () => onChanged(""),
+            onUpdate: onChanged,
+            autoFocus: true,
           ),
         ),
       ));

@@ -27,33 +27,42 @@ class NativeListViewScaffold extends StatelessWidget {
   final List<NativeListViewSection> sections;
   final List<Widget> widgets;
 
-  const NativeListViewScaffold({
-    // this.item,
-    this.viewDetails,
-    this.onEditingComplete,
-    this.onEditingStarted,
-    this.previousTitle,
-    this.title,
-    this.trailing,
-    this.leading,
-    this.selectedItemsChanged,
-    this.onCellTap,
-    this.onRefresh,
-    this.ios,
-    this.showListTabs = false,
-    this.showSearchBar = true,
-    this.refreshDuration = const Duration(seconds: 3),
-    this.isSearching = false,
-    this.isEditing = false,
-    this.onCancelSearch,
-    this.searchChanged,
-    this.onStartSearch,
-    this.onEditing,
-    @required this.sections,
-    this.widgets,
-  });
+  final TextEditingController searchTextController;
+  final FocusNode searchFocusNode;
+  final Animation animation;
 
-  const NativeListViewScaffold.builder({
+  // final SliverChildDelegate childrenDelegate;
+
+  NativeListViewScaffold({
+    // this.item,
+    this.viewDetails,
+    this.onEditingComplete,
+    this.onEditingStarted,
+    this.previousTitle,
+    this.title,
+    this.trailing,
+    this.leading,
+    this.selectedItemsChanged,
+    this.onCellTap,
+    this.onRefresh,
+    this.ios,
+    this.showListTabs = false,
+    this.showSearchBar = true,
+    this.refreshDuration = const Duration(seconds: 3),
+    this.isSearching = false,
+    this.isEditing = false,
+    this.onCancelSearch,
+    this.searchChanged,
+    this.onStartSearch,
+    this.onEditing,
+    this.searchFocusNode,
+    this.animation,
+    this.searchTextController,
+    List<Widget> children = const <Widget>[],
+    this.widgets,
+  }) : sections = [NativeListViewSection(children: children)];
+
+  NativeListViewScaffold.builder({
     // this.item,
     this.viewDetails,
     this.onEditingComplete,
@@ -75,6 +84,44 @@ class NativeListViewScaffold extends StatelessWidget {
     this.isEditing = false,
     this.onCancelSearch,
     this.onEditing,
+    this.searchFocusNode,
+    this.animation,
+    this.searchTextController,
+    @required IndexedWidgetBuilder itemBuilder,
+    int itemCount,
+    this.widgets,
+  }) : sections = [
+          NativeListViewSection.builder(
+            itemBuilder: itemBuilder,
+            itemCount: itemCount,
+          )
+        ];
+
+  const NativeListViewScaffold.sectioned({
+    // this.item,
+    this.viewDetails,
+    this.onEditingComplete,
+    this.onEditingStarted,
+    this.previousTitle,
+    this.title,
+    this.trailing,
+    this.leading,
+    this.selectedItemsChanged,
+    this.onCellTap,
+    this.onRefresh,
+    this.ios,
+    this.showListTabs = false,
+    this.showSearchBar = true,
+    this.refreshDuration = const Duration(seconds: 3),
+    this.isSearching = false,
+    this.isEditing = false,
+    this.onCancelSearch,
+    this.searchChanged,
+    this.onStartSearch,
+    this.onEditing,
+    this.searchFocusNode,
+    this.animation,
+    this.searchTextController,
     @required this.sections,
     this.widgets,
   });
