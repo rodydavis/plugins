@@ -46,6 +46,30 @@ class NativeListViewScaffold extends StatelessWidget {
     this.widgets,
   });
 
+  const NativeListViewScaffold.builder({
+    // this.item,
+    this.viewDetails,
+    this.onEditingComplete,
+    this.onEditingStarted,
+    this.previousTitle,
+    this.title,
+    this.trailing,
+    this.leading,
+    this.selectedItemsChanged,
+    this.onCellTap,
+    this.onRefresh,
+    this.ios,
+    this.showListTabs = false,
+    this.showSearchBar = true,
+    this.refreshDuration = const Duration(seconds: 3),
+    this.isSearching = false,
+    this.isEditing = false,
+    this.onSearch,
+    this.onEditing,
+    @required this.sections,
+    this.widgets,
+  });
+
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
@@ -65,9 +89,11 @@ class NativeListViewScaffold extends StatelessWidget {
           showEditingButtonLeft: ios?.showEditingButtonLeft,
           showEditingButtonRight: ios?.showEditingButtonRight,
           sections: sections
-              .map((NativeListViewSection item) =>
-                  new CupertinoTableViewSection(
-                      header: item?.header, items: item?.items))
+              .map(
+                  (NativeListViewSection item) => new CupertinoTableViewSection(
+                        header: item?.header,
+                        childrenDelegate: item.childrenDelegate,
+                      ))
               .toList(),
         );
       },
@@ -78,14 +104,39 @@ class NativeListViewScaffold extends StatelessWidget {
   }
 }
 
+typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
+
 class NativeListViewSection {
-  final List<Widget> items;
   final Widget header;
+  final SliverChildDelegate childrenDelegate;
 
   NativeListViewSection({
     this.header,
-    @required this.items,
-  });
+    @required List<Widget> children = const <Widget>[],
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+  }) : childrenDelegate = SliverChildListDelegate(
+          children,
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+        );
+
+  NativeListViewSection.builder({
+    this.header,
+    @required IndexedWidgetBuilder itemBuilder,
+    int itemCount,
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+  }) : childrenDelegate = SliverChildBuilderDelegate(
+          itemBuilder,
+          childCount: itemCount,
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+        );
 }
 
 typedef RefreshCallback = Future<List<dynamic>> Function();

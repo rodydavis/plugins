@@ -149,21 +149,21 @@ class Page3State extends State<Page3> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               )),
-          items: _items.getRange(0, 10).toList(),
+          children: _items.getRange(0, 10).toList(),
         ),
         NativeListViewSection(
           header: Text("B",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               )),
-          items: _items.getRange(11, 20).toList(),
+          children: _items.getRange(11, 20).toList(),
         ),
         NativeListViewSection(
           header: Text("C",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               )),
-          items: _items.getRange(21, 30).toList(),
+          children: _items.getRange(21, 30).toList(),
         ),
       ],
       widgets: <Widget>[

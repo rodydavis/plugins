@@ -115,10 +115,7 @@ class CupertinoTableViewController extends StatelessWidget {
             top: false,
             bottom: sections?.length == _index + 1,
             sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) => _section.items[index],
-                childCount: _section.items.length,
-              ),
+              delegate: _section.childrenDelegate,
             ),
           ),
         ));
@@ -170,10 +167,10 @@ class CupertinoTableViewEditingButton extends StatelessWidget {
 // Todo; Seconts for Tableview
 class CupertinoTableViewSection {
   final Widget header;
-  final List<Widget> items;
+  final SliverChildDelegate childrenDelegate;
 
   const CupertinoTableViewSection({
     this.header,
-    @required this.items,
+    @required this.childrenDelegate,
   });
 }
