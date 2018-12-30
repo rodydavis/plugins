@@ -40,7 +40,7 @@ class IOSSearchBar extends AnimatedWidget {
   static final _paddingTween = new Tween(begin: 0.0, end: 60.0);
   static final _kFontSize = 13.0;
   final bool autoFocus;
-
+  Key _inputKey = new GlobalKey(debugLabel: 'inputText');
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
@@ -91,6 +91,7 @@ class IOSSearchBar extends AnimatedWidget {
                         child: new Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: new EditableText(
+                            key: _inputKey,
                             controller: controller,
                             focusNode: focusNode,
                             onChanged: onUpdate,

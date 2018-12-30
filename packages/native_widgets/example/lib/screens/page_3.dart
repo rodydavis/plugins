@@ -13,7 +13,7 @@ class Page3 extends StatefulWidget {
 
 class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
   TextEditingController _searchTextController;
-  FocusNode _searchFocusNode = new FocusNode();
+  final FocusNode _searchFocusNode = new FocusNode();
   Animation _animation;
   AnimationController _animationController;
   // List<NativeListTile> _sectionA, _sectionB, _sectionC;
@@ -35,6 +35,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
       reverseCurve: Curves.easeInOut,
     );
     _searchFocusNode.addListener(() {
+      print('focusNode updated: hasFocus: ${_searchFocusNode.hasFocus}');
       if (!_animationController.isAnimating) {
         // _startSearch();
         setState(() {
@@ -232,7 +233,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
 
   Widget _buildListTile(BuildContext context, List<String> item) {
     final bool _selected = selected?.contains(item) ?? false;
-
+    final _action = CupertinoEditingAction.remove;
     return new Slidable(
       key: Key(item[0]),
       delegate: new SlidableDrawerDelegate(),
@@ -284,18 +285,25 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
           }
         },
         ios: CupertinoListTileData(
-          hideLeadingIcon: true,
-          style: CupertinoCellStyle.subtitle,
-          accessory: CupertinoAccessory.disclosureIndicator,
-          editingAction: CupertinoEditingAction.select,
-          editingAccessory: CupertinoEditingAccessory.detail,
-          editingAccessoryTap: () {
-            Navigator.push<dynamic>(
-                context,
-                NativeRoute<dynamic>(
-                    builder: (BuildContext context) => DetailsScreen()));
-          },
-        ),
+            hideLeadingIcon: true,
+            style: CupertinoCellStyle.subtitle,
+            accessory: CupertinoAccessory.disclosureIndicator,
+            editingAction: _action,
+            editingAccessory: CupertinoEditingAccessory.detail,
+            editingAccessoryTap: () {
+              Navigator.push<dynamic>(
+                  context,
+                  NativeRoute<dynamic>(
+                      builder: (BuildContext context) => DetailsScreen()));
+            },
+            editingActionTap: () {
+              if (_action == CupertinoEditingAction.remove) {
+                setState(() {
+                  contacts.remove(item);
+                });
+              }
+            }),
+
         // onTap: () {},
       ),
       // actions: <Widget>[

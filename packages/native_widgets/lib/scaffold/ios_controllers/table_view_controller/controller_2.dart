@@ -112,7 +112,7 @@ class CupertinoTableViewController extends StatelessWidget {
             onCancel: onCancelSearch,
             onClear: onClearSearch,
             onUpdate: onChanged,
-            autoFocus: isSearching,
+            autoFocus: false,
           ),
         ),
       ));
