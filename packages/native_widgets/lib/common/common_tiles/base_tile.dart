@@ -25,7 +25,11 @@ class CupertinoBaseTile extends StatelessWidget {
   final CupertinoEditingAction editingAction;
   final CupertinoEditingAccessory editingAccessory;
   final CupertinoAccessory accessory;
-  final VoidCallback accessoryTap, onTap, onLongPressed, editingAccessoryTap, editingActionTap;
+  final VoidCallback accessoryTap,
+      onTap,
+      onLongPressed,
+      editingAccessoryTap,
+      editingActionTap;
 
   @override
   Widget build(BuildContext context) {
@@ -153,10 +157,7 @@ class CupertinoBaseTile extends StatelessWidget {
           );
           break;
         case CupertinoEditingAction.none:
-          _editingAction = Container(
-            height: 25.0,
-            width: 25.0,
-          );
+          _editingAction = null;
           break;
       }
     }
@@ -184,7 +185,9 @@ class CupertinoBaseTile extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Container(
-                padding: editing ? const EdgeInsets.only(left: 12.0) : null,
+                padding: editing && _editingAction != null
+                    ? const EdgeInsets.only(left: 12.0)
+                    : null,
                 child: editing ? _editingAction : null,
               ),
               Expanded(child: child),
