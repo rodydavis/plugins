@@ -11,107 +11,54 @@ class Page3 extends StatefulWidget {
   }
 }
 
-class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
-  TextEditingController _searchTextController;
-  final FocusNode _searchFocusNode = new FocusNode();
-  Animation _animation;
-  AnimationController _animationController;
-  // List<NativeListTile> _sectionA, _sectionB, _sectionC;
-
+class Page3State extends State<Page3> {
   bool _isEditing = false;
   bool _isSearching = false;
   String search = "";
 
   @override
   void initState() {
-    _searchTextController = TextEditingController(text: search);
-    _animationController = new AnimationController(
-      duration: new Duration(milliseconds: 200),
-      vsync: this,
-    );
-    _animation = new CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-      reverseCurve: Curves.easeInOut,
-    );
-    _searchFocusNode.addListener(() {
-      print('focusNode updated: hasFocus: ${_searchFocusNode.hasFocus}');
-      if (!_animationController.isAnimating) {
-        // _startSearch();
-        setState(() {
-          _isSearching = true;
-        });
-        _animationController.forward();
-      }
-    });
     super.initState();
-  }
-
-  void _startSearch() {
-    _searchTextController?.clear();
-    _animationController.forward();
-    setState(() {
-      _isSearching = true;
-    });
-  }
-
-  void _cancelSearch() {
-    _searchTextController.clear();
-    _searchFocusNode.unfocus();
-    _animationController.reverse();
-    setState(() {
-      _isSearching = false;
-      search = "";
-    });
-  }
-
-  void _clearSearch() {
-    _searchTextController.clear();
-    setState(() {
-      search = "";
-    });
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _searchFocusNode.dispose();
-    _searchTextController.dispose();
-    super.dispose();
   }
 
   final Map<int, Widget> children = const <int, Widget>{
     0: Text('Select'),
     1: Text('Remove'),
+    2: Text('None'),
   };
   int sharedValue = 0;
 
   final List<dynamic> selected = <dynamic>[];
 
+  void _removeItem(List<String> item) {
+    setState(() {
+      contacts.remove(item);
+    });
+  }
+
+  List<Widget> _searchItems(BuildContext context) {
+    List<Widget> filtered = [];
+    for (var _row in contacts) {
+      bool _contains = false;
+      if (_row[0].toLowerCase().trim().contains(search.toLowerCase().trim()))
+        _contains = true;
+      if (_row[1].toLowerCase().trim().contains(search.toLowerCase().trim()))
+        _contains = true;
+      if (_row[2].toLowerCase().trim().contains(search.toLowerCase().trim()))
+        _contains = true;
+      if (_contains) {
+        filtered.add(_buildListTile(context, _row));
+      }
+    }
+    return filtered ?? [];
+  }
+
   @override
   Widget build(BuildContext context) {
-    // if (_isSearching) {
-    //   print("Requesting Focus...");
-    //   FocusScope.of(context).requestFocus(_searchFocusNode);
-    // }
-
     var _sections = _buildSections(context);
 
     if (_isSearching) {
-      List<Widget> filtered = [];
-
-      for (var _row in contacts) {
-        bool _contains = false;
-        if (_row[0].toLowerCase().trim().contains(search.toLowerCase().trim()))
-          _contains = true;
-        if (_row[1].toLowerCase().trim().contains(search.toLowerCase().trim()))
-          _contains = true;
-        if (_row[2].toLowerCase().trim().contains(search.toLowerCase().trim()))
-          _contains = true;
-        if (_contains) {
-          filtered.add(_buildListTile(context, _row));
-        }
-      }
+      List<Widget> filtered = _searchItems(context);
 
       _sections = [
         NativeListViewSection(
@@ -121,9 +68,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
     }
 
     return NativeListViewScaffold.sectioned(
-      searchFocusNode: _searchFocusNode,
-      searchTextController: _searchTextController,
-      animation: _animation,
+      hideAppBarOnSearch: true,
       trailing: NativeIconButton(
         icon: Icon(Icons.add),
         iosIcon: Icon(
@@ -135,6 +80,28 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
       ),
       sections: _sections ?? [],
       widgets: <Widget>[
+        SafeArea(
+          top: _isSearching,
+          bottom: false,
+          child: NativeSearchWidget(
+            search: search,
+            onChanged: (String value) {
+              setState(() {
+                search = value;
+              });
+            },
+            onSearch: () {
+              // setState(() {
+              //   _isSearching = true;
+              // });
+            },
+            onCancel: () {
+              // setState(() {
+              //   _isSearching = false;
+              // });
+            },
+          ),
+        ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
           child: CupertinoSegmentedControl<int>(
@@ -153,18 +120,6 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
         await Future<void>.delayed(Duration(seconds: 1));
         return;
       },
-      selectedItemsChanged: (List<dynamic> selected) {
-        print(selected);
-      },
-      onCellTap: (dynamic item) {
-        if (item != null) {
-          print(item?.title?.data);
-        }
-        Navigator.push<dynamic>(
-            context,
-            NativeRoute<dynamic>(
-                builder: (BuildContext context) => DetailsScreen()));
-      },
       isEditing: _isEditing,
       onEditing: (bool value) {
         if (value != null) {
@@ -179,16 +134,6 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
         }
       },
       isSearching: _isSearching,
-      onCancelSearch: () => _cancelSearch(),
-      onStartSearch: () => _startSearch(),
-      onClearSearch: () => _clearSearch(),
-      searchChanged: (String value) {
-        if (value != null) {
-          setState(() {
-            search = value;
-          });
-        }
-      },
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),
@@ -232,17 +177,25 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
 
   Widget _buildListTile(BuildContext context, List<String> item) {
     final bool _selected = selected?.contains(item) ?? false;
-    final _action = sharedValue == 0
-        ? CupertinoEditingAction.select
-        : CupertinoEditingAction.remove;
+    CupertinoEditingAction _action;
+    switch (sharedValue) {
+      case 0:
+        _action = CupertinoEditingAction.select;
+        break;
+      case 1:
+        _action = CupertinoEditingAction.remove;
+        break;
+      case 2:
+        _action = CupertinoEditingAction.none;
+        break;
+      default:
+    }
     return new Slidable(
       key: Key(item[0]),
       delegate: new SlidableDrawerDelegate(),
       slideToDismissDelegate: new SlideToDismissDrawerDelegate(
         onDismissed: (actionType) {
-          setState(() {
-            contacts.remove(item);
-          });
+          _removeItem(item);
         },
       ),
       actionExtentRatio: 0.25,
@@ -269,14 +222,16 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
         ],
         onTap: () {
           if (_isEditing) {
-            if (_selected) {
-              setState(() {
-                selected.remove(item);
-              });
-            } else {
-              setState(() {
-                selected.add(item);
-              });
+            if (_action == CupertinoEditingAction.select) {
+              if (_selected) {
+                setState(() {
+                  selected.remove(item);
+                });
+              } else {
+                setState(() {
+                  selected.add(item);
+                });
+              }
             }
           } else {
             Navigator.push<dynamic>(
@@ -298,11 +253,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
                       builder: (BuildContext context) => DetailsScreen()));
             },
             editingActionTap: _action == CupertinoEditingAction.remove
-                ? () {
-                    setState(() {
-                      contacts.remove(item);
-                    });
-                  }
+                ? () => _removeItem(item)
                 : null),
 
         // onTap: () {},
@@ -332,11 +283,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
           caption: 'Delete',
           color: Colors.red,
           icon: Icons.delete,
-          onTap: () {
-            setState(() {
-              contacts.remove(item);
-            });
-          },
+          onTap: () => _removeItem(item),
         ),
       ],
     );

@@ -16,22 +16,10 @@ class CupertinoTableViewController extends StatelessWidget {
   final Widget leading, trailing;
   final ValueChanged<bool> onEditing;
   final RefreshCallback onRefresh;
-  final ValueChanged<String> onChanged;
-  final String initialValue;
-  final VoidCallback onSearchPressed,
-      onSelectAll,
-      onDeleteAll,
-      onCancelSearch,
-      onStartSearch,
-      onClearSearch;
-  final bool showSearchBar, showEditingButtonLeft, showEditingButtonRight;
+  final bool showEditingButtonLeft, showEditingButtonRight, hideAppBarOnSearch;
   final bool isEditing, isSearching;
   final List<CupertinoTableViewSection> sections;
   final List<Widget> widgets, toolbarButtons;
-
-  final TextEditingController searchTextController;
-  final FocusNode searchFocusNode;
-  final Animation animation;
 
   const CupertinoTableViewController({
     @required this.title,
@@ -40,30 +28,18 @@ class CupertinoTableViewController extends StatelessWidget {
     this.previousTitle = "Back",
     this.leading,
     this.trailing,
-    this.onCancelSearch,
-    this.onClearSearch,
+    this.hideAppBarOnSearch = false,
     this.onEditing,
     this.onRefresh,
-    this.initialValue = "",
-    this.onChanged,
-    this.onSearchPressed,
-    this.showSearchBar = false,
-    this.onDeleteAll,
-    this.onSelectAll,
     this.toolbarButtons,
-    this.onStartSearch,
     this.showEditingButtonLeft = true,
     this.showEditingButtonRight = false,
-    this.searchTextController,
-    this.animation,
-    this.searchFocusNode,
     @required this.sections,
     this.widgets,
   }) : assert(showEditingButtonLeft != showEditingButtonRight);
 
   @override
   Widget build(BuildContext context) {
-    // FocusScope.of(context).requestFocus(_searchFocusNode);
     final _editingButton = Container(
       padding: EdgeInsets.only(top: 10.0),
       child: CupertinoTableViewEditingButton(
@@ -72,10 +48,10 @@ class CupertinoTableViewController extends StatelessWidget {
       ),
     );
 
-    final _list = <Widget>[];
+    final _searchNavBar = <Widget>[];
 
-    if (!isSearching) {
-      _list.addAll([
+    if (!isSearching && hideAppBarOnSearch) {
+      _searchNavBar.addAll([
         CupertinoSliverNavigationBar(
           heroTag: title ?? "Title",
           transitionBetweenRoutes: false,
@@ -91,43 +67,20 @@ class CupertinoTableViewController extends StatelessWidget {
       ]);
     }
 
-    if (showSearchBar) {
-      _list.add(SliverSafeArea(
-        bottom: false,
-        top: isSearching,
-        sliver: SliverToBoxAdapter(
-          // child: CupertinoSearchBar(
-          //   initialValue: "",
-          //   onChanged: onChanged,
-          //   alwaysShowAppBar: true,
-          //   onCancel: onCancelSearch,
-          //   isSearching: isSearching,
-          //   onSearch: onStartSearch,
-
-          // ),
-          child: new IOSSearchBar(
-            controller: searchTextController,
-            focusNode: searchFocusNode,
-            animation: animation,
-            onCancel: onCancelSearch,
-            onClear: onClearSearch,
-            onUpdate: onChanged,
-            autoFocus: false,
-          ),
-        ),
-      ));
-    }
+    final _widgets = <Widget>[];
 
     if (widgets != null) {
       for (Widget _widget in widgets) {
-        _list.add(SliverToBoxAdapter(child: _widget));
+        _widgets.add(SliverToBoxAdapter(child: _widget));
       }
     }
+
+    final _sections = <Widget>[];
 
     if (sections != null) {
       int _index = 0;
       for (CupertinoTableViewSection _section in sections) {
-        _list.add(new SliverStickyHeader(
+        _sections.add(new SliverStickyHeader(
           header: _section?.header == null
               ? null
               : new Container(
@@ -152,7 +105,13 @@ class CupertinoTableViewController extends StatelessWidget {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.title,
       child: Scaffold(
-        body: CustomScrollView(primary: true, slivers: _list),
+        body: CustomScrollView(
+          primary: true,
+          slivers: []
+            ..addAll(_searchNavBar)
+            ..addAll(_widgets)
+            ..addAll(_sections),
+        ),
         persistentFooterButtons: toolbarButtons,
       ),
     );

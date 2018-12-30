@@ -6,33 +6,17 @@ part of native_widgets;
 
 /// iOS Table View Controller Functionality
 class NativeListViewScaffold extends StatelessWidget {
-  // Make Stateful for Editing, Refreshing, Searching
   final String title, previousTitle;
   final Widget leading, trailing;
-  // final Function(BuildContext context, int index) item;
-  final VoidCallback viewDetails,
-      onEditingComplete,
-      onEditingStarted,
-      onCancelSearch,
-      onStartSearch,
-      onClearSearch;
-  final ValueChanged<dynamic> onCellTap;
-  final ValueChanged<List<dynamic>> selectedItemsChanged;
+  final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
   final Duration refreshDuration;
   final RefreshCallback onRefresh;
   final CupertinoListViewData ios;
-  final bool showListTabs, showSearchBar;
+  final bool showListTabs, hideAppBarOnSearch;
   final bool isEditing, isSearching;
   final ValueChanged<bool> onEditing;
-  final ValueChanged<String> searchChanged;
   final List<NativeListViewSection> sections;
   final List<Widget> widgets;
-
-  final TextEditingController searchTextController;
-  final FocusNode searchFocusNode;
-  final Animation animation;
-
-  // final SliverChildDelegate childrenDelegate;
 
   NativeListViewScaffold({
     // this.item,
@@ -43,23 +27,14 @@ class NativeListViewScaffold extends StatelessWidget {
     this.title,
     this.trailing,
     this.leading,
-    this.selectedItemsChanged,
-    this.onCellTap,
     this.onRefresh,
     this.ios,
+    this.hideAppBarOnSearch = false,
     this.showListTabs = false,
-    this.showSearchBar = true,
     this.refreshDuration = const Duration(seconds: 3),
     this.isSearching = false,
     this.isEditing = false,
-    this.onCancelSearch,
-    this.searchChanged,
-    this.onStartSearch,
-    this.onClearSearch,
     this.onEditing,
-    this.searchFocusNode,
-    this.animation,
-    this.searchTextController,
     List<Widget> children = const <Widget>[],
     this.widgets,
   }) : sections = [NativeListViewSection(children: children)];
@@ -73,23 +48,14 @@ class NativeListViewScaffold extends StatelessWidget {
     this.title,
     this.trailing,
     this.leading,
-    this.selectedItemsChanged,
-    this.onCellTap,
     this.onRefresh,
+    this.hideAppBarOnSearch = false,
     this.ios,
-    this.onStartSearch,
-    this.searchChanged,
     this.showListTabs = false,
-    this.showSearchBar = true,
     this.refreshDuration = const Duration(seconds: 3),
     this.isSearching = false,
     this.isEditing = false,
-    this.onCancelSearch,
     this.onEditing,
-    this.onClearSearch,
-    this.searchFocusNode,
-    this.animation,
-    this.searchTextController,
     @required IndexedWidgetBuilder itemBuilder,
     int itemCount,
     this.widgets,
@@ -108,24 +74,15 @@ class NativeListViewScaffold extends StatelessWidget {
     this.previousTitle,
     this.title,
     this.trailing,
+    this.hideAppBarOnSearch = false,
     this.leading,
-    this.selectedItemsChanged,
-    this.onCellTap,
     this.onRefresh,
     this.ios,
     this.showListTabs = false,
-    this.showSearchBar = true,
     this.refreshDuration = const Duration(seconds: 3),
     this.isSearching = false,
     this.isEditing = false,
-    this.onCancelSearch,
-    this.searchChanged,
-    this.onStartSearch,
-    this.onClearSearch,
     this.onEditing,
-    this.searchFocusNode,
-    this.animation,
-    this.searchTextController,
     @required this.sections,
     this.widgets,
   });
@@ -135,25 +92,18 @@ class NativeListViewScaffold extends StatelessWidget {
     return PlatformWidget(
       ios: (BuildContext context) {
         return CupertinoTableViewController(
-          searchFocusNode: searchFocusNode,
-          animation: animation,
-          searchTextController: searchTextController,
           leading: leading,
           trailing: trailing,
           title: title,
           onRefresh: onRefresh,
+          hideAppBarOnSearch: hideAppBarOnSearch,
           previousTitle: previousTitle,
-          showSearchBar: showSearchBar,
           onEditing: onEditing,
-          onCancelSearch: onCancelSearch,
           isEditing: isEditing,
           isSearching: isSearching,
-          onClearSearch: onClearSearch,
-          onChanged: searchChanged,
           widgets: widgets,
           showEditingButtonLeft: ios?.showEditingButtonLeft,
           showEditingButtonRight: ios?.showEditingButtonRight,
-          onStartSearch: onStartSearch,
           sections: sections
               .map(
                   (NativeListViewSection item) => new CupertinoTableViewSection(
