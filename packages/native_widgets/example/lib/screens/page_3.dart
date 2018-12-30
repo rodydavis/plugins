@@ -81,9 +81,8 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
   }
 
   final Map<int, Widget> children = const <int, Widget>{
-    0: Text('Midnight'),
-    1: Text('Viridian'),
-    2: Text('Cerulean'),
+    0: Text('Select'),
+    1: Text('Remove'),
   };
   int sharedValue = 0;
 
@@ -233,7 +232,9 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
 
   Widget _buildListTile(BuildContext context, List<String> item) {
     final bool _selected = selected?.contains(item) ?? false;
-    final _action = CupertinoEditingAction.remove;
+    final _action = sharedValue == 0
+        ? CupertinoEditingAction.select
+        : CupertinoEditingAction.remove;
     return new Slidable(
       key: Key(item[0]),
       delegate: new SlidableDrawerDelegate(),
@@ -296,13 +297,13 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
                   NativeRoute<dynamic>(
                       builder: (BuildContext context) => DetailsScreen()));
             },
-            editingActionTap: () {
-              if (_action == CupertinoEditingAction.remove) {
-                setState(() {
-                  contacts.remove(item);
-                });
-              }
-            }),
+            editingActionTap: _action == CupertinoEditingAction.remove
+                ? () {
+                    setState(() {
+                      contacts.remove(item);
+                    });
+                  }
+                : null),
 
         // onTap: () {},
       ),
