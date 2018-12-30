@@ -14,7 +14,8 @@ class NativeListViewScaffold extends StatelessWidget {
       onEditingComplete,
       onEditingStarted,
       onCancelSearch,
-      onStartSearch;
+      onStartSearch,
+      onClearSearch;
   final ValueChanged<dynamic> onCellTap;
   final ValueChanged<List<dynamic>> selectedItemsChanged;
   final Duration refreshDuration;
@@ -54,6 +55,7 @@ class NativeListViewScaffold extends StatelessWidget {
     this.onCancelSearch,
     this.searchChanged,
     this.onStartSearch,
+    this.onClearSearch,
     this.onEditing,
     this.searchFocusNode,
     this.animation,
@@ -84,6 +86,7 @@ class NativeListViewScaffold extends StatelessWidget {
     this.isEditing = false,
     this.onCancelSearch,
     this.onEditing,
+    this.onClearSearch,
     this.searchFocusNode,
     this.animation,
     this.searchTextController,
@@ -118,6 +121,7 @@ class NativeListViewScaffold extends StatelessWidget {
     this.onCancelSearch,
     this.searchChanged,
     this.onStartSearch,
+    this.onClearSearch,
     this.onEditing,
     this.searchFocusNode,
     this.animation,
@@ -131,6 +135,9 @@ class NativeListViewScaffold extends StatelessWidget {
     return PlatformWidget(
       ios: (BuildContext context) {
         return CupertinoTableViewController(
+          searchFocusNode: searchFocusNode,
+          animation: animation,
+          searchTextController: searchTextController,
           leading: leading,
           trailing: trailing,
           title: title,
@@ -141,6 +148,7 @@ class NativeListViewScaffold extends StatelessWidget {
           onCancelSearch: onCancelSearch,
           isEditing: isEditing,
           isSearching: isSearching,
+          onClearSearch: onClearSearch,
           onChanged: searchChanged,
           widgets: widgets,
           showEditingButtonLeft: ios?.showEditingButtonLeft,

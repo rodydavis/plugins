@@ -19,7 +19,9 @@ class _Page1State extends State<Page1> {
       appBar: NativeAppBar(
         leading: NativeButton(
           child: Text("Cancel"),
-          onPressed: () {},
+          onPressed: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
         ),
         title: const Text("Input Form"),
         actions: <Widget>[
@@ -28,7 +30,9 @@ class _Page1State extends State<Page1> {
               "Save",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onPressed: () {},
+            onPressed: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
           ),
         ],
       ),

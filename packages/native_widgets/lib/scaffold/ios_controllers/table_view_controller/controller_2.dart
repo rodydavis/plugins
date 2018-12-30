@@ -22,7 +22,8 @@ class CupertinoTableViewController extends StatelessWidget {
       onSelectAll,
       onDeleteAll,
       onCancelSearch,
-      onStartSearch;
+      onStartSearch,
+      onClearSearch;
   final bool showSearchBar, showEditingButtonLeft, showEditingButtonRight;
   final bool isEditing, isSearching;
   final List<CupertinoTableViewSection> sections;
@@ -40,6 +41,7 @@ class CupertinoTableViewController extends StatelessWidget {
     this.leading,
     this.trailing,
     this.onCancelSearch,
+    this.onClearSearch,
     this.onEditing,
     this.onRefresh,
     this.initialValue = "",
@@ -108,9 +110,9 @@ class CupertinoTableViewController extends StatelessWidget {
             focusNode: searchFocusNode,
             animation: animation,
             onCancel: onCancelSearch,
-            onClear: () => onChanged(""),
+            onClear: onClearSearch,
             onUpdate: onChanged,
-            autoFocus: true,
+            autoFocus: isSearching,
           ),
         ),
       ));

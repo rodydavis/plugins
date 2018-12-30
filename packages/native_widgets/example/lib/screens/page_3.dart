@@ -25,7 +25,6 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _searchTextController = TextEditingController(text: search);
-
     _animationController = new AnimationController(
       duration: new Duration(milliseconds: 200),
       vsync: this,
@@ -37,26 +36,39 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
     );
     _searchFocusNode.addListener(() {
       if (!_animationController.isAnimating) {
-        _animationController.forward();
         // _startSearch();
+        setState(() {
+          _isSearching = true;
+        });
+        _animationController.forward();
       }
     });
     super.initState();
   }
 
   void _startSearch() {
-    _searchTextController.clear();
+    _searchTextController?.clear();
     _animationController.forward();
+    setState(() {
+      _isSearching = true;
+    });
   }
 
   void _cancelSearch() {
     _searchTextController.clear();
     _searchFocusNode.unfocus();
     _animationController.reverse();
+    setState(() {
+      _isSearching = false;
+      search = "";
+    });
   }
 
   void _clearSearch() {
     _searchTextController.clear();
+    setState(() {
+      search = "";
+    });
   }
 
   @override
@@ -78,6 +90,11 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // if (_isSearching) {
+    //   print("Requesting Focus...");
+    //   FocusScope.of(context).requestFocus(_searchFocusNode);
+    // }
+
     var _sections = _buildSections(context);
 
     if (_isSearching) {
@@ -162,25 +179,9 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
         }
       },
       isSearching: _isSearching,
-      // onSearch: (bool value) {
-      //   if (value != null) {
-      //     setState(() {
-      //       _isSearching = value;
-      //     });
-      //     print("Search: $value");
-      //   }
-      // },
-      onCancelSearch: () {
-        setState(() {
-          _isSearching = false;
-          search = "";
-        });
-      },
-      onStartSearch: () {
-        setState(() {
-          _isSearching = true;
-        });
-      },
+      onCancelSearch: () => _cancelSearch(),
+      onStartSearch: () => _startSearch(),
+      onClearSearch: () => _clearSearch(),
       searchChanged: (String value) {
         if (value != null) {
           setState(() {
@@ -188,7 +189,6 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
           });
         }
       },
-
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),
