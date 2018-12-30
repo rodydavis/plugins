@@ -84,20 +84,25 @@ class Page3State extends State<Page3> {
           top: _isSearching,
           bottom: false,
           child: NativeSearchWidget(
+            isSearching: _isSearching,
             search: search,
             onChanged: (String value) {
-              setState(() {
-                search = value;
-              });
+              if (value != null) {
+                setState(() {
+                  search = value;
+                });
+              }
             },
             onSearch: () {
+              print("Start Search...");
               // setState(() {
-              //   _isSearching = true;
+              _isSearching = true;
               // });
             },
             onCancel: () {
+              print("Cancel Search...");
               // setState(() {
-              //   _isSearching = false;
+              _isSearching = false;
               // });
             },
           ),

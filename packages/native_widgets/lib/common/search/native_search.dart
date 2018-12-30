@@ -1,11 +1,13 @@
 part of native_widgets;
 
 class NativeSearchWidget extends StatelessWidget {
+  final bool isSearching;
   final String search;
   final ValueChanged<String> onChanged;
   final VoidCallback onCancel, onSearch;
 
   NativeSearchWidget({
+    this.isSearching = false,
     this.onChanged,
     this.search,
     this.onCancel,
@@ -25,6 +27,7 @@ class NativeSearchWidget extends StatelessWidget {
             alwaysShowAppBar: true,
             onCancel: onCancel,
             onSearch: onSearch,
+            isSearching: isSearching,
           ),
     );
   }

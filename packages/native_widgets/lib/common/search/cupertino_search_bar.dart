@@ -93,7 +93,7 @@ class CupertinoSearchBarState extends State<CupertinoSearchBar>
 
   @override
   Widget build(BuildContext context) {
-    if (!widget.alwaysShowAppBar)
+    if (!widget.alwaysShowAppBar || widget.isSearching)
       FocusScope.of(context).requestFocus(_searchFocusNode);
 
     return new IOSSearchBar(
