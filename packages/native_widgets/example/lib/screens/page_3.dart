@@ -54,8 +54,8 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
     });
   }
 
-  List<Widget> _searchItems(BuildContext context, {String search = ""}) {
-    final List<Widget> filtered = [];
+  List<List<String>> _searchItems(BuildContext context, {String search = ""}) {
+    final List<List<String>> filtered = [];
     for (var _row in contacts) {
       bool _contains = false;
       if (_row[0].toLowerCase().trim().contains(search.toLowerCase().trim()))
@@ -65,7 +65,8 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
       if (_row[2].toLowerCase().trim().contains(search.toLowerCase().trim()))
         _contains = true;
       if (_contains) {
-        filtered.add(_buildListTile(context, _row));
+        // filtered.add(_buildListTile(context, _row));
+        filtered.add(_row);
       }
     }
     return filtered ?? [];
@@ -75,18 +76,21 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     if (_isSearching) FocusScope.of(context).requestFocus(_focusNode);
 
-    var _sections = _buildSections(context);
+    var _sections = <NativeListViewSection>[];
 
-    if (_search != null && _search.isNotEmpty) {
-      List<Widget> filtered = _searchItems(context, search: _search ?? "");
+    // if (_search != null && _search.isNotEmpty) {
+    //   var filtered = _searchItems(context, search: _search);
 
-      _sections = [
-        NativeListViewSection(
-          header: null,
-          children: filtered,
-        )
-      ];
-    }
+    //   _sections = [NativeListViewSection(header: null, children: filtered)];
+
+    // } else {
+    //   _sections = _buildSections(context, data: contacts);
+    // }
+
+    _sections = _buildSections(context,
+        data: _search != null && _search.isNotEmpty
+            ? _searchItems(context, search: _search)
+            : contacts);
 
     return NativeListViewScaffold.sectioned(
       hideAppBarOnSearch: true,
@@ -168,8 +172,9 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
     );
   }
 
-  List<NativeListViewSection> _buildSections(BuildContext context) {
-    contacts.sort((a, b) {
+  List<NativeListViewSection> _buildSections(BuildContext context,
+      {@required List<List<String>> data}) {
+    data.sort((a, b) {
       return a[0].toLowerCase().compareTo(b[0].toLowerCase());
     });
 
@@ -177,12 +182,12 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
 
     var map = Map<String, dynamic>();
 
-    for (List<String> _contact in contacts) {
+    for (List<String> _contact in data) {
       final String _letter = _contact[0].substring(0, 1).toUpperCase();
       map[_letter] = <dynamic>[];
     }
 
-    for (List<String> _contact in contacts) {
+    for (List<String> _contact in data) {
       final String _letter = _contact[0].substring(0, 1).toUpperCase();
       map[_letter].add(_contact);
     }
