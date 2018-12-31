@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 
 class MaterialSearchBar extends StatelessWidget {
+  final TextEditingController controller;
+  final FocusNode focusNode;
   final String search, name;
 
-  final bool isSearching;
+  final bool isSearching, autoFocus, autoCorrect;
 
   final Function(String) onSearchChanged;
 
   const MaterialSearchBar({
+    Key key,
+    this.controller,
+    this.focusNode,
     this.search,
     this.name,
     this.onSearchChanged,
     this.isSearching = false,
-  });
+    this.autoFocus = false,
+    this.autoCorrect = true,
+  })  : assert(controller != null),
+        assert(focusNode != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +38,8 @@ class MaterialSearchBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: TextField(
+          controller: controller,
+          focusNode: focusNode,
           decoration: InputDecoration(
               prefixIcon: Padding(
                 padding: EdgeInsets.only(right: 8.0),
@@ -36,8 +47,8 @@ class MaterialSearchBar extends StatelessWidget {
               ),
               border: InputBorder.none,
               hintText: 'Search'),
-          autofocus: true,
-          autocorrect: false,
+          autofocus: autoFocus,
+          autocorrect: autoCorrect,
           onChanged: (String value) => onSearchChanged(value),
         ),
       );

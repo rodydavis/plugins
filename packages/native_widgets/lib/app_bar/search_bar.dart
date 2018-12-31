@@ -33,7 +33,7 @@ class NativeSearchAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    if (isSearching || alwaysShowSearchBar) {
+    if (isSearching) {
       return PlatformAppBar(
         title: title,
         backgroundColor: backgroundColor,
@@ -51,11 +51,12 @@ class NativeSearchAppBar extends StatelessWidget
                   ),
                 ]),
         ios: (BuildContext context) => CupertinoNavigationBarData(
-              // title: CupertinoSearchBar(
-              //   initialValue: search,
-              //   onChanged: onChanged,
-              //   alwaysShowAppBar: alwaysShowSearchBar,
-              // ),
+              title: CupertinoSearchWidget(
+                initialValue: search,
+                onChanged: onChanged,
+                alwaysShowAppBar: alwaysShowSearchBar,
+                onCancel: onSearchPressed,
+              ),
               transitionBetweenRoutes: ios?.transitionBetweenRoutes,
               heroTag: ios?.heroTag,
             ),
