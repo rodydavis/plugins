@@ -80,7 +80,12 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
     if (_search != null && _search.isNotEmpty) {
       List<Widget> filtered = _searchItems(context, search: _search ?? "");
 
-      _sections = [NativeListViewSection(children: filtered)];
+      _sections = [
+        NativeListViewSection(
+          header: null,
+          children: filtered,
+        )
+      ];
     }
 
     return NativeListViewScaffold.sectioned(

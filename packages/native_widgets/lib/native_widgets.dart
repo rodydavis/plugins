@@ -16,7 +16,7 @@ import 'common/common_tiles/basic_tile.dart';
 import 'common/common_tiles/phone_tile.dart';
 import 'common/search/cupertino_search_bar.dart';
 import 'common/search/material_search_bar.dart';
-import 'scaffold/ios_controllers/table_view_controller/controller_2.dart';
+import 'scaffold/ios_controllers/table_view_controller/controller.dart';
 
 export 'package:flutter/cupertino.dart';
 export 'package:flutter_platform_widgets/flutter_platform_widgets.dart';

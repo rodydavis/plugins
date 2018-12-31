@@ -107,7 +107,7 @@ class NativeListViewScaffold extends StatelessWidget {
           sections: sections
               .map(
                   (NativeListViewSection item) => new CupertinoTableViewSection(
-                        header: item?.header,
+                        header: item?.header == null ? null : item.header,
                         childrenDelegate: item.childrenDelegate,
                       ))
               .toList(),
