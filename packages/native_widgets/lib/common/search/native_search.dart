@@ -7,7 +7,7 @@ class NativeSearchWidget extends AnimatedWidget {
   final FocusNode focusNode;
   final ValueChanged<String> onChanged, onSubmitted;
   final VoidCallback onCancel, onClear;
-  final bool autoFocus;
+  final bool autoFocus, enabled;
   final Animation<double> animation;
 
   const NativeSearchWidget({
@@ -22,6 +22,7 @@ class NativeSearchWidget extends AnimatedWidget {
     this.autoFocus = false,
     this.focusNode,
     this.controller,
+    this.enabled = true,
   })  : assert(controller != null),
         assert(focusNode != null),
         super(key: key, listenable: animation);
@@ -35,6 +36,7 @@ class NativeSearchWidget extends AnimatedWidget {
             onSearchChanged: onChanged,
           ),
       ios: (BuildContext context) => CupertinoSearchBar(
+            enabled: enabled,
             onChanged: onChanged,
             onCancel: onCancel,
             onClear: onClear,

@@ -125,6 +125,7 @@ class CupertinoSearchBar extends AnimatedWidget {
     this.autoFocus = false,
     this.animation,
     this.onClear,
+    this.enabled = true,
   })  : assert(controller != null),
         assert(focusNode != null),
         super(key: key, listenable: animation);
@@ -133,7 +134,7 @@ class CupertinoSearchBar extends AnimatedWidget {
   final FocusNode focusNode;
   final ValueChanged<String> onChanged, onSubmitted;
   final VoidCallback onCancel, onClear;
-  final bool autoFocus;
+  final bool autoFocus, enabled;
   final Animation<double> animation;
 
   static final _opacityTween = new Tween(begin: 1.0, end: 0.0);
@@ -192,21 +193,23 @@ class CupertinoSearchBar extends AnimatedWidget {
                       new Expanded(
                         child: new Padding(
                           padding: const EdgeInsets.only(left: 20.0),
-                          child: new EditableText(
-                            key: Key("Search_Input_Box"),
-                            controller: controller,
-                            focusNode: focusNode,
-                            onChanged: onChanged,
-                            autofocus: autoFocus,
-                            onSubmitted: onSubmitted,
-                            style: new TextStyle(
-                              color: CupertinoColors.black,
-                              inherit: false,
-                              fontSize: _kFontSize,
-                            ),
-                            cursorColor: CupertinoColors.black,
-                            backgroundCursorColor: Colors.grey,
-                          ),
+                          child: enabled
+                              ? new EditableText(
+                                  key: Key("Search_Input_Box"),
+                                  controller: controller,
+                                  focusNode: focusNode,
+                                  onChanged: onChanged,
+                                  autofocus: autoFocus,
+                                  onSubmitted: onSubmitted,
+                                  style: new TextStyle(
+                                    color: CupertinoColors.black,
+                                    inherit: false,
+                                    fontSize: _kFontSize,
+                                  ),
+                                  cursorColor: CupertinoColors.black,
+                                  backgroundCursorColor: Colors.grey,
+                                )
+                              : null,
                         ),
                       ),
                       new CupertinoButton(

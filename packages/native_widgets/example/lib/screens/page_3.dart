@@ -13,7 +13,7 @@ class Page3 extends StatefulWidget {
 
 class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
   bool _isEditing = false;
-  // bool _isSearching = false;
+  bool _isSearching = false;
   String _search = "";
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
@@ -73,7 +73,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // if (_isSearching) FocusScope.of(context).requestFocus(_searchFocusNode);
+    if (_isSearching) FocusScope.of(context).requestFocus(_focusNode);
 
     var _sections = _buildSections(context);
 
@@ -96,37 +96,8 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
       ),
       sections: _sections ?? [],
       widgets: <Widget>[
-        // SafeArea(
-        //   top: _isSearching,
-        //   bottom: false,
-        //   child: NativeSearchWidget(
-        //     isSearching: _isSearching,
-        //     search: _search,
-        //     onChanged: (String value) {
-        //       if (value != null) {
-        //         setState(() {
-        //           _search = value;
-        //         });
-        //       }
-        //     },
-        //     onSearch: () {
-        //       print("Start Search...");
-        //       setState(() {
-        //         _isSearching = true;
-        //       });
-        //     },
-        //     onCancel: () {
-        //       print("Cancel Search...");
-        //       setState(() {
-        //         _isSearching = false;
-        //       });
-        //     },
-        //   ),
-        // ),
-
         SafeArea(
-          // top: _search != null && _search.isNotEmpty,
-          top: false,
+          top: _isSearching,
           bottom: false,
           child: NativeSearchWidget(
             controller: _controller,
@@ -185,7 +156,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
           }
         }
       },
-      // isSearching: _search != null && _search.isNotEmpty,
+      isSearching: _isSearching,
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),
