@@ -139,6 +139,7 @@ class Page2State extends State<Page2> with SingleTickerProviderStateMixin {
               Navigator.push<dynamic>(
                   context,
                   NativeRoute<dynamic>(
+                      title: "Details",
                       builder: (BuildContext context) => DetailsScreen()));
             },
           );

@@ -270,6 +270,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
             Navigator.push<dynamic>(
                 context,
                 NativeRoute<dynamic>(
+                    title: "Details",
                     builder: (BuildContext context) => DetailsScreen()));
           }
         },
@@ -283,6 +284,7 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
               Navigator.push<dynamic>(
                   context,
                   NativeRoute<dynamic>(
+                      title: "Details",
                       builder: (BuildContext context) => DetailsScreen()));
             },
             editingActionTap: _action == CupertinoEditingAction.remove
