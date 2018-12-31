@@ -51,11 +51,11 @@ class NativeSearchAppBar extends StatelessWidget
                   ),
                 ]),
         ios: (BuildContext context) => CupertinoNavigationBarData(
-              title: CupertinoSearchBar(
-                initialValue: search,
-                onChanged: onChanged,
-                alwaysShowAppBar: alwaysShowSearchBar,
-              ),
+              // title: CupertinoSearchBar(
+              //   initialValue: search,
+              //   onChanged: onChanged,
+              //   alwaysShowAppBar: alwaysShowSearchBar,
+              // ),
               transitionBetweenRoutes: ios?.transitionBetweenRoutes,
               heroTag: ios?.heroTag,
             ),

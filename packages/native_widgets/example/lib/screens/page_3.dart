@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'details/details_1.dart';
-
-import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:native_widgets/native_widgets.dart';
+
+import 'details/details_1.dart';
 
 class Page3 extends StatefulWidget {
   @override
@@ -11,13 +11,31 @@ class Page3 extends StatefulWidget {
   }
 }
 
-class Page3State extends State<Page3> {
+class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
   bool _isEditing = false;
-  bool _isSearching = false;
-  String search = "";
+  // bool _isSearching = false;
+  String _search = "";
+  final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  Animation<double> _animation;
+  AnimationController _animationController;
 
   @override
   void initState() {
+    _animationController = new AnimationController(
+      duration: new Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _animation = new CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+    _focusNode.addListener(() {
+      if (!_animationController.isAnimating) {
+        _animationController.forward();
+      }
+    });
     super.initState();
   }
 
@@ -36,8 +54,8 @@ class Page3State extends State<Page3> {
     });
   }
 
-  List<Widget> _searchItems(BuildContext context) {
-    List<Widget> filtered = [];
+  List<Widget> _searchItems(BuildContext context, {String search = ""}) {
+    final List<Widget> filtered = [];
     for (var _row in contacts) {
       bool _contains = false;
       if (_row[0].toLowerCase().trim().contains(search.toLowerCase().trim()))
@@ -55,16 +73,14 @@ class Page3State extends State<Page3> {
 
   @override
   Widget build(BuildContext context) {
+    // if (_isSearching) FocusScope.of(context).requestFocus(_searchFocusNode);
+
     var _sections = _buildSections(context);
 
-    if (_isSearching) {
-      List<Widget> filtered = _searchItems(context);
+    if (_search != null && _search.isNotEmpty) {
+      List<Widget> filtered = _searchItems(context, search: _search ?? "");
 
-      _sections = [
-        NativeListViewSection(
-          children: filtered,
-        )
-      ];
+      _sections = [NativeListViewSection(children: filtered)];
     }
 
     return NativeListViewScaffold.sectioned(
@@ -80,30 +96,61 @@ class Page3State extends State<Page3> {
       ),
       sections: _sections ?? [],
       widgets: <Widget>[
+        // SafeArea(
+        //   top: _isSearching,
+        //   bottom: false,
+        //   child: NativeSearchWidget(
+        //     isSearching: _isSearching,
+        //     search: _search,
+        //     onChanged: (String value) {
+        //       if (value != null) {
+        //         setState(() {
+        //           _search = value;
+        //         });
+        //       }
+        //     },
+        //     onSearch: () {
+        //       print("Start Search...");
+        //       setState(() {
+        //         _isSearching = true;
+        //       });
+        //     },
+        //     onCancel: () {
+        //       print("Cancel Search...");
+        //       setState(() {
+        //         _isSearching = false;
+        //       });
+        //     },
+        //   ),
+        // ),
+
         SafeArea(
-          top: _isSearching,
+          // top: _search != null && _search.isNotEmpty,
+          top: false,
           bottom: false,
           child: NativeSearchWidget(
-            isSearching: _isSearching,
-            search: search,
-            onChanged: (String value) {
-              if (value != null) {
-                setState(() {
-                  search = value;
-                });
-              }
-            },
-            onSearch: () {
-              print("Start Search...");
-              // setState(() {
-              _isSearching = true;
-              // });
-            },
+            controller: _controller,
+            focusNode: _focusNode,
+            animation: _animation,
             onCancel: () {
-              print("Cancel Search...");
-              // setState(() {
-              _isSearching = false;
-              // });
+              _controller.clear();
+              _focusNode.unfocus();
+              _animationController.reverse();
+              setState(() {
+                _search = "";
+              });
+            },
+            onClear: () {
+              _controller.clear();
+              setState(() {
+                _search = "";
+              });
+            },
+            onChanged: (String value) {
+              if (value != null)
+                setState(() {
+                  _search = value;
+                });
             },
           ),
         ),
@@ -138,7 +185,7 @@ class Page3State extends State<Page3> {
           }
         }
       },
-      isSearching: _isSearching,
+      // isSearching: _search != null && _search.isNotEmpty,
       ios: CupertinoListViewData(
         showEditingButtonLeft: true,
       ),

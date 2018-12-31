@@ -1,33 +1,48 @@
 part of native_widgets;
 
-class NativeSearchWidget extends StatelessWidget {
-  final bool isSearching;
+class NativeSearchWidget extends AnimatedWidget {
   final String search;
-  final ValueChanged<String> onChanged;
-  final VoidCallback onCancel, onSearch;
+  final bool isSearching;
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final ValueChanged<String> onChanged, onSubmitted;
+  final VoidCallback onCancel, onClear;
+  final bool autoFocus;
+  final Animation<double> animation;
 
-  NativeSearchWidget({
-    this.isSearching = false,
+  const NativeSearchWidget({
+    Key key,
     this.onChanged,
     this.search,
     this.onCancel,
-    this.onSearch,
-  });
+    this.isSearching = false,
+    this.onClear,
+    this.animation,
+    this.onSubmitted,
+    this.autoFocus = false,
+    this.focusNode,
+    this.controller,
+  })  : assert(controller != null),
+        assert(focusNode != null),
+        super(key: key, listenable: animation);
 
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
       android: (BuildContext context) => MaterialSearchBar(
             search: search,
+            isSearching: isSearching,
             onSearchChanged: onChanged,
           ),
       ios: (BuildContext context) => CupertinoSearchBar(
-            initialValue: search,
             onChanged: onChanged,
-            alwaysShowAppBar: true,
             onCancel: onCancel,
-            onSearch: onSearch,
-            isSearching: isSearching,
+            onClear: onClear,
+            onSubmitted: onSubmitted,
+            animation: animation,
+            controller: controller,
+            autoFocus: autoFocus,
+            focusNode: focusNode,
           ),
     );
   }

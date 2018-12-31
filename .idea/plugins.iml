@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/packages/app_review/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/app_review/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/app_review/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/app_review/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contact_picker/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contact_picker/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contact_picker/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/contact_picker/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_midi/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_midi/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_midi/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_midi/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_sms/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_sms/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_sms/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_sms/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_sms/example/ios/Flutter/flutter_assets/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_whatsnew/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_whatsnew/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_whatsnew/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/flutter_whatsnew/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/get_version/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/get_version/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/get_version/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/get_version/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/image_picker/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/image_picker/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/image_picker/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/image_picker/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/native_widgets/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/native_widgets/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/native_widgets/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/native_widgets/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/native_widgets/example/ios/Flutter/flutter_assets/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/number_control/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/number_control/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/sheet_music/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/sheet_music/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
+  </component>
+</module>
