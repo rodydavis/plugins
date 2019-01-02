@@ -1,30 +1,24 @@
 import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter/material.dart';
 
-void showAlertPopup(BuildContext context, String title, String detail) async {
-  void showSimpleDialog<T>({BuildContext context, Widget child}) {
-    showDialog<T>(
-      context: context,
-      // barrierDismissible: false,
-      builder: (BuildContext context) => child,
-    );
-  }
-
-  return showSimpleDialog<void>(
+Future<dynamic> showAlertPopup(BuildContext context,
+    {String title, String detail}) async {
+  return showNativeDialog(
       context: context,
       child: NativeDialog(
-        title: title,
-        content: detail,
+        title: Text(title),
+        content: Text(detail),
         actions: <NativeDialogAction>[
           NativeDialogAction(
-              text: 'Delete',
+              text: Text('Delete'),
               isDestructive: true,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               }),
           NativeDialogAction(
-              text: 'Ok',
+              text: Text('Ok'),
               isDestructive: false,
+              removeInActionSheet: true,
               onPressed: () {
                 Navigator.pop(context);
               }),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:native_widgets/native_widgets.dart';
 import 'details/details_1.dart';
 
+
 class Page2 extends StatefulWidget {
   @override
   Page2State createState() {

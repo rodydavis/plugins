@@ -113,8 +113,8 @@ class _Page1State extends State<Page1> {
                 child: const Text("Submit"),
                 // padding: const EdgeInsets.all(20.0),
                 color: Colors.blue,
-                onPressed: () => showAlertPopup(
-                    context, "Native Dialog", "Button Submitted!"),
+                onPressed: () => showAlertPopup(context,
+                    title: "Native Dialog", detail: "Button Submitted!"),
               ),
             ),
           ],

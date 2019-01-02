@@ -1,3 +1,27 @@
+## [1.0.0] - Major Update
+
+* Refactored Library to use Platfrom Widgets plugin in the backend
+* Added Layout (Mobile, Tablet, Desktop)
+* Added Detailed Example
+* Added Folder Structure to Library for Easy Documentaion
+* Added Cupertino TableViewController, Cell and Search Bar
+* Updated Picker
+* Added Toolbar
+* Added App Bar
+* Added Scaffold
+* Added Text Button
+* Added Icon Button
+* Added Routing
+* Added Segmented Select
+* Updated Bottom Tabs
+* Added Top Navigation
+* Added Main App
+* Added Text Label
+* Added Search Widget
+* Updated Switch
+* Added Confirmation Dialog
+* Updated iOS Dialog with Actions
+
 ## [0.1.2] - Updated Example
 
 * Updated Example and New Dart Support
