@@ -17,22 +17,26 @@ class _Page1State extends State<Page1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NativeAppBar(
-        leading: NativeButton(
-          child: Text("Cancel"),
-          onPressed: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
-          },
-        ),
-        title: const Text("Input Form"),
-        actions: <Widget>[
-          NativeButton(
-            child: Text(
-              "Save",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+        leading: Container(
+          padding: EdgeInsets.only(top: 10.0),
+          child: NativeTextButton(
+            label: "Cancel",
             onPressed: () {
               FocusScope.of(context).requestFocus(new FocusNode());
             },
+          ),
+        ),
+        title: const Text("Input Form"),
+        actions: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 10.0),
+            child: NativeTextButton(
+              label: "Save",
+              style: TextStyle(fontWeight: FontWeight.bold),
+              onPressed: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+            ),
           ),
         ],
       ),

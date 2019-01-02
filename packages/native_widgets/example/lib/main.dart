@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'dart:math' as math;
 import 'screens/page_1.dart';
 import 'screens/page_2.dart';
 import 'screens/page_3.dart';
@@ -52,6 +51,7 @@ class NativeAppLookState extends State<NativeAppLook> {
         child: NativeScaffold(
           body: _pages[_currentIndex],
           bottomBar: NativeBottomTabBar(
+            activeColor: Colors.blue,
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.info),
