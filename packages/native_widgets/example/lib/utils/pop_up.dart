@@ -23,5 +23,15 @@ Future<dynamic> showAlertPopup(BuildContext context,
                 Navigator.pop(context);
               }),
         ],
+        ios: CupertinoDialogData(
+          showActionSheet: false,
+          cancelButton: CupertinoActionSheetAction(
+            child: const Text('Cancel'),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context, 'Cancel');
+            },
+          ),
+        ),
       ));
 }
