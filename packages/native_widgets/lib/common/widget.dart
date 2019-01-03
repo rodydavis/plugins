@@ -15,20 +15,19 @@ class NativeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _child = Container(key: key, child: child);
     if (Platform.isWindows) {
-      return windows ?? _child;
+      return Container(key: key, child: windows ?? child);
     } else if (Platform.isFuchsia) {
-      return fuchsia ?? _child;
+      return Container(key: key, child: fuchsia ?? child);
     } else if (Platform.isMacOS) {
-      return macos ?? _child;
+      return Container(key: key, child: macos ?? child);
     } else if (Platform.isLinux) {
-      return linux ?? _child;
+      return Container(key: key, child: linux ?? child);
     } else if (Platform.isAndroid) {
-      return android ?? _child;
+      return Container(key: key, child: android ?? child);
     } else if (Platform.isIOS) {
-      return ios ?? _child;
+      return Container(key: key, child: ios ?? child);
     }
-    return _child;
+    return Container(key: key, child: child);
   }
 }
