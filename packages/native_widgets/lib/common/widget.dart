@@ -2,6 +2,7 @@ part of native_widgets;
 
 class NativeWidget extends StatelessWidget {
   final Widget android, ios, windows, fuchsia, macos, linux, child;
+  // final PlatformBuilder<Widget> child;
   const NativeWidget({
     Key key,
     this.android,
@@ -28,6 +29,6 @@ class NativeWidget extends StatelessWidget {
     } else if (Platform.isIOS) {
       return Container(key: key, child: ios ?? child);
     }
-    return Container(key: key, child: child);
+    return Container(key: key, child:  child);
   }
 }
