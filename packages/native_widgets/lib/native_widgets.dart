@@ -49,3 +49,4 @@ part 'tabs/top_navigation.dart';
 part 'toolbar/bottom_toolbar.dart';
 part 'utils/platform_switch.dart';
 part 'layout/device_class.dart';
+part 'common/widget.dart';
