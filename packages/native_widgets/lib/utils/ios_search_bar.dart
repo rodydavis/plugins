@@ -167,7 +167,7 @@ class IOSSearchBar extends AnimatedWidget {
                               fontSize: _kFontSize,
                             ),
                             cursorColor: CupertinoColors.black,
-                            backgroundCursorColor: Colors.grey,
+                            // backgroundCursorColor: Colors.grey,
                           ),
                         ),
                       ),

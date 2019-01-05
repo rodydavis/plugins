@@ -19,32 +19,14 @@ class NativeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double _width = MediaQuery.of(context).size.width;
-    return OrientationBuilder(
-      builder: (BuildContext context, Orientation orientation) {
-        // if (orientation == Orientation.portrait) {
-        //   if (alwaysShowMobile == false) {
-        //     if (_width == desktopBreakpoint) {
-        //       return desktop ?? tablet ?? mobile;
-        //     }
-
-        //     if (_width == tabletBreakpoint) {
-        //       return tablet ?? mobile;
-        //     }
-        //   }
-        //   return mobile;
-        // }
-
-        if (alwaysShowMobile == false) {
-          if (_width == desktopBreakpoint) {
-            return desktop ?? tablet ?? mobile;
-          }
-
-          if (_width == tabletBreakpoint) {
-            return tablet ?? mobile;
-          }
-        }
-        return mobile;
-      },
-    );
+    if (alwaysShowMobile == false) {
+      if (_width == desktopBreakpoint) {
+        return desktop ?? tablet ?? mobile;
+      }
+      if (_width == tabletBreakpoint) {
+        return tablet ?? mobile;
+      }
+    }
+    return mobile;
   }
 }
