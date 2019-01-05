@@ -32,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="72" column="37" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
+            <state relative-caret-position="436">
+              <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -83,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.dart" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controller.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="80" column="52" selection-start-line="80" selection-start-column="52" selection-end-line="80" selection-end-column="52" />
+            <state relative-caret-position="210">
+              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
               </folding>
@@ -121,8 +121,8 @@
       <file leaf-file-name="master_detail_scaffold.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="31" lean-forward="true" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+            <state relative-caret-position="120">
+              <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -157,12 +157,12 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/lib/layout/device_class.dart" />
         <option value="$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller.dart" />
-        <option value="$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart" />
         <option value="$PROJECT_DIR$/example/lib/screens/page_5.dart" />
-        <option value="$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart" />
         <option value="$PROJECT_DIR$/lib/native_widgets.dart" />
         <option value="$PROJECT_DIR$/lib/common/search/cupertino_search_bar.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
+        <option value="$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart" />
+        <option value="$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart" />
       </list>
     </option>
   </component>
@@ -216,13 +216,22 @@
               <item name="native_widgets" type="b2602c69:ProjectViewProjectNode" />
               <item name="native_widgets" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="scaffold" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="native_widgets" type="b2602c69:ProjectViewProjectNode" />
               <item name="native_widgets" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="dialog" type="462c0819:PsiDirectoryNode" />
+              <item name="scaffold" type="462c0819:PsiDirectoryNode" />
+              <item name="ios_controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="native_widgets" type="b2602c69:ProjectViewProjectNode" />
+              <item name="native_widgets" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="scaffold" type="462c0819:PsiDirectoryNode" />
+              <item name="ios_controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="master_detail_controller" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -665,23 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="31" lean-forward="true" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="80" column="52" selection-start-line="80" selection-start-column="52" selection-end-line="80" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/native_widgets.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="581">
@@ -725,10 +717,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="72" column="37" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
+        <state relative-caret-position="436">
+          <caret line="67" column="24" selection-start-line="67" selection-start-column="24" selection-end-line="67" selection-end-column="24" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>

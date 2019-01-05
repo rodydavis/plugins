@@ -3,11 +3,10 @@ part of native_widgets;
 class NativeMasterDetailScaffold extends StatelessWidget {
   final ItemWidgetBuilder detailBuilder;
   final IndexedWidgetBuilder itemBuilder;
-  final Widget onNull, onEmpty;
+  final Widget onNull, onEmpty, appBar;
   final dynamic selectedItem;
   final ValueChanged<dynamic> itemSelected;
   final List<dynamic> items;
-  final NativeAppBar appBar;
 
   NativeMasterDetailScaffold({
     @required this.detailBuilder,

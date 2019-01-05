@@ -9,11 +9,10 @@ typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 class CupertinoMasterDetailController extends StatelessWidget {
   final ItemWidgetBuilder detailBuilder;
   final IndexedWidgetBuilder itemBuilder;
-  final Widget onNull, onEmpty;
+  final Widget onNull, onEmpty, appBar;
   final dynamic selectedItem;
   final ValueChanged<dynamic> itemSelected;
   final List<dynamic> items;
-  final NativeAppBar appBar;
 
   CupertinoMasterDetailController({
     @required this.detailBuilder,
