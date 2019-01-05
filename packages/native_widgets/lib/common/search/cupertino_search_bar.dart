@@ -97,7 +97,7 @@ class CupertinoSearchBar extends AnimatedWidget {
                                   ),
                                   autocorrect: autoCorrect,
                                   cursorColor: CupertinoColors.black,
-                                  // backgroundCursorColor: Colors.grey,
+                                  backgroundCursorColor: Colors.grey,
                                 )
                               : null,
                         ),

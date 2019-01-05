@@ -70,8 +70,8 @@ class NativeAppLookState extends State<NativeAppLook> {
                 title: Text("Selection"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                title: Text("Settings"),
+                icon: Icon(Icons.star),
+                title: Text("Master Detail"),
               ),
             ],
             onTap: (int index) {
