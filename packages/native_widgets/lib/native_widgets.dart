@@ -18,6 +18,7 @@ import 'common/common_tiles/phone_tile.dart';
 import 'common/search/cupertino_search_bar.dart';
 import 'common/search/material_search_bar.dart';
 import 'scaffold/ios_controllers/table_view_controller/controller.dart';
+import 'scaffold/ios_controllers/master_detail_controller/controller.dart';
 
 export 'package:flutter/cupertino.dart';
 export 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -49,3 +50,4 @@ part 'tabs/top_navigation.dart';
 part 'toolbar/bottom_toolbar.dart';
 part 'utils/platform_switch.dart';
 part 'layout/device_class.dart';
+part 'scaffold/master_detail_scaffold.dart';

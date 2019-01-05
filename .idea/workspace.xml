@@ -6,20 +6,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7897d4d9-3557-4112-bdb7-99ca6e3c2851" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/plugins.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/plugins.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_1.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_2.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/example/lib/utils/pop_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/example/lib/utils/pop_up.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/lib/dialog/alert_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/lib/dialog/alert_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/lib/native_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/lib/native_widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/native_widgets/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/packages/native_widgets/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="7897d4d9-3557-4112-bdb7-99ca6e3c2851" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,8 +51,8 @@
       <file leaf-file-name="alert_dialog.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/dialog/alert_dialog.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="115" column="1" selection-start-line="115" selection-end-line="115" selection-end-column="1" />
+            <state relative-caret-position="264">
+              <caret line="106" column="41" lean-forward="true" selection-start-line="106" selection-start-column="41" selection-end-line="106" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -95,13 +82,6 @@
       </file>
       <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/packages/native_widgets/pubspec.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="show_dialog.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/dialog/show_dialog.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state />
           </provider>
@@ -144,7 +124,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -190,8 +170,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -275,12 +255,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="421" y="23" width="1499" height="1177" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info active="true" anchor="bottom" id="Event Log" order="7" side_tool="true" visible="true" weight="0.32962963" />
+      <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32962963" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
@@ -288,13 +270,14 @@
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26355526" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26698697" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Flutter Inspector" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.32962963" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -302,7 +285,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.32962963" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -314,6 +296,73 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_3.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="86" column="12" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_2.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/layout/device_class.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/contact_picker/lib/contact_picker.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_options.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/native_widgets.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/dialog/show_dialog.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/flutter/bin/cache/pkg/sky_engine/lib/ui/geometry.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5190">
+          <caret line="348" column="8" selection-start-line="348" selection-start-column="8" selection-end-line="348" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/dialog/alert_dialog.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1725">
+          <caret line="115" column="1" selection-start-line="115" selection-end-line="115" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/packages/native_widgets/example/lib/screens/page_3.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1230">
@@ -526,8 +575,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/packages/native_widgets/lib/dialog/alert_dialog.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="115" column="1" selection-start-line="115" selection-end-line="115" selection-end-column="1" />
+        <state relative-caret-position="264">
+          <caret line="106" column="41" lean-forward="true" selection-start-line="106" selection-start-column="41" selection-end-line="106" selection-end-column="41" />
         </state>
       </provider>
     </entry>
