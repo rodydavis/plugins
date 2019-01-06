@@ -46,32 +46,37 @@ class CupertinoMasterDetailController extends StatelessWidget {
   }
 
   Widget _buildTabletLayout(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Flexible(
-          flex: 2,
-          child: Scaffold(
-            appBar: appBar,
-            body: _ItemListing(
-              onEmpty: onEmpty,
-              onNull: onNull,
-              itemBuilder: itemBuilder,
-              items: items,
-              selectedItem: selectedItem,
-              itemSelectedCallback: itemSelected,
-            ),
-          ),
-        ),
-        Container(
-          width: 1.0,
-          color: Colors.grey[300],
-        ),
-        Flexible(
-          flex: 3,
-          child: detailBuilder(context, selectedItem, true),
-        ),
-      ],
-    );
+   return OrientationBuilder(
+       builder: (context, orientation)
+   {
+     return Row(
+       children: <Widget>[
+         Flexible(
+           flex:  orientation == Orientation.landscape ? 1: 2,
+           child: Scaffold(
+             appBar: appBar,
+             body: _ItemListing(
+               onEmpty: onEmpty,
+               onNull: onNull,
+               itemBuilder: itemBuilder,
+               items: items,
+               selectedItem: selectedItem,
+               itemSelectedCallback: itemSelected,
+             ),
+           ),
+         ),
+         Container(
+           width: 1.0,
+           color: Colors.grey[300],
+         ),
+         Flexible(
+           flex: 3,
+           child: detailBuilder(context, selectedItem, true),
+         ),
+       ],
+     );
+   }
+   );
   }
 
   @override

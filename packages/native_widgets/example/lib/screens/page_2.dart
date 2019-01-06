@@ -1,7 +1,145 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:native_widgets/native_widgets.dart';
-import 'details/details_1.dart';
 
+import 'details/details_1.dart';
+//
+//class Page2 extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      body: CupertinoTabScaffold(
+//        tabBar: CupertinoTabBar(
+//          items: const <BottomNavigationBarItem>[
+//            BottomNavigationBarItem(
+//              icon: Icon(CupertinoIcons.home),
+//              title: Text('Home'),
+//            ),
+//            BottomNavigationBarItem(
+//              icon: Icon(CupertinoIcons.conversation_bubble),
+//              title: Text('Support'),
+//            ),
+//          ],
+//        ),
+//        tabBuilder: (BuildContext context, int index) {
+//          switch (index) {
+//            case 0:
+//              return CupertinoTabView(
+//                builder: (BuildContext context) {
+//                  return CupertinoDemoTab1();
+//                },
+//                defaultTitle: 'Colors',
+//              );
+//              break;
+//            case 1:
+//              return CupertinoTabView(
+//                builder: (BuildContext context) => CupertinoDemoTab2(),
+//                defaultTitle: 'Support Chat',
+//              );
+//              break;
+//          }
+//          return null;
+//        },
+//      ),
+//    );
+//  }
+//}
+//
+//class CupertinoDemoTab1 extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return CupertinoPageScaffold(
+//      child: CustomScrollView(
+//        slivers: <Widget>[
+//          CupertinoSliverNavigationBar(),
+//          SliverList(
+//            delegate: SliverChildListDelegate([Tab1RowItem()]),
+//          ),
+//        ],
+//      ),
+//    );
+//  }
+//}
+//
+//class Tab1RowItem extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return GestureDetector(
+//      behavior: HitTestBehavior.opaque,
+//      onTap: () {
+//        Navigator.of(context).push(CupertinoPageRoute<void>(
+//          title: "Click me",
+//          builder: (BuildContext context) => Tab1ItemPage(),
+//        ));
+//      },
+//      child: Padding(padding: EdgeInsets.all(10.0), child: Text("Click me")),
+//    );
+//  }
+//}
+//
+//class Tab1ItemPage extends StatelessWidget {
+//  @override
+//  @override
+//  Widget build(BuildContext context) {
+//    return CupertinoPageScaffold(
+//        navigationBar: CupertinoNavigationBar(),
+//        child: Container(
+//          child: Center(
+//            child: CupertinoButton(
+//              child: const Text(
+//                'GET',
+//              ),
+//              onPressed: () {
+//                Navigator.of(context, rootNavigator: true).push(
+//                  CupertinoPageRoute<bool>(
+//                    fullscreenDialog: true,
+//                    builder: (BuildContext context) => Tab3Dialog(),
+//                  ),
+//                );
+//              },
+//            ),
+//          ),
+//        ));
+//  }
+//}
+//
+//class CupertinoDemoTab2 extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return CupertinoPageScaffold(
+//        navigationBar: CupertinoNavigationBar(),
+//        child: Container(
+//          child: Center(
+//            child: Text("Tab 2"),
+//          ),
+//        ));
+//  }
+//}
+//
+//class Tab3Dialog extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return CupertinoPageScaffold(
+//      navigationBar: CupertinoNavigationBar(
+//        leading: CupertinoButton(
+//          onPressed: () {
+//            Navigator.of(context).pop(false);
+//          },
+//          child: Text("Ok"),
+//        ),
+//      ),
+//      child: Center(
+//        child: CupertinoButton(
+//          color: CupertinoColors.activeBlue,
+//          child: const Text('Sign in'),
+//          onPressed: () {
+//            Navigator.pop(context);
+//          },
+//        ),
+//      ),
+//    );
+//  }
+//}
 
 class Page2 extends StatefulWidget {
   @override
@@ -74,79 +212,161 @@ class Page2State extends State<Page2> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NativeSearchAppBar(
-        title: const Text("Search Page"),
-        isSearching: _isSearching,
-        onSearchPressed: () {
-          setState(() {
-            _isSearching = !_isSearching;
-          });
-        },
-        onChanged: (String value) {
-          print(value);
-        },
-        // actions: <Widget>[
-        //   NativeIconButton(
-        //     icon: Icon(Icons.info_outline),
-        //     iosIcon: Icon(CupertinoIcons.info),
-        //   ),
-        // ],
-        ios: CupertinoNavigationBarData(
-          heroTag: "List",
-          transitionBetweenRoutes: false,
+      body: CupertinoPageScaffold(
+        child: CustomScrollView(
+          semanticChildCount: presidents.length,
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+//            trailing: trailingButtons,
+//            middle: Text("Presidents"),
+              largeTitle: Text("Presidents"),
+            ),
+            SliverPadding(
+              // Top media padding consumed by CupertinoSliverNavigationBar.
+              // Left/Right media padding consumed by Tab1RowItem.
+              padding: MediaQuery.of(context)
+                  .removePadding(
+                    removeTop: true,
+                    removeLeft: true,
+                    removeRight: true,
+                  )
+                  .padding,
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    final _president = presidents[index];
+                    final String _name = _president[0];
+                    final String _county = _president[1];
+                    final String _date = _president[2];
+                    // print("Index: $index / ${presidents?.length}");
+                    return NativeListTile(
+                      selected: false,
+                      lastItem: index + 1 == presidents.length,
+                      // avatar: Container(
+                      //   height: 60.0,
+                      //   width: 60.0,
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.lightBlue,
+                      //     borderRadius: BorderRadius.circular(8.0),
+                      //   ),
+                      // ),
+                      leading: NativeIcon(
+                        Icons.phone,
+                        iosIcon: CupertinoIcons.phone_solid,
+                      ),
+
+                      title: Text(_name),
+                      subtitle: Text(_county),
+                      trailing: [
+                        NativeText(_date, type: NativeTextTheme.detail),
+                        // NativeIconButton(
+                        //   icon: Icon(Icons.info),
+                        //   iosIcon: Icon(CupertinoIcons.info),
+                        //   onPressed: () {},
+                        // ),
+                      ],
+                      ios: CupertinoListTileData(
+                        hideLeadingIcon: true,
+                        style: CupertinoCellStyle.subtitle,
+                        accessory: CupertinoAccessory.none,
+                        accessoryTap: () {},
+                      ),
+                      onTap: () {
+//                        Navigator.push<dynamic>(
+//                            context,
+//                            NativeRoute<dynamic>(
+//                                title: "Details",
+//                                builder: (BuildContext context) =>
+//                                    DetailsScreen()));
+                        Navigator.of(context).push(CupertinoPageRoute<void>(
+                          title: _name,
+                          builder: (BuildContext context) => DetailsScreen(),
+                        ));
+                      },
+                    );
+                  },
+                  childCount: presidents.length,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      body: ListView.builder(
-        itemCount: presidents.length,
-        itemBuilder: (BuildContext context, int index) {
-          final _president = presidents[index];
-          final String _name = _president[0];
-          final String _county = _president[1];
-          final String _date = _president[2];
-          // print("Index: $index / ${presidents?.length}");
-          return NativeListTile(
-            selected: false,
-            lastItem: index + 1 == presidents.length,
-            // avatar: Container(
-            //   height: 60.0,
-            //   width: 60.0,
-            //   decoration: BoxDecoration(
-            //     color: Colors.lightBlue,
-            //     borderRadius: BorderRadius.circular(8.0),
-            //   ),
-            // ),
-            leading: NativeIcon(
-              Icons.phone,
-              iosIcon: CupertinoIcons.phone_solid,
-            ),
-
-            title: Text(_name),
-            subtitle: Text(_county),
-            trailing: [
-              NativeText(_date, type: NativeTextTheme.detail),
-              // NativeIconButton(
-              //   icon: Icon(Icons.info),
-              //   iosIcon: Icon(CupertinoIcons.info),
-              //   onPressed: () {},
-              // ),
-            ],
-            ios: CupertinoListTileData(
-              hideLeadingIcon: true,
-              style: CupertinoCellStyle.subtitle,
-              accessory: CupertinoAccessory.none,
-              accessoryTap: () {},
-            ),
-            onTap: () {
-              Navigator.push<dynamic>(
-                  context,
-                  NativeRoute<dynamic>(
-                      title: "Details",
-                      builder: (BuildContext context) => DetailsScreen()));
-            },
-          );
-        },
-      ),
     );
+//    return Scaffold(
+//      appBar: NativeSearchAppBar(
+//        title: const Text("Search Page"),
+//        isSearching: _isSearching,
+//        onSearchPressed: () {
+//          setState(() {
+//            _isSearching = !_isSearching;
+//          });
+//        },
+//        onChanged: (String value) {
+//          print(value);
+//        },
+//        // actions: <Widget>[
+//        //   NativeIconButton(
+//        //     icon: Icon(Icons.info_outline),
+//        //     iosIcon: Icon(CupertinoIcons.info),
+//        //   ),
+//        // ],
+//        ios: CupertinoNavigationBarData(
+//          heroTag: "List",
+//          transitionBetweenRoutes: false,
+//        ),
+//      ),
+//      body: ListView.builder(
+//        itemCount: presidents.length,
+//        itemBuilder: (BuildContext context, int index) {
+//          final _president = presidents[index];
+//          final String _name = _president[0];
+//          final String _county = _president[1];
+//          final String _date = _president[2];
+//          // print("Index: $index / ${presidents?.length}");
+//          return NativeListTile(
+//            selected: false,
+//            lastItem: index + 1 == presidents.length,
+//            // avatar: Container(
+//            //   height: 60.0,
+//            //   width: 60.0,
+//            //   decoration: BoxDecoration(
+//            //     color: Colors.lightBlue,
+//            //     borderRadius: BorderRadius.circular(8.0),
+//            //   ),
+//            // ),
+//            leading: NativeIcon(
+//              Icons.phone,
+//              iosIcon: CupertinoIcons.phone_solid,
+//            ),
+//
+//            title: Text(_name),
+//            subtitle: Text(_county),
+//            trailing: [
+//              NativeText(_date, type: NativeTextTheme.detail),
+//              // NativeIconButton(
+//              //   icon: Icon(Icons.info),
+//              //   iosIcon: Icon(CupertinoIcons.info),
+//              //   onPressed: () {},
+//              // ),
+//            ],
+//            ios: CupertinoListTileData(
+//              hideLeadingIcon: true,
+//              style: CupertinoCellStyle.subtitle,
+//              accessory: CupertinoAccessory.none,
+//              accessoryTap: () {},
+//            ),
+//            onTap: () {
+//              Navigator.push<dynamic>(
+//                  context,
+//                  NativeRoute<dynamic>(
+//                      title: "Details",
+//                      builder: (BuildContext context) => DetailsScreen()));
+//            },
+//          );
+//        },
+//      ),
+//    );
   }
 }
 

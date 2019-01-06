@@ -52,3 +52,4 @@ part 'utils/platform_switch.dart';
 part 'layout/device_class.dart';
 part 'scaffold/master_detail_scaffold.dart';
 part 'common/widget.dart';
+part 'scaffold/tab_scaffold.dart';

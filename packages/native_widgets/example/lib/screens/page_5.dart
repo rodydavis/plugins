@@ -1,6 +1,5 @@
-import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter/material.dart';
-import 'details/details_1.dart';
+import 'package:native_widgets/native_widgets.dart';
 
 class Page5 extends StatefulWidget {
   @override
@@ -11,21 +10,21 @@ class Page5 extends StatefulWidget {
 
 class Page5State extends State<Page5> {
   List<String> _items = ["Test", "Hello", "World"];
-  String _selectedItem = "";
+  String _selectedItem;
   @override
   Widget build(BuildContext context) {
     return NativeMasterDetailScaffold(
       appBar: NativeAppBar(
         title: Text("Page 5"),
         ios: CupertinoNavigationBarData(
-          heroTag: "List",
+          heroTag: "Details",
           transitionBetweenRoutes: false,
         ),
       ),
       detailBuilder: (context, item, tablet) {
-        if (item == null) {
-          return Center(
-            child: Text("No Item Selected"),
+        if (tablet && item == null) {
+          return Scaffold(
+            body: Center(child: Text("No Item Selected")),
           );
         }
         final String _item = item;
