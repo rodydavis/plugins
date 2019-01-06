@@ -1,6 +1,6 @@
-import 'package:native_widgets/native_widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:native_widgets/native_widgets.dart';
 
 typedef ItemWidgetBuilder = Widget Function(
     BuildContext context, dynamic item, bool tablet);
@@ -27,56 +27,79 @@ class CupertinoMasterDetailController extends StatelessWidget {
 
   Widget _buildMobileLayout(BuildContext context) {
     return Scaffold(
-      appBar: appBar,
-      body: _ItemListing(
-        onEmpty: onEmpty,
-        onNull: onNull,
-        itemBuilder: itemBuilder,
-        items: items,
-        selectedItem: selectedItem,
-        itemSelectedCallback: (item) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => detailBuilder(context, item, false)),
-          );
-        },
-      ),
-    );
+        body: CupertinoPageScaffold(
+            child: CustomScrollView(
+                semanticChildCount: items?.length ?? 0,
+                slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+//            trailing: trailingButtons,
+//            middle: Text("Presidents"),
+            largeTitle: Text("Presidents"),
+          ),
+          _ItemListing(
+            onEmpty: onEmpty,
+            onNull: onNull,
+            itemBuilder: itemBuilder,
+            items: items,
+            selectedItem: selectedItem,
+            itemSelectedCallback: (item) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => detailBuilder(context, item, false)),
+              );
+            },
+          ),
+        ])));
+
+//    return Scaffold(
+//      appBar: appBar,
+//      body: _ItemListing(
+//        onEmpty: onEmpty,
+//        onNull: onNull,
+//        itemBuilder: itemBuilder,
+//        items: items,
+//        selectedItem: selectedItem,
+//        itemSelectedCallback: (item) {
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => detailBuilder(context, item, false)),
+//          );
+//        },
+//      ),
+//    );
   }
 
   Widget _buildTabletLayout(BuildContext context) {
-   return OrientationBuilder(
-       builder: (context, orientation)
-   {
-     return Row(
-       children: <Widget>[
-         Flexible(
-           flex:  orientation == Orientation.landscape ? 1: 2,
-           child: Scaffold(
-             appBar: appBar,
-             body: _ItemListing(
-               onEmpty: onEmpty,
-               onNull: onNull,
-               itemBuilder: itemBuilder,
-               items: items,
-               selectedItem: selectedItem,
-               itemSelectedCallback: itemSelected,
-             ),
-           ),
-         ),
-         Container(
-           width: 1.0,
-           color: Colors.grey[300],
-         ),
-         Flexible(
-           flex: 3,
-           child: detailBuilder(context, selectedItem, true),
-         ),
-       ],
-     );
-   }
-   );
+    return OrientationBuilder(builder: (context, orientation) {
+      return Row(
+        children: <Widget>[
+          Flexible(
+            flex: orientation == Orientation.landscape ? 1 : 2,
+            child: Scaffold(
+              appBar: appBar,
+              body: _ItemListing(
+                onEmpty: onEmpty,
+                onNull: onNull,
+                itemBuilder: itemBuilder,
+                items: items,
+                selectedItem: selectedItem,
+                itemSelectedCallback: itemSelected,
+              ),
+            ),
+          ),
+          Container(
+            width: 1.0,
+            color: Colors.grey[300],
+          ),
+          Flexible(
+            flex: 3,
+            child: detailBuilder(context, selectedItem, true),
+          ),
+        ],
+      );
+    });
   }
 
   @override
@@ -118,15 +141,28 @@ class _ItemListing extends StatelessWidget {
       return onEmpty ?? Center(child: Text("No Items Found"));
     }
 
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (BuildContext context, int index) {
-        final _child = itemBuilder(context, index);
-        return GestureDetector(
-          onTap: () => itemSelectedCallback(items[index]),
-          child: _child,
-        );
-      },
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          final _child = itemBuilder(context, index);
+          return GestureDetector(
+            onTap: () => itemSelectedCallback(items[index]),
+            child: _child,
+          );
+        },
+        childCount: items.length,
+      ),
     );
+
+//    return ListView.builder(
+//      itemCount: items.length,
+//      itemBuilder: (BuildContext context, int index) {
+//        final _child = itemBuilder(context, index);
+//        return GestureDetector(
+//          onTap: () => itemSelectedCallback(items[index]),
+//          child: _child,
+//        );
+//      },
+//    );
   }
 }

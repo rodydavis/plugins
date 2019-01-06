@@ -28,20 +28,48 @@ class Page5State extends State<Page5> {
           );
         }
         final String _item = item;
+//        return Scaffold(
+//          appBar: tablet
+//              ? null
+//              : NativeAppBar(
+//                  title: Text("Details"),
+//                  ios: CupertinoNavigationBarData(
+////                    heroTag: "Details",
+////                    transitionBetweenRoutes: false,
+//                      ),
+//                ),
+//          body: CenterText(
+//            child: Text(_item),
+//          ),
+//        );
+
+        if (tablet) {
+          return Scaffold(
+            body: Center(
+              child: Text(_item),
+            ),
+          );
+        }
+
         return Scaffold(
-          appBar: tablet
-              ? null
-              : NativeAppBar(
-                  title: Text("Details"),
-                  ios: CupertinoNavigationBarData(
-//                    heroTag: "Details",
-//                    transitionBetweenRoutes: false,
-                      ),
+          body: CustomScrollView(
+            semanticChildCount: 2,
+            slivers: <Widget>[
+              CupertinoSliverNavigationBar(
+//            trailing: trailingButtons,
+//            middle: Text("Presidents"),
+                previousPageTitle: "Presidents",
+                largeTitle: Text("Details"),
+              ),
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Text(_item),
                 ),
-          body: Center(
-            child: Text(_item),
+              ),
+            ],
           ),
         );
+//        return DetailsScreen();
       },
       selectedItem: _selectedItem,
       itemSelected: (value) {

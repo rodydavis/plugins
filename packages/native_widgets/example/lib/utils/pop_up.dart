@@ -1,5 +1,5 @@
-import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:native_widgets/native_widgets.dart';
 
 Future<dynamic> showAlertPopup(BuildContext context,
     {String title, String detail}) async {
@@ -13,14 +13,14 @@ Future<dynamic> showAlertPopup(BuildContext context,
               text: Text('Delete'),
               isDestructive: true,
               onPressed: () {
-                Navigator.pop(context, true);
+                Navigator.of(context, rootNavigator: true).pop(true);
               }),
           NativeDialogAction(
               text: Text('Ok'),
               isDestructive: false,
               removeInActionSheet: true,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.of(context, rootNavigator: true).pop();
               }),
         ],
         ios: CupertinoDialogData(
@@ -29,7 +29,7 @@ Future<dynamic> showAlertPopup(BuildContext context,
             child: const Text('Cancel'),
             isDefaultAction: true,
             onPressed: () {
-              Navigator.pop(context, 'Cancel');
+              Navigator.of(context, rootNavigator: true).pop();
             },
           ),
         ),

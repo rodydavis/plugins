@@ -22,6 +22,7 @@ class DetailsScreen extends StatelessWidget {
 //            trailing: trailingButtons,
 //            middle: Text("Presidents"),
               largeTitle: Text("Details"),
+//              previousPageTitle: "",
             ),
             SliverToBoxAdapter(
               child: Container(),
