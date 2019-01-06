@@ -2,7 +2,7 @@ part of native_widgets;
 
 class NativeTabScaffold extends StatelessWidget {
   final List<BottomNavigationBarItem> tabs;
-  final List<Widget> pages;
+  final List<NativeTabView> pages;
 
   NativeTabScaffold({
     Key key,
@@ -19,7 +19,13 @@ class NativeTabScaffold extends StatelessWidget {
         return CupertinoTabScaffold(
           tabBar: CupertinoTabBar(items: tabs),
           tabBuilder: (BuildContext context, int index) {
-            return pages[index];
+            return CupertinoTabView(
+              builder: (BuildContext context) {
+                return pages[index]?.child;
+              },
+              defaultTitle: pages[index]?.title,
+            );;
+
           },
         );
       },
@@ -69,7 +75,7 @@ class NativeTabView extends StatelessWidget {
 
 class _BottomTabs extends StatefulWidget {
   final List<BottomNavigationBarItem> tabs;
-  final List<Widget> pages;
+  final List<NativeTabView> pages;
 
   _BottomTabs({
     Key key,
@@ -98,7 +104,7 @@ class _BottomTabsState extends State<_BottomTabs> {
     return DefaultTabController(
         length: widget?.pages?.length ?? 0,
         child: Scaffold(
-          body: widget?.pages[_currentIndex] ?? Container(),
+          body: widget?.pages[_currentIndex]?.child ?? Container(),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (int index) {
               if (!_isDisposed)

@@ -1,13 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:uuid/uuid.dart';
-import '../../../common/search/cupertino_search_bar.dart';
 
 import '../../../native_widgets.dart';
-import '../../../utils/ios_search_bar.dart';
-import 'cell.dart';
 
 typedef RefreshCallback = Future<void> Function();
 
@@ -53,8 +48,8 @@ class CupertinoTableViewController extends StatelessWidget {
     if (!isSearching && hideAppBarOnSearch) {
       _searchNavBar.addAll([
         CupertinoSliverNavigationBar(
-          heroTag: title ?? "Title",
-          transitionBetweenRoutes: false,
+//          heroTag: title ?? "Title",
+//          transitionBetweenRoutes: false,
           largeTitle: Text(title ?? "Title"),
           // We're specifying a back label here because the previous page
           // is a Material page. CupertinoPageRoutes could auto-populate

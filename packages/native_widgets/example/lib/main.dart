@@ -107,16 +107,28 @@ class NativeAppLook extends StatelessWidget {
           title: Text("Master Detail"),
         ),
       ],
-      pages: <Widget>[
-        Page1(),
+      pages: <NativeTabView>[
+        NativeTabView(
+          title: "Input Form",
+          child: Page1(),
+        ),
         NativeTabView(
           title: "Nav Demo",
           child: Page2(),
         ),
-        Page3(),
+        NativeTabView(
+          title: "Table View",
+          child: Page3(),
+        ),
 //    CupertinoPickerDemo(),
-        CupertinoNavigationDemo(),
-        Page5(),
+        NativeTabView(
+          title: "Selection Demo",
+          child: CupertinoNavigationDemo(),
+        ),
+        NativeTabView(
+          title: "Master Detail",
+          child: Page5(),
+        ),
       ],
     );
   }

@@ -17,9 +17,9 @@ class Page5State extends State<Page5> {
       appBar: NativeAppBar(
         title: Text("Page 5"),
         ios: CupertinoNavigationBarData(
-          heroTag: "Details",
-          transitionBetweenRoutes: false,
-        ),
+//          heroTag: "Details",
+//          transitionBetweenRoutes: false,
+            ),
       ),
       detailBuilder: (context, item, tablet) {
         if (tablet && item == null) {
@@ -34,9 +34,9 @@ class Page5State extends State<Page5> {
               : NativeAppBar(
                   title: Text("Details"),
                   ios: CupertinoNavigationBarData(
-                    heroTag: "Details",
-                    transitionBetweenRoutes: false,
-                  ),
+//                    heroTag: "Details",
+//                    transitionBetweenRoutes: false,
+                      ),
                 ),
           body: Center(
             child: Text(_item),
