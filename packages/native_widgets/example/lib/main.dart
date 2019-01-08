@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:native_widgets/native_widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'dart:math' as math;
+import 'screens/page_1.dart';
+import 'screens/page_2.dart';
+import 'screens/page_3.dart';
+import 'screens/page_4.dart';
+import 'screens/page_5.dart';
 
 void main() => runApp(new MyApp());
 
@@ -21,115 +27,59 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class NativeAppLook extends StatelessWidget {
+class NativeAppLook extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    // print(MaterialLocalizations.of(context));
-    final bool showMaterial = false;
-
-    return NativeScaffold(
-      hideAppBar: true,
-      androidTopNavigation: false,
-      showMaterial: showMaterial,
-      title: Text("Native Appbar"),
-      body: Container(),
-      tabs: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.info),
-          title: Text("Info"),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          title: Text("About"),
-        ),
-      ],
-      pages: <Widget>[
-        Page1(),
-        Container(
-          child: Center(child: Icon(Icons.settings)),
-        ),
-      ],
-      leading: Icon(Icons.menu),
-      actions: <Widget>[
-        Icon(Icons.share),
-      ],
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.info),
-        onPressed: () =>
-            showAlertPopup(context, "Native Dialog", "Button Submitted!"),
-      ),
-    );
+  NativeAppLookState createState() {
+    return new NativeAppLookState();
   }
 }
 
-void showAlertPopup(BuildContext context, String title, String detail) async {
-  void showSimpleDialog<T>({BuildContext context, Widget child}) {
-    showDialog<T>(
-      context: context,
-      // barrierDismissible: false,
-      builder: (BuildContext context) => child,
-    );
-  }
+class NativeAppLookState extends State<NativeAppLook> {
+  int _currentIndex = 0;
 
-  return showSimpleDialog<void>(
-      context: context,
-      child: NativeDialog(
-        title: title,
-        content: detail,
-        actions: <NativeDialogAction>[
-          NativeDialogAction(
-              text: 'Delete',
-              isDestructive: true,
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          NativeDialogAction(
-              text: 'Ok',
-              isDestructive: false,
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-        ],
-      ));
-}
+  final _pages = <Widget>[
+    Page1(),
+    Page2(),
+    Page3(),
+    CupertinoPickerDemo(),
+    Page5(),
+  ];
 
-class Page1 extends StatefulWidget {
-  @override
-  _Page1State createState() => _Page1State();
-}
-
-class _Page1State extends State<Page1> {
-  bool _active = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NativeAppBar(
-        title: Text("Home"),
-      ),
-      body: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            ListTile(
-              title: const Text("Loading Indicator..."),
-              trailing: NativeLoadingIndicator(),
-            ),
-            ListTile(
-              title: const Text("Switch"),
-              trailing: NativeSwitch(
-                value: _active,
-                onChanged: (bool value) => setState(() => _active = value),
+    return DefaultTabController(
+        length: 3,
+        child: NativeScaffold(
+          body: _pages[_currentIndex],
+          bottomBar: NativeBottomTabBar(
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.info),
+                title: Text("Info"),
               ),
-            ),
-            NativeButton(
-              child: const Text("Submit"),
-              padding: const EdgeInsets.all(20.0),
-              color: Colors.blue,
-              onPressed: () =>
-                  showAlertPopup(context, "Native Dialog", "Button Submitted!"),
-            ),
-          ],
-        ),
-      ),
-    );
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                title: Text("Search"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                title: Text("Table"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.select_all),
+                title: Text("Selection"),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                title: Text("Settings"),
+              ),
+            ],
+            onTap: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
+        ));
   }
 }
