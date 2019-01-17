@@ -1,0 +1,26 @@
+{
+  "name": "cupertino_controllers",
+  "version": "0.0.1",
+  "summary": "A Flutter plugin with iOS Controller Examples",
+  "description": "A Flutter plugin with iOS Controller Examples",
+  "homepage": "http://example.com",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Your Company": "email@example.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  }
+}
