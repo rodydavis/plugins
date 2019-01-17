@@ -6,7 +6,7 @@ A Flutter plugin with Cupertino Controller Examples
 
 See Example for Documentation
 
-![](name-of-giphy.gif)
+![](https://github.com/AppleEducate/plugins/blob/master/packages/cupertino_controllers/assets/screenshots/ezgif-4-ddefe3c604fb.gif)
 
 Completed:
 - Master Detail Controller
