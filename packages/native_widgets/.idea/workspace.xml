@@ -20,13 +20,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="page_3.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/screens/page_3.dart">
+      <file leaf-file-name="native_widgets.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/native_widgets.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1434">
-              <caret line="169" column="25" selection-start-line="169" selection-start-column="25" selection-end-line="169" selection-end-column="25" />
+            <state relative-caret-position="581">
+              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#25#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -35,8 +35,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="69" column="18" lean-forward="true" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+            <state relative-caret-position="211">
+              <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -44,68 +44,72 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page_2.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/screens/page_2.dart">
+      <file leaf-file-name="page_3.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/lib/screens/page_3.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="83" column="24" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="24" />
+            <state relative-caret-position="-613">
               <folding>
-                <element signature="e#0#40#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scaffold.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/scaffold/scaffold.dart">
+      <file leaf-file-name="cupertino_search_bar.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/common/search/cupertino_search_bar.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1349">
+              <caret line="100" column="33" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="material_search_bar.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/common/search/material_search_bar.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controller.dart" pinned="false" current-in-tab="false">
+      <file leaf-file-name="native_search.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/common/search/native_search.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="controller.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="37" column="12" selection-start-line="29" selection-start-column="14" selection-end-line="37" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="180">
+              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page_5.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="page_5.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/screens/page_5.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+            <state relative-caret-position="850">
+              <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#52#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="details_1.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/screens/details/details_1.dart">
+      <file leaf-file-name="list_view_scaffold.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/scaffold/list_view_scaffold.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+            <state>
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cupertino_navigation_demo.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/utils/cupertino_navigation_demo.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="292" column="7" selection-start-line="292" selection-start-column="7" selection-end-line="292" selection-end-column="7" />
-              <folding>
-                <element signature="e#166#186#0" expanded="true" />
+                <element signature="e#0#4894#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,20 +118,8 @@
       <file leaf-file-name="master_detail_scaffold.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="page_4.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/screens/page_4.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1700">
-              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#11093#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="120">
+              <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -192,9 +184,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -219,21 +210,6 @@
               <item name="example" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="native_widgets" type="b2602c69:ProjectViewProjectNode" />
-              <item name="native_widgets" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="screens" type="462c0819:PsiDirectoryNode" />
-              <item name="details" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="native_widgets" type="b2602c69:ProjectViewProjectNode" />
-              <item name="native_widgets" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="native_widgets" type="b2602c69:ProjectViewProjectNode" />
@@ -266,6 +242,7 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -371,7 +348,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="421" y="23" width="1499" height="1032" extended-state="0" />
+    <frame x="421" y="23" width="1499" height="1177" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -381,28 +358,47 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32963988" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32870865" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32902032" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25326014" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3562114" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" id="Flutter Inspector" order="3" weight="0.32875773" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" visible="true" weight="0.32875773" />
+      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32963988" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Assistant" order="4" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" weight="0.32875773" />
       <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.32963988" />
+      <window_info anchor="right" id="Flutter Outline" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32870865" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="right" id="Assistant" order="4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Multi-OS Engine" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25326014" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -567,15 +563,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/common/search/native_search.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="476">
           <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/common/search/cupertino_search_bar.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1410">
-          <caret line="94" column="1" selection-start-line="94" selection-start-column="1" selection-end-line="94" selection-end-column="1" />
+        <state relative-caret-position="1349">
+          <caret line="100" column="33" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -601,17 +597,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_platform_widgets-0.5.0/lib/src/platform_app_bar.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-446">
-          <caret line="124" column="2" selection-start-line="124" selection-start-column="2" selection-end-line="124" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_platform_widgets-0.5.0/lib/src/platform_app_bar.dart" />
     <entry file="file://$PROJECT_DIR$/lib/scaffold/list_view_scaffold.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="92" column="35" selection-start-line="89" selection-start-column="2" selection-end-line="92" selection-end-column="35" />
+        <state>
           <folding>
             <element signature="e#0#4894#0" expanded="true" />
           </folding>
@@ -623,24 +612,12 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Developer/flutter/packages/flutter/lib/src/cupertino/tab_scaffold.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="140" column="18" selection-start-line="140" selection-start-column="8" selection-end-line="140" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Developer/flutter/packages/flutter/lib/src/widgets/framework.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54390">
-          <caret line="3652" column="80" selection-start-line="3652" selection-end-line="3652" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Developer/flutter/packages/flutter/lib/src/cupertino/tab_scaffold.dart" />
+    <entry file="file://$USER_HOME$/Developer/flutter/packages/flutter/lib/src/widgets/framework.dart" />
     <entry file="file://$PROJECT_DIR$/lib/native_widgets.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="25" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="25" />
+        <state relative-caret-position="581">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
           <folding>
             <element signature="e#25#42#0" expanded="true" />
           </folding>
@@ -678,9 +655,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="94">
           <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -698,9 +672,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="489">
           <caret line="292" column="7" selection-start-line="292" selection-start-column="7" selection-end-line="292" selection-end-column="7" />
-          <folding>
-            <element signature="e#166#186#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -711,18 +682,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/scaffold/master_detail_scaffold.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        <state relative-caret-position="120">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/scaffold/ios_controllers/master_detail_controller/controller.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="37" column="12" selection-start-line="29" selection-start-column="14" selection-end-line="37" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="180">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -738,8 +706,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="69" column="18" lean-forward="true" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+        <state relative-caret-position="211">
+          <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -748,8 +716,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/screens/page_3.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1434">
-          <caret line="169" column="25" selection-start-line="169" selection-start-column="25" selection-end-line="169" selection-end-column="25" />
+        <state relative-caret-position="-613">
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -760,18 +727,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/screens/page_5.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+        <state relative-caret-position="850">
+          <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>

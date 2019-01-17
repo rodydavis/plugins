@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../../utils/ios_search_bar.dart';
 
 class CupertinoSearchBar extends AnimatedWidget {
   const CupertinoSearchBar({
