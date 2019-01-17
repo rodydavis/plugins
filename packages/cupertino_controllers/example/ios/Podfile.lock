@@ -1,0 +1,22 @@
+PODS:
+  - cupertino_controllers (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - cupertino_controllers (from `.symlinks/plugins/cupertino_controllers/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+
+EXTERNAL SOURCES:
+  cupertino_controllers:
+    :path: ".symlinks/plugins/cupertino_controllers/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+
+SPEC CHECKSUMS:
+  cupertino_controllers: 2f1187df3dd91523d228ca476b9c43a3ae1a97b7
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+
+PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
+
+COCOAPODS: 1.5.3
