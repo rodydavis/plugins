@@ -4,12 +4,16 @@ class NativeTextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String label;
   final CupertinoNativeTextButtonData ios;
+  final MaterialNativeTextButtonData android;
+  final TextStyle style;
 
   NativeTextButton({
     Key key,
     this.onPressed,
     @required this.label,
     this.ios,
+    this.android,
+    this.style = const TextStyle(),
   });
 
   @override
@@ -20,7 +24,7 @@ class NativeTextButton extends StatelessWidget {
         if (onPressed == null) {
           return Text(
             label,
-            style: TextStyle(color: ios?.activeColor),
+            style: style.copyWith(color: CupertinoColors.inactiveGray),
           );
         }
 
@@ -28,14 +32,19 @@ class NativeTextButton extends StatelessWidget {
           onTap: onPressed,
           child: Text(
             label,
-            style: TextStyle(color: CupertinoColors.activeBlue),
+            style: style.copyWith(
+              color: ios?.activeColor ?? CupertinoColors.activeBlue,
+            ),
           ),
         );
       },
       android: (BuildContext context) {
         return InkWell(
           onTap: onPressed,
-          child: Text(label),
+          child: Text(label,
+              style: style.copyWith(
+                color: onPressed == null ? Colors.grey : android?.activeColor,
+              )),
         );
       },
     );
@@ -47,5 +56,13 @@ class CupertinoNativeTextButtonData {
 
   CupertinoNativeTextButtonData({
     this.activeColor = CupertinoColors.activeBlue,
+  });
+}
+
+class MaterialNativeTextButtonData {
+  final Color activeColor;
+
+  MaterialNativeTextButtonData({
+    this.activeColor = Colors.blue,
   });
 }

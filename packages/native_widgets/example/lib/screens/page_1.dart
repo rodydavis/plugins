@@ -17,18 +17,26 @@ class _Page1State extends State<Page1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NativeAppBar(
-        leading: NativeButton(
-          child: Text("Cancel"),
-          onPressed: () {},
+        leading: Container(
+          padding: EdgeInsets.only(top: 10.0),
+          child: NativeTextButton(
+            label: "Cancel",
+            onPressed: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
+          ),
         ),
         title: const Text("Input Form"),
         actions: <Widget>[
-          NativeButton(
-            child: Text(
-              "Save",
+          Container(
+            padding: EdgeInsets.only(top: 10.0),
+            child: NativeTextButton(
+              label: "Save",
               style: TextStyle(fontWeight: FontWeight.bold),
+              onPressed: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
             ),
-            onPressed: () {},
           ),
         ],
       ),
@@ -46,14 +54,14 @@ class _Page1State extends State<Page1> {
                 onChanged: (bool value) => setState(() => _active = value),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(12.0),
-              child: NativeTextInput(
-                leading: Icon(Icons.person),
-                decoration: InputDecoration(labelText: "Input Placeholder"),
-                // trailing: Icon(Icons.help),
-              ),
-            ),
+            // Container(
+            //   padding: EdgeInsets.all(12.0),
+            //   child: NativeTextInput(
+            //     leading: Icon(Icons.person),
+            //     decoration: InputDecoration(labelText: "Input Placeholder"),
+            //     // trailing: Icon(Icons.help),
+            //   ),
+            // ),
             Container(height: 20.0),
             NativeGroupSelect<int>(
               groupValue: _selected,
@@ -105,8 +113,8 @@ class _Page1State extends State<Page1> {
                 child: const Text("Submit"),
                 // padding: const EdgeInsets.all(20.0),
                 color: Colors.blue,
-                onPressed: () => showAlertPopup(
-                    context, "Native Dialog", "Button Submitted!"),
+                onPressed: () => showAlertPopup(context,
+                    title: "Native Dialog", detail: "Button Submitted!"),
               ),
             ),
           ],

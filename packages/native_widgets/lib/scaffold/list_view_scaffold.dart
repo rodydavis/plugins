@@ -6,35 +6,85 @@ part of native_widgets;
 
 /// iOS Table View Controller Functionality
 class NativeListViewScaffold extends StatelessWidget {
-  // Make Stateful for Editing, Refreshing, Searching
   final String title, previousTitle;
-  final List<dynamic> items;
-  final Widget trailing;
-  // final Function(BuildContext context, int index) item;
+  final Widget leading, trailing;
   final VoidCallback viewDetails, onEditingComplete, onEditingStarted;
-  final ValueChanged<dynamic> onCellTap;
-  final ValueChanged<List<dynamic>> selectedItemsChanged;
   final Duration refreshDuration;
   final RefreshCallback onRefresh;
-  final NativeListViewScaffoldData ios;
-  final bool showListTabs, showSearchBar;
+  final CupertinoListViewData ios;
+  final bool showListTabs, hideAppBarOnSearch;
+  final bool isEditing, isSearching;
+  final ValueChanged<bool> onEditing;
+  final List<NativeListViewSection> sections;
+  final List<Widget> widgets;
 
-  const NativeListViewScaffold({
+  NativeListViewScaffold({
     // this.item,
-    this.items,
     this.viewDetails,
     this.onEditingComplete,
     this.onEditingStarted,
     this.previousTitle,
     this.title,
     this.trailing,
-    this.selectedItemsChanged,
-    this.onCellTap,
+    this.leading,
+    this.onRefresh,
+    this.ios,
+    this.hideAppBarOnSearch = false,
+    this.showListTabs = false,
+    this.refreshDuration = const Duration(seconds: 3),
+    this.isSearching = false,
+    this.isEditing = false,
+    this.onEditing,
+    List<Widget> children = const <Widget>[],
+    this.widgets,
+  }) : sections = [NativeListViewSection(children: children)];
+
+  NativeListViewScaffold.builder({
+    // this.item,
+    this.viewDetails,
+    this.onEditingComplete,
+    this.onEditingStarted,
+    this.previousTitle,
+    this.title,
+    this.trailing,
+    this.leading,
+    this.onRefresh,
+    this.hideAppBarOnSearch = false,
+    this.ios,
+    this.showListTabs = false,
+    this.refreshDuration = const Duration(seconds: 3),
+    this.isSearching = false,
+    this.isEditing = false,
+    this.onEditing,
+    @required IndexedWidgetBuilder itemBuilder,
+    int itemCount,
+    this.widgets,
+  }) : sections = [
+          NativeListViewSection.builder(
+            itemBuilder: itemBuilder,
+            itemCount: itemCount,
+          )
+        ];
+
+  const NativeListViewScaffold.sectioned({
+    // this.item,
+    this.viewDetails,
+    this.onEditingComplete,
+    this.onEditingStarted,
+    this.previousTitle,
+    this.title,
+    this.trailing,
+    this.hideAppBarOnSearch = false,
+    this.leading,
     this.onRefresh,
     this.ios,
     this.showListTabs = false,
-    this.showSearchBar = true,
     this.refreshDuration = const Duration(seconds: 3),
+    this.isSearching = false,
+    this.isEditing = false,
+    this.onEditing,
+    @required this.sections,
+    this.widgets,
   });
 
   @override
@@ -42,29 +92,25 @@ class NativeListViewScaffold extends StatelessWidget {
     return PlatformWidget(
       ios: (BuildContext context) {
         return CupertinoTableViewController(
-          action: trailing,
+          leading: leading,
+          trailing: trailing,
           title: title,
           onRefresh: onRefresh,
-          selectedItems: selectedItemsChanged,
+          hideAppBarOnSearch: hideAppBarOnSearch,
           previousTitle: previousTitle,
-          onCellTap: onCellTap,
-          items: items,
-          showSearchBar: showSearchBar,
-          showSegmentedControl: showListTabs,
-          cellAccessory: ios?.cellAccessory,
-          cellEditingAccessory: ios?.cellEditingAccessory,
-          cellEditingAction: ios?.cellEditingAction,
-          onCellAccessoryTap: ios?.onCellAccessoryTap,
-          onCellEditingAccessoryTap: ios?.onCellEditingAccessoryTap,
-          onEditing: (bool editing) {
-            if (editing != null) {
-              if (editing) {
-                if (onEditingStarted != null) onEditingStarted();
-              } else {
-                if (onEditingComplete != null) onEditingComplete();
-              }
-            }
-          },
+          onEditing: onEditing,
+          isEditing: isEditing,
+          isSearching: isSearching,
+          widgets: widgets,
+          showEditingButtonLeft: ios?.showEditingButtonLeft,
+          showEditingButtonRight: ios?.showEditingButtonRight,
+          sections: sections
+              .map(
+                  (NativeListViewSection item) => new CupertinoTableViewSection(
+                        header: item?.header == null ? null : item.header,
+                        childrenDelegate: item.childrenDelegate,
+                      ))
+              .toList(),
         );
       },
       android: (BuildContext context) {
@@ -74,19 +120,48 @@ class NativeListViewScaffold extends StatelessWidget {
   }
 }
 
+typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
+
+class NativeListViewSection {
+  final Widget header;
+  final SliverChildDelegate childrenDelegate;
+
+  NativeListViewSection({
+    this.header,
+    @required List<Widget> children = const <Widget>[],
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+  }) : childrenDelegate = SliverChildListDelegate(
+          children,
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+        );
+
+  NativeListViewSection.builder({
+    this.header,
+    @required IndexedWidgetBuilder itemBuilder,
+    int itemCount,
+    bool addAutomaticKeepAlives = true,
+    bool addRepaintBoundaries = true,
+    bool addSemanticIndexes = true,
+  }) : childrenDelegate = SliverChildBuilderDelegate(
+          itemBuilder,
+          childCount: itemCount,
+          addAutomaticKeepAlives: addAutomaticKeepAlives,
+          addRepaintBoundaries: addRepaintBoundaries,
+          addSemanticIndexes: addSemanticIndexes,
+        );
+}
+
 typedef RefreshCallback = Future<List<dynamic>> Function();
 
-class NativeListViewScaffoldData {
-  final CupertinoEditingAction cellEditingAction;
-  final CupertinoAccessory cellAccessory;
-  final CupertinoEditingAccessory cellEditingAccessory;
-  final ValueChanged<dynamic> onCellEditingAccessoryTap, onCellAccessoryTap;
+class CupertinoListViewData {
+  final bool showEditingButtonLeft, showEditingButtonRight;
 
-  NativeListViewScaffoldData({
-    this.onCellAccessoryTap,
-    this.onCellEditingAccessoryTap,
-    this.cellEditingAction = CupertinoEditingAction.select,
-    this.cellAccessory = CupertinoAccessory.disclosureIndicator,
-    this.cellEditingAccessory = CupertinoEditingAccessory.detail,
+  const CupertinoListViewData({
+    this.showEditingButtonLeft = false,
+    this.showEditingButtonRight = false,
   });
 }

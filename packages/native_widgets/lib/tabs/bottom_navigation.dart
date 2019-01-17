@@ -13,7 +13,7 @@ class NativeBottomTabBar extends StatelessWidget {
     Key key,
     @required this.items,
     this.onTap,
-    this.activeColor,
+    @required this.activeColor,
     this.currentIndex,
     this.iconSize,
     this.showMaterial = false,

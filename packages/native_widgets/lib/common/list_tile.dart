@@ -39,8 +39,12 @@ class NativeListTile extends StatelessWidget {
           leading: avatar ?? leading,
           title: title,
           subtitle: subtitle != null ? subtitle : null,
-          trailing:
-              trailing != null ? Row(children: trailing ?? <Widget>[]) : null,
+          trailing: trailing != null
+              ? SizedBox(
+                  width: 200.0,
+                  child: ButtonBar(children: trailing ?? <Widget>[]),
+                )
+              : null,
         );
       },
       ios: (BuildContext context) {

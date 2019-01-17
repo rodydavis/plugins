@@ -13,6 +13,7 @@ class IOSSearchBar extends AnimatedWidget {
     this.onClear,
     this.onSubmit,
     this.onUpdate,
+    this.onSearch,
     this.autoFocus = true,
   })  : assert(controller != null),
         assert(focusNode != null),
@@ -30,6 +31,9 @@ class IOSSearchBar extends AnimatedWidget {
   /// The function to call when the "Clear" button is pressed
   final Function onClear;
 
+  /// The function to called when search is started
+  final Function onSearch;
+
   /// The function to call when the text is updated
   final Function(String) onUpdate;
 
@@ -40,9 +44,69 @@ class IOSSearchBar extends AnimatedWidget {
   static final _paddingTween = new Tween(begin: 0.0, end: 60.0);
   static final _kFontSize = 13.0;
   final bool autoFocus;
-
+  Key _inputKey = new GlobalKey(debugLabel: 'inputText');
   @override
   Widget build(BuildContext context) {
+    // if (!isSearching) {
+    //   return GestureDetector(
+    //     onTap: onSearch,
+    //     child: Padding(
+    //       padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 8.0),
+    //       child: new Row(
+    //         children: <Widget>[
+    //           new Expanded(
+    //             child: new Container(
+    //               padding: const EdgeInsets.symmetric(
+    //                   horizontal: 8.0, vertical: 6.0),
+    //               decoration: new BoxDecoration(
+    //                 color: CupertinoColors.lightBackgroundGray,
+    //                 border: new Border.all(
+    //                     width: 0.0, color: CupertinoColors.white),
+    //                 borderRadius: new BorderRadius.circular(10.0),
+    //               ),
+    //               child: new Stack(
+    //                 alignment: Alignment.centerLeft,
+    //                 children: <Widget>[
+    //                   new Row(
+    //                     mainAxisAlignment: MainAxisAlignment.start,
+    //                     children: <Widget>[
+    //                       new Padding(
+    //                         padding:
+    //                             const EdgeInsets.fromLTRB(0.0, 0.0, 4.0, 1.0),
+    //                         child: new Icon(
+    //                           CupertinoIcons.search,
+    //                           color: CupertinoColors.inactiveGray,
+    //                           size: _kFontSize + 2.0,
+    //                         ),
+    //                       ),
+    //                       new Text(
+    //                         'Search',
+    //                         style: new TextStyle(
+    //                             inherit: false,
+    //                             color: CupertinoColors.inactiveGray),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                   new Row(
+    //                     mainAxisAlignment: MainAxisAlignment.end,
+    //                     mainAxisSize: MainAxisSize.min,
+    //                     children: <Widget>[
+    //                       new Expanded(
+    //                         child: new Padding(
+    //                           padding: const EdgeInsets.only(left: 20.0),
+    //                         ),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
     final Animation<double> animation = listenable;
     return new Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
@@ -91,6 +155,7 @@ class IOSSearchBar extends AnimatedWidget {
                         child: new Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: new EditableText(
+                            key: _inputKey,
                             controller: controller,
                             focusNode: focusNode,
                             onChanged: onUpdate,
@@ -102,7 +167,7 @@ class IOSSearchBar extends AnimatedWidget {
                               fontSize: _kFontSize,
                             ),
                             cursorColor: CupertinoColors.black,
-                            backgroundCursorColor: Colors.grey,
+                            // backgroundCursorColor: Colors.grey,
                           ),
                         ),
                       ),

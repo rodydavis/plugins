@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'details/details_1.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:native_widgets/native_widgets.dart';
+
+import 'details/details_1.dart';
 
 class Page3 extends StatefulWidget {
   @override
@@ -9,65 +11,89 @@ class Page3 extends StatefulWidget {
   }
 }
 
-class Page3State extends State<Page3> {
-  List<NativeListTile> _items, _filtered;
+class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
+  bool _isEditing = false;
+  bool _isSearching = false;
+  String _search = "";
+  final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  Animation<double> _animation;
+  AnimationController _animationController;
 
   @override
   void initState() {
-    _items = [];
-    _init();
+    _animationController = new AnimationController(
+      duration: new Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _animation = new CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+    _focusNode.addListener(() {
+      if (!_animationController.isAnimating) {
+        _animationController.forward();
+      }
+    });
     super.initState();
   }
 
-  void _init({bool force = false}) {
-    if (force) {
-      setState(() {
-        _items?.clear();
-      });
-    }
+  final Map<int, Widget> children = const <int, Widget>{
+    0: Text('Select'),
+    1: Text('Remove'),
+    2: Text('None'),
+  };
+  int sharedValue = 0;
+
+  final List<dynamic> selected = <dynamic>[];
+
+  void _removeItem(List<String> item) {
     setState(() {
-      _items = contacts.map((var item) {
-        return NativeListTile(
-          avatar: Container(
-            height: 60.0,
-            width: 60.0,
-            decoration: BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          leading: NativeIcon(
-            Icons.phone,
-            iosIcon: CupertinoIcons.phone_solid,
-          ),
-          title: Text(item[0]),
-          subtitle: Text(item[1]),
-          trailing: <Widget>[
-            NativeText(item[2], type: NativeTextTheme.detail),
-          ],
-          ios: CupertinoListTileData(
-            hideLeadingIcon: true,
-            style: CupertinoCellStyle.subtitle,
-            // accessory: CupertinoAccessory.detailDisclosure,
-            // editingAction: CupertinoEditingAction.select,
-            // editingAccessory: CupertinoEditingAccessory.detail,
-            // editingAccessoryTap: () {
-            //   print("Editing Detail Tapped");
-            // },
-            // accessoryTap: () {
-            //   print("Accessory Detail Tapped");
-            // },
-          ),
-          // onTap: () {},
-        );
-      }).toList();
-      _filtered = _items;
+      contacts.remove(item);
     });
+  }
+
+  List<List<String>> _searchItems(BuildContext context, {String search = ""}) {
+    final List<List<String>> filtered = [];
+    for (var _row in contacts) {
+      bool _contains = false;
+      if (_row[0].toLowerCase().trim().contains(search.toLowerCase().trim()))
+        _contains = true;
+      if (_row[1].toLowerCase().trim().contains(search.toLowerCase().trim()))
+        _contains = true;
+      if (_row[2].toLowerCase().trim().contains(search.toLowerCase().trim()))
+        _contains = true;
+      if (_contains) {
+        // filtered.add(_buildListTile(context, _row));
+        filtered.add(_row);
+      }
+    }
+    return filtered ?? [];
   }
 
   @override
   Widget build(BuildContext context) {
-    return NativeListViewScaffold(
+    if (_isSearching) FocusScope.of(context).requestFocus(_focusNode);
+
+    var _sections = <NativeListViewSection>[];
+
+    // if (_search != null && _search.isNotEmpty) {
+    //   var filtered = _searchItems(context, search: _search);
+
+    //   _sections = [NativeListViewSection(header: null, children: filtered)];
+
+    // } else {
+    //   _sections = _buildSections(context, data: contacts);
+    // }
+
+    _sections = _buildSections(context,
+        data: _search != null && _search.isNotEmpty
+            ? _searchItems(context, search: _search)
+            : contacts);
+
+    return NativeListViewScaffold.sectioned(
+      hideAppBarOnSearch: true,
       trailing: NativeIconButton(
         icon: Icon(Icons.add),
         iosIcon: Icon(
@@ -77,36 +103,224 @@ class Page3State extends State<Page3> {
         ),
         onPressed: () {},
       ),
-      items: _items,
+      sections: _sections ?? [],
+      widgets: <Widget>[
+        SafeArea(
+          top: _isSearching,
+          bottom: false,
+          child: NativeSearchWidget(
+            controller: _controller,
+            focusNode: _focusNode,
+            animation: _animation,
+            onCancel: () {
+              _controller.clear();
+              _focusNode.unfocus();
+              _animationController.reverse();
+              setState(() {
+                _search = "";
+              });
+            },
+            onClear: () {
+              _controller.clear();
+              setState(() {
+                _search = "";
+              });
+            },
+            onChanged: (String value) {
+              if (value != null)
+                setState(() {
+                  _search = value;
+                });
+            },
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: CupertinoSegmentedControl<int>(
+            children: children,
+            onValueChanged: (int newValue) {
+              setState(() {
+                sharedValue = newValue;
+              });
+            },
+            groupValue: sharedValue,
+          ),
+        ),
+        Divider(),
+      ],
       onRefresh: () async {
         await Future<void>.delayed(Duration(seconds: 1));
-        _init(force: true);
-        return _items;
+        return;
       },
-      selectedItemsChanged: (List<dynamic> selected) {
-        print(selected);
-      },
-      onCellTap: (dynamic item) {
-        if (item != null) {
-          print(item?.title?.data);
+      isEditing: _isEditing,
+      onEditing: (bool value) {
+        if (value != null) {
+          setState(() {
+            _isEditing = value;
+          });
+          if (!_isEditing) {
+            setState(() {
+              selected.clear();
+            });
+          }
         }
-        Navigator.push<dynamic>(
-            context,
-            NativeRoute<dynamic>(
-                builder: (BuildContext context) => DetailsScreen()));
       },
-      ios: NativeListViewScaffoldData(
-        cellEditingAccessory: CupertinoEditingAccessory.detail,
-        cellAccessory: CupertinoAccessory.disclosureIndicator,
-        cellEditingAction: CupertinoEditingAction.select,
-        onCellAccessoryTap: (dynamic item) {},
-        onCellEditingAccessoryTap: (dynamic item) {
-          Navigator.push<dynamic>(
-              context,
-              NativeRoute<dynamic>(
-                  builder: (BuildContext context) => DetailsScreen()));
+      isSearching: _isSearching,
+      ios: CupertinoListViewData(
+        showEditingButtonLeft: true,
+      ),
+    );
+  }
+
+  List<NativeListViewSection> _buildSections(BuildContext context,
+      {@required List<List<String>> data}) {
+    data.sort((a, b) {
+      return a[0].toLowerCase().compareTo(b[0].toLowerCase());
+    });
+
+    List<NativeListViewSection> sections = [];
+
+    var map = Map<String, dynamic>();
+
+    for (List<String> _contact in data) {
+      final String _letter = _contact[0].substring(0, 1).toUpperCase();
+      map[_letter] = <dynamic>[];
+    }
+
+    for (List<String> _contact in data) {
+      final String _letter = _contact[0].substring(0, 1).toUpperCase();
+      map[_letter].add(_contact);
+    }
+
+    for (String _key in map.keys) {
+      sections.add(NativeListViewSection.builder(
+        header: Text(_key,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            )),
+        itemBuilder: (BuildContext context, int index) {
+          return _buildListTile(context, map[_key][index]);
+        },
+        itemCount: map[_key]?.length ?? 0,
+      ));
+    }
+
+    return sections;
+  }
+
+  Widget _buildListTile(BuildContext context, List<String> item) {
+    final bool _selected = selected?.contains(item) ?? false;
+    CupertinoEditingAction _action;
+    switch (sharedValue) {
+      case 0:
+        _action = CupertinoEditingAction.select;
+        break;
+      case 1:
+        _action = CupertinoEditingAction.remove;
+        break;
+      case 2:
+        _action = CupertinoEditingAction.none;
+        break;
+      default:
+    }
+    return new Slidable(
+      key: Key(item[0]),
+      delegate: new SlidableDrawerDelegate(),
+      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
+        onDismissed: (actionType) {
+          _removeItem(item);
         },
       ),
+      actionExtentRatio: 0.25,
+      closeOnScroll: true,
+      child: NativeListTile(
+        selected: _selected,
+        editing: _isEditing,
+        avatar: Container(
+          height: 60.0,
+          width: 60.0,
+          decoration: BoxDecoration(
+            color: Colors.lightBlue,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        leading: NativeIcon(
+          Icons.phone,
+          iosIcon: CupertinoIcons.phone_solid,
+        ),
+        title: Text(item[0]),
+        subtitle: Text(item[1]),
+        trailing: <Widget>[
+          NativeText(item[2], type: NativeTextTheme.detail),
+        ],
+        onTap: () {
+          if (_isEditing) {
+            if (_action == CupertinoEditingAction.select) {
+              if (_selected) {
+                setState(() {
+                  selected.remove(item);
+                });
+              } else {
+                setState(() {
+                  selected.add(item);
+                });
+              }
+            }
+          } else {
+            Navigator.push<dynamic>(
+                context,
+                NativeRoute<dynamic>(
+                    title: "Details",
+                    builder: (BuildContext context) => DetailsScreen()));
+          }
+        },
+        ios: CupertinoListTileData(
+            hideLeadingIcon: true,
+            style: CupertinoCellStyle.subtitle,
+            accessory: CupertinoAccessory.disclosureIndicator,
+            editingAction: _action,
+            editingAccessory: CupertinoEditingAccessory.detail,
+            editingAccessoryTap: () {
+              Navigator.push<dynamic>(
+                  context,
+                  NativeRoute<dynamic>(
+                      title: "Details",
+                      builder: (BuildContext context) => DetailsScreen()));
+            },
+            editingActionTap: _action == CupertinoEditingAction.remove
+                ? () => _removeItem(item)
+                : null),
+
+        // onTap: () {},
+      ),
+      // actions: <Widget>[
+      //   new IconSlideAction(
+      //     caption: 'Archive',
+      //     color: Colors.blue,
+      //     icon: Icons.archive,
+      //     onTap: () {},
+      //   ),
+      //   new IconSlideAction(
+      //     caption: 'Share',
+      //     color: Colors.indigo,
+      //     icon: Icons.share,
+      //     onTap: () {},
+      //   ),
+      // ],
+      secondaryActions: <Widget>[
+        // new IconSlideAction(
+        //   caption: 'More',
+        //   color: Colors.black45,
+        //   icon: Icons.more_horiz,
+        //   onTap: () {},
+        // ),
+        new IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: () => _removeItem(item),
+        ),
+      ],
     );
   }
 }
