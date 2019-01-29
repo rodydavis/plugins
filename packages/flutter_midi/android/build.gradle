@@ -5,10 +5,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 
@@ -35,5 +36,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.billthefarmer:mididriver:v1.15'
+//    implementation 'com.github.billthefarmer:mididriver:v1.15'
+    implementation 'com.github.appleeducate:MidiDriver-Android-SF2:1.0'
 }

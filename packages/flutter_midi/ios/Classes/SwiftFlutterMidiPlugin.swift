@@ -20,40 +20,32 @@ public class SwiftFlutterMidiPlugin: NSObject, FlutterPlugin {
     #else
     switch call.method {
       case "prepare_midi":
-        au = AudioUnitMIDISynth()
+       var map = call.arguments as? Dictionary<String, String>
+       let data = map?["path"]
+      let url = URL(fileURLWithPath: data!)
+         au = AudioUnitMIDISynth(soundfont: url)
+          print("Valid URL: \(url)")
         let message = "Prepared Sound Font"
         result(message)
       case "unmute":
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: AVAudioSessionCategoryOptions.duckOthers)
-        }
-        catch {
-            let message = "Device Still Muted"
-            result(message)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch {
+            print(error)
         }
         let message = "unmuted Device"
-        result(message)
-      case "play_midi_note_unmute":
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: AVAudioSessionCategoryOptions.duckOthers)
-        }
-        catch {
-            // report for an error
-        }
-        _arguments = call.arguments as! [String : Any];
-        let midi = _arguments["note"] as? Int
-        au.playPatch2On(midi: midi ?? 60)
-        let message = "Playing: \(String(describing: midi))"
         result(message)
       case "play_midi_note":
         _arguments = call.arguments as! [String : Any];
         let midi = _arguments["note"] as? Int
-        au.playPatch2On(midi: midi ?? 60)
-        let message = "Playing: \(String(describing: midi))"
+        au.playPitch(midi:  midi ?? 60)
+        let message = "Playing: \(String(describing: midi!))"
         result(message)
       case "stop_midi_note":
-        au.playPatch2Off()
-        let message = "Stopped Playing"
+      _arguments = call.arguments as! [String : Any];
+       let midi = _arguments["note"] as? Int
+      au.stopPitch(midi:  midi ?? 60)
+        let message = "Stopped: \(String(describing: midi!))"
         result(message)
       default:
         result(FlutterMethodNotImplemented)

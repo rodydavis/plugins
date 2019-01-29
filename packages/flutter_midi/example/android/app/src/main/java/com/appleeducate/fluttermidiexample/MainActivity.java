@@ -1,4 +1,4 @@
-package com.appleeducate.fluttersmsexample;
+package com.appleeducate.fluttermidiexample;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
