@@ -1,3 +1,8 @@
+## 0.1.1
+
+* Added Ability to Change .sf2 File Being Played
+* Updated Example
+
 ## 0.1.0
 
 * Removed Need to Bundle .sf2 on iOS

@@ -49,6 +49,22 @@ public class FlutterMidiPlugin implements MethodCallHandler {
           } catch (MidiUnavailableException e) {
               e.printStackTrace();
           }
+      } else  if (call.method.equals("change_sound")) {
+          try {
+              String _path = call.argument("path");
+              File _file = new File(_path);
+              SF2Soundbank sf = new SF2Soundbank(_file);
+              synth = new SoftSynthesizer();
+              synth.open();
+              synth.loadAllInstruments(sf);
+              synth.getChannels()[0].programChange(0);
+              synth.getChannels()[1].programChange(1);
+              recv = synth.getReceiver();
+          } catch (IOException e) {
+              e.printStackTrace();
+          } catch (MidiUnavailableException e) {
+              e.printStackTrace();
+          }
       } else if (call.method.equals("play_midi_note")) {
           int _note = call.argument("note");
           try {

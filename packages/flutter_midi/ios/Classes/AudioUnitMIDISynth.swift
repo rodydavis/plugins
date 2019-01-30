@@ -18,8 +18,13 @@ class AudioUnitMIDISynth: NSObject {
     var bankUrl: URL!
 
     init(soundfont: URL) {
-        bankUrl = soundfont;
         super.init()
+        prepare(soundfont:soundfont)
+       
+    }
+    
+    func prepare(soundfont: URL) {
+        bankUrl = soundfont;
         augraphSetup()
         loadMIDISynthSoundFont()
         initializeGraph()

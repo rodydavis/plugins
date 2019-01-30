@@ -27,6 +27,14 @@ public class SwiftFlutterMidiPlugin: NSObject, FlutterPlugin {
           print("Valid URL: \(url)")
         let message = "Prepared Sound Font"
         result(message)
+    case "change_sound":
+        var map = call.arguments as? Dictionary<String, String>
+        let data = map?["path"]
+        let url = URL(fileURLWithPath: data!)
+        au.prepare(soundfont: url)
+        print("Valid URL: \(url)")
+        let message = "Prepared Sound Font"
+        result(message)
       case "unmute":
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
