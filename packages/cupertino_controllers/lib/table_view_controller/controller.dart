@@ -193,7 +193,7 @@ class CupertinoTableViewSection {
 
   CupertinoTableViewSection({
     this.header,
-    @required List<Widget> children = const <Widget>[],
+   List<Widget> children = const <Widget>[],
     bool addAutomaticKeepAlives = true,
     bool addRepaintBoundaries = true,
     bool addSemanticIndexes = true,
