@@ -1,96 +1,72 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter_midi/flutter_midi.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  /// When [true] the note will be played for as long as the button is pressed
-  /// The sound starts the second the button is touched.
-  ///
-  /// When [false] the sound will be play when the button is pressed.
-  /// If the user cancels the touch on drag the sound will not be played.
-  /// In this mode the sound will play for a default time.
-  bool _toggle = true;
-
   @override
   void initState() {
-    _initPlatformState();
+    load(_value);
     super.initState();
   }
 
-  /// Need to Load the sound_font.SF2 file in memory to play midi without lag.
-  void _initPlatformState() async {
-    String _message = await FlutterMidi.prepare();
-    print(_message);
-    _message = await FlutterMidi.unmute();
-    print(_message);
+  void load(String asset) async {
+    print("Loading File...");
+    FlutterMidi.unmute();
+    ByteData _byte = await rootBundle.load(asset);
+    //assets/sf2/SmallTimGM6mb.sf2
+    //assets/sf2/Piano.SF2
+    FlutterMidi.prepare(sf2: _byte, name: _value.replaceAll("assets/sf2/", ""));
   }
 
-  /// Starts playing the midi note
-  void _playMidi(int midi) {
-    FlutterMidi.playMidiNote(midi: midi)
-        .then((dynamic message) => print(message))
-        .catchError((dynamic e) => print(e));
-  }
-
-  /// Stops playing the midi note
-  void _stopMidi() {
-    FlutterMidi.stopMidiNote()
-        .then((dynamic message) => print(message))
-        .catchError((dynamic e) => print(e));
-  }
-
-  /// Creates a general resuable button that can toggle or just play a note.
-  Widget _playButton({int midi, String name, bool toggle}) {
-    return Container(
-      color: Colors.blue,
-      child: Listener(
-        onPointerDown: (dynamic e) => toggle ? _playMidi(midi) : null,
-        onPointerUp: (dynamic e) => toggle ? _stopMidi() : null,
-        child: InkWell(
-          onTap: toggle ? null : () => _playMidi(midi),
-          child: Container(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              name,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  String _value = "assets/sf2/SmallTimGM6mb.sf2";
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Play Midi Note'),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
         ),
-        body: SingleChildScrollView(
-          child: Center(
-              child: Column(children: <Widget>[
-            ListTile(
-              title: const Text('Toggle Mode'),
-              trailing: Switch(
-                value: _toggle,
-                onChanged: (bool value) => setState(() => _toggle = value),
-              ),
+        body: Center(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            DropdownButton<String>(
+              value: _value,
+              items: [
+                DropdownMenuItem(
+                  child: Text("Soft Piano"),
+                  value: "assets/sf2/SmallTimGM6mb.sf2",
+                ),
+                DropdownMenuItem(
+                  child: Text("Loud Piano"),
+                  value: "assets/sf2/Piano.SF2",
+                ),
+              ],
+              onChanged: (String value) {
+                setState(() {
+                  _value = value;
+                });
+                load(_value);
+              },
             ),
-            ButtonBar(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              _playButton(midi: 60, name: "C", toggle: _toggle),
-              _playButton(midi: 64, name: "E", toggle: _toggle),
-              _playButton(midi: 67, name: "G", toggle: _toggle),
-            ]),
-          ])),
-        ),
+            RaisedButton(
+              child: Text("Play C"),
+              onPressed: () {
+                FlutterMidi.playMidiNote(midi: 60);
+              },
+            ),
+          ],
+        )),
       ),
     );
   }
