@@ -1,6 +1,6 @@
 name: cupertino_controllers
 description: A Flutter plugin with Cupertino Controller Examples. This includes a Table View Controller, Master Detail Controller, Cupertino Cell with Xcode Storyboard templates (basic detail, subtitle...), and detail examples
-version: 0.0.2+1
+version: 0.0.2+2
 author: Rhodes Davis Jr. <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins/tree/master/packages/cupertino_controllers
 
