@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../utils/pop_up.dart';
 import 'package:native_widgets/native_widgets.dart';
+
+import '../utils/pop_up.dart';
 
 class Page1 extends StatefulWidget {
   @override
