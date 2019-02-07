@@ -1,6 +1,6 @@
 name: app_review
 description: Request and Write Reviews and Open Store Listing for Android and iOS in Flutter.
-version: 0.0.9+1
+version: 0.0.9+2
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
