@@ -1,3 +1,7 @@
+## [0.0.8] - Updating Dependencies
+
+* Updating Kotlin Version
+
 ## [0.0.7] - Refactor
 
 * Updating Example
