@@ -1,9 +1,8 @@
-name: flutter_sms
-description: A Flutter plugin to Send SMS and MMS on iOS and Android. If iMessage is enabled it will send as iMessage on iOS. This plugin must be tested on a real device on iOS.
-version: 0.0.4+2
-author: Rody Davis <rody.davis.jr@gmail.com>
-homepage: https://github.com/AppleEducate/plugins
-
+name: data_table
+description: A Better DataTable that renders on Desktop&#x2F;Tablet and as a ListView or GridView on Mobile.
+version: 0.0.1
+author:
+homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -12,17 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-# flutter packages pub publish
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-  plugin:
-    androidPackage: com.appleeducate.fluttersms
-    pluginClass: FlutterSmsPlugin
 
-  # To add assets to your plugin package, add an assets section, like this:
+  # To add assets to your package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
@@ -33,7 +32,7 @@ flutter:
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
-  # To add custom fonts to your plugin package, add a fonts section here,
+  # To add custom fonts to your package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
