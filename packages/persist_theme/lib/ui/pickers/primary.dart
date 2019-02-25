@@ -12,22 +12,21 @@ class PrimaryColorPicker extends StatelessWidget {
     this.label = "Primary Color",
     this.title = const Text("Primary Color"),
     this.showOnlyCustomTheme = true,
-    this.showOnlyLightMode = true,
   });
 
   final Widget leading, subtitle, title;
   final PickerType type;
   final String label;
   final bool showOnlyCustomTheme;
-  final bool showOnlyLightMode;
 
   @override
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
-              child: !showOnlyCustomTheme && !showOnlyLightMode ||
-                      (model.settings.customTheme && showOnlyCustomTheme) &&
-                          (!model.settings.darkMode && showOnlyLightMode)
+              child: !showOnlyCustomTheme ||
+                      (model.settings.customTheme &&
+                          showOnlyCustomTheme &&
+                          !model.settings.darkMode)
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
