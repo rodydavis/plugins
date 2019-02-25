@@ -12,19 +12,22 @@ class AccentColorPicker extends StatelessWidget {
     this.subtitle,
     this.title = const Text("Accent Color"),
     this.showOnlyCustomTheme = true,
+    this.showOnlyLightMode = true,
   });
 
   final Widget leading, subtitle, title;
   final PickerType type;
   final String label;
   final bool showOnlyCustomTheme;
+  final bool showOnlyLightMode;
 
   @override
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
-              child: !showOnlyCustomTheme ||
-                      model.settings.customTheme && showOnlyCustomTheme
+              child: !showOnlyCustomTheme && !showOnlyLightMode ||
+                      (model.settings.customTheme && showOnlyCustomTheme) &&
+                          (!model.settings.darkMode && showOnlyLightMode)
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
