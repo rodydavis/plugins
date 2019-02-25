@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'theme.g.dart';
 
-@JsonSerializable()
 class CustomThemeData {
   CustomThemeData({
     this.darkMode = false,
@@ -20,13 +18,10 @@ class CustomThemeData {
 
   bool customTheme;
 
-  @JsonKey(toJson: _colorToInt, fromJson: _intToColor)
-  dynamic primaryColor;
+  Color primaryColor;
 
-  @JsonKey(toJson: _colorToInt, fromJson: _intToColor)
   Color accentColor;
 
-  @JsonKey(toJson: _colorToInt, fromJson: _intToColor)
   Color darkAccentColor;
 
   factory CustomThemeData.fromJson(Map<String, dynamic> json) =>

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:persist_theme/persist_theme.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -47,7 +45,33 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Persist Theme'),
       ),
       body: ListView(
-        children: <Widget>[],
+        children: MediaQuery.of(context).size.width >= 480
+            ? <Widget>[
+                Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Flexible(child: DarkModeSwitch()),
+                    Flexible(child: TrueBlackSwitch()),
+                  ],
+                ),
+                CustomThemeSwitch(),
+                Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Flexible(child: PrimaryColorPicker(type: PickerType.block)),
+                    Flexible(child: AccentColorPicker(type: PickerType.block)),
+                  ],
+                ),
+                DarkAccentColorPicker(type: PickerType.block),
+              ]
+            : <Widget>[
+                DarkModeSwitch(),
+                TrueBlackSwitch(),
+                CustomThemeSwitch(),
+                PrimaryColorPicker(type: PickerType.block),
+                AccentColorPicker(type: PickerType.block),
+                DarkAccentColorPicker(type: PickerType.block),
+              ],
       ),
     );
   }

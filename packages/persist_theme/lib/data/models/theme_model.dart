@@ -68,11 +68,14 @@ class ThemeModel extends Model {
         backgroundColor: Colors.black,
         bottomAppBarColor: Colors.black,
         primaryColorDark: Colors.black,
+        accentColor: _settings?.darkAccentColor ?? null,
       );
       notifyListeners();
       print("True Dark Mode Activated");
     } else {
-      _currentTheme = ThemeData.dark();
+      _currentTheme = ThemeData.dark().copyWith(
+        accentColor: _settings?.darkAccentColor ?? null,
+      );
       notifyListeners();
       print("Dark Mode Activated");
     }
@@ -125,6 +128,7 @@ class ThemeModel extends Model {
   bool loading = false;
 
   CustomThemeData _settings = _defaultSettings;
+  CustomThemeData get settings => _settings;
 
   static var _defaultSettings = CustomThemeData(
     // Defaults
