@@ -1,7 +1,2 @@
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-
-class PersistTheme {
-  
-}
+export 'data/classes/theme.dart';
+export 'data/models/theme_model.dart';

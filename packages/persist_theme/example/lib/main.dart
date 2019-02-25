@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:persist_theme/persist_theme.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,18 +13,41 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  final ThemeModel _model = ThemeModel();
+
+  @override
+  void initState() {
+    try {
+      _model.loadFromDisk();
+    } catch (e) {
+      print("Error Loading Theme: $e");
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+    return ScopedModel<ThemeModel>(
+      model: _model,
+      child: new ScopedModelDescendant<ThemeModel>(
+        builder: (context, child, model) => MaterialApp(
+              theme: model.theme,
+              home: HomeScreen(),
+            ),
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Persist Theme'),
+      ),
+      body: ListView(
+        children: <Widget>[],
       ),
     );
   }
