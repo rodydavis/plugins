@@ -48,4 +48,5 @@ These are the available plugins in this repository.
 | [number_control](./packages/number_control/) | [![pub package](https://img.shields.io/pub/v/number_control.svg)](https://pub.dartlang.org/packages/number_control) |
 | [flutter_midi](./packages/flutter_midi/) | [![pub package](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dartlang.org/packages/flutter_midi) |
 | [cupertino_controllers](./packages/cupertino_controllers/) | [![pub package](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dartlang.org/packages/cupertino_controllers) |
+| [persist_theme](./packages/persist_theme/) | [![pub package](https://img.shields.io/pub/v/persist_theme.svg)](https://pub.dartlang.org/packages/persist_theme) |
 
