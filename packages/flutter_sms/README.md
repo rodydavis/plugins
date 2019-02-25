@@ -14,21 +14,8 @@ You can send multiple ways:
 2. People and No Message
 3. Message and People
 
-This will prefil the correct fields.
+This will populate the correct fields.
 
-## Setup
-
-### Android
-
-Add this to your AndroidManifest.xml
-
-``` xml
-<uses-permission android:name="android.permission.SEND_SMS"/>
-```
-
-### iOS
-
-Good to go!
 
 ## Example
 
