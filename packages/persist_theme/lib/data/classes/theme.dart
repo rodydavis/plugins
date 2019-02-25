@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-part 'theme.g.dart';
+part 'theme_json.dart';
 
 class CustomThemeData {
   CustomThemeData({

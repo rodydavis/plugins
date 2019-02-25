@@ -4,7 +4,6 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 
 import 'classes/theme.dart';
 import 'file_storage.dart';

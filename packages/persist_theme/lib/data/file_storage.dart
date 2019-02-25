@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../persist_theme.dart';
@@ -25,8 +24,7 @@ class FileStorage {
 
   Future<File> get _localFile async {
     final path = await _localPath;
-    var _path = p.joinAll([path, "$tag.json"]);
-    return File(_path);
+    return File("$path/$tag.json");
   }
 
   Future<dynamic> load() async {
