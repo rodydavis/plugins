@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2c0d1e53-518f-4576-8c4a-1fd45ec31490" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="2c0d1e53-518f-4576-8c4a-1fd45ec31490" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -21,7 +18,7 @@
     <session id="356045235">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.2" value="2" />
@@ -37,7 +34,7 @@
           <entry key="gradle" value="5" />
           <entry key="java" value="2" />
           <entry key="lock" value="1" />
-          <entry key="md" value="1" />
+          <entry key="md" value="2" />
           <entry key="yaml" value="6" />
         </counts>
       </usages-collector>
@@ -46,7 +43,7 @@
           <entry key="Dart" value="2" />
           <entry key="Groovy" value="5" />
           <entry key="JAVA" value="2" />
-          <entry key="Markdown" value="1" />
+          <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="YAML" value="6" />
         </counts>
@@ -54,14 +51,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gradle" value="5" />
-          <entry key="md" value="52" />
+          <entry key="md" value="67" />
           <entry key="yaml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="5" />
-          <entry key="Markdown" value="52" />
+          <entry key="Markdown" value="67" />
           <entry key="YAML" value="1" />
         </counts>
       </usages-collector>
@@ -69,15 +66,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/flutter_sms.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
@@ -133,11 +121,20 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -163,6 +160,7 @@
         <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -276,7 +274,7 @@
     <frame x="116" y="23" width="1911" height="1402" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22685929" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22685929" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -297,7 +295,7 @@
       <window_info anchor="bottom" id="Multi-OS Engine" order="10" />
       <window_info anchor="bottom" id="Logcat" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="13" visible="true" weight="0.32977098" />
       <window_info anchor="bottom" id="Flutter Performance" order="14" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="15" visible="true" weight="0.3299539" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -374,6 +372,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
         </state>
       </provider>
     </entry>
