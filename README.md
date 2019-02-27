@@ -49,4 +49,4 @@ These are the available plugins in this repository.
 | [flutter_midi](./packages/flutter_midi/) | [![pub package](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dartlang.org/packages/flutter_midi) |
 | [cupertino_controllers](./packages/cupertino_controllers/) | [![pub package](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dartlang.org/packages/cupertino_controllers) |
 | [persist_theme](./packages/persist_theme/) | [![pub package](https://img.shields.io/pub/v/persist_theme.svg)](https://pub.dartlang.org/packages/persist_theme) |
-
+| [data_tables](./packages/data_tables/) | [![pub package](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dartlang.org/packages/data_tables) |
