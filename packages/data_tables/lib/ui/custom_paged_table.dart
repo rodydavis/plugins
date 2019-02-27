@@ -291,7 +291,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(ianh): This whole build function doesn't handle RTL yet.
+    // This whole build function doesn't handle RTL yet.
     assert(debugCheckHasMaterialLocalizations(context));
     final ThemeData themeData = Theme.of(context);
     final MaterialLocalizations localizations =
@@ -307,7 +307,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         // around each button on each side, and the button itself will have 8
         // pixels internally on each side, yet we want the left edge of the
         // inside of the button to line up with the 24.0 left inset.
-        // TODO(ianh): Better magic. See https://github.com/flutter/flutter/issues/4460
+        // Better magic. See https://github.com/flutter/flutter/issues/4460
         startPadding = 12.0;
       }
     } else {

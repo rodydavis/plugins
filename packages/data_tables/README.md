@@ -1,14 +1,41 @@
 # data_tables
 
-List View on Mobile and Data Tables on Tablets&#x2F;Desktops.
+* Full Screen Pagnitated Data Tables for Tablets/Desktops
+* Mobile LIstview with Action Buttons for Sorting and Selecting All
+* Supports Dark Mode
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+* You can optionally build the listview for mobile with a builder, by default it creates a ExpansionTile with the remaining columns as children
+* THe tablet breakpoint can also be set.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+   `bool showMobileListView;` - When set to false it will always show a data table
+
+   `int sortColumnIndex;` - Current Sorted Column
+
+   `bool sortAscending;` - Sort Order
+
+   `ValueChanged<bool> onSelectAll;` - Called for Selecting and Deselecting All
+
+   `ValueChanged<int> onRowsPerPageChanged;` - Called when rows change on data table or last row reached on mobile.
+
+   `int rowsPerPage;` - Default Rows per page
+
+   `Widget header;` - Widget header for Desktop and Tablet Data Table
+
+   `List<DataColumn> columns;` - List of Columns (Must match length of DataCells in DataSource)
+
+   `DataTableSource dataSource;` - DataSource for the Data Table
+
+   `IndexedWidgetBuilder mobileItemBuilder;` - Optional Item builder for the list view for Mobile
+
+   `num tabletBreakpoint;` - Tablet breakpoint for the screen width
+
+   `List<Widget> actions, selectedActions;` - Actions that show when items are selected or not
+
+   `int mobileFetchNextRows;` - Default number of rows to fetch next
+
+   `RefreshCallback onRefresh;` - If not null the list view will be wrapped in a RefreshIndicator
+
+## Screenshots
+
