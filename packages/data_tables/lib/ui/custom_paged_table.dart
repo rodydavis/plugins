@@ -1,22 +1,19 @@
+import 'dart:math' as math;
+
+import 'package:flutter/gestures.dart' show DragStartBehavior;
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 // Copyright 2016 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
-import 'dart:math' as math;
-
-import 'package:data_tables/ui/custom_data_widgets.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/gestures.dart' show DragStartBehavior;
-
-import 'package:flutter/material.dart';
 
 /// A material design data table that shows data using multiple pages.
 ///
 /// A paginated data table shows [rowsPerPage] rows of data per page and
 /// provides controls for showing other pages.
 ///
-/// Data is read lazily from from a [CustomDataTableSource]. The widget is presented
+/// Data is read lazily from from a [DataTableSource]. The widget is presented
 /// as a [Card].
 ///
 /// See also:
@@ -24,12 +21,15 @@ import 'package:flutter/material.dart';
 ///  * [DataTable], which is not paginated.
 ///  * <https://material.io/go/design-data-tables#data-tables-tables-within-cards>
 class CustomPaginatedDataTable extends StatefulWidget {
+  final bool shrinkWrap;
+  final List<Widget> selectedActions;
+
   /// Creates a widget describing a paginated [DataTable] on a [Card].
   ///
   /// The [header] should give the card's header, typically a [Text] widget. It
   /// must not be null.
   ///
-  /// The [columns] argument must be a list of as many [CustomDataColumn] objects as
+  /// The [columns] argument must be a list of as many [DataColumn] objects as
   /// the table is to have columns, ignoring the leading checkbox column if any.
   /// The [columns] argument must have a length greater than zero and cannot be
   /// null.
@@ -43,9 +43,9 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// be false.
   ///
   /// The [source] must not be null. The [source] should be a long-lived
-  /// [CustomDataTableSource]. The same source should be provided each time a
+  /// [DataTableSource]. The same source should be provided each time a
   /// particular [CustomPaginatedDataTable] widget is created; avoid creating a new
-  /// [CustomDataTableSource] with each new instance of the [CustomPaginatedDataTable]
+  /// [DataTableSource] with each new instance of the [CustomPaginatedDataTable]
   /// widget unless the data table really is to now show entirely different
   /// data from a new source.
   ///
@@ -61,6 +61,8 @@ class CustomPaginatedDataTable extends StatefulWidget {
       this.onSelectAll,
       this.initialFirstRowIndex = 0,
       this.onPageChanged,
+      this.shrinkWrap = false,
+      this.selectedActions,
       this.rowsPerPage = defaultRowsPerPage,
       this.availableRowsPerPage = const <int>[
         defaultRowsPerPage,
@@ -108,7 +110,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   final List<Widget> actions;
 
   /// The configuration and labels for the columns in the table.
-  final List<CustomDataColumn> columns;
+  final List<DataColumn> columns;
 
   /// The current primary sort key's column.
   ///
@@ -167,7 +169,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// This object should generally have a lifetime longer than the
   /// [CustomPaginatedDataTable] widget itself; it should be reused each time the
   /// [CustomPaginatedDataTable] constructor is called.
-  final CustomDataTableSource source;
+  final DataTableSource source;
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
   final DragStartBehavior dragStartBehavior;
@@ -185,7 +187,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
   int _rowCount;
   bool _rowCountApproximate;
   int _selectedRowCount;
-  final Map<int, CustomDataRow> _rows = <int, CustomDataRow>{};
+  final Map<int, DataRow> _rows = <int, DataRow>{};
 
   @override
   void initState() {
@@ -233,38 +235,37 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
       widget.onPageChanged(_firstRowIndex);
   }
 
-  CustomDataRow _getBlankRowFor(int index) {
-    return CustomDataRow.byIndex(
+  DataRow _getBlankRowFor(int index) {
+    return DataRow.byIndex(
         index: index,
         cells: widget.columns
-            .map<CustomDataCell>(
-                (CustomDataColumn column) => CustomDataCell.empty)
+            .map<DataCell>((DataColumn column) => DataCell.empty)
             .toList());
   }
 
-  CustomDataRow _getProgressIndicatorRowFor(int index) {
+  DataRow _getProgressIndicatorRowFor(int index) {
     bool haveProgressIndicator = false;
-    final List<CustomDataCell> cells =
-        widget.columns.map<CustomDataCell>((CustomDataColumn column) {
+    final List<DataCell> cells =
+        widget.columns.map<DataCell>((DataColumn column) {
       if (!column.numeric) {
         haveProgressIndicator = true;
-        return const CustomDataCell(CircularProgressIndicator());
+        return const DataCell(CircularProgressIndicator());
       }
-      return CustomDataCell.empty;
+      return DataCell.empty;
     }).toList();
     if (!haveProgressIndicator) {
       haveProgressIndicator = true;
-      cells[0] = const CustomDataCell(CircularProgressIndicator());
+      cells[0] = const DataCell(CircularProgressIndicator());
     }
-    return CustomDataRow.byIndex(index: index, cells: cells);
+    return DataRow.byIndex(index: index, cells: cells);
   }
 
-  List<CustomDataRow> _getRows(int firstRowIndex, int rowsPerPage) {
-    final List<CustomDataRow> result = <CustomDataRow>[];
+  List<DataRow> _getRows(int firstRowIndex, int rowsPerPage) {
+    final List<DataRow> result = <DataRow>[];
     final int nextPageFirstRowIndex = firstRowIndex + rowsPerPage;
     bool haveProgressIndicator = false;
     for (int index = firstRowIndex; index < nextPageFirstRowIndex; index += 1) {
-      CustomDataRow row;
+      DataRow row;
       if (index < _rowCount || _rowCountApproximate) {
         row = _rows.putIfAbsent(index, () => widget.source.getRow(index));
         if (row == null && !haveProgressIndicator) {
@@ -314,7 +315,15 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         child: Text(localizations.selectedRowCountTitle(_selectedRowCount)),
       ));
     }
-    if (widget.actions != null) {
+    if (widget.selectedActions != null && widget.source.selectedRowCount != 0) {
+      headerWidgets.addAll(widget.selectedActions.map<Widget>((Widget action) {
+        return Padding(
+          // 8.0 is the default padding of an icon button
+          padding: const EdgeInsetsDirectional.only(start: 24.0 - 8.0 * 2.0),
+          child: action,
+        );
+      }).toList());
+    } else if (widget.actions != null) {
       headerWidgets.addAll(widget.actions.map<Widget>((Widget action) {
         return Padding(
           // 8.0 is the default padding of an icon button
@@ -382,14 +391,84 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
       Container(width: 14.0),
     ]);
 
-    // CARD
-    return Card(
-      semanticContainer: false,
-      child: SafeArea(
+    if (widget.shrinkWrap) {
+      return SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Semantics(
+              container: true,
+              child: DefaultTextStyle(
+                // These typographic styles aren't quite the regular ones. We pick the closest ones from the regular
+                // list and then tweak them appropriately.
+                // See https://material.io/design/components/data-tables.html#tables-within-cards
+                style: _selectedRowCount > 0
+                    ? themeData.textTheme.subhead
+                        .copyWith(color: themeData.accentColor)
+                    : themeData.textTheme.title
+                        .copyWith(fontWeight: FontWeight.w400),
+                child: IconTheme.merge(
+                  data: const IconThemeData(opacity: 0.54),
+                  child: ButtonTheme.bar(
+                    child: Ink(
+                      height: 64.0,
+                      color: _selectedRowCount > 0
+                          ? themeData.secondaryHeaderColor
+                          : null,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.only(
+                            start: startPadding, end: 14.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: headerWidgets),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              dragStartBehavior: widget.dragStartBehavior,
+              child: DataTable(
+                key: _tableKey,
+                columns: widget.columns,
+                sortColumnIndex: widget.sortColumnIndex,
+                sortAscending: widget.sortAscending,
+                onSelectAll: widget.onSelectAll,
+                rows: _getRows(_firstRowIndex, widget.rowsPerPage),
+              ),
+            ),
             DefaultTextStyle(
+              style: footerTextStyle,
+              child: IconTheme.merge(
+                data: const IconThemeData(opacity: 0.54),
+                child: Container(
+                  height: 56.0,
+                  child: SingleChildScrollView(
+                    dragStartBehavior: widget.dragStartBehavior,
+                    scrollDirection: Axis.horizontal,
+                    reverse: true,
+                    child: Row(
+                      children: footerWidgets,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // CARD
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Semantics(
+            container: true,
+            child: DefaultTextStyle(
               // These typographic styles aren't quite the regular ones. We pick the closest ones from the regular
               // list and then tweak them appropriately.
               // See https://material.io/design/components/data-tables.html#tables-within-cards
@@ -417,43 +496,43 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
                 ),
               ),
             ),
-            Expanded(
-                flex: 8,
-                child: Scrollbar(
-                    child: ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: CustomDataTable(
-                          key: _tableKey,
-                          columns: widget.columns,
-                          sortColumnIndex: widget.sortColumnIndex,
-                          sortAscending: widget.sortAscending,
-                          onSelectAll: widget.onSelectAll,
-                          rows: _getRows(_firstRowIndex, widget.rowsPerPage)),
-                    ),
-                  ],
-                ))),
-            DefaultTextStyle(
-              style: footerTextStyle,
-              child: IconTheme.merge(
-                data: const IconThemeData(opacity: 0.54),
-                child: Container(
-                  height: 56.0,
-                  child: SingleChildScrollView(
-                    dragStartBehavior: widget.dragStartBehavior,
+          ),
+          Expanded(
+              flex: 8,
+              child: Scrollbar(
+                  child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    reverse: true,
-                    child: Row(
-                      children: footerWidgets,
-                    ),
+                    child: DataTable(
+                        key: _tableKey,
+                        columns: widget.columns,
+                        sortColumnIndex: widget.sortColumnIndex,
+                        sortAscending: widget.sortAscending,
+                        onSelectAll: widget.onSelectAll,
+                        rows: _getRows(_firstRowIndex, widget.rowsPerPage)),
+                  ),
+                ],
+              ))),
+          DefaultTextStyle(
+            style: footerTextStyle,
+            child: IconTheme.merge(
+              data: const IconThemeData(opacity: 0.54),
+              child: Container(
+                height: 56.0,
+                child: SingleChildScrollView(
+                  dragStartBehavior: widget.dragStartBehavior,
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  child: Row(
+                    children: footerWidgets,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
