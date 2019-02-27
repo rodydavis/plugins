@@ -1,3 +1,10 @@
+## [0.1.0] - Breaking Change
+
+* Updated Example
+* Removed `get_version`
+* Plugin is now pure dart
+* Added Method WhatsNewPage.show()
+
 ## [0.0.7] - New Button Action
 
 * Updated Example
