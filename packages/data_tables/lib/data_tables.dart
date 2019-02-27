@@ -100,11 +100,15 @@ class NativeDataTable extends StatelessWidget {
       columns: columns,
       source: dataSource,
       shrinkWrap: false,
-      actions: onRefresh == null ? actions : []
+      actions: []
         ..addAll(actions)
-        ..add(IconButton(
-          icon: Icon(Icons.refresh),
-          onPressed: onRefresh,
+        ..add(Container(
+          child: onRefresh == null
+              ? null
+              : IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: onRefresh,
+                ),
         )),
       selectedActions: selectedActions,
     );
