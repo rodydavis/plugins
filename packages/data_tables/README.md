@@ -1,13 +1,13 @@
 # data_tables
 
 * Full Screen Pagnitated Data Tables for Tablets/Desktops
-* Mobile LIstview with Action Buttons for Sorting and Selecting All
+* Mobile ListView with Action Buttons for Sorting and Selecting All
 * Supports Dark Mode
 
 ## Getting Started
 
 * You can optionally build the listview for mobile with a builder, by default it creates a ExpansionTile with the remaining columns as children
-* THe tablet breakpoint can also be set.
+* The tablet breakpoint can also be set.
 
    `bool showMobileListView;` - When set to false it will always show a data table
 
