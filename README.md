@@ -14,9 +14,6 @@ Flutter plugins enable access to platform-specific APIs. For more information
 about plugins, and how to use them, see
 [https://flutter.io/platform-plugins/](https://flutter.io/platform-plugins/).
 
-These plugins are also available on
-[pub](https://pub.dartlang.org/AppleEducate/plugins).
-
 ## Issues
 
 Please file any issues, bugs, or feature requests in the [
