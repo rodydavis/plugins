@@ -82,27 +82,27 @@ class _NativePagedListViewState extends State<NativePagedListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.vertical,
-      children: <Widget>[
-        Flexible(
-          flex: 20,
-          child: SafeArea(
+    return SafeArea(
+      child: Flex(
+        direction: Axis.vertical,
+        children: <Widget>[
+          Flexible(
+            flex: 20,
             child: widget?.onRefresh == null
                 ? _buildListView(context)
                 : RefreshIndicator(
                     onRefresh: widget.onRefresh,
                     child: _buildListView(context)),
           ),
-        ),
-        Flexible(
-            flex: 1,
-            child: Container(
-              child: Row(
-                children: rowsSelected ? selectedActions ?? actions : actions,
-              ),
-            )),
-      ],
+          Flexible(
+              flex: 1,
+              child: Container(
+                child: Row(
+                  children: rowsSelected ? selectedActions ?? actions : actions,
+                ),
+              )),
+        ],
+      ),
     );
   }
 

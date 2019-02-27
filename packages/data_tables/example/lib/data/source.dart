@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'dessert.dart';
 
 class DessertDataSource extends DataTableSource {
-  DessertDataSource({
-    @required this.items,
-  });
-
-  List<Dessert> items;
+  List<Dessert> _items = [];
 
   void sort<T>(Comparable<T> getField(Dessert d), bool ascending) {
-    items.sort((Dessert a, Dessert b) {
+    _items.sort((Dessert a, Dessert b) {
       if (!ascending) {
         final Dessert c = a;
         a = b;
@@ -23,20 +19,16 @@ class DessertDataSource extends DataTableSource {
     notifyListeners();
   }
 
-  int _selectedCount = 0;
-
   @override
   DataRow getRow(int index) {
     assert(index >= 0);
-    if (index >= items.length) return null;
-    final Dessert dessert = items[index];
+    if (index >= _items.length) return null;
+    final Dessert dessert = _items[index];
     return DataRow.byIndex(
         index: index,
         selected: dessert.selected,
         onSelectChanged: (bool value) {
           if (dessert.selected != value) {
-            _selectedCount += value ? 1 : -1;
-            assert(_selectedCount >= 0);
             dessert.selected = value;
             notifyListeners();
           }
@@ -54,17 +46,29 @@ class DessertDataSource extends DataTableSource {
   }
 
   @override
-  int get rowCount => items.length;
+  int get rowCount => _items.length;
 
   @override
   bool get isRowCountApproximate => false;
 
   @override
-  int get selectedRowCount => _selectedCount;
+  int get selectedRowCount => selected?.length ?? 0;
 
   void selectAll(bool checked) {
-    for (Dessert dessert in items) dessert.selected = checked;
-    _selectedCount = checked ? items.length : 0;
+    for (Dessert dessert in _items) dessert.selected = checked;
+    notifyListeners();
+  }
+
+  void removeItem(Dessert desert) {
+    _items.remove(desert);
+    notifyListeners();
+  }
+
+  List<Dessert> get selected =>
+      _items?.where((d) => d.selected)?.toList() ?? [];
+
+  void initItems(List<Dessert> data) {
+    _items = data;
     notifyListeners();
   }
 }

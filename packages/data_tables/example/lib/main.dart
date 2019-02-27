@@ -16,11 +16,11 @@ class _MyAppState extends State<MyApp> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex;
   bool _sortAscending = true;
-  DessertDataSource _dessertsDataSource;
+  DessertDataSource _dessertsDataSource = DessertDataSource();
 
   @override
   void initState() {
-    _dessertsDataSource = DessertDataSource(items: _desserts);
+    _dessertsDataSource.initItems(_desserts);
     super.initState();
   }
 
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark(),
+      // theme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Native Data Table Example'),
@@ -47,7 +47,17 @@ class _MyAppState extends State<MyApp> {
           sortColumnIndex: _sortColumnIndex,
           sortAscending: _sortAscending,
           onRefresh: () async {
-            await new Future.delayed(new Duration(seconds: 3));
+            // await new Future.delayed(new Duration(seconds: 3));
+            setState(() {
+              _dessertsDataSource.initItems([]
+                ..addAll(_desserts)
+                ..addAll([
+                  Dessert('New Item 1', 159, 6.0, 24, 4.0, 87, 14, 1),
+                  Dessert('New Item 2', 159, 6.0, 24, 4.0, 87, 14, 1),
+                  Dessert('New Item 3', 159, 6.0, 24, 4.0, 87, 14, 1),
+                ]));
+              _rowsPerPage = _desserts.length;
+            });
             return null;
           },
           onRowsPerPageChanged: (int value) {
@@ -73,7 +83,15 @@ class _MyAppState extends State<MyApp> {
           selectedActions: <Widget>[
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {},
+              onPressed: _dessertsDataSource.selected == null
+                  ? null
+                  : () {
+                      setState(() {
+                        for (var item in _dessertsDataSource.selected) {
+                          _dessertsDataSource.removeItem(item);
+                        }
+                      });
+                    },
             ),
           ],
           columns: <DataColumn>[
