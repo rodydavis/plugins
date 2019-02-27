@@ -1,6 +1,6 @@
 # Flutter plugins
 
-[![Build Status](https://api.cirrus-ci.com/github/flutter/plugins.svg)](https://cirrus-ci.com/github/flutter/plugins/master)
+[![Build Status](https://api.cirrus-ci.com/github/AppleEducate/plugins.svg)](https://cirrus-ci.com/github/flutter/plugins/master)
 <a href="https://github.com/Solido/awesome-flutter">
    <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
 </a>
@@ -13,9 +13,6 @@ Check the `packages` directory for all plugins.
 Flutter plugins enable access to platform-specific APIs. For more information
 about plugins, and how to use them, see
 [https://flutter.io/platform-plugins/](https://flutter.io/platform-plugins/).
-
-These plugins are also available on
-[pub](https://pub.dartlang.org/flutter/plugins).
 
 ## Issues
 
@@ -32,8 +29,8 @@ is ready you can [publish](https://flutter.io/developing-packages/#publish)
 to the [pub repository](https://pub.dartlang.org/).
 
 If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md),
-and send a [pull request](https://github.com/flutter/plugins/pulls).
+please review our [contribution guide](https://github.com/AppleEducate/plugins/blob/master/CONTRIBUTING.md),
+and send a [pull request](https://github.com/AppleEducate/plugins/pulls).
 
 ## Plugins
 These are the available plugins in this repository.
