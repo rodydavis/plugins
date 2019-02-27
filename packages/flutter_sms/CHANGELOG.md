@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Removed SMS Permissions on Android
+
 ## 0.0.4
 
 * Bug Fix Send Result

@@ -1,6 +1,9 @@
 # Flutter plugins
 
-[![Build Status](https://api.cirrus-ci.com/github/flutter/plugins.svg)](https://cirrus-ci.com/github/flutter/plugins/master)
+[![Build Status](https://api.cirrus-ci.com/github/AppleEducate/plugins.svg)](https://cirrus-ci.com/github/flutter/plugins/master)
+<a href="https://github.com/Solido/awesome-flutter">
+   <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
+</a>
 
 This repo is a companion repo to the main [flutter
 repo](https://github.com/flutter/flutter). It contains the source code for
@@ -10,9 +13,6 @@ Check the `packages` directory for all plugins.
 Flutter plugins enable access to platform-specific APIs. For more information
 about plugins, and how to use them, see
 [https://flutter.io/platform-plugins/](https://flutter.io/platform-plugins/).
-
-These plugins are also available on
-[pub](https://pub.dartlang.org/flutter/plugins).
 
 ## Issues
 
@@ -29,8 +29,8 @@ is ready you can [publish](https://flutter.io/developing-packages/#publish)
 to the [pub repository](https://pub.dartlang.org/).
 
 If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/flutter/plugins/blob/master/CONTRIBUTING.md),
-and send a [pull request](https://github.com/flutter/plugins/pulls).
+please review our [contribution guide](https://github.com/AppleEducate/plugins/blob/master/CONTRIBUTING.md),
+and send a [pull request](https://github.com/AppleEducate/plugins/pulls).
 
 ## Plugins
 These are the available plugins in this repository.
@@ -43,4 +43,7 @@ These are the available plugins in this repository.
 | [flutter_whatsnew](./packages/flutter_whatsnew/) | [![pub package](https://img.shields.io/pub/v/flutter_whatsnew.svg)](https://pub.dartlang.org/packages/flutter_whatsnew) |
 | [native_widgets](./packages/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
 | [number_control](./packages/number_control/) | [![pub package](https://img.shields.io/pub/v/number_control.svg)](https://pub.dartlang.org/packages/number_control) |
-
+| [flutter_midi](./packages/flutter_midi/) | [![pub package](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dartlang.org/packages/flutter_midi) |
+| [cupertino_controllers](./packages/cupertino_controllers/) | [![pub package](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dartlang.org/packages/cupertino_controllers) |
+| [persist_theme](./packages/persist_theme/) | [![pub package](https://img.shields.io/pub/v/persist_theme.svg)](https://pub.dartlang.org/packages/persist_theme) |
+| [data_tables](./packages/data_tables/) | [![pub package](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dartlang.org/packages/data_tables) |

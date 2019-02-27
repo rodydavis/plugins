@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/data_tables.iml" filepath="$PROJECT_DIR$/data_tables.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/data_tables_android.iml" filepath="$PROJECT_DIR$/android/data_tables_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/data_tables_example_android.iml" filepath="$PROJECT_DIR$/example/android/data_tables_example_android.iml" />
+    </modules>
+  </component>
+</project>

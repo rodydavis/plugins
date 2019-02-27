@@ -38,11 +38,11 @@ class WhatsNewPage extends StatefulWidget {
     return showDemoDialog<Null>(
         context: context,
         child: NativeDialog(
-          title: title,
-          content: detail,
+          title: Text(title),
+          content: Text(detail),
           actions: <NativeDialogAction>[
             NativeDialogAction(
-                text: 'OK',
+                text: Text('OK'),
                 isDestructive: false,
                 onPressed: () {
                   Navigator.pop(context);
@@ -136,20 +136,21 @@ class _WhatsNewPageState extends State<WhatsNewPage> {
                         bottom: 5.0,
                         right: 10.0,
                         left: 10.0,
-                        child: NativeButton(
-                          minWidthAndroid: 100.0,
-                          child: widget.buttonText,
-                          buttonColor: Colors.blue,
-                          onPressed: widget.onButtonPressed != null
-                              ? widget.onButtonPressed
-                              : () {
-                                  Navigator.push<dynamic>(
-                                      context,
-                                      MaterialPageRoute<dynamic>(
-                                        builder: (BuildContext context) =>
-                                            widget.home,
-                                      ));
-                                },
+                        child: ListTile(
+                          title: NativeButton(
+                            child: widget.buttonText,
+                            color: Colors.blue,
+                            onPressed: widget.onButtonPressed != null
+                                ? widget.onButtonPressed
+                                : () {
+                                    Navigator.push<dynamic>(
+                                        context,
+                                        MaterialPageRoute<dynamic>(
+                                          builder: (BuildContext context) =>
+                                              widget.home,
+                                        ));
+                                  },
+                          ),
                         )),
                   ],
                 ),
