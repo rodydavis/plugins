@@ -1,11 +1,11 @@
 name: data_tables
 description: List View on Mobile and Data Tables on Tablets&#x2F;Desktops.
-version: 0.0.1
+version: 0.0.2
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:
