@@ -150,7 +150,7 @@ class _EditScreenState extends State<EditScreen> {
               width: MediaQuery.of(context).size.height * .5,
               child: GridView.count(
                 crossAxisCount: 4,
-                physics: NeverScrollableScrollPhysics(),
+                // physics: NeverScrollableScrollPhysics(),
                 children: _tabs
                     .map(
                       (t) => GridTabItem(

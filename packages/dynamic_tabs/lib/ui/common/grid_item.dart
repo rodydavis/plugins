@@ -28,18 +28,22 @@ class GridTabItem extends StatelessWidget {
             style: adaptive && Platform.isIOS
                 ? CupertinoTheme.of(context).textTheme.textStyle
                 : Theme.of(context).textTheme.title,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Icon(
-                  _icon.icon,
-                  size: 35.0,
-                ),
-                Text(
-                  _title.data,
-                  style: TextStyle(fontSize: 30.0),
-                ),
-              ],
+            child: Container(
+              width: 120.0,
+              height: 80.0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    _icon.icon,
+                    size: 35.0,
+                  ),
+                  Text(
+                    _title.data,
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                ],
+              ),
             )),
         child: Column(
           mainAxisSize: MainAxisSize.min,
