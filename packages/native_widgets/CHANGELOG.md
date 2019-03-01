@@ -1,3 +1,9 @@
+## [1.0.1]
+
+* Added current index to NativeScaffold's PlatformNavBar.
+* Added automaticallyImplyLeading to allow hidden leading element in AppBar.
+* Thank you to @amadejkastelic for the PR
+
 ## [1.0.0] - Major Update
 
 * Refactored Library to use Platfrom Widgets plugin in the backend

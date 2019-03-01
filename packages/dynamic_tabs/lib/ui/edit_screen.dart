@@ -43,7 +43,7 @@ class _EditScreenState extends State<EditScreen> {
               direction: Axis.vertical,
               children: <Widget>[
                 Flexible(
-                  flex: 9,
+                  flex: MediaQuery.of(context).size.height < 400 ? 5 : 9,
                   child: _buildBody(context),
                 ),
                 Flexible(
@@ -69,7 +69,7 @@ class _EditScreenState extends State<EditScreen> {
             direction: Axis.vertical,
             children: <Widget>[
               Flexible(
-                flex: 9,
+                flex: MediaQuery.of(context).size.height < 400 ? 5 : 9,
                 child: _buildBody(context),
               ),
               Flexible(
@@ -133,36 +133,44 @@ class _EditScreenState extends State<EditScreen> {
 
   Widget _buildBody(BuildContext context) {
     return Center(
-      child: Container(
-        width: MediaQuery.of(context).size.height * .5,
+      child: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              "Drag the icons to\norganize tabs.",
-              style:
-                  Theme.of(context).textTheme.display1.copyWith(fontSize: 22.0),
-              textAlign: TextAlign.center,
-            ),
-            Container(height: 25.0),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .5,
-              width: MediaQuery.of(context).size.height * .5,
-              child: GridView.count(
-                crossAxisCount: 4,
-                // physics: NeverScrollableScrollPhysics(),
-                children: _tabs
-                    .map(
-                      (t) => GridTabItem(
-                            active: _tabs.indexOf(t) > 3,
-                            tab: t,
-                            adaptive: widget.adaptive,
-                            draggable: true,
-                          ),
-                    )
-                    .toList(),
+            Container(
+              padding: EdgeInsets.only(top: 20, bottom: 20.0),
+              child: Text(
+                "Drag the icons to\norganize tabs.",
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontSize: 22.0),
+                textAlign: TextAlign.center,
               ),
             ),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: (MediaQuery.of(context).orientation ==
+                                  Orientation.landscape &&
+                              MediaQuery.of(context).size.width > 600) ||
+                          MediaQuery.of(context).size.width > 600
+                      ? 6
+                      : 4,
+                  children: _tabs
+                      .map(
+                        (t) => GridTabItem(
+                              active: _tabs.indexOf(t) > 3,
+                              tab: t,
+                              adaptive: widget.adaptive,
+                              draggable: true,
+                            ),
+                      )
+                      .toList(),
+                ),
+              ),
+            )
           ],
         ),
       ),

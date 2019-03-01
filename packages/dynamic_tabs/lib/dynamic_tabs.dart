@@ -179,7 +179,8 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
       return CupertinoTabView(
         builder: (BuildContext context) => CupertinoPageScaffold(
               navigationBar: CupertinoNavigationBar(
-                middle: widget?.tabs[_currentIndex]?.tab?.title,
+                middle: widget?.tabs[_currentIndex]?.title ??
+                    widget?.tabs[_currentIndex]?.tab?.title,
                 trailing: widget?.tabs[_currentIndex]?.trailingAction,
               ),
               child: widget.tabs[_currentIndex].child,
@@ -188,7 +189,8 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
 
     return Scaffold(
       appBar: AppBar(
-        title: widget?.tabs[_currentIndex]?.tab?.title,
+        title: widget?.tabs[_currentIndex]?.title ??
+            widget?.tabs[_currentIndex]?.tab?.title,
         actions: <Widget>[
           widget?.tabs[_currentIndex]?.trailingAction ?? Container()
         ],

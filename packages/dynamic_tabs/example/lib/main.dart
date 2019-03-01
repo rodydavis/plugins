@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicTabScaffold(
+    return DynamicTabScaffold.adaptive(
       persistIndex: true,
       tabs: <DynamicTab>[
         DynamicTab(
@@ -38,6 +38,10 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.info),
           ),
           tag: "info", // Must Be Unique
+          title: Text(
+            "Info",
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0),
+          ),
         ),
         DynamicTab(
           child: Container(

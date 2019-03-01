@@ -6,6 +6,7 @@ class DynamicTab {
     @required this.tab,
     @required this.tag,
     this.trailingAction,
+    this.title,
   });
 
   final Widget child;
@@ -14,6 +15,8 @@ class DynamicTab {
   final Widget trailingAction;
 
   final BottomNavigationBarItem tab;
+
+  final Widget title;
 
   /// Uniquie Tag used for storing the tab order on the device
   final String tag;

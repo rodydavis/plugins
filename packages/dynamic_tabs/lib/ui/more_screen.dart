@@ -65,7 +65,7 @@ class MoreTab extends StatelessWidget {
                     builder: (context) => adaptive && Platform.isIOS
                         ? CupertinoPageScaffold(
                             navigationBar: CupertinoNavigationBar(
-                              middle: i.tab.title,
+                              middle: i?.title ?? i.tab.title,
                               previousPageTitle: "More",
                               trailing: i?.trailingAction,
                             ),
@@ -73,7 +73,7 @@ class MoreTab extends StatelessWidget {
                           )
                         : Scaffold(
                             appBar: AppBar(
-                              title: i.tab.title,
+                              title: i?.title ?? i.tab.title,
                               actions: <Widget>[
                                 i?.trailingAction ?? Container()
                               ],
