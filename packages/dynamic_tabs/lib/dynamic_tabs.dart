@@ -19,20 +19,12 @@ class DynamicTabScaffold extends StatefulWidget {
     this.type,
     this.unselectedItemColor,
   })  : adaptive = false,
-        iosNav = null,
-        androidScaffold = null,
-        iosScaffold = null,
-        androidNav = null,
         assert(tabs != null),
         assert(tabs.length >= 2);
 
   DynamicTabScaffold.adaptive({
     @required this.tabs,
     this.backgroundColor,
-    this.androidNav,
-    this.iosScaffold,
-    this.androidScaffold,
-    this.iosNav,
     this.persistIndex = false,
   })  : adaptive = true,
         type = null,
@@ -45,10 +37,6 @@ class DynamicTabScaffold extends StatefulWidget {
   final List<DynamicTab> tabs;
   final bool adaptive;
   final Color backgroundColor;
-  final CupertinoPageScaffoldData iosScaffold;
-  final MaterialScaffoldData androidScaffold;
-  final MaterialNavBarData androidNav;
-  final CupertinoTabBarData iosNav;
   final bool persistIndex;
 
   // Material Only
@@ -128,12 +116,6 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
               : _items.map((t) => t.tab).toList(),
           currentIndex: _currentIndex,
           itemChanged: _tabChanged,
-          ios: widget?.iosNav == null
-              ? null
-              : (BuildContext context) => widget.iosNav,
-          android: widget?.androidNav == null
-              ? null
-              : (BuildContext context) => widget.androidNav,
           backgroundColor: widget?.backgroundColor,
         ),
       );
@@ -195,10 +177,25 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
 
     if (widget.adaptive && Platform.isIOS)
       return CupertinoTabView(
-        builder: (BuildContext context) => widget.tabs[_currentIndex].child,
+        builder: (BuildContext context) => CupertinoPageScaffold(
+              navigationBar: CupertinoNavigationBar(
+                middle: widget?.tabs[_currentIndex]?.tab?.title,
+                trailing: widget?.tabs[_currentIndex]?.trailingAction,
+              ),
+              child: widget.tabs[_currentIndex].child,
+            ),
       );
 
-    return widget.tabs[_currentIndex].child;
+    return Scaffold(
+      appBar: AppBar(
+        title: widget?.tabs[_currentIndex]?.tab?.title,
+        actions: widget?.tabs[_currentIndex]?.trailingAction == null
+            ? null
+            : <Widget>[]
+          ..add(widget.tabs[_currentIndex].trailingAction),
+      ),
+      body: widget.tabs[_currentIndex].child,
+    );
   }
 
   bool get _editTab =>
