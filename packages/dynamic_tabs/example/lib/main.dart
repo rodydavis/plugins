@@ -16,11 +16,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: DynamicTabScaffold.adaptive(
         tabs: <DynamicTab>[
-          DynamicTab.adaptive(
-            appBar: PlatformAppBar(
-              title: Text("Tab 1"),
-            ),
-            body: Container(
+          DynamicTab(
+            child: Container(
               color: Colors.redAccent,
             ),
             tab: BottomNavigationBarItem(
@@ -29,11 +26,8 @@ class _MyAppState extends State<MyApp> {
             ),
             tag: "info",
           ),
-          DynamicTab.adaptive(
-            appBar: PlatformAppBar(
-              title: Text("Tab 2"),
-            ),
-            body: Container(
+          DynamicTab(
+            child: Container(
               color: Colors.green,
             ),
             tab: BottomNavigationBarItem(
@@ -42,11 +36,8 @@ class _MyAppState extends State<MyApp> {
             ),
             tag: "home",
           ),
-          DynamicTab.adaptive(
-            appBar: PlatformAppBar(
-              title: Text("Tab 3"),
-            ),
-            body: Container(
+          DynamicTab(
+            child: Container(
               color: Colors.amber,
             ),
             tab: BottomNavigationBarItem(
@@ -55,11 +46,8 @@ class _MyAppState extends State<MyApp> {
             ),
             tag: "account",
           ),
-          DynamicTab.adaptive(
-            appBar: PlatformAppBar(
-              title: Text("Tab 4"),
-            ),
-            body: Container(
+          DynamicTab(
+            child: Container(
               color: Colors.blueAccent,
             ),
             tab: BottomNavigationBarItem(
@@ -68,11 +56,8 @@ class _MyAppState extends State<MyApp> {
             ),
             tag: "help",
           ),
-          DynamicTab.adaptive(
-            appBar: PlatformAppBar(
-              title: Text("Tab 5"),
-            ),
-            body: Container(
+          DynamicTab(
+            child: Container(
               color: Colors.purple,
             ),
             tab: BottomNavigationBarItem(
@@ -81,11 +66,8 @@ class _MyAppState extends State<MyApp> {
             ),
             tag: "settings",
           ),
-          DynamicTab.adaptive(
-            appBar: PlatformAppBar(
-              title: Text("Tab 6"),
-            ),
-            body: Container(
+          DynamicTab(
+            child: Container(
               color: Colors.yellow,
             ),
             tab: BottomNavigationBarItem(
