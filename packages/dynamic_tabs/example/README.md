@@ -31,8 +31,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicTabScaffold.adaptive(
       persistIndex: true,
-      // type: BottomNavigationBarType.fixed,
-      // fixedColor: Colors.blue,
       tabs: <DynamicTab>[
         DynamicTab(
           child: Container(
@@ -42,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Info"),
             icon: Icon(Icons.info),
           ),
-          tag: "info",
+          tag: "info", // Must Be Unique
         ),
         DynamicTab(
           child: Container(
@@ -52,7 +50,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Home"),
             icon: Icon(Icons.home),
           ),
-          tag: "home",
+          tag: "home", // Must Be Unique
         ),
         DynamicTab(
           child: Container(
@@ -62,7 +60,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Account"),
             icon: Icon(Icons.account_circle),
           ),
-          tag: "account",
+          tag: "account", // Must Be Unique
         ),
         DynamicTab(
           child: Container(
@@ -72,7 +70,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Help"),
             icon: Icon(Icons.help),
           ),
-          tag: "help",
+          tag: "help", // Must Be Unique
         ),
         DynamicTab(
           child: Container(
@@ -82,7 +80,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Settings"),
             icon: Icon(Icons.settings),
           ),
-          tag: "settings",
+          tag: "settings", // Must Be Unique
         ),
         DynamicTab(
           child: Container(
@@ -92,7 +90,7 @@ class HomeScreen extends StatelessWidget {
             title: Text("Theme"),
             icon: Icon(Icons.palette),
           ),
-          tag: "theme",
+          tag: "theme", // Must Be Unique
         ),
       ],
     );
