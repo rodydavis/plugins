@@ -337,6 +337,7 @@ class NativeScaffold extends StatelessWidget {
           : PlatformNavBar(
               itemChanged: bottomBar?.onTap,
               items: bottomBar?.items,
+              currentIndex: bottomBar?.currentIndex,
             ),
     );
   }
