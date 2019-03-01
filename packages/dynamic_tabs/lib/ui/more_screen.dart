@@ -10,10 +10,12 @@ class MoreTab extends StatelessWidget {
   const MoreTab({
     this.adaptive = false,
     @required this.tabs,
+    this.tabsChanged,
   });
 
   final bool adaptive;
   final List<DynamicTab> tabs;
+  final ValueChanged<List<DynamicTab>> tabsChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +85,16 @@ class MoreTab extends StatelessWidget {
   }
 
   void _goToEditScreen(BuildContext context) {
-    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+    Navigator.of(context, rootNavigator: true)
+        .push<List<DynamicTab>>(MaterialPageRoute(
       builder: (context) => EditScreen(
             adaptive: adaptive,
             tabs: tabs,
           ),
       fullscreenDialog: true,
-    ));
+    ))
+        .then((newTabs) {
+      if (newTabs != null) tabsChanged(newTabs);
+    });
   }
 }

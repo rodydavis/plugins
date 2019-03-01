@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_platform_widgets: ^0.9.5
+  shared_preferences: ^0.5.1+1
 
 dev_dependencies:
   flutter_test:

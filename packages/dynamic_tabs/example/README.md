@@ -1,16 +1,102 @@
 # dynamic_tabs_example
 
-Demonstrates how to use the dynamic_tabs plugin.
+``` dart
+import 'package:flutter/material.dart';
 
-## Getting Started
+import 'package:dynamic_tabs/dynamic_tabs.dart';
 
-This project is a starting point for a Flutter application.
+void main() => runApp(MyApp());
 
-A few resources to get you started if this is your first Flutter project:
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.light(),
+      home: new HomeScreen(),
+    );
+  }
+}
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DynamicTabScaffold.adaptive(
+      persistIndex: true,
+      // type: BottomNavigationBarType.fixed,
+      // fixedColor: Colors.blue,
+      tabs: <DynamicTab>[
+        DynamicTab(
+          child: Container(
+            color: Colors.redAccent,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Info"),
+            icon: Icon(Icons.info),
+          ),
+          tag: "info",
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.green,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Home"),
+            icon: Icon(Icons.home),
+          ),
+          tag: "home",
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.amber,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Account"),
+            icon: Icon(Icons.account_circle),
+          ),
+          tag: "account",
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.blueAccent,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Help"),
+            icon: Icon(Icons.help),
+          ),
+          tag: "help",
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.purple,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Settings"),
+            icon: Icon(Icons.settings),
+          ),
+          tag: "settings",
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Theme"),
+            icon: Icon(Icons.palette),
+          ),
+          tag: "theme",
+        ),
+      ],
+    );
+  }
+}
+
+```

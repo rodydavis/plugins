@@ -5,6 +5,7 @@ import 'package:dynamic_tabs/ui/more_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 export 'package:dynamic_tabs/data/classes/tab.dart';
 
@@ -12,11 +13,16 @@ class DynamicTabScaffold extends StatefulWidget {
   DynamicTabScaffold({
     @required this.tabs,
     this.backgroundColor,
+    this.persistIndex = false,
+    this.iconSize,
+    this.fixedColor,
+    this.type,
+    this.unselectedItemColor,
   })  : adaptive = false,
-        androidNav = null,
         iosNav = null,
         androidScaffold = null,
         iosScaffold = null,
+        androidNav = null,
         assert(tabs != null),
         assert(tabs.length >= 2);
 
@@ -27,7 +33,12 @@ class DynamicTabScaffold extends StatefulWidget {
     this.iosScaffold,
     this.androidScaffold,
     this.iosNav,
+    this.persistIndex = false,
   })  : adaptive = true,
+        type = null,
+        fixedColor = null,
+        iconSize = null,
+        unselectedItemColor = null,
         assert(tabs != null),
         assert(tabs.length >= 2);
 
@@ -38,6 +49,13 @@ class DynamicTabScaffold extends StatefulWidget {
   final MaterialScaffoldData androidScaffold;
   final MaterialNavBarData androidNav;
   final CupertinoTabBarData iosNav;
+  final bool persistIndex;
+
+  // Material Only
+  final double iconSize;
+  final Color fixedColor;
+  final BottomNavigationBarType type;
+  final Color unselectedItemColor;
 
   @override
   _DynamicTabScaffoldState createState() => _DynamicTabScaffoldState();
@@ -46,16 +64,53 @@ class DynamicTabScaffold extends StatefulWidget {
 class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   int _currentIndex = 0;
 
-  List<BottomNavigationBarItem> _items;
+  SharedPreferences _prefs;
+
+  List<DynamicTab> _items;
 
   @override
   void initState() {
-    _items = widget.tabs.take(4).toList().map((t) => t.tab).toList()
-      ..add(BottomNavigationBarItem(
-        title: Text("More"),
-        icon: Icon(Icons.more_horiz),
-      ));
+    _items = widget.tabs;
+    SharedPreferences.getInstance().then((value) {
+      _prefs = value;
+      _loadSavedTabs();
+      if (widget.persistIndex) _loadIndex();
+    });
     super.initState();
+  }
+
+  void _loadSavedTabs() {
+    List<String> _tabs = _prefs.getStringList("bottom_tabs");
+    if (_tabs != null && _tabs.isNotEmpty) {
+      List<DynamicTab> _newOrder = [];
+      for (var item in _tabs) {
+        _newOrder.add(_items.firstWhere((t) => t.tag == item));
+      }
+      setState(() {
+        _items = _newOrder;
+      });
+    } else {
+      _saveNewTabs();
+    }
+  }
+
+  void _saveNewTabs() {
+    _prefs.setStringList("bottom_tabs", _items.map((t) => t.tag).toList());
+  }
+
+  void _loadIndex() {
+    int _index = _prefs.getInt("nav_index");
+    if (_index != null) {
+      setState(() {
+        _currentIndex = _index;
+      });
+    } else {
+      _saveIndex();
+    }
+  }
+
+  void _saveIndex() {
+    _prefs.setInt("nav_index", _currentIndex);
   }
 
   @override
@@ -64,7 +119,11 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
       return PlatformScaffold(
         body: _getBody(context),
         bottomNavBar: PlatformNavBar(
-          items: _items,
+          items: _items.take(4).toList().map((t) => t.tab).toList()
+            ..add(BottomNavigationBarItem(
+              title: Text("More"),
+              icon: Icon(Icons.more_horiz),
+            )),
           currentIndex: _currentIndex,
           itemChanged: _tabChanged,
           ios: widget?.iosNav == null
@@ -81,11 +140,17 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     return Scaffold(
       body: _getBody(context),
       bottomNavigationBar: BottomNavigationBar(
-        items: _items,
-        currentIndex: _currentIndex,
-        onTap: _tabChanged,
-        backgroundColor: widget?.backgroundColor,
-      ),
+          items: _items.take(4).toList().map((t) => t.tab).toList()
+            ..add(BottomNavigationBarItem(
+              title: Text("More"),
+              icon: Icon(Icons.more_horiz),
+            )),
+          currentIndex: _currentIndex,
+          onTap: _tabChanged,
+          backgroundColor: widget?.backgroundColor,
+          fixedColor: widget?.fixedColor ?? Theme.of(context).primaryColor,
+          type: widget?.type,
+          unselectedItemColor: widget?.unselectedItemColor ?? Colors.grey),
     );
   }
 
@@ -93,15 +158,34 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     setState(() {
       _currentIndex = index;
     });
+    if (widget.persistIndex) _saveIndex();
   }
 
   Widget _getBody(BuildContext context) {
     if (_editTab) {
-      return CupertinoTabView(
-        builder: (BuildContext context) => MoreTab(
-              adaptive: widget.adaptive,
-              tabs: widget.tabs,
-            ),
+      if (widget.adaptive && Platform.isIOS) {
+        return CupertinoTabView(
+          builder: (BuildContext context) => MoreTab(
+                adaptive: widget.adaptive,
+                tabs: widget.tabs,
+                tabsChanged: (List<DynamicTab> tabs) {
+                  setState(() {
+                    _items = tabs;
+                  });
+                  _saveNewTabs();
+                },
+              ),
+        );
+      }
+      return MoreTab(
+        adaptive: widget.adaptive,
+        tabs: widget.tabs,
+        tabsChanged: (List<DynamicTab> tabs) {
+          setState(() {
+            _items = tabs;
+          });
+          _saveNewTabs();
+        },
       );
     }
 
