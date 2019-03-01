@@ -67,12 +67,16 @@ class MoreTab extends StatelessWidget {
                             navigationBar: CupertinoNavigationBar(
                               middle: i.tab.title,
                               previousPageTitle: "More",
+                              trailing: i?.trailingAction,
                             ),
                             child: i.child,
                           )
                         : Scaffold(
                             appBar: AppBar(
                               title: i.tab.title,
+                              actions:
+                                  i?.trailingAction == null ? null : <Widget>[]
+                                    ..add(i.trailingAction),
                             ),
                             body: i.child,
                           ),

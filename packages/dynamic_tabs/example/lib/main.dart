@@ -108,6 +108,10 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.people),
           ),
           tag: "contacts", // Must Be Unique
+          trailingAction: IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {},
+          ),
         ),
       ],
     );
