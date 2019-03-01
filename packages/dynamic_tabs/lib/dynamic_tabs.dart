@@ -189,10 +189,9 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     return Scaffold(
       appBar: AppBar(
         title: widget?.tabs[_currentIndex]?.tab?.title,
-        actions: widget?.tabs[_currentIndex]?.trailingAction == null
-            ? null
-            : <Widget>[]
-          ..add(widget.tabs[_currentIndex].trailingAction),
+        actions: <Widget>[
+          widget?.tabs[_currentIndex]?.trailingAction ?? Container()
+        ],
       ),
       body: widget.tabs[_currentIndex].child,
     );

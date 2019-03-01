@@ -14,6 +14,15 @@ A Flutter plugin for letting the user editing the bottom tabs like the Curpertin
 * On the edit screen the user can reorder that tabs to the nav bar as they wish, this will also be saved to disk
 * The App Bars for navigation will be created from the Bottom Navbar Titles
 
+## Screenshots
+
+![](https://github.com/AppleEducate/plugins/blob/master/packages/dynamic_tabs/screenshots/1.PNG)
+![](https://github.com/AppleEducate/plugins/blob/master/packages/dynamic_tabs/screenshots/2.PNG)
+![](https://github.com/AppleEducate/plugins/blob/master/packages/dynamic_tabs/screenshots/3.PNG)
+![](https://github.com/AppleEducate/plugins/blob/master/packages/dynamic_tabs/screenshots/4.PNG)
+![](https://github.com/AppleEducate/plugins/blob/master/packages/dynamic_tabs/screenshots/5.PNG)
+![](https://github.com/AppleEducate/plugins/blob/master/packages/dynamic_tabs/screenshots/6.PNG)
+
 ``` dart
 import 'package:flutter/material.dart';
 

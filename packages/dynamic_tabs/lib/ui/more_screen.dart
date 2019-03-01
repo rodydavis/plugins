@@ -74,9 +74,9 @@ class MoreTab extends StatelessWidget {
                         : Scaffold(
                             appBar: AppBar(
                               title: i.tab.title,
-                              actions:
-                                  i?.trailingAction == null ? null : <Widget>[]
-                                    ..add(i.trailingAction),
+                              actions: <Widget>[
+                                i?.trailingAction ?? Container()
+                              ],
                             ),
                             body: i.child,
                           ),

@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicTabScaffold.adaptive(
+    return DynamicTabScaffold(
       persistIndex: true,
       tabs: <DynamicTab>[
         DynamicTab(
