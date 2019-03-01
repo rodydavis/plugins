@@ -1,6 +1,6 @@
 # dynamic_tabs
 
-A Flutter plugin for letting the user editing the bottom tabs like the Curpertino iTunes App.
+A Flutter plugin for letting the user edit the bottom tabs like the Curpertino iTunes App.
 
 ## Getting Started
 
