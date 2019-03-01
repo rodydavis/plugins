@@ -330,6 +330,7 @@ class NativeScaffold extends StatelessWidget {
               leading: appBar?.leading,
               title: appBar?.title,
               trailingActions: appBar?.actions,
+              automaticallyImplyLeading: appBar?.automaticallyImplyLeading,
             ),
       body: body,
       bottomNavBar: bottomBar?.items == null
