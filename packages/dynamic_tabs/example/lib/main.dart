@@ -89,6 +89,26 @@ class HomeScreen extends StatelessWidget {
           ),
           tag: "theme", // Must Be Unique
         ),
+        DynamicTab(
+          child: Container(
+            color: Colors.purple,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("FAQ"),
+            icon: Icon(Icons.perm_contact_calendar),
+          ),
+          tag: "faq", // Must Be Unique
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts", // Must Be Unique
+        ),
       ],
     );
   }

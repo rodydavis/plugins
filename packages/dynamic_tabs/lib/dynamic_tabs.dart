@@ -119,11 +119,13 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
       return PlatformScaffold(
         body: _getBody(context),
         bottomNavBar: PlatformNavBar(
-          items: _items.take(4).toList().map((t) => t.tab).toList()
-            ..add(BottomNavigationBarItem(
-              title: Text("More"),
-              icon: Icon(Icons.more_horiz),
-            )),
+          items: _items.length > 5
+              ? (_items.take(4).toList().map((t) => t.tab).toList()
+                ..add(BottomNavigationBarItem(
+                  title: Text("More"),
+                  icon: Icon(Icons.more_horiz),
+                )))
+              : _items.map((t) => t.tab).toList(),
           currentIndex: _currentIndex,
           itemChanged: _tabChanged,
           ios: widget?.iosNav == null
@@ -140,11 +142,13 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     return Scaffold(
       body: _getBody(context),
       bottomNavigationBar: BottomNavigationBar(
-          items: _items.take(4).toList().map((t) => t.tab).toList()
-            ..add(BottomNavigationBarItem(
-              title: Text("More"),
-              icon: Icon(Icons.more_horiz),
-            )),
+          items: _showEditTab
+              ? (_items.take(4).toList().map((t) => t.tab).toList()
+                ..add(BottomNavigationBarItem(
+                  title: Text("More"),
+                  icon: Icon(Icons.more_horiz),
+                )))
+              : _items.map((t) => t.tab).toList(),
           currentIndex: _currentIndex,
           onTap: _tabChanged,
           backgroundColor: widget?.backgroundColor,
@@ -162,7 +166,7 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   Widget _getBody(BuildContext context) {
-    if (_editTab) {
+    if (_showEditTab && _editTab) {
       if (widget.adaptive && Platform.isIOS) {
         return CupertinoTabView(
           builder: (BuildContext context) => MoreTab(
@@ -200,4 +204,6 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   bool get _editTab =>
       _currentIndex == 4 ||
       (widget.tabs.length < 4 && _currentIndex == widget.tabs.length + 1);
+
+  bool get _showEditTab => _items.length > 5;
 }
