@@ -330,6 +330,7 @@ class NativeScaffold extends StatelessWidget {
               leading: appBar?.leading,
               title: appBar?.title,
               trailingActions: appBar?.actions,
+              automaticallyImplyLeading: appBar?.automaticallyImplyLeading,
             ),
       body: body,
       bottomNavBar: bottomBar?.items == null
@@ -337,6 +338,7 @@ class NativeScaffold extends StatelessWidget {
           : PlatformNavBar(
               itemChanged: bottomBar?.onTap,
               items: bottomBar?.items,
+              currentIndex: bottomBar?.currentIndex,
             ),
     );
   }

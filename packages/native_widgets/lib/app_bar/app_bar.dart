@@ -11,6 +11,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
   // final bool showMaterial;
   // final ValueChanged<dynamic> onValueChanged;
   // final dynamic groupValue;
+  final bool automaticallyImplyLeading;
   final MaterialAppBarData android;
   final CupertinoNavigationBarData ios;
 
@@ -28,6 +29,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.preferredSize = const Size.fromHeight(56.0),
     // this.groupValue,
     // this.onValueChanged,
+    this.automaticallyImplyLeading,
     this.ios,
     this.android,
   });
@@ -86,6 +88,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title,
       trailingActions: actions,
       leading: leading,
+      automaticallyImplyLeading:automaticallyImplyLeading,
       ios: (BuildContext context) => ios,
       android: (BuildContext context) => android,
     );
