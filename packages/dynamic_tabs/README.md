@@ -12,7 +12,8 @@ A Flutter plugin for letting the user edit the bottom tabs like the Curpertino i
 * This supports Dark Mode
 * If there are more than 5 Tabs there will be a 5th Tab Created Call "More" and it will show a list of the remaining tabs
 * On the edit screen the user can reorder that tabs to the nav bar as they wish, this will also be saved to disk
-* The App Bars for navigation will be created from the Bottom Navbar Titles
+* If Using `.adaptive` Cupertino Widgets are Required and YOu will have to provide the routes for the Navigator.
+* You can set the max number of tabs
 
 ## Screenshots
 

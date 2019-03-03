@@ -16,11 +16,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: _buildRoutes(context),
       theme: ThemeData.light(),
       home: new HomeScreen(),
     );
   }
 }
+
+Map<String, WidgetBuilder> _buildRoutes(BuildContext context) =>
+    <String, WidgetBuilder>{
+      '/help': (BuildContext context) => HelpScreen(),
+      '/about': (BuildContext context) => AboutScreen(),
+    };
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -30,6 +37,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicTabScaffold.adaptive(
+      routes: _buildRoutes(context),
       persistIndex: true,
       tabs: <DynamicTab>[
         DynamicTab(

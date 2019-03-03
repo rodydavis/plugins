@@ -1,8 +1,10 @@
 import 'dart:io';
 
-import 'package:dynamic_tabs/data/classes/tab.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../data/classes/tab.dart';
 
 class GridTabItem extends StatelessWidget {
   const GridTabItem({
@@ -38,8 +40,9 @@ class GridTabItem extends StatelessWidget {
                     _icon.icon,
                     size: 35.0,
                   ),
-                  Text(
+                  AutoSizeText(
                     _title.data,
+                    maxLines: 1,
                     style: TextStyle(fontSize: 30.0),
                   ),
                 ],

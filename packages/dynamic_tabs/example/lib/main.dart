@@ -1,3 +1,6 @@
+import 'package:dynamic_tabs_example/ui/about/screen.dart';
+import 'package:dynamic_tabs_example/ui/faq/screen.dart';
+import 'package:dynamic_tabs_example/ui/help/screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dynamic_tabs/dynamic_tabs.dart';
@@ -15,19 +18,33 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData.light(),
       home: new HomeScreen(),
+      routes: _buildRoutes(context),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+Map<String, WidgetBuilder> _buildRoutes(BuildContext context) =>
+    <String, WidgetBuilder>{
+      '/help': (BuildContext context) => HelpScreen(),
+      '/about': (BuildContext context) => AboutScreen(),
+    };
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key key,
   }) : super(key: key);
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     return DynamicTabScaffold.adaptive(
+      routes: _buildRoutes(context),
       persistIndex: true,
+      maxTabs: 4,
       tabs: <DynamicTab>[
         DynamicTab(
           child: Container(
@@ -38,20 +55,6 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.info),
           ),
           tag: "info", // Must Be Unique
-          title: Text(
-            "Info",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.0),
-          ),
-        ),
-        DynamicTab(
-          child: Container(
-            color: Colors.green,
-          ),
-          tab: BottomNavigationBarItem(
-            title: Text("Home"),
-            icon: Icon(Icons.home),
-          ),
-          tag: "home", // Must Be Unique
         ),
         DynamicTab(
           child: Container(
@@ -64,9 +67,7 @@ class HomeScreen extends StatelessWidget {
           tag: "account", // Must Be Unique
         ),
         DynamicTab(
-          child: Container(
-            color: Colors.blueAccent,
-          ),
+          child: HelpScreen(),
           tab: BottomNavigationBarItem(
             title: Text("Help"),
             icon: Icon(Icons.help),
@@ -94,9 +95,7 @@ class HomeScreen extends StatelessWidget {
           tag: "theme", // Must Be Unique
         ),
         DynamicTab(
-          child: Container(
-            color: Colors.purple,
-          ),
+          child: FAQScreen(),
           tab: BottomNavigationBarItem(
             title: Text("FAQ"),
             icon: Icon(Icons.perm_contact_calendar),
@@ -112,10 +111,6 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.people),
           ),
           tag: "contacts", // Must Be Unique
-          trailingAction: IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {},
-          ),
         ),
       ],
     );

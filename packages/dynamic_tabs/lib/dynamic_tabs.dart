@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:dynamic_tabs/data/classes/tab.dart';
-import 'package:dynamic_tabs/ui/more_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-export 'package:dynamic_tabs/data/classes/tab.dart';
+import 'data/classes/tab.dart';
+import 'ui/more_screen.dart';
+export 'data/classes/tab.dart';
 
 class DynamicTabScaffold extends StatefulWidget {
   DynamicTabScaffold({
@@ -15,10 +14,10 @@ class DynamicTabScaffold extends StatefulWidget {
     this.backgroundColor,
     this.persistIndex = false,
     this.iconSize,
-    this.fixedColor,
-    this.type,
-    this.unselectedItemColor,
+    this.maxTabs = 4,
+    this.type = BottomNavigationBarType.fixed,
   })  : adaptive = false,
+        routes = null,
         assert(tabs != null),
         assert(tabs.length >= 2);
 
@@ -26,11 +25,11 @@ class DynamicTabScaffold extends StatefulWidget {
     @required this.tabs,
     this.backgroundColor,
     this.persistIndex = false,
+    this.maxTabs = 4,
+    @required this.routes,
   })  : adaptive = true,
         type = null,
-        fixedColor = null,
         iconSize = null,
-        unselectedItemColor = null,
         assert(tabs != null),
         assert(tabs.length >= 2);
 
@@ -38,12 +37,14 @@ class DynamicTabScaffold extends StatefulWidget {
   final bool adaptive;
   final Color backgroundColor;
   final bool persistIndex;
+  final int maxTabs;
+  final Map<String, WidgetBuilder> routes;
 
   // Material Only
   final double iconSize;
-  final Color fixedColor;
+  // final Color fixedColor;
   final BottomNavigationBarType type;
-  final Color unselectedItemColor;
+  // final Color unselectedItemColor;
 
   @override
   _DynamicTabScaffoldState createState() => _DynamicTabScaffoldState();
@@ -88,6 +89,10 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
 
   void _loadIndex() {
     int _index = _prefs.getInt("nav_index");
+    if (_index > widget.maxTabs) {
+      _index = 0;
+      _saveIndex();
+    }
     if (_index != null) {
       setState(() {
         _currentIndex = _index;
@@ -103,29 +108,14 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.adaptive) {
-      return PlatformScaffold(
-        body: _getBody(context),
-        bottomNavBar: PlatformNavBar(
-          items: _items.length > 5
-              ? (_items.take(4).toList().map((t) => t.tab).toList()
-                ..add(BottomNavigationBarItem(
-                  title: Text("More"),
-                  icon: Icon(Icons.more_horiz),
-                )))
-              : _items.map((t) => t.tab).toList(),
-          currentIndex: _currentIndex,
-          itemChanged: _tabChanged,
-          backgroundColor: widget?.backgroundColor,
-        ),
-      );
-    }
-
-    return Scaffold(
-      body: _getBody(context),
-      bottomNavigationBar: BottomNavigationBar(
+    if (widget.adaptive && Platform.isIOS) {
+      return CupertinoTabScaffold(
+        tabBuilder: (BuildContext context, int index) {
+          return _getBody(context);
+        },
+        tabBar: CupertinoTabBar(
           items: _showEditTab
-              ? (_items.take(4).toList().map((t) => t.tab).toList()
+              ? (_items.take(widget.maxTabs).toList().map((t) => t.tab).toList()
                 ..add(BottomNavigationBarItem(
                   title: Text("More"),
                   icon: Icon(Icons.more_horiz),
@@ -134,13 +124,32 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
           currentIndex: _currentIndex,
           onTap: _tabChanged,
           backgroundColor: widget?.backgroundColor,
-          fixedColor: widget?.fixedColor ?? Theme.of(context).primaryColor,
-          type: widget?.type,
-          unselectedItemColor: widget?.unselectedItemColor ?? Colors.grey),
+        ),
+      );
+    }
+
+    return Scaffold(
+      body: _getBody(context),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _showEditTab
+            ? (_items.take(widget.maxTabs).toList().map((t) => t.tab).toList()
+              ..add(BottomNavigationBarItem(
+                title: Text("More"),
+                icon: Icon(Icons.more_horiz),
+              )))
+            : _items.map((t) => t.tab).toList(),
+        currentIndex: _currentIndex,
+        onTap: _tabChanged,
+
+        fixedColor: widget?.backgroundColor ?? Theme.of(context).primaryColor,
+        type: widget?.type,
+        // unselectedItemColor: widget?.unselectedItemColor ?? Colors.grey,
+      ),
     );
   }
 
   void _tabChanged(int index) {
+    print("Index: $index");
     setState(() {
       _currentIndex = index;
     });
@@ -148,12 +157,14 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   Widget _getBody(BuildContext context) {
-    if (_showEditTab && _editTab) {
+    if (_showEditTab && _moreTab) {
       if (widget.adaptive && Platform.isIOS) {
         return CupertinoTabView(
+          routes: widget.routes,
           builder: (BuildContext context) => MoreTab(
+                maxTabs: widget.maxTabs,
                 adaptive: widget.adaptive,
-                tabs: widget.tabs,
+                tabs: _items,
                 tabsChanged: (List<DynamicTab> tabs) {
                   setState(() {
                     _items = tabs;
@@ -164,8 +175,9 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
         );
       }
       return MoreTab(
+        maxTabs: widget.maxTabs,
         adaptive: widget.adaptive,
-        tabs: widget.tabs,
+        tabs: _items,
         tabsChanged: (List<DynamicTab> tabs) {
           setState(() {
             _items = tabs;
@@ -175,33 +187,17 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
       );
     }
 
-    if (widget.adaptive && Platform.isIOS)
+    if (widget.adaptive && Platform.isIOS) {
       return CupertinoTabView(
-        builder: (BuildContext context) => CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                middle: widget?.tabs[_currentIndex]?.title ??
-                    widget?.tabs[_currentIndex]?.tab?.title,
-                trailing: widget?.tabs[_currentIndex]?.trailingAction,
-              ),
-              child: widget.tabs[_currentIndex].child,
-            ),
+        routes: widget.routes,
+        builder: (BuildContext context) => _items[_currentIndex].child,
       );
+    }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: widget?.tabs[_currentIndex]?.title ??
-            widget?.tabs[_currentIndex]?.tab?.title,
-        actions: <Widget>[
-          widget?.tabs[_currentIndex]?.trailingAction ?? Container()
-        ],
-      ),
-      body: widget.tabs[_currentIndex].child,
-    );
+    return _items[_currentIndex].child;
   }
 
-  bool get _editTab =>
-      _currentIndex == 4 ||
-      (widget.tabs.length < 4 && _currentIndex == widget.tabs.length + 1);
+  bool get _moreTab => _currentIndex == widget.maxTabs;
 
-  bool get _showEditTab => _items.length > 5;
+  bool get _showEditTab => _items.length > widget.maxTabs;
 }

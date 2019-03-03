@@ -1,18 +1,21 @@
 import 'dart:io';
 
-import 'package:dynamic_tabs/data/classes/tab.dart';
-import 'package:dynamic_tabs/ui/common/grid_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../data/classes/tab.dart';
+import 'common/grid_item.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({
     this.adaptive = false,
     @required this.tabs,
+    @required this.maxTabs,
   });
 
   final bool adaptive;
   final List<DynamicTab> tabs;
+  final int maxTabs;
 
   @override
   _EditScreenState createState() => _EditScreenState();
@@ -48,7 +51,16 @@ class _EditScreenState extends State<EditScreen> {
                 ),
                 Flexible(
                   flex: 1,
-                  child: _buildBottomBar(context),
+                  child: BottomEditableTabBar(
+                    adaptive: widget.adaptive,
+                    maxTabs: widget.maxTabs,
+                    tabs: _tabs,
+                    onChanged: (List<DynamicTab> tabs) {
+                      setState(() {
+                        _tabs = tabs;
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
@@ -74,61 +86,20 @@ class _EditScreenState extends State<EditScreen> {
               ),
               Flexible(
                 flex: 1,
-                child: _buildBottomBar(context),
+                child: BottomEditableTabBar(
+                  adaptive: widget.adaptive,
+                  maxTabs: widget.maxTabs,
+                  tabs: _tabs,
+                  onChanged: (List<DynamicTab> tabs) {
+                    setState(() {
+                      _tabs = tabs;
+                    });
+                  },
+                ),
               ),
             ],
           ),
         ));
-  }
-
-  Widget _buildBottomBar(BuildContext context) {
-    return Container(
-      // color: Colors.amber,
-      // padding: EdgeInsets.symmetric(horizontal: 15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[]
-          ..addAll(_tabs
-              .take(4)
-              .map(
-                (t) => DragTarget<String>(
-                      builder: (context, possible, rejected) {
-                        print(possible);
-                        return GridTabItem(
-                          tab: t,
-                          active: _tabs.indexOf(t) <= 4,
-                          adaptive: widget.adaptive,
-                          // draggable: true,
-                        );
-                      },
-                      onWillAccept: (data) {
-                        return true;
-                      },
-                      onAccept: (data) {
-                        setState(() {
-                          var _item = _tabs.firstWhere((i) => i.tag == data);
-                          _tabs.removeAt(_tabs.indexOf(_item));
-                          _tabs.insert(_tabs.indexOf(t), _item);
-                        });
-                      },
-                    ),
-              )
-              .toList())
-          ..add(GridTabItem(
-            tab: DynamicTab(
-              child: Container(),
-              tab: BottomNavigationBarItem(
-                icon: Icon(Icons.more_horiz),
-                title: Text("More"),
-              ),
-              tag: "",
-            ),
-            draggable: false,
-            active: false,
-            adaptive: widget.adaptive,
-          )),
-      ),
-    );
   }
 
   Widget _buildBody(BuildContext context) {
@@ -161,7 +132,7 @@ class _EditScreenState extends State<EditScreen> {
                   children: _tabs
                       .map(
                         (t) => GridTabItem(
-                              active: _tabs.indexOf(t) > 3,
+                              active: _tabs.indexOf(t) >= widget.maxTabs,
                               tab: t,
                               adaptive: widget.adaptive,
                               draggable: true,
@@ -179,5 +150,101 @@ class _EditScreenState extends State<EditScreen> {
 
   void _saveTabs(BuildContext context) {
     Navigator.of(context).pop(_tabs);
+  }
+}
+
+class BottomEditableTabBar extends StatefulWidget {
+  const BottomEditableTabBar({
+    @required this.maxTabs,
+    @required this.tabs,
+    @required this.adaptive,
+    @required this.onChanged,
+  });
+
+  final bool adaptive;
+  final int maxTabs;
+  final List<DynamicTab> tabs;
+  final ValueChanged<List<DynamicTab>> onChanged;
+
+  @override
+  _BottomEditableTabBarState createState() => _BottomEditableTabBarState();
+}
+
+class _BottomEditableTabBarState extends State<BottomEditableTabBar> {
+  List<DynamicTab> _tabs;
+  int _previewIndex;
+
+  @override
+  void initState() {
+    _tabs = widget.tabs;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> _children = [];
+    List<DynamicTab> _targets = _tabs.take(widget.maxTabs).toList();
+    for (var t in _targets) {
+      _children.add(DragTarget<String>(
+        builder: (context, possible, rejected) {
+          print("Possible: $possible, Rejected: $rejected");
+          return GridTabItem(
+            tab: t,
+            active: _previewIndex == null
+                ? true
+                : !(_targets.indexOf(t) == _previewIndex),
+            adaptive: widget.adaptive,
+            // draggable: true,
+          );
+        },
+        onWillAccept: (String data) {
+          setState(() {
+            _previewIndex = _targets.indexOf(t);
+          });
+          return true;
+        },
+        onLeave: (String data) {
+          setState(() {
+            _previewIndex = null;
+          });
+        },
+        onAccept: (String data) {
+          final DynamicTab _baseTab = _targets[_previewIndex];
+          final DynamicTab _newTab = _tabs.firstWhere((t) => t.tag == data);
+          final int _oldIndex = _tabs.indexOf(_newTab);
+
+          _tabs.removeAt(_previewIndex);
+          _tabs.insert(_previewIndex, _newTab);
+          _tabs.removeAt(_oldIndex);
+          _tabs.insert(_oldIndex, _baseTab);
+
+          widget.onChanged(_tabs);
+          
+          setState(() {
+            _previewIndex = null;
+          });
+        },
+      ));
+    }
+
+    _children.add(GridTabItem(
+      tab: DynamicTab(
+        child: Container(),
+        tab: BottomNavigationBarItem(
+          icon: Icon(Icons.more_horiz),
+          title: Text("More"),
+        ),
+        tag: "",
+      ),
+      draggable: false,
+      active: false,
+      adaptive: widget.adaptive,
+    ));
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: _children,
+      ),
+    );
   }
 }
