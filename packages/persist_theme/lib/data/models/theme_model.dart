@@ -12,59 +12,78 @@ class ThemeModel extends Model {
     this.customBlackTheme,
     this.customLightTheme,
     this.customDarkTheme,
-    this.defaultThemeSettings,
+    this.customCustomTheme,
     this.type = ThemeType.light,
   });
 
   ThemeType type;
 
-  final ThemeData customLightTheme, customDarkTheme, customBlackTheme;
+  ThemeType get _type {
+    if (_settings?.darkMode ?? false) {
+      if (_settings?.trueBlack ?? false) return ThemeType.black;
+      return ThemeType.dark;
+    }
+    if (_settings?.customTheme ?? false) return ThemeType.custom;
+    return ThemeType.light;
+  }
 
-  final CustomThemeData defaultThemeSettings;
+  final ThemeData customLightTheme,
+      customDarkTheme,
+      customBlackTheme,
+      customCustomTheme;
 
   void changeDarkMode(bool value) {
-    _settings.darkMode = value;
-    _loadTheme();
-    _saveToDisk();
+    _settings?.darkMode = value;
+    type = _type;
+    print("Loaded Theme: $type");
     notifyListeners();
+    _saveToDisk();
   }
 
   void changeTrueBlack(bool value) {
-    _settings.trueBlack = value;
-    _loadTheme();
-    _saveToDisk();
+    _settings?.trueBlack = value;
+    type = _type;
+    print("Loaded Theme: $type");
     notifyListeners();
+    _saveToDisk();
   }
 
   void changeCustomTheme(bool value) {
-    _settings.customTheme = value;
-    _loadTheme();
-    _saveToDisk();
+    _settings?.customTheme = value;
+    type = _type;
+    print("Loaded Theme: $type");
     notifyListeners();
+    _saveToDisk();
   }
 
   void changePrimaryColor(Color value) {
-    _settings.primaryColor = value;
-    _saveToDisk();
-    _loadTheme();
+    _settings?.primaryColor = value;
+    type = _type;
+    print("Loaded Theme: $type");
     notifyListeners();
+    _saveToDisk();
   }
 
   void changeAccentColor(Color value) {
-    _settings.accentColor = value;
-    _saveToDisk();
-    _loadTheme();
+    _settings?.accentColor = value;
+    type = _type;
+    print("Loaded Theme: $type");
     notifyListeners();
+    _saveToDisk();
   }
 
   void changeDarkAccentColor(Color value) {
-    _settings.darkAccentColor = value;
-    _saveToDisk();
-    _loadTheme();
+    _settings?.darkAccentColor = value;
+    type = _type;
+    print("Loaded Theme: $type");
     notifyListeners();
+    _saveToDisk();
   }
 
   ThemeData get theme {
+    if (_settings == null) {
+      loadFromDisk();
+    }
     switch (type) {
       case ThemeType.light:
         return customLightTheme ?? ThemeData.light().copyWith();
@@ -83,41 +102,21 @@ class ThemeModel extends Model {
               accentColor: _settings?.darkAccentColor ?? null,
             );
       case ThemeType.custom:
-        return ThemeData.light().copyWith(
-          primaryColor: _settings?.primaryColor ?? Colors.blue,
-          accentColor: _settings?.accentColor ?? Colors.redAccent,
-        );
+        return customCustomTheme != null
+            ? customCustomTheme.copyWith(
+                primaryColor: _settings?.primaryColor ?? Colors.blue,
+                accentColor: _settings?.accentColor ?? Colors.redAccent,
+              )
+            : ThemeData.light().copyWith(
+                primaryColor: _settings?.primaryColor ?? Colors.blue,
+                accentColor: _settings?.accentColor ?? Colors.redAccent,
+              );
       default:
         return customLightTheme ?? ThemeData.light().copyWith();
     }
   }
 
   bool get isLoaded => loaded;
-
-  void _loadTheme() {
-    if (_settings?.darkMode ?? false) {
-      _darkMode(trueBlack: _settings?.trueBlack ?? false);
-    } else {
-      _lightMode();
-    }
-  }
-
-  void _darkMode({bool trueBlack = false}) {
-    _settings.darkMode = true;
-    _settings.trueBlack = trueBlack;
-    type = trueBlack ? ThemeType.black : ThemeType.dark;
-    print("Loaded Theme: $type");
-    notifyListeners();
-    _saveToDisk();
-  }
-
-  void _lightMode() {
-    _settings.darkMode = false;
-    type = settings?.customTheme ?? false ? ThemeType.custom : ThemeType.light;
-    print("Loaded Theme: $type");
-    _saveToDisk();
-    notifyListeners();
-  }
 
   Color get backgroundColor {
     if (_settings?.darkMode ?? false) {
@@ -140,18 +139,26 @@ class ThemeModel extends Model {
   bool loaded = false;
   bool loading = false;
 
-  static var _defaultSettings = CustomThemeData(
-    darkMode: false,
-    trueBlack: false,
-    customTheme: false,
-    primaryColor: ThemeData.light().primaryColor,
-    accentColor: ThemeData.light().accentColor,
-    darkAccentColor: ThemeData.dark().accentColor,
-  );
+  CustomThemeData get _defaultSettings => CustomThemeData(
+        darkMode: type == ThemeType.dark || type == ThemeType.black,
+        trueBlack: type == ThemeType.black,
+        customTheme: type == ThemeType.custom,
+        primaryColor: type == ThemeType.dark
+            ? ThemeData.dark().primaryColor
+            : ThemeData.light().primaryColor,
+        accentColor: ThemeData.light().accentColor,
+        darkAccentColor: ThemeData.dark().accentColor,
+      );
 
   CustomThemeData _settings;
-  CustomThemeData get settings =>
-      _settings ?? defaultThemeSettings ?? _defaultSettings;
+
+  CustomThemeData get settings {
+    if (_settings == null) {
+      loadFromDisk();
+      return _defaultSettings;
+    }
+    return _settings;
+  }
 
   Future loadFromDisk() async {
     if (!loading) {
@@ -163,16 +170,26 @@ class ThemeModel extends Model {
         print("Error Loading App State => $e");
       }
       if (_appSettings == null) {
-        _settings = defaultThemeSettings ?? _defaultSettings;
+        _settings = _defaultSettings;
       } else {
         _settings = _appSettings;
+        if (_settings.darkMode) {
+          if (_settings.trueBlack) {
+            type = ThemeType.black;
+          } else {
+            type = ThemeType.dark;
+          }
+        } else if (_settings.customTheme) {
+          type = ThemeType.custom;
+        } else {
+          type = ThemeType.light;
+        }
       }
 
       loading = false;
       loaded = true;
       notifyListeners();
     }
-    _loadTheme();
   }
 
   void _saveToDisk() {
