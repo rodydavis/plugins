@@ -73,6 +73,10 @@ class HomeScreen extends StatelessWidget {
                 DarkAccentColorPicker(type: PickerType.block),
               ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
     );
   }
 }
