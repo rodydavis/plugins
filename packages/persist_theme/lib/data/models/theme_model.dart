@@ -5,7 +5,23 @@ import '../../persist_theme.dart';
 import '../file_storage.dart';
 import '../persistence_repository.dart';
 
+enum ThemeType { light, dark, custom, black }
+
 class ThemeModel extends Model {
+  ThemeModel({
+    this.customBlackTheme,
+    this.customLightTheme,
+    this.customDarkTheme,
+    this.defaultThemeSettings,
+    this.type = ThemeType.light,
+  });
+
+  ThemeType type;
+
+  final ThemeData customLightTheme, customDarkTheme, customBlackTheme;
+
+  final CustomThemeData defaultThemeSettings;
+
   void changeDarkMode(bool value) {
     _settings.darkMode = value;
     _loadTheme();
@@ -48,9 +64,34 @@ class ThemeModel extends Model {
     notifyListeners();
   }
 
-  ThemeData _currentTheme = ThemeData.light();
+  ThemeData get theme {
+    switch (type) {
+      case ThemeType.light:
+        return customLightTheme ?? ThemeData.light().copyWith();
+      case ThemeType.dark:
+        return customDarkTheme ??
+            ThemeData.dark().copyWith(
+              accentColor: _settings?.darkAccentColor ?? null,
+            );
+      case ThemeType.black:
+        return customBlackTheme ??
+            ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: Colors.black,
+              backgroundColor: Colors.black,
+              bottomAppBarColor: Colors.black,
+              primaryColorDark: Colors.black,
+              accentColor: _settings?.darkAccentColor ?? null,
+            );
+      case ThemeType.custom:
+        return ThemeData.light().copyWith(
+          primaryColor: _settings?.primaryColor ?? Colors.blue,
+          accentColor: _settings?.accentColor ?? Colors.redAccent,
+        );
+      default:
+        return customLightTheme ?? ThemeData.light().copyWith();
+    }
+  }
 
-  ThemeData get theme => _currentTheme;
   bool get isLoaded => loaded;
 
   void _loadTheme() {
@@ -62,45 +103,18 @@ class ThemeModel extends Model {
   }
 
   void _darkMode({bool trueBlack = false}) {
-    if (trueBlack) {
-      _currentTheme = ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        backgroundColor: Colors.black,
-        bottomAppBarColor: Colors.black,
-        primaryColorDark: Colors.black,
-        accentColor: _settings?.darkAccentColor ?? null,
-      );
-      notifyListeners();
-      print("True Dark Mode Activated");
-    } else {
-      _currentTheme = ThemeData.dark().copyWith(
-        accentColor: _settings?.darkAccentColor ?? null,
-      );
-      notifyListeners();
-      print("Dark Mode Activated");
-    }
-
     _settings.darkMode = true;
     _settings.trueBlack = trueBlack;
+    type = trueBlack ? ThemeType.black : ThemeType.dark;
+    print("Loaded Theme: $type");
     notifyListeners();
     _saveToDisk();
   }
 
   void _lightMode() {
-    if (_settings?.customTheme ?? false) {
-      _currentTheme = ThemeData.light().copyWith(
-        primaryColor: _settings?.primaryColor ?? Colors.blue,
-        accentColor: _settings?.accentColor ?? Colors.redAccent,
-      );
-      notifyListeners();
-      print("Custom Mode Activated");
-    } else {
-      _currentTheme = ThemeData.light();
-      notifyListeners();
-      print("Light Mode Activated");
-    }
-
     _settings.darkMode = false;
+    type = settings?.customTheme ?? false ? ThemeType.custom : ThemeType.light;
+    print("Loaded Theme: $type");
     _saveToDisk();
     notifyListeners();
   }
@@ -124,14 +138,9 @@ class ThemeModel extends Model {
   }
 
   bool loaded = false;
-
   bool loading = false;
 
-  CustomThemeData _settings = _defaultSettings;
-  CustomThemeData get settings => _settings;
-
   static var _defaultSettings = CustomThemeData(
-    // Defaults
     darkMode: false,
     trueBlack: false,
     customTheme: false,
@@ -139,6 +148,10 @@ class ThemeModel extends Model {
     accentColor: ThemeData.light().accentColor,
     darkAccentColor: ThemeData.dark().accentColor,
   );
+
+  CustomThemeData _settings;
+  CustomThemeData get settings =>
+      _settings ?? defaultThemeSettings ?? _defaultSettings;
 
   Future loadFromDisk() async {
     if (!loading) {
@@ -150,7 +163,7 @@ class ThemeModel extends Model {
         print("Error Loading App State => $e");
       }
       if (_appSettings == null) {
-        _settings = _defaultSettings;
+        _settings = defaultThemeSettings ?? _defaultSettings;
       } else {
         _settings = _appSettings;
       }
