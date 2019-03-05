@@ -1,16 +1,87 @@
 # persist_theme_example
 
-Demonstrates how to use the persist_theme plugin.
+``` dart
+import 'package:flutter/material.dart';
 
-## Getting Started
+import 'package:persist_theme/persist_theme.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-This project is a starting point for a Flutter application.
+void main() => runApp(MyApp());
 
-A few resources to get you started if this is your first Flutter project:
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+class _MyAppState extends State<MyApp> {
+  final ThemeModel _model = ThemeModel();
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+  @override
+  void initState() {
+    try {
+      _model.loadFromDisk();
+    } catch (e) {
+      print("Error Loading Theme: $e");
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScopedModel<ThemeModel>(
+      model: _model,
+      child: new ScopedModelDescendant<ThemeModel>(
+        builder: (context, child, model) => MaterialApp(
+              theme: model.theme,
+              home: HomeScreen(),
+            ),
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Persist Theme'),
+      ),
+      body: ListView(
+        children: MediaQuery.of(context).size.width >= 480
+            ? <Widget>[
+                Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Flexible(child: DarkModeSwitch()),
+                    Flexible(child: TrueBlackSwitch()),
+                  ],
+                ),
+                CustomThemeSwitch(),
+                Flex(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Flexible(child: PrimaryColorPicker(type: PickerType.block)),
+                    Flexible(child: AccentColorPicker(type: PickerType.block)),
+                  ],
+                ),
+                DarkAccentColorPicker(type: PickerType.block),
+              ]
+            : <Widget>[
+                DarkModeSwitch(),
+                TrueBlackSwitch(),
+                CustomThemeSwitch(),
+                PrimaryColorPicker(type: PickerType.block),
+                AccentColorPicker(type: PickerType.block),
+                DarkAccentColorPicker(type: PickerType.block),
+              ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
+    );
+  }
+}
+
+```
