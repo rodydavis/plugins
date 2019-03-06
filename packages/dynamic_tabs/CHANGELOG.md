@@ -1,3 +1,7 @@
+## 0.0.7
+
+* Adding Optional Tag if using multi sets of dynamic_tabs
+
 ## 0.0.6
 
 * Removing Title Generator, now just uses child

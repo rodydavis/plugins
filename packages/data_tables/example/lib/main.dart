@@ -2,7 +2,6 @@ import 'package:data_tables/data_tables.dart';
 import 'package:flutter/material.dart';
 
 import 'data/dessert.dart';
-import 'data/source.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,22 +14,33 @@ class _MyAppState extends State<MyApp> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex;
   bool _sortAscending = true;
-  DessertDataSource _dessertsDataSource = DessertDataSource();
 
   @override
   void initState() {
-    _dessertsDataSource.initItems(_desserts);
+    _items = _desserts;
     super.initState();
   }
 
   void _sort<T>(
       Comparable<T> getField(Dessert d), int columnIndex, bool ascending) {
-    _dessertsDataSource.sort<T>(getField, ascending);
+    _items.sort((Dessert a, Dessert b) {
+      if (!ascending) {
+        final Dessert c = a;
+        a = b;
+        b = c;
+      }
+      final Comparable<T> aValue = getField(a);
+      final Comparable<T> bValue = getField(b);
+      return Comparable.compare(aValue, bValue);
+    });
     setState(() {
       _sortColumnIndex = columnIndex;
       _sortAscending = ascending;
     });
   }
+
+  List<Dessert> _items = [];
+  int _rowsOffset = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +50,59 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Native Data Table Example'),
         ),
-        body: NativeDataTable(
-          header: const Text('Data Management'),
+        body: NativeDataTable.builder(
           rowsPerPage: _rowsPerPage,
+          itemCount: _items?.length ?? 0,
+          firstRowIndex: _rowsOffset,
+          handleNext: () async {
+            setState(() {
+              _rowsOffset += _rowsPerPage;
+            });
+
+            await new Future.delayed(new Duration(seconds: 3));
+            setState(() {
+              _items += [
+                Dessert('New Item 4', 159, 6.0, 24, 4.0, 87, 14, 1),
+                Dessert('New Item 5', 159, 6.0, 24, 4.0, 87, 14, 1),
+                Dessert('New Item 6', 159, 6.0, 24, 4.0, 87, 14, 1),
+              ];
+            });
+          },
+          handlePrevious: () {
+            setState(() {
+              _rowsOffset -= _rowsPerPage;
+            });
+          },
+          itemBuilder: (int index) {
+            final Dessert dessert = _items[index];
+            return DataRow.byIndex(
+                index: index,
+                selected: dessert.selected,
+                onSelectChanged: (bool value) {
+                  if (dessert.selected != value) {
+                    setState(() {
+                      dessert.selected = value;
+                    });
+                  }
+                },
+                cells: <DataCell>[
+                  DataCell(Text('${dessert.name}')),
+                  DataCell(Text('${dessert.calories}')),
+                  DataCell(Text('${dessert.fat.toStringAsFixed(1)}')),
+                  DataCell(Text('${dessert.carbs}')),
+                  DataCell(Text('${dessert.protein.toStringAsFixed(1)}')),
+                  DataCell(Text('${dessert.sodium}')),
+                  DataCell(Text('${dessert.calcium}%')),
+                  DataCell(Text('${dessert.iron}%')),
+                ]);
+          },
+          header: const Text('Data Management'),
           sortColumnIndex: _sortColumnIndex,
           sortAscending: _sortAscending,
           onRefresh: () async {
-            // await new Future.delayed(new Duration(seconds: 3));
+            await new Future.delayed(new Duration(seconds: 3));
             setState(() {
-              _dessertsDataSource.initItems([]
-                ..addAll(_desserts)
-                ..addAll([
-                  Dessert('New Item 1', 159, 6.0, 24, 4.0, 87, 14, 1),
-                  Dessert('New Item 2', 159, 6.0, 24, 4.0, 87, 14, 1),
-                  Dessert('New Item 3', 159, 6.0, 24, 4.0, 87, 14, 1),
-                ]));
-              _rowsPerPage = _desserts.length;
+              _items = _desserts;
             });
             return null;
           },
@@ -71,8 +118,14 @@ class _MyAppState extends State<MyApp> {
           //     title: Text(i?.name),
           //   );
           // },
-          dataSource: _dessertsDataSource,
-          onSelectAll: _dessertsDataSource.selectAll,
+          onSelectAll: (bool value) {
+            for (var row in _items) {
+              setState(() {
+                row.selected = value;
+              });
+            }
+          },
+          rowCountApproximate: true,
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.info_outline),
@@ -82,15 +135,16 @@ class _MyAppState extends State<MyApp> {
           selectedActions: <Widget>[
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: _dessertsDataSource.selected == null
-                  ? null
-                  : () {
-                      setState(() {
-                        for (var item in _dessertsDataSource.selected) {
-                          _dessertsDataSource.removeItem(item);
-                        }
-                      });
-                    },
+              onPressed: () {
+                setState(() {
+                  for (var item in _items
+                      ?.where((d) => d?.selected ?? false)
+                      ?.toSet()
+                      ?.toList()) {
+                    _items.remove(item);
+                  }
+                });
+              },
             ),
           ],
           columns: <DataColumn>[

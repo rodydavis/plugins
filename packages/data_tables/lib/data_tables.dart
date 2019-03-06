@@ -1,7 +1,7 @@
-import 'package:data_tables/ui/mobile_paged_listview.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/custom_paged_table.dart';
+import 'ui/mobile_paged_listview.dart';
+import 'ui/stateless_datatable.dart';
 
 class NativeDataTable extends StatelessWidget {
 //   @override
@@ -25,8 +25,31 @@ class NativeDataTable extends StatelessWidget {
 
   const NativeDataTable({
     @required this.columns,
-    @required this.dataSource,
-    @required this.rowsPerPage,
+    @required this.rows,
+    this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage,
+    this.header,
+    this.onRowsPerPageChanged,
+    this.onSelectAll,
+    this.sortAscending,
+    this.sortColumnIndex,
+    this.mobileItemBuilder,
+    this.tabletBreakpoint = 480.0,
+    this.actions,
+    this.firstRowIndex = 0,
+    this.selectedActions,
+    this.showMobileListView = true,
+    this.onRefresh,
+    this.mobileFetchNextRows = 100,
+    this.handlePrevious,
+    this.handleNext,
+    this.rowCountApproximate = false,
+  });
+
+  NativeDataTable.builder({
+    @required this.columns,
+    this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage,
+    @required int itemCount,
+    @required DataRowBuilder itemBuilder,
     this.header,
     this.onRowsPerPageChanged,
     this.onSelectAll,
@@ -37,9 +60,13 @@ class NativeDataTable extends StatelessWidget {
     this.actions,
     this.selectedActions,
     this.showMobileListView = true,
+    this.firstRowIndex = 0,
     this.onRefresh,
     this.mobileFetchNextRows = 100,
-  });
+    this.handlePrevious,
+    this.handleNext,
+    this.rowCountApproximate = false,
+  }) : rows = _buildRows(itemCount, itemBuilder);
 
   final bool showMobileListView;
 
@@ -53,12 +80,14 @@ class NativeDataTable extends StatelessWidget {
 
   final int rowsPerPage;
 
+  final int firstRowIndex;
+
   /// Visible on Tablet/Desktop
   final Widget header;
 
   final List<DataColumn> columns;
 
-  final DataTableSource dataSource;
+  final List<DataRow> rows;
 
   final IndexedWidgetBuilder mobileItemBuilder;
 
@@ -70,36 +99,45 @@ class NativeDataTable extends StatelessWidget {
 
   final RefreshCallback onRefresh;
 
+  final VoidCallback handlePrevious, handleNext;
+
+  /// Set this to [true] for using this with a api
+  final bool rowCountApproximate;
+
   @override
   Widget build(BuildContext context) {
     if (showMobileListView &&
         MediaQuery.of(context).size.width < tabletBreakpoint) {
-      return NativePagedListView(
-        dataSource: dataSource,
+      return PagedListView(
+        rows: rows,
         columns: columns,
+        loadNext: handleNext,
         mobileItemBuilder: mobileItemBuilder,
         actions: actions,
         selectedActions: selectedActions,
-        onRowsPerPageChanged: onRowsPerPageChanged,
         onSelectAll: onSelectAll,
         rowsPerPage: rowsPerPage,
-        mobileFetchNextRows: mobileFetchNextRows,
         sortAscending: sortAscending,
         sortColumnIndex: sortColumnIndex,
         onRefresh: onRefresh,
+        isRowCountApproximate: rowCountApproximate,
       );
     }
 
-    return CustomPaginatedDataTable(
+    return StatelessDataTable(
+      rows: rows,
+      firstRowIndex: firstRowIndex,
       header: header ?? Container(),
+      handleNext: handleNext,
+      handlePrevious: handlePrevious,
       rowsPerPage: rowsPerPage,
       onRowsPerPageChanged: onRowsPerPageChanged,
       sortColumnIndex: sortColumnIndex,
       sortAscending: sortAscending,
       onSelectAll: onSelectAll,
       columns: columns,
-      source: dataSource,
       shrinkWrap: false,
+      rowCountApproximate: rowCountApproximate,
       actions: []
         ..addAll(actions)
         ..add(Container(
@@ -113,4 +151,16 @@ class NativeDataTable extends StatelessWidget {
       selectedActions: selectedActions,
     );
   }
+
+  static List<DataRow> _buildRows(int count, DataRowBuilder builder) {
+    List<DataRow> _rows = [];
+
+    for (int i = 0; i < count; i++) {
+      _rows.add(builder(i));
+    }
+
+    return _rows;
+  }
 }
+
+typedef DataRowBuilder = DataRow Function(int index);

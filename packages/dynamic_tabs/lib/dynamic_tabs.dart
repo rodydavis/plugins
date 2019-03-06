@@ -15,6 +15,7 @@ class DynamicTabScaffold extends StatefulWidget {
     this.persistIndex = false,
     this.iconSize,
     this.maxTabs = 4,
+    this.tag = "",
     this.type = BottomNavigationBarType.fixed,
   })  : adaptive = false,
         routes = null,
@@ -26,6 +27,7 @@ class DynamicTabScaffold extends StatefulWidget {
     this.backgroundColor,
     this.persistIndex = false,
     this.maxTabs = 4,
+    this.tag = "",
     @required this.routes,
   })  : adaptive = true,
         type = null,
@@ -39,6 +41,9 @@ class DynamicTabScaffold extends StatefulWidget {
   final bool persistIndex;
   final int maxTabs;
   final Map<String, WidgetBuilder> routes;
+
+  // Unique Tag for each set of dynamic tabs
+  final String tag;
 
   // Material Only
   final double iconSize;
@@ -69,7 +74,7 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   void _loadSavedTabs() {
-    List<String> _tabs = _prefs.getStringList("bottom_tabs");
+    List<String> _tabs = _prefs.getStringList(tabsKey);
     if (_tabs != null && _tabs.isNotEmpty) {
       List<DynamicTab> _newOrder = [];
       for (var item in _tabs) {
@@ -84,11 +89,11 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   void _saveNewTabs() {
-    _prefs.setStringList("bottom_tabs", _items.map((t) => t.tag).toList());
+    _prefs.setStringList(tabsKey, _items.map((t) => t.tag).toList());
   }
 
   void _loadIndex() {
-    int _index = _prefs.getInt("nav_index");
+    int _index = _prefs.getInt(navKey);
     if (_index > widget.maxTabs) {
       _index = 0;
       _saveIndex();
@@ -103,8 +108,11 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   void _saveIndex() {
-    _prefs.setInt("nav_index", _currentIndex);
+    _prefs.setInt(navKey, _currentIndex);
   }
+
+  String get tabsKey => "${(widget?.tag ?? "") + "_"}bottom_tabs";
+  String get navKey => "${(widget?.tag ?? "") + "_"}nav_index";
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +148,6 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
             : _items.map((t) => t.tab).toList(),
         currentIndex: _currentIndex,
         onTap: _tabChanged,
-
         fixedColor: widget?.backgroundColor ?? Theme.of(context).primaryColor,
         type: widget?.type,
         // unselectedItemColor: widget?.unselectedItemColor ?? Colors.grey,

@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 
-class NativePagedListView extends StatefulWidget {
-  const NativePagedListView({
-    @required this.dataSource,
+class PagedListView extends StatefulWidget {
+  const PagedListView({
+    @required this.rows,
     @required this.columns,
     this.mobileItemBuilder,
     this.selectedActions,
     this.actions,
     this.onSelectAll,
-    this.onRowsPerPageChanged,
     this.rowsPerPage,
-    this.mobileFetchNextRows,
+    this.loadNext,
     this.sortColumnIndex,
     this.sortAscending,
     this.onRefresh,
+    this.isRowCountApproximate = false,
+    this.initialScrollOffset = 0,
   });
+
+  final double initialScrollOffset;
 
   final List<DataColumn> columns;
 
-  final DataTableSource dataSource;
+  final List<DataRow> rows;
 
   final IndexedWidgetBuilder mobileItemBuilder;
 
@@ -26,11 +29,9 @@ class NativePagedListView extends StatefulWidget {
 
   final ValueChanged<bool> onSelectAll;
 
-  final ValueChanged<int> onRowsPerPageChanged;
-
   final int rowsPerPage;
 
-  final int mobileFetchNextRows;
+  final VoidCallback loadNext;
 
   final int sortColumnIndex;
 
@@ -38,17 +39,21 @@ class NativePagedListView extends StatefulWidget {
 
   final RefreshCallback onRefresh;
 
+  final bool isRowCountApproximate;
+
   @override
   _NativePagedListViewState createState() => _NativePagedListViewState();
 }
 
-class _NativePagedListViewState extends State<NativePagedListView> {
+class _NativePagedListViewState extends State<PagedListView> {
   ScrollController _controller;
   PersistentBottomSheetController _sortController;
 
   @override
   void initState() {
-    _controller = ScrollController();
+    _controller = ScrollController(
+      initialScrollOffset: widget.initialScrollOffset * 40.0,
+    );
     _controller.addListener(_scrollListener);
 
     super.initState();
@@ -58,21 +63,7 @@ class _NativePagedListViewState extends State<NativePagedListView> {
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
       // Bottom of List
-      int _count = widget.dataSource.rowCount;
-      if (widget.dataSource.isRowCountApproximate) {
-        int _fetchNext = widget.mobileFetchNextRows + _count;
-        setState(() {
-          widget?.onRowsPerPageChanged(_fetchNext);
-        });
-      } else {
-        int _fetchNext = widget.mobileFetchNextRows + widget.rowsPerPage;
-        if (_fetchNext > _count) {
-          _fetchNext = _count;
-        }
-        setState(() {
-          widget?.onRowsPerPageChanged(_fetchNext);
-        });
-      }
+      widget?.loadNext();
     }
     if (_controller.offset <= _controller.position.minScrollExtent &&
         !_controller.position.outOfRange) {
@@ -110,19 +101,19 @@ class _NativePagedListViewState extends State<NativePagedListView> {
     return Scrollbar(
       child: ListView.builder(
         controller: _controller,
-        itemCount: widget.dataSource.rowCount,
+        itemCount: widget.rows.length,
         itemBuilder: widget?.mobileItemBuilder ??
             (BuildContext context, int index) {
               return ExpansionTile(
                 leading: Checkbox(
-                  value: widget.dataSource.getRow(index).selected,
+                  value: widget.rows[index].selected,
                   onChanged: (bool value) {
                     setState(() {
-                      widget.dataSource.getRow(index).onSelectChanged(value);
+                      widget.rows[index].onSelectChanged(value);
                     });
                   },
                 ),
-                title: widget.dataSource.getRow(index).cells.first.child,
+                title: widget.rows[index].cells.first.child,
                 children: _buildMobileChildren(index),
               );
             },
@@ -266,12 +257,20 @@ class _NativePagedListViewState extends State<NativePagedListView> {
         ),
       ]..addAll(widget?.selectedActions);
 
-  bool get rowsSelected => widget.dataSource.selectedRowCount != 0;
+  bool get rowsSelected => _selectedRowCount != 0;
+
+  int get _selectedRowCount =>
+      widget.rows
+          ?.where((d) => d?.selected ?? false)
+          ?.toSet()
+          ?.toList()
+          ?.length ??
+      0;
 
   List<Widget> _buildMobileChildren(int index) {
     List<Widget> _children = [];
     int i = 0;
-    for (var _cell in widget.dataSource.getRow(index).cells) {
+    for (var _cell in widget.rows[index].cells) {
       _children.add(ListTile(
         title: widget.columns[i].label,
         subtitle: _cell.child,
