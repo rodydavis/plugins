@@ -48,3 +48,4 @@ These are the available plugins in this repository.
 | [persist_theme](./packages/persist_theme/) | [![pub package](https://img.shields.io/pub/v/persist_theme.svg)](https://pub.dartlang.org/packages/persist_theme) |
 | [data_tables](./packages/data_tables/) | [![pub package](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dartlang.org/packages/data_tables) |
 | [dynamic_tabs](./packages/dynamic_tabs/) | [![pub package](https://img.shields.io/pub/v/dynamic_tabs.svg)](https://pub.dartlang.org/packages/dynamic_tabs) |
+| [sheet_music](./packages/sheet_music/) | [![pub package](https://img.shields.io/pub/v/sheet_music.svg)](https://pub.dartlang.org/packages/sheet_music) |

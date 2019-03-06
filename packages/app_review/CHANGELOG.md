@@ -1,3 +1,7 @@
+## [0.1.0]
+
+* Migration to AndroidX
+
 ## [0.0.9] - Bug Fix
 
 * Updating Swift Version
