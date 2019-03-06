@@ -43,6 +43,8 @@ class NativeDataTable extends StatelessWidget {
     this.handlePrevious,
     this.handleNext,
     this.rowCountApproximate = false,
+    this.noItems,
+    this.mobileIsLoading,
   });
 
   NativeDataTable.builder({
@@ -66,6 +68,8 @@ class NativeDataTable extends StatelessWidget {
     this.handlePrevious,
     this.handleNext,
     this.rowCountApproximate = false,
+    this.noItems,
+    this.mobileIsLoading,
   }) : rows = _buildRows(itemCount, itemBuilder);
 
   final bool showMobileListView;
@@ -104,6 +108,10 @@ class NativeDataTable extends StatelessWidget {
   /// Set this to [true] for using this with a api
   final bool rowCountApproximate;
 
+  final Widget noItems;
+
+  final Widget mobileIsLoading;
+
   @override
   Widget build(BuildContext context) {
     if (showMobileListView &&
@@ -121,6 +129,8 @@ class NativeDataTable extends StatelessWidget {
         sortColumnIndex: sortColumnIndex,
         onRefresh: onRefresh,
         isRowCountApproximate: rowCountApproximate,
+        isLoading: mobileIsLoading,
+        noItems: noItems,
       );
     }
 

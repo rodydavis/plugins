@@ -363,13 +363,18 @@ class StatelessDataTable extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               dragStartBehavior: dragStartBehavior,
-              child: DataTable(
-                key: _tableKey,
-                columns: columns,
-                sortColumnIndex: sortColumnIndex,
-                sortAscending: sortAscending,
-                onSelectAll: onSelectAll,
-                rows: _getRows(firstRowIndex, rowsPerPage),
+              child: Builder(
+                builder: (BuildContext context) {
+                  final rows = _getRows(firstRowIndex, rowsPerPage);
+                  return DataTable(
+                    key: _tableKey,
+                    columns: columns,
+                    sortColumnIndex: sortColumnIndex,
+                    sortAscending: sortAscending,
+                    onSelectAll: onSelectAll,
+                    rows: rows,
+                  );
+                },
               ),
             ),
             DefaultTextStyle(

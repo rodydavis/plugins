@@ -15,6 +15,8 @@ class PagedListView extends StatefulWidget {
     this.onRefresh,
     this.isRowCountApproximate = false,
     this.initialScrollOffset = 0,
+    this.noItems,
+    this.isLoading,
   });
 
   final double initialScrollOffset;
@@ -36,6 +38,8 @@ class PagedListView extends StatefulWidget {
   final int sortColumnIndex;
 
   final bool sortAscending;
+
+  final Widget noItems, isLoading;
 
   final RefreshCallback onRefresh;
 
@@ -98,6 +102,12 @@ class _NativePagedListViewState extends State<PagedListView> {
   }
 
   Widget _buildListView(BuildContext context) {
+    if (widget?.isLoading != null && widget?.rows == null)
+      return Center(child: widget.isLoading);
+
+    if (widget?.noItems != null && widget.rows.isEmpty)
+      return Center(child: widget.noItems);
+
     return Scrollbar(
       child: ListView.builder(
         controller: _controller,

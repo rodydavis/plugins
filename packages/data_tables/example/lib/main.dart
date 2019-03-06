@@ -147,6 +147,8 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ],
+          mobileIsLoading: CircularProgressIndicator(),
+          noItems: Text("No Items Found"),
           columns: <DataColumn>[
             DataColumn(
                 label: const Text('Dessert (100g serving)'),
