@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Now Just Pure Dart
+
 ## 0.0.2
 
 * Added Master Detail Controller
