@@ -1,3 +1,7 @@
+## 0.1.2
+
+* Fixing Mobile onSort Behavior
+
 ## 0.1.1
 
 * Adding Support for Widgets when No Items Loded and Empty Items

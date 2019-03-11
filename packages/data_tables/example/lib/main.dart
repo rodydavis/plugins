@@ -94,6 +94,18 @@ class _MyAppState extends State<MyApp> {
                   DataCell(Text('${dessert.sodium}')),
                   DataCell(Text('${dessert.calcium}%')),
                   DataCell(Text('${dessert.iron}%')),
+                  DataCell(ButtonBar(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            _items.remove(dessert);
+                          });
+                        },
+                      ),
+                    ],
+                  )),
                 ]);
           },
           header: const Text('Data Management'),
@@ -193,6 +205,9 @@ class _MyAppState extends State<MyApp> {
                 numeric: true,
                 onSort: (int columnIndex, bool ascending) =>
                     _sort<num>((Dessert d) => d.iron, columnIndex, ascending)),
+            DataColumn(
+              label: const Text('Actions'),
+            ),
           ],
         ),
       ),

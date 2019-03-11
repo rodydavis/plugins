@@ -82,7 +82,7 @@ class _NativePagedListViewState extends State<PagedListView> {
         direction: Axis.vertical,
         children: <Widget>[
           Flexible(
-            flex: 20,
+            flex: 10,
             child: widget?.onRefresh == null
                 ? _buildListView(context)
                 : RefreshIndicator(
@@ -92,8 +92,11 @@ class _NativePagedListViewState extends State<PagedListView> {
           Flexible(
               flex: 1,
               child: Container(
-                child: Row(
-                  children: rowsSelected ? selectedActions ?? actions : actions,
+                child: SafeArea(
+                  child: Row(
+                    children:
+                        rowsSelected ? selectedActions ?? actions : actions,
+                  ),
                 ),
               )),
         ],
@@ -154,6 +157,8 @@ class _NativePagedListViewState extends State<PagedListView> {
               final double _perferredHeight =
                   MediaQuery.of(context).size.height;
               final double _columnsHeight = widget.columns.length * 70.0;
+              final List<DataColumn> _cols =
+                  widget.columns.where((c) => c?.onSort != null)?.toList();
               return Container(
                 height: _columnsHeight >= _perferredHeight
                     ? _perferredHeight
@@ -173,10 +178,10 @@ class _NativePagedListViewState extends State<PagedListView> {
                       flex: 8,
                       child: Scrollbar(
                         child: ListView.builder(
-                          itemCount: widget.columns.length,
+                          itemCount: _cols.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            final col = widget.columns[index];
+                            final col = _cols[index];
                             final bool _sortAsc = widget.sortAscending;
                             final int selectedIndex = widget.sortColumnIndex;
                             return ListTile(
