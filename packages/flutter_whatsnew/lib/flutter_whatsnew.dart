@@ -1,20 +1,33 @@
 library flutter_whatsnew;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:native_widgets/native_widgets.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class WhatsNewPage extends StatelessWidget {
   final Widget title;
   final Widget buttonText;
   final List<ListTile> items;
   final VoidCallback onButtonPressed;
+  final bool changelog;
+  final String changes;
 
   const WhatsNewPage({
     @required this.items,
     @required this.title,
     @required this.buttonText,
     this.onButtonPressed,
-  });
+  })  : changelog = false,
+        changes = null;
+
+  const WhatsNewPage.changelog({
+    @required this.title,
+    @required this.buttonText,
+    this.onButtonPressed,
+    this.changes,
+  })  : changelog = true,
+        items = null;
 
   static void showDetailPopUp(
       BuildContext context, String title, String detail) async {
@@ -42,22 +55,49 @@ class WhatsNewPage extends StatelessWidget {
         ));
   }
 
-  void show(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => WhatsNewPage(
-              title: title,
-              buttonText: buttonText,
-              items: items,
-            ),
-        fullscreenDialog: true,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    print("Changelog: $changelog");
+    if (changelog) {
+      return (Scaffold(
+          body: SafeArea(
+        child: Stack(
+          fit: StackFit.loose,
+          children: <Widget>[
+            Positioned(
+              top: 10.0,
+              left: 0.0,
+              right: 0.0,
+              child: title,
+            ),
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              top: 50.0,
+              bottom: 80.0,
+              child: ChangeLogView(
+                changes: changes,
+              ),
+            ),
+            Positioned(
+                bottom: 5.0,
+                right: 10.0,
+                left: 10.0,
+                child: ListTile(
+                  title: NativeButton(
+                    child: buttonText,
+                    color: Colors.blue,
+                    onPressed: onButtonPressed != null
+                        ? onButtonPressed
+                        : () {
+                            Navigator.pop(context);
+                          },
+                  ),
+                )),
+          ],
+        ),
+      )));
+    }
     return (Scaffold(
         body: SafeArea(
       child: Stack(
@@ -74,22 +114,19 @@ class WhatsNewPage extends StatelessWidget {
             right: 0.0,
             top: 50.0,
             bottom: 80.0,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: ListBody(
-                  children: items
-                      .map(
-                        (ListTile item) => ListTile(
-                              title: item.title,
-                              subtitle: item.subtitle,
-                              leading: item.leading,
-                              trailing: item.trailing,
-                              onTap: item.onTap,
-                              onLongPress: item.onLongPress,
-                            ),
-                      )
-                      .toList()),
-            ),
+            child: ListView(
+                children: items
+                    .map(
+                      (ListTile item) => ListTile(
+                            title: item.title,
+                            subtitle: item.subtitle,
+                            leading: item.leading,
+                            trailing: item.trailing,
+                            onTap: item.onTap,
+                            onLongPress: item.onLongPress,
+                          ),
+                    )
+                    .toList()),
           ),
           Positioned(
               bottom: 5.0,
@@ -109,5 +146,42 @@ class WhatsNewPage extends StatelessWidget {
         ],
       ),
     )));
+  }
+}
+
+class ChangeLogView extends StatefulWidget {
+  const ChangeLogView({this.changes});
+  final String changes;
+  @override
+  _ChangeLogViewState createState() => _ChangeLogViewState();
+}
+
+class _ChangeLogViewState extends State<ChangeLogView> {
+  String _changelog;
+
+  @override
+  void initState() {
+    if (widget?.changes == null) {
+      rootBundle.loadString("CHANGELOG.md").then((data) {
+        setState(() {
+          _changelog = data;
+        });
+      });
+    } else {
+      setState(() {
+        _changelog = widget.changes;
+      });
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_changelog == null) {
+      return NativeLoadingIndicator(
+        text: Text("Loading Changes..."),
+      );
+    }
+    return Markdown(data: _changelog);
   }
 }

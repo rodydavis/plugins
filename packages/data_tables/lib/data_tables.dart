@@ -115,8 +115,8 @@ class NativeDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (showMobileListView &&
-        MediaQuery.of(context).size.width <= tabletBreakpoint.width &&
-        MediaQuery.of(context).size.height <= tabletBreakpoint.height) {
+        (MediaQuery.of(context).size.width <= tabletBreakpoint.width ||
+            MediaQuery.of(context).size.height <= tabletBreakpoint.height)) {
       return PagedListView(
         rows: rows,
         columns: columns,

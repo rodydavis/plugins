@@ -1,6 +1,6 @@
 name: flutter_whatsnew
 description: A new Flutter package to show updates to users.
-version: 0.1.0
+version: 0.2.0
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   native_widgets: ^1.0.0+4
+  flutter_markdown: ^0.2.0
 
 dev_dependencies:
   flutter_test:
