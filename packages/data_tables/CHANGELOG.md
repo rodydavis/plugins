@@ -1,6 +1,11 @@
+## 0.1.3
+
+* Adding Size Attribute to Detect if Tablet
+
 ## 0.1.2
 
 * Fixing Mobile onSort Behavior
+* Fixing Bottom Bar Sizing
 
 ## 0.1.1
 

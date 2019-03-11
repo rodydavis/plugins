@@ -33,7 +33,7 @@ class NativeDataTable extends StatelessWidget {
     this.sortAscending,
     this.sortColumnIndex,
     this.mobileItemBuilder,
-    this.tabletBreakpoint = 480.0,
+    this.tabletBreakpoint = const Size(480.0, 480.0),
     this.actions,
     this.firstRowIndex = 0,
     this.selectedActions,
@@ -58,7 +58,7 @@ class NativeDataTable extends StatelessWidget {
     this.sortAscending,
     this.sortColumnIndex,
     this.mobileItemBuilder,
-    this.tabletBreakpoint = 480.0,
+    this.tabletBreakpoint = const Size(480.0, 480.0),
     this.actions,
     this.selectedActions,
     this.showMobileListView = true,
@@ -95,7 +95,7 @@ class NativeDataTable extends StatelessWidget {
 
   final IndexedWidgetBuilder mobileItemBuilder;
 
-  final num tabletBreakpoint;
+  final Size tabletBreakpoint;
 
   final List<Widget> actions, selectedActions;
 
@@ -115,7 +115,8 @@ class NativeDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (showMobileListView &&
-        MediaQuery.of(context).size.width < tabletBreakpoint) {
+        MediaQuery.of(context).size.width <= tabletBreakpoint.width &&
+        MediaQuery.of(context).size.height <= tabletBreakpoint.height) {
       return PagedListView(
         rows: rows,
         columns: columns,

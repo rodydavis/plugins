@@ -27,7 +27,7 @@
 
    `IndexedWidgetBuilder mobileItemBuilder;` - Optional Item builder for the list view for Mobile
 
-   `num tabletBreakpoint;` - Tablet breakpoint for the screen width
+   `Size tabletBreakpoint;` - Tablet breakpoint for the screen width and height
 
    `List<Widget> actions, selectedActions;` - Actions that show when items are selected or not
 
