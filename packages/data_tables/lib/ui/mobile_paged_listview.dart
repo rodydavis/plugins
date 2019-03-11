@@ -94,6 +94,8 @@ class _NativePagedListViewState extends State<PagedListView> {
               child: Container(
                 child: SafeArea(
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:
                         rowsSelected ? selectedActions ?? actions : actions,
                   ),
