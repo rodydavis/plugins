@@ -16,7 +16,7 @@ import 'package:flutter_whatsnew/flutter_whatsnew.dart';
 
 <p align="center"><img src ="example.png" width="300px"/></p>
 
-![changelog](/screenshots/changes.png)
+![changelog](https://github.com/AppleEducate/plugins/blob/master/packages/flutter_whatsnew/screenshots/changes.png)
 
 If using `WhatsNewPage.changelog` and you want it to pickup the `CHANGELOG.md' add it to the Flutter asset directory, otherwise mannualy pass in the .md file with the changes. This used the full markdown previewer.
 
@@ -25,7 +25,7 @@ If using `WhatsNewPage.changelog` and you want it to pickup the `CHANGELOG.md' a
     - CHANGELOG.md
 ```
 
-![changelog](/screenshots/changelog.png)
+![changelog](https://github.com/AppleEducate/plugins/blob/master/packages/flutter_whatsnew/screenshots/changelog.png)
 
 ## Example
 
