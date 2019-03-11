@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Updating Size Attribute to Detect if Tablet
+
 ## 0.1.3
 
 * Adding Size Attribute to Detect if Tablet
