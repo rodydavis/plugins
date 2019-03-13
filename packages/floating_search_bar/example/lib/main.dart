@@ -20,10 +20,10 @@ class _MyAppState extends State<MyApp> {
             leading: Text(index.toString()),
           );
         },
-        trailing: CircleAvatar(
+        leading: CircleAvatar(
           child: Text("RD"),
         ),
-        drawer: Drawer(
+        endDrawer: Drawer(
           child: Container(),
         ),
         onChanged: (String value) {},

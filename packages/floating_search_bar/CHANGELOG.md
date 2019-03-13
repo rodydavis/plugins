@@ -1,3 +1,7 @@
-## 0.0.1
+## 0.1.2
 
-* TODO: Describe initial release.
+* Support for End Drawer
+
+## 0.1.1
+
+* Added App Bar

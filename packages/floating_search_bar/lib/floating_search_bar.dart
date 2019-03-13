@@ -9,6 +9,7 @@ class FloatingSearchBar extends StatelessWidget {
     this.drawer,
     this.trailing,
     this.leading,
+    this.endDrawer,
     this.controller,
     this.onChanged,
     this.title,
@@ -22,6 +23,7 @@ class FloatingSearchBar extends StatelessWidget {
   FloatingSearchBar.builder({
     this.body,
     this.drawer,
+    this.endDrawer,
     this.trailing,
     this.leading,
     this.controller,
@@ -36,7 +38,7 @@ class FloatingSearchBar extends StatelessWidget {
           childCount: itemCount,
         );
 
-  final Widget leading, trailing, body, drawer;
+  final Widget leading, trailing, body, drawer, endDrawer;
 
   final SliverChildDelegate _childDelagate;
 
@@ -55,6 +57,7 @@ class FloatingSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: drawer,
+      endDrawer: endDrawer,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverFloatingBar(
