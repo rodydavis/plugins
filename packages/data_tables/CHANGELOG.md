@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Updating Toolbar on Mobile
+
 ## 0.2.0
 
 * Updating Size Attribute to Detect if Tablet

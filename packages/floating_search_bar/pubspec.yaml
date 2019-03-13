@@ -1,6 +1,6 @@
-name: data_tables
-description: ListView on Mobile and Stateless Data Tables on Tablets and Desktops.
-version: 0.2.1
+name: floating_search_bar
+description: A Search App Bar like the one in Gmail and Google Photos.
+version: 0.1.0
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 

@@ -49,3 +49,5 @@ These are the available plugins in this repository.
 | [data_tables](./packages/data_tables/) | [![pub package](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dartlang.org/packages/data_tables) |
 | [dynamic_tabs](./packages/dynamic_tabs/) | [![pub package](https://img.shields.io/pub/v/dynamic_tabs.svg)](https://pub.dartlang.org/packages/dynamic_tabs) |
 | [sheet_music](./packages/sheet_music/) | [![pub package](https://img.shields.io/pub/v/sheet_music.svg)](https://pub.dartlang.org/packages/sheet_music) |
+| [floating_search_bar](./packages/floating_search_bar/) | [![pub package](https://img.shields.io/pub/v/floating_search_bar.svg)](https://pub.dartlang.org/packages/floating_search_bar) |
+
