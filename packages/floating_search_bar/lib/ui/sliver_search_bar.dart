@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 class SliverFloatingBar extends StatefulWidget {
   /// Creates a material design app bar that can be placed in a [CustomScrollView].
@@ -180,9 +179,10 @@ class _SliverFloatingBarState extends State<SliverFloatingBar>
 
   @override
   Widget build(BuildContext context) {
-    // return SliverPersistentHeader(
-    //   delegate: _SliverAppBarDelegate(),
-    // );
+    final double topPadding = MediaQuery.of(context).padding.top;
+    final double collapsedHeight =
+        (widget.pinned && widget.floating) ? topPadding : null;
+
     return MediaQuery.removePadding(
       context: context,
       removeBottom: true,
@@ -199,6 +199,8 @@ class _SliverFloatingBarState extends State<SliverFloatingBar>
           floating: widget.floating,
           pinned: widget.pinned,
           snapConfiguration: _snapConfiguration,
+          collapsedHeight: collapsedHeight,
+          topPadding: topPadding,
         ),
       ),
     );
@@ -268,6 +270,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     @required this.floating,
     @required this.pinned,
     @required this.snapConfiguration,
+    @required this.collapsedHeight,
+    @required this.topPadding,
   });
 
   final Widget trailing;
@@ -278,15 +282,17 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget leading;
   final bool pinned;
   final Widget title;
+  final double collapsedHeight;
+  final double topPadding;
 
   @override
-  double get minExtent => (kToolbarHeight);
+  double get minExtent => collapsedHeight ?? (topPadding + kToolbarHeight);
 
   @override
   final FloatingHeaderSnapConfiguration snapConfiguration;
 
   @override
-  double get maxExtent => math.max((kToolbarHeight), minExtent);
+  double get maxExtent => math.max(topPadding + (kToolbarHeight), minExtent);
 
   @override
   bool shouldRebuild(covariant _SliverAppBarDelegate oldDelegate) {
@@ -295,6 +301,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         title != oldDelegate.title ||
         trailing != oldDelegate.trailing ||
         elevation != oldDelegate.elevation ||
+        topPadding != oldDelegate.topPadding ||
+        collapsedHeight != oldDelegate.collapsedHeight ||
         backgroundColor != oldDelegate.backgroundColor ||
         pinned != oldDelegate.pinned ||
         floating != oldDelegate.floating ||
@@ -311,17 +319,17 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final double visibleMainHeight = maxExtent - shrinkOffset;
 
-    // Truth table for `toolbarOpacity`:
-    // pinned | floating | bottom != null || opacity
-    // ----------------------------------------------
-    //    0   |    0     |        0       ||  fade
-    //    0   |    0     |        1       ||  fade
-    //    0   |    1     |        0       ||  fade
-    //    0   |    1     |        1       ||  fade
-    //    1   |    0     |        0       ||  1.0
-    //    1   |    0     |        1       ||  1.0
-    //    1   |    1     |        0       ||  1.0
-    //    1   |    1     |        1       ||  fade
+    // // Truth table for `toolbarOpacity`:
+    // // pinned | floating | bottom != null || opacity
+    // // ----------------------------------------------
+    // //    0   |    0     |        0       ||  fade
+    // //    0   |    0     |        1       ||  fade
+    // //    0   |    1     |        0       ||  fade
+    // //    0   |    1     |        1       ||  fade
+    // //    1   |    0     |        0       ||  1.0
+    // //    1   |    0     |        1       ||  1.0
+    // //    1   |    1     |        0       ||  1.0
+    // //    1   |    1     |        1       ||  fade
     final double toolbarOpacity = !pinned || (floating)
         ? ((visibleMainHeight) / kToolbarHeight).clamp(0.0, 1.0)
         : 1.0;

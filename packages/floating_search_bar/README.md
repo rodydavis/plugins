@@ -1,14 +1,57 @@
 # floating_search_bar
 
-A Search Bar like the one in Gmail and Google Photos.
+A Search App Bar like the one in Gmail and Google Photos.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+If you want to just use the floating bar as an app bar please use `SliverFloatingBar` otherwise use `FloatingSearchBar`.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+![search](https://github.com/AppleEducate/plugins/blob/master/packages/floating_search_bar/screenshots/search.png)
+
+if you add a drawer the menu icon will show up:
+
+![drawer](https://github.com/AppleEducate/plugins/blob/master/packages/floating_search_bar/screenshots/drawer.png)
+
+## Usage
+
+
+``` dart
+import 'package:flutter/material.dart';
+
+import 'package:floating_search_bar/floating_search_bar.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: FloatingSearchBar.builder(
+        itemCount: 100,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: Text(index.toString()),
+          );
+        },
+        trailing: CircleAvatar(
+          child: Text("RD"),
+        ),
+        drawer: Drawer(
+          child: Container(),
+        ),
+        onChanged: (String value) {},
+        onTap: () {},
+        decoration: InputDecoration.collapsed(
+          hintText: "Search...",
+        ),
+      ),
+    );
+  }
+}
+
+```

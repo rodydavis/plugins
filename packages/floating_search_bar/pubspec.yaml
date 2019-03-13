@@ -1,11 +1,11 @@
 name: floating_search_bar
-description: A Search Bar like the one in Gmail and Google Photos.
-version: 0.0.1
+description: A Search App Bar like the one in Gmail and Google Photos.
+version: 0.1.0
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:
