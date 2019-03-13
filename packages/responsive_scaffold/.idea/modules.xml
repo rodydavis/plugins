@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/responsive_scaffold.iml" filepath="$PROJECT_DIR$/responsive_scaffold.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/responsive_scaffold_android.iml" filepath="$PROJECT_DIR$/android/responsive_scaffold_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/responsive_scaffold_example_android.iml" filepath="$PROJECT_DIR$/example/android/responsive_scaffold_example_android.iml" />
+    </modules>
+  </component>
+</project>
