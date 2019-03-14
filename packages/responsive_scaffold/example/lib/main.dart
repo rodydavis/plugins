@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:responsive_scaffold/responsive_scaffold.dart';
 
 void main() => runApp(MyApp());
@@ -18,12 +16,28 @@ class _MyAppState extends State<MyApp> {
       home: ResponsiveScaffold.builder(
         detailBuilder: (BuildContext context, int index) {
           return DetailsScreen(
-            body: Container(),
+            appBar: AppBar(
+              elevation: 0.0,
+              title: Text("Details"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            body: Container(
+              child: Center(
+                child: Text("Item: $index"),
+              ),
+            ),
           );
         },
-        appBar: SliverAppBar(
-          title: Text("App Bar"),
-        ),
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text("App Bar"),
+          ),
+        ],
         itemCount: 100,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
