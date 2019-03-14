@@ -15,7 +15,22 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ResponsiveScaffold(),
+      home: ResponsiveScaffold.builder(
+        detailBuilder: (BuildContext context, int index) {
+          return DetailsScreen(
+            body: Container(),
+          );
+        },
+        appBar: SliverAppBar(
+          title: Text("App Bar"),
+        ),
+        itemCount: 100,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: Text(index.toString()),
+          );
+        },
+      ),
     );
   }
 }
