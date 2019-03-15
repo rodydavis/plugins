@@ -11,6 +11,7 @@ class MobileView extends StatelessWidget {
     @required this.itemCount,
     @required this.noItems,
     @required this.nullItems,
+    @required this.detailScaffoldKey,
   }) : super(key: key);
 
   final List<Widget> slivers;
@@ -20,6 +21,7 @@ class MobileView extends StatelessWidget {
   final int itemCount;
   final Widget noItems;
   final Widget nullItems;
+  final Key detailScaffoldKey;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,9 @@ class MobileView extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context, rootNavigator: true)
                       .push(MaterialPageRoute(builder: (context) {
-                    final _details = detailBuilder(context, index);
+                    final _details = detailBuilder(context, index, false);
                     return new DetailView(
+                        detailScaffoldKey: detailScaffoldKey,
                         itemCount: itemCount,
                         nullItems: nullItems,
                         noItems: noItems,
@@ -60,6 +63,7 @@ class DetailView extends StatelessWidget {
     @required this.nullItems,
     @required this.noItems,
     @required DetailsScreen details,
+    @required this.detailScaffoldKey,
   })  : _details = details,
         super(key: key);
 
@@ -67,10 +71,12 @@ class DetailView extends StatelessWidget {
   final Widget nullItems;
   final Widget noItems;
   final DetailsScreen _details;
+  final Key detailScaffoldKey;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: detailScaffoldKey,
       appBar: _details?.appBar,
       body: itemCount == null
           ? nullItems ?? Center(child: CircularProgressIndicator())

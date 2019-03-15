@@ -348,7 +348,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             elevation: elevation,
             child: ListTile(
               leading: leading ??
-                  (Scaffold.of(context).hasDrawer
+                  (Scaffold.of(context).hasDrawer && automaticallyImplyLeading
                       ? IconButton(
                           icon: Icon(Icons.menu),
                           onPressed: () {
@@ -358,7 +358,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                       : null),
               title: title,
               trailing: trailing ??
-                  (Scaffold.of(context).hasEndDrawer
+                  (Scaffold.of(context).hasEndDrawer &&
+                          automaticallyImplyLeading
                       ? IconButton(
                           icon: Icon(Icons.menu),
                           onPressed: () {

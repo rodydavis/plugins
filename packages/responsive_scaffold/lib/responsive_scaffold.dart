@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'data/classes/details.dart';
 import 'ui/views/mobile.dart';
 import 'ui/views/tablet.dart';
+import 'utils/breakpoint.dart';
 
 export 'package:responsive_scaffold/data/classes/details.dart';
 
@@ -17,7 +18,7 @@ class ResponsiveScaffold extends StatelessWidget {
     this.endDrawer,
     @required this.children,
     this.primary = true,
-    this.extendBody = false,
+    // this.extendBody = false,
     this.drawerDragStartBehavior = DragStartBehavior.start,
     this.backgroundColor,
     this.bottomNavigationBar,
@@ -25,7 +26,6 @@ class ResponsiveScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.floatingActionButtonAnimator,
     this.floatingActionButtonLocation,
-    this.key,
     this.persistentFooterButtons,
     this.resizeToAvoidBottomInset,
     this.resizeToAvoidBottomPadding,
@@ -33,6 +33,10 @@ class ResponsiveScaffold extends StatelessWidget {
     this.nullItems,
     this.tabletItemNotSelected,
     this.tabletSideMenu,
+    this.tabletFlexDetailView = 8,
+    this.tabletFlexListView = 3,
+    this.scaffoldKey,
+    this.detailScaffoldKey,
   })  : itemBuilder = null,
         itemCount = children?.length ?? 0;
 
@@ -46,7 +50,7 @@ class ResponsiveScaffold extends StatelessWidget {
     @required this.itemBuilder,
     @required this.itemCount,
     this.primary = true,
-    this.extendBody = false,
+    // this.extendBody = false,
     this.drawerDragStartBehavior = DragStartBehavior.start,
     this.backgroundColor,
     this.bottomNavigationBar,
@@ -54,7 +58,6 @@ class ResponsiveScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.floatingActionButtonAnimator,
     this.floatingActionButtonLocation,
-    this.key,
     this.persistentFooterButtons,
     this.resizeToAvoidBottomInset,
     this.resizeToAvoidBottomPadding,
@@ -62,6 +65,10 @@ class ResponsiveScaffold extends StatelessWidget {
     this.nullItems,
     this.tabletItemNotSelected,
     this.tabletSideMenu,
+    this.tabletFlexDetailView = 8,
+    this.tabletFlexListView = 4,
+    this.scaffoldKey,
+    this.detailScaffoldKey,
   }) : children = null;
 
   final Size tabletBreakpoint;
@@ -98,13 +105,13 @@ class ResponsiveScaffold extends StatelessWidget {
 
   final bool primary;
 
-  final bool extendBody;
+  // final bool extendBody;
 
   final DragStartBehavior drawerDragStartBehavior;
 
   final Color backgroundColor;
 
-  final Key key;
+  final Key scaffoldKey, detailScaffoldKey;
 
   final Widget noItems;
 
@@ -114,14 +121,19 @@ class ResponsiveScaffold extends StatelessWidget {
 
   final Flexible tabletSideMenu;
 
+  final int tabletFlexListView;
+
+  final int tabletFlexDetailView;
+
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
-    if (_size.width >= tabletBreakpoint.width &&
-        _size.height >= tabletBreakpoint.height) {
+    if (isTablet(context, breakpoint: tabletBreakpoint)) {
       // Tablet
-      return Scaffold(
+      return TabletView(
         key: key,
+        scaffoldkey: scaffoldKey,
+        detailScaffoldKey: detailScaffoldKey,
+        drawerDragStartBehavior: drawerDragStartBehavior,
         floatingActionButton: floatingActionButton,
         floatingActionButtonLocation: floatingActionButtonLocation,
         bottomNavigationBar: bottomNavigationBar,
@@ -131,28 +143,28 @@ class ResponsiveScaffold extends StatelessWidget {
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
         primary: primary,
-        extendBody: extendBody,
+        // extendBody: extendBody,
         backgroundColor: backgroundColor,
         drawer: drawer,
         endDrawer: endDrawer,
         appBar: appBar,
-        body: TabletView(
-          slivers: slivers,
-          detailBuilder: detailBuilder,
-          children: children,
-          itemBuilder: itemBuilder,
-          itemCount: itemCount,
-          noItems: noItems,
-          sideMenu: tabletSideMenu,
-          nullItems: nullItems,
-          itemNotSelected: tabletItemNotSelected,
-        ),
+        slivers: slivers,
+        detailBuilder: detailBuilder,
+        children: children,
+        itemBuilder: itemBuilder,
+        itemCount: itemCount,
+        noItems: noItems,
+        flexDetailView: tabletFlexDetailView,
+        flexListView: tabletFlexListView,
+        sideMenu: tabletSideMenu,
+        nullItems: nullItems,
+        itemNotSelected: tabletItemNotSelected,
       );
     }
 
     // Mobile
     return Scaffold(
-      key: key,
+      key: scaffoldKey,
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
       bottomNavigationBar: bottomNavigationBar,
@@ -162,13 +174,14 @@ class ResponsiveScaffold extends StatelessWidget {
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
       primary: primary,
-      extendBody: extendBody,
+      // extendBody: extendBody,
       backgroundColor: backgroundColor,
       drawer: drawer,
       endDrawer: endDrawer,
       appBar: appBar,
       body: MobileView(
         slivers: slivers,
+        detailScaffoldKey: detailScaffoldKey,
         detailBuilder: detailBuilder,
         children: children,
         itemBuilder: itemBuilder,
@@ -181,4 +194,4 @@ class ResponsiveScaffold extends StatelessWidget {
 }
 
 typedef DetailWidgetBuilder = DetailsScreen Function(
-    BuildContext context, int index);
+    BuildContext context, int index, bool tablet);

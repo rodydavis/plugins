@@ -15,11 +15,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: ResponsiveScaffold.builder(
-        detailBuilder: (BuildContext context, int index) {
+        scaffoldKey: _scaffoldKey,
+        detailBuilder: (BuildContext context, int index, bool tablet) {
           return DetailsScreen(
             appBar: AppBar(
               elevation: 0.0,
@@ -28,6 +31,12 @@ class _MyAppState extends State<MyApp> {
                 IconButton(
                   icon: Icon(Icons.share),
                   onPressed: () {},
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    if (!tablet) Navigator.of(context).pop();
+                  },
                 ),
               ],
             ),
@@ -43,15 +52,30 @@ class _MyAppState extends State<MyApp> {
             title: Text("App Bar"),
           ),
         ],
+        // bottomNavigationBar: BottomAppBar(
+        //   child: Container(
+        //     height: 50.0,
+        //     color: Colors.green,
+        //   ),
+        // ),
         itemCount: 100,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: Text(index.toString()),
           );
         },
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text("Snackbar!"),
+            ));
+          },
+        ),
       ),
     );
   }
 }
+
 
 ```
