@@ -44,6 +44,7 @@ class NativeDataTable extends StatelessWidget {
     this.rowCountApproximate = false,
     this.noItems,
     this.mobileIsLoading,
+    this.mobileSlivers,
   });
 
   NativeDataTable.builder({
@@ -68,6 +69,7 @@ class NativeDataTable extends StatelessWidget {
     this.rowCountApproximate = false,
     this.noItems,
     this.mobileIsLoading,
+    this.mobileSlivers,
   }) : rows = _buildRows(itemCount, itemBuilder);
 
   final int sortColumnIndex;
@@ -108,6 +110,8 @@ class NativeDataTable extends StatelessWidget {
 
   final Widget mobileIsLoading;
 
+  final List<Widget> mobileSlivers;
+
   @override
   Widget build(BuildContext context) {
     if (MediaQuery.of(context).size.width >= tabletBreakpoint.width &&
@@ -142,6 +146,7 @@ class NativeDataTable extends StatelessWidget {
 
     return PagedListView(
       rows: rows,
+      slivers: mobileSlivers,
       columns: columns,
       loadNext: handleNext,
       mobileItemBuilder: mobileItemBuilder,

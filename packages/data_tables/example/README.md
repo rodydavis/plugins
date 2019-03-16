@@ -50,9 +50,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // theme: ThemeData.dark(),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Native Data Table Example'),
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Native Data Table Example'),
+        // ),
         body: NativeDataTable.builder(
           rowsPerPage: _rowsPerPage,
           itemCount: _items?.length ?? 0,
@@ -76,6 +76,11 @@ class _MyAppState extends State<MyApp> {
               _rowsOffset -= _rowsPerPage;
             });
           },
+          mobileSlivers: <Widget>[
+            SliverAppBar(
+              title: Text("Mobile App Bar"),
+            ),
+          ],
           itemBuilder: (int index) {
             final Dessert dessert = _items[index];
             return DataRow.byIndex(
@@ -97,6 +102,18 @@ class _MyAppState extends State<MyApp> {
                   DataCell(Text('${dessert.sodium}')),
                   DataCell(Text('${dessert.calcium}%')),
                   DataCell(Text('${dessert.iron}%')),
+                  DataCell(ButtonBar(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            _items.remove(dessert);
+                          });
+                        },
+                      ),
+                    ],
+                  )),
                 ]);
           },
           header: const Text('Data Management'),
@@ -150,6 +167,8 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ],
+          mobileIsLoading: CircularProgressIndicator(),
+          noItems: Text("No Items Found"),
           columns: <DataColumn>[
             DataColumn(
                 label: const Text('Dessert (100g serving)'),
@@ -194,6 +213,9 @@ class _MyAppState extends State<MyApp> {
                 numeric: true,
                 onSort: (int columnIndex, bool ascending) =>
                     _sort<num>((Dessert d) => d.iron, columnIndex, ascending)),
+            DataColumn(
+              label: const Text('Actions'),
+            ),
           ],
         ),
       ),
@@ -254,4 +276,5 @@ class _MyAppState extends State<MyApp> {
     Dessert('Coconut slice and KitKat', 677, 41.0, 72, 8.5, 63, 12, 12),
   ];
 }
+
 ```

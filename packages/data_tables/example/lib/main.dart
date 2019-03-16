@@ -47,9 +47,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // theme: ThemeData.dark(),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Native Data Table Example'),
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Native Data Table Example'),
+        // ),
         body: NativeDataTable.builder(
           rowsPerPage: _rowsPerPage,
           itemCount: _items?.length ?? 0,
@@ -73,6 +73,11 @@ class _MyAppState extends State<MyApp> {
               _rowsOffset -= _rowsPerPage;
             });
           },
+          mobileSlivers: <Widget>[
+            SliverAppBar(
+              title: Text("Mobile App Bar"),
+            ),
+          ],
           itemBuilder: (int index) {
             final Dessert dessert = _items[index];
             return DataRow.byIndex(
@@ -233,6 +238,39 @@ class _MyAppState extends State<MyApp> {
     Dessert('Jelly bean with sugar', 364, 0.0, 96, 0.0, 50, 0, 0),
     Dessert('Lollipop with sugar', 401, 0.2, 100, 0.0, 38, 0, 2),
     Dessert('Honeycomb with sugar', 417, 3.2, 89, 6.5, 562, 0, 45),
+    Dessert('Donut with sugar', 461, 25.0, 53, 4.9, 326, 2, 22),
+    Dessert('KitKat with sugar', 527, 26.0, 67, 7.0, 54, 12, 6),
+    Dessert('Frozen yogurt with honey', 223, 6.0, 36, 4.0, 87, 14, 1),
+    Dessert('Ice cream sandwich with honey', 301, 9.0, 49, 4.3, 129, 8, 1),
+    Dessert('Eclair with honey', 326, 16.0, 36, 6.0, 337, 6, 7),
+    Dessert('Cupcake with honey', 369, 3.7, 79, 4.3, 413, 3, 8),
+    Dessert('Gingerbread with honey', 420, 16.0, 61, 3.9, 327, 7, 16),
+    Dessert('Jelly bean with honey', 439, 0.0, 106, 0.0, 50, 0, 0),
+    Dessert('Lollipop with honey', 456, 0.2, 110, 0.0, 38, 0, 2),
+    Dessert('Honeycomb with honey', 472, 3.2, 99, 6.5, 562, 0, 45),
+    Dessert('Donut with honey', 516, 25.0, 63, 4.9, 326, 2, 22),
+    Dessert('KitKat with honey', 582, 26.0, 77, 7.0, 54, 12, 6),
+    Dessert('Frozen yogurt with milk', 262, 8.4, 36, 12.0, 194, 44, 1),
+    Dessert('Ice cream sandwich with milk', 339, 11.4, 49, 12.3, 236, 38, 1),
+    Dessert('Eclair with milk', 365, 18.4, 36, 14.0, 444, 36, 7),
+    Dessert('Cupcake with milk', 408, 6.1, 79, 12.3, 520, 33, 8),
+    Dessert('Gingerbread with milk', 459, 18.4, 61, 11.9, 434, 37, 16),
+    Dessert('Jelly bean with milk', 478, 2.4, 106, 8.0, 157, 30, 0),
+    Dessert('Lollipop with milk', 495, 2.6, 110, 8.0, 145, 30, 2),
+    Dessert('Honeycomb with milk', 511, 5.6, 99, 14.5, 669, 30, 45),
+    Dessert('Donut with milk', 555, 27.4, 63, 12.9, 433, 32, 22),
+    Dessert('KitKat with milk', 621, 28.4, 77, 15.0, 161, 42, 6),
+    Dessert('Coconut slice and frozen yogurt', 318, 21.0, 31, 5.5, 96, 14, 7),
+    Dessert(
+        'Coconut slice and ice cream sandwich', 396, 24.0, 44, 5.8, 138, 8, 7),
+    Dessert('Coconut slice and eclair', 421, 31.0, 31, 7.5, 346, 6, 13),
+    Dessert('Coconut slice and cupcake', 464, 18.7, 74, 5.8, 422, 3, 14),
+    Dessert('Coconut slice and gingerbread', 515, 31.0, 56, 5.4, 316, 7, 22),
+    Dessert('Coconut slice and jelly bean', 534, 15.0, 101, 1.5, 59, 0, 6),
+    Dessert('Coconut slice and lollipop', 551, 15.2, 105, 1.5, 47, 0, 8),
+    Dessert('Coconut slice and honeycomb', 567, 18.2, 94, 8.0, 571, 0, 51),
+    Dessert('Coconut slice and donut', 611, 40.0, 58, 6.4, 335, 2, 28),
+    Dessert('Coconut slice and KitKat', 677, 41.0, 72, 8.5, 63, 12, 12),
     Dessert('Donut with sugar', 461, 25.0, 53, 4.9, 326, 2, 22),
     Dessert('KitKat with sugar', 527, 26.0, 67, 7.0, 54, 12, 6),
     Dessert('Frozen yogurt with honey', 223, 6.0, 36, 4.0, 87, 14, 1),

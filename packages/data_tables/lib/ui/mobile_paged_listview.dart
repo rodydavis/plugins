@@ -17,6 +17,7 @@ class PagedListView extends StatefulWidget {
     this.initialScrollOffset = 0,
     this.noItems,
     this.isLoading,
+    this.slivers,
   });
 
   final double initialScrollOffset;
@@ -44,6 +45,8 @@ class PagedListView extends StatefulWidget {
   final RefreshCallback onRefresh;
 
   final bool isRowCountApproximate;
+
+  final List<Widget> slivers;
 
   @override
   _NativePagedListViewState createState() => _NativePagedListViewState();
@@ -77,32 +80,33 @@ class _NativePagedListViewState extends State<PagedListView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Flex(
-        direction: Axis.vertical,
-        children: <Widget>[
-          Flexible(
-            flex: 10,
-            child: widget?.onRefresh == null
+    return Flex(
+      direction: Axis.vertical,
+      children: <Widget>[
+        Flexible(
+          flex: 10,
+          child: NestedScrollView(
+            controller: _controller,
+            headerSliverBuilder: (context, innerBoxScrolled) =>
+                widget?.slivers ?? [],
+            body: widget?.onRefresh == null
                 ? _buildListView(context)
                 : RefreshIndicator(
-                    onRefresh: widget.onRefresh,
-                    child: _buildListView(context)),
-          ),
-          Flexible(
-              flex: 1,
-              child: Container(
-                child: SafeArea(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:
-                        rowsSelected ? selectedActions ?? actions : actions,
+                    onRefresh: widget?.onRefresh,
+                    child: _buildListView(context),
                   ),
-                ),
-              )),
-        ],
-      ),
+          ),
+        ),
+        Flexible(
+            flex: 1,
+            child: Container(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: rowsSelected ? selectedActions ?? actions : actions,
+              ),
+            )),
+      ],
     );
   }
 
@@ -113,27 +117,46 @@ class _NativePagedListViewState extends State<PagedListView> {
     if (widget?.noItems != null && widget.rows.isEmpty)
       return Center(child: widget.noItems);
 
-    return Scrollbar(
-      child: ListView.builder(
-        controller: _controller,
-        itemCount: widget.rows.length,
-        itemBuilder: widget?.mobileItemBuilder ??
-            (BuildContext context, int index) {
-              return ExpansionTile(
-                leading: Checkbox(
-                  value: widget.rows[index].selected,
-                  onChanged: (bool value) {
-                    setState(() {
-                      widget.rows[index].onSelectChanged(value);
-                    });
-                  },
-                ),
-                title: widget.rows[index].cells.first.child,
-                children: _buildMobileChildren(index),
-              );
-            },
-      ),
+    return ListView.builder(
+      itemBuilder: widget?.mobileItemBuilder ??
+          (BuildContext context, int index) {
+            return ExpansionTile(
+              leading: Checkbox(
+                value: widget.rows[index].selected,
+                onChanged: (bool value) {
+                  setState(() {
+                    widget.rows[index].onSelectChanged(value);
+                  });
+                },
+              ),
+              title: widget.rows[index].cells.first.child,
+              children: _buildMobileChildren(index),
+            );
+          },
+      itemCount: widget.rows.length,
     );
+
+    // return Scrollbar(
+    //   child: ListView.builder(
+    //     controller: _controller,
+    //     itemCount: widget.rows.length,
+    //     itemBuilder: widget?.mobileItemBuilder ??
+    //         (BuildContext context, int index) {
+    //           return ExpansionTile(
+    //             leading: Checkbox(
+    //               value: widget.rows[index].selected,
+    //               onChanged: (bool value) {
+    //                 setState(() {
+    //                   widget.rows[index].onSelectChanged(value);
+    //                 });
+    //               },
+    //             ),
+    //             title: widget.rows[index].cells.first.child,
+    //             children: _buildMobileChildren(index),
+    //           );
+    //         },
+    //   ),
+    // );
   }
 
   List<Widget> get actions => [

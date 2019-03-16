@@ -1,3 +1,12 @@
+## 0.2.3
+
+* Removing SafeArea
+
+## 0.2.2
+
+* Adding Mobile Slivers
+* Updated Example
+
 ## 0.2.1
 
 * Updating Toolbar on Mobile
