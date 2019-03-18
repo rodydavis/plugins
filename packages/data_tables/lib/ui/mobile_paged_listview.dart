@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' as cupertino;
 
 class PagedListView extends StatefulWidget {
   const PagedListView({
@@ -85,16 +86,38 @@ class _NativePagedListViewState extends State<PagedListView> {
       children: <Widget>[
         Flexible(
           flex: 10,
-          child: NestedScrollView(
+          child: CustomScrollView(
             controller: _controller,
-            headerSliverBuilder: (context, innerBoxScrolled) =>
-                widget?.slivers ?? [],
-            body: widget?.onRefresh == null
-                ? _buildListView(context)
-                : RefreshIndicator(
-                    onRefresh: widget?.onRefresh,
-                    child: _buildListView(context),
-                  ),
+            slivers: <Widget>[]
+              ..addAll(widget?.slivers ?? [])
+              ..add(widget?.onRefresh == null
+                  ? SliverToBoxAdapter(child: Container())
+                  : cupertino.CupertinoSliverRefreshControl(
+                      onRefresh: widget?.onRefresh,
+                    ))
+              ..add(widget?.isLoading != null && widget?.rows == null
+                  ? Center(child: widget.isLoading)
+                  : widget?.noItems != null && widget.rows.isEmpty
+                      ? Center(child: widget.noItems)
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              return ExpansionTile(
+                                leading: Checkbox(
+                                  value: widget.rows[index].selected,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      widget.rows[index].onSelectChanged(value);
+                                    });
+                                  },
+                                ),
+                                title: widget.rows[index].cells.first.child,
+                                children: _buildMobileChildren(index),
+                              );
+                            },
+                            childCount: widget.rows.length,
+                          ),
+                        )),
           ),
         ),
         Flexible(
@@ -108,55 +131,6 @@ class _NativePagedListViewState extends State<PagedListView> {
             )),
       ],
     );
-  }
-
-  Widget _buildListView(BuildContext context) {
-    if (widget?.isLoading != null && widget?.rows == null)
-      return Center(child: widget.isLoading);
-
-    if (widget?.noItems != null && widget.rows.isEmpty)
-      return Center(child: widget.noItems);
-
-    return ListView.builder(
-      itemBuilder: widget?.mobileItemBuilder ??
-          (BuildContext context, int index) {
-            return ExpansionTile(
-              leading: Checkbox(
-                value: widget.rows[index].selected,
-                onChanged: (bool value) {
-                  setState(() {
-                    widget.rows[index].onSelectChanged(value);
-                  });
-                },
-              ),
-              title: widget.rows[index].cells.first.child,
-              children: _buildMobileChildren(index),
-            );
-          },
-      itemCount: widget.rows.length,
-    );
-
-    // return Scrollbar(
-    //   child: ListView.builder(
-    //     controller: _controller,
-    //     itemCount: widget.rows.length,
-    //     itemBuilder: widget?.mobileItemBuilder ??
-    //         (BuildContext context, int index) {
-    //           return ExpansionTile(
-    //             leading: Checkbox(
-    //               value: widget.rows[index].selected,
-    //               onChanged: (bool value) {
-    //                 setState(() {
-    //                   widget.rows[index].onSelectChanged(value);
-    //                 });
-    //               },
-    //             ),
-    //             title: widget.rows[index].cells.first.child,
-    //             children: _buildMobileChildren(index),
-    //           );
-    //         },
-    //   ),
-    // );
   }
 
   List<Widget> get actions => [

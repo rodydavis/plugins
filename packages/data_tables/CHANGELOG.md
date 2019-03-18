@@ -1,3 +1,8 @@
+## 0.2.4
+
+* Fixed Padding on Refresh
+* Added CupertinoRefreshController
+
 ## 0.2.3
 
 * Removing SafeArea
