@@ -37,6 +37,8 @@ class ResponsiveScaffold extends StatelessWidget {
     this.tabletFlexListView = 3,
     this.scaffoldKey,
     this.detailScaffoldKey,
+    this.mobileRootNavigator = false,
+    this.mobileNavigator,
   })  : itemBuilder = null,
         itemCount = children?.length ?? 0;
 
@@ -69,6 +71,8 @@ class ResponsiveScaffold extends StatelessWidget {
     this.tabletFlexListView = 4,
     this.scaffoldKey,
     this.detailScaffoldKey,
+    this.mobileRootNavigator = false,
+    this.mobileNavigator,
   }) : children = null;
 
   final Size tabletBreakpoint;
@@ -125,6 +129,10 @@ class ResponsiveScaffold extends StatelessWidget {
 
   final int tabletFlexDetailView;
 
+  final bool mobileRootNavigator;
+
+  final NavigatorState mobileNavigator;
+
   @override
   Widget build(BuildContext context) {
     if (isTablet(context, breakpoint: tabletBreakpoint)) {
@@ -180,6 +188,7 @@ class ResponsiveScaffold extends StatelessWidget {
       endDrawer: endDrawer,
       appBar: appBar,
       body: MobileView(
+        useRootNavigator: mobileRootNavigator,
         slivers: slivers,
         detailScaffoldKey: detailScaffoldKey,
         detailBuilder: detailBuilder,
@@ -188,6 +197,7 @@ class ResponsiveScaffold extends StatelessWidget {
         itemCount: itemCount,
         noItems: noItems,
         nullItems: nullItems,
+        navigator: mobileNavigator,
       ),
     );
   }
