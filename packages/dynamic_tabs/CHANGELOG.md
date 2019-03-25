@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Updating to Support More
+
 ## 0.0.7
 
 * Adding Optional Tag if using multi sets of dynamic_tabs

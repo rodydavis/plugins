@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dynamic_tabs/data/classes/local.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/classes/tab.dart';
@@ -73,8 +76,17 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     super.initState();
   }
 
-  void _loadSavedTabs() {
-    List<String> _tabs = _prefs.getStringList(tabsKey);
+  void _loadSavedTabs() async {
+    SavedLocal data;
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$tabsKey.json');
+      data = json.decode(await file.readAsString());
+    } catch (e) {
+      print("Couldn't read file");
+    }
+    List<String> _tabs = data?.data ?? [];
+    print("List: ${widget?.tabs?.length ?? 0} $_tabs");
     if (_tabs != null && _tabs.isNotEmpty) {
       List<DynamicTab> _newOrder = [];
       for (var item in _tabs) {
@@ -88,8 +100,11 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     }
   }
 
-  void _saveNewTabs() {
-    _prefs.setStringList(tabsKey, _items.map((t) => t.tag).toList());
+  void _saveNewTabs() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/$tabsKey.json');
+    final _list = _items.map((t) => t.tag).toList();
+    await file.writeAsString(json.encode(SavedLocal(data: _list).toJson()));
   }
 
   void _loadIndex() {

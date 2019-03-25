@@ -43,6 +43,7 @@ class GridTabItem extends StatelessWidget {
                   AutoSizeText(
                     _title.data,
                     maxLines: 1,
+                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 30.0),
                   ),
                 ],
@@ -57,6 +58,7 @@ class GridTabItem extends StatelessWidget {
             ),
             Text(
               _title.data,
+              textAlign: TextAlign.center,
               style: active ? null : TextStyle(color: Colors.grey),
             ),
           ],
@@ -75,6 +77,7 @@ class GridTabItem extends StatelessWidget {
           ),
           Text(
             _title.data,
+            textAlign: TextAlign.center,
             style: TextStyle(color: Colors.grey),
           ),
         ],

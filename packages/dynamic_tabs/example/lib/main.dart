@@ -112,6 +112,66 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           tag: "contacts", // Must Be Unique
         ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts8"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts8", // Must Be Unique
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts9"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts9", // Must Be Unique
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts10"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts10", // Must Be Unique
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts11"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts11", // Must Be Unique
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts12"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts12", // Must Be Unique
+        ),
+        DynamicTab(
+          child: Container(
+            color: Colors.yellow,
+          ),
+          tab: BottomNavigationBarItem(
+            title: Text("Contacts13"),
+            icon: Icon(Icons.people),
+          ),
+          tag: "contacts13", // Must Be Unique
+        ),
       ],
     );
   }
