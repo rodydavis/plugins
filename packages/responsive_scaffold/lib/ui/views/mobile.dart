@@ -12,6 +12,8 @@ class MobileView extends StatelessWidget {
     @required this.noItems,
     @required this.nullItems,
     @required this.detailScaffoldKey,
+    @required this.useRootNavigator,
+    @required this.navigator,
   }) : super(key: key);
 
   final List<Widget> slivers;
@@ -22,6 +24,8 @@ class MobileView extends StatelessWidget {
   final Widget noItems;
   final Widget nullItems;
   final Key detailScaffoldKey;
+  final bool useRootNavigator;
+  final NavigatorState navigator;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +37,7 @@ class MobileView extends StatelessWidget {
             (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .push(MaterialPageRoute(builder: (context) {
+                  (navigator ?? Navigator.of(context)).push(MaterialPageRoute(builder: (context) {
                     final _details = detailBuilder(context, index, false);
                     return new DetailView(
                         detailScaffoldKey: detailScaffoldKey,

@@ -1,3 +1,11 @@
+## 0.0.5
+
+* Added Mobile Navigator BuildContext `navigatorContext`
+
+## 0.0.4
+
+* Aded Use `rootNavigator`
+
 ## 0.0.3
 
 * Fixing Version
