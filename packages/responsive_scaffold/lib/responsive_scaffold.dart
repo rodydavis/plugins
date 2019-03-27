@@ -29,8 +29,6 @@ class ResponsiveScaffold extends StatelessWidget {
     this.persistentFooterButtons,
     this.resizeToAvoidBottomInset,
     this.resizeToAvoidBottomPadding,
-    this.noItems,
-    this.nullItems,
     this.tabletItemNotSelected,
     this.tabletSideMenu,
     this.tabletFlexDetailView = 8,
@@ -63,8 +61,6 @@ class ResponsiveScaffold extends StatelessWidget {
     this.persistentFooterButtons,
     this.resizeToAvoidBottomInset,
     this.resizeToAvoidBottomPadding,
-    this.noItems,
-    this.nullItems,
     this.tabletItemNotSelected,
     this.tabletSideMenu,
     this.tabletFlexDetailView = 8,
@@ -117,10 +113,6 @@ class ResponsiveScaffold extends StatelessWidget {
 
   final Key scaffoldKey, detailScaffoldKey;
 
-  final Widget noItems;
-
-  final Widget nullItems;
-
   final Widget tabletItemNotSelected;
 
   final Flexible tabletSideMenu;
@@ -161,11 +153,9 @@ class ResponsiveScaffold extends StatelessWidget {
         children: children,
         itemBuilder: itemBuilder,
         itemCount: itemCount,
-        noItems: noItems,
         flexDetailView: tabletFlexDetailView,
         flexListView: tabletFlexListView,
         sideMenu: tabletSideMenu,
-        nullItems: nullItems,
         itemNotSelected: tabletItemNotSelected,
       );
     }
@@ -195,8 +185,6 @@ class ResponsiveScaffold extends StatelessWidget {
         children: children,
         itemBuilder: itemBuilder,
         itemCount: itemCount,
-        noItems: noItems,
-        nullItems: nullItems,
         navigator: mobileNavigator,
       ),
     );

@@ -13,12 +13,16 @@ class MoreTab extends StatelessWidget {
     @required this.tabs,
     this.tabsChanged,
     @required this.maxTabs,
+    @required this.primaryColor,
+    @required this.accentColor,
   });
 
   final bool adaptive;
   final List<DynamicTab> tabs;
   final ValueChanged<List<DynamicTab>> tabsChanged;
   final int maxTabs;
+  final Color primaryColor;
+  final Color accentColor;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +31,16 @@ class MoreTab extends StatelessWidget {
       return CupertinoPageScaffold(
         child: CustomScrollView(
           slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              largeTitle: Text("More"),
-              trailing: CupertinoButton(
-                child: Text("Edit"),
-                padding: EdgeInsets.all(0.0),
-                onPressed: () => _goToEditScreen(context),
-              ),
-            ),
+        CupertinoSliverNavigationBar(
+                  backgroundColor: primaryColor,
+                  actionsForegroundColor: accentColor,
+                  largeTitle: Text("More"),
+                  trailing: CupertinoButton(
+                    child: Text("Edit"),
+                    padding: EdgeInsets.all(0.0),
+                    onPressed: () => _goToEditScreen(context),
+                  ),
+                ),
             SliverPadding(
               // Top media padding consumed by CupertinoSliverNavigationBar.
               // Left/Right media padding consumed by Tab1RowItem.

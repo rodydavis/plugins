@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Adding Color Options for More Tab
+
 ## 0.0.8
 
 * Updating to Support More

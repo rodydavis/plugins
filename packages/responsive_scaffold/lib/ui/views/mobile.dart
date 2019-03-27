@@ -9,8 +9,6 @@ class MobileView extends StatelessWidget {
     @required this.children,
     @required this.itemBuilder,
     @required this.itemCount,
-    @required this.noItems,
-    @required this.nullItems,
     @required this.detailScaffoldKey,
     @required this.useRootNavigator,
     @required this.navigator,
@@ -21,8 +19,6 @@ class MobileView extends StatelessWidget {
   final List<Widget> children;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
-  final Widget noItems;
-  final Widget nullItems;
   final Key detailScaffoldKey;
   final bool useRootNavigator;
   final NavigatorState navigator;
@@ -37,13 +33,12 @@ class MobileView extends StatelessWidget {
             (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  (navigator ?? Navigator.of(context)).push(MaterialPageRoute(builder: (context) {
+                  (navigator ?? Navigator.of(context))
+                      .push(MaterialPageRoute(builder: (context) {
                     final _details = detailBuilder(context, index, false);
                     return new DetailView(
                         detailScaffoldKey: detailScaffoldKey,
                         itemCount: itemCount,
-                        nullItems: nullItems,
-                        noItems: noItems,
                         details: _details);
                   }));
                 },
@@ -81,11 +76,7 @@ class DetailView extends StatelessWidget {
     return Scaffold(
       key: detailScaffoldKey,
       appBar: _details?.appBar,
-      body: itemCount == null
-          ? nullItems ?? Center(child: CircularProgressIndicator())
-          : itemCount == 0
-              ? noItems ?? Center(child: Text("No Items Found"))
-              : _details.body,
+      body: _details.body,
     );
   }
 }

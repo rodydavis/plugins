@@ -19,25 +19,52 @@ class _MyAppState extends State<MyApp> {
         scaffoldKey: _scaffoldKey,
         detailBuilder: (BuildContext context, int index, bool tablet) {
           return DetailsScreen(
-            appBar: AppBar(
-              elevation: 0.0,
-              title: Text("Details"),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.share),
-                  onPressed: () {},
+            // appBar: AppBar(
+            //   elevation: 0.0,
+            //   title: Text("Details"),
+            //   actions: [
+            //     IconButton(
+            //       icon: Icon(Icons.share),
+            //       onPressed: () {},
+            //     ),
+            //     IconButton(
+            //       icon: Icon(Icons.delete),
+            //       onPressed: () {
+            //         if (!tablet) Navigator.of(context).pop();
+            //       },
+            //     ),
+            //   ],
+            // ),
+            body: Scaffold(
+              appBar: AppBar(
+                elevation: 0.0,
+                title: Text("Details"),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      if (!tablet) Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+              bottomNavigationBar: BottomAppBar(
+                elevation: 0.0,
+                child: Container(
+                  child: IconButton(
+                    icon: Icon(Icons.share),
+                    onPressed: () {},
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    if (!tablet) Navigator.of(context).pop();
-                  },
+              ),
+              body: Container(
+                child: Center(
+                  child: Text("Item: $index"),
                 ),
-              ],
-            ),
-            body: Container(
-              child: Center(
-                child: Text("Item: $index"),
               ),
             ),
           );
@@ -59,6 +86,15 @@ class _MyAppState extends State<MyApp> {
             leading: Text(index.toString()),
           );
         },
+        bottomNavigationBar: BottomAppBar(
+          elevation: 0.0,
+          child: Container(
+            child: IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () {},
+            ),
+          ),
+        ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {

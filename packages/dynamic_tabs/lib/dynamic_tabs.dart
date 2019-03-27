@@ -20,6 +20,8 @@ class DynamicTabScaffold extends StatefulWidget {
     this.maxTabs = 4,
     this.tag = "",
     this.type = BottomNavigationBarType.fixed,
+    this.moreTabPrimaryColor,
+    this.moreTabAccentColor,
   })  : adaptive = false,
         routes = null,
         assert(tabs != null),
@@ -32,6 +34,8 @@ class DynamicTabScaffold extends StatefulWidget {
     this.maxTabs = 4,
     this.tag = "",
     @required this.routes,
+    this.moreTabPrimaryColor,
+    this.moreTabAccentColor,
   })  : adaptive = true,
         type = null,
         iconSize = null,
@@ -53,6 +57,9 @@ class DynamicTabScaffold extends StatefulWidget {
   // final Color fixedColor;
   final BottomNavigationBarType type;
   // final Color unselectedItemColor;
+
+  final Color moreTabPrimaryColor;
+  final Color moreTabAccentColor;
 
   @override
   _DynamicTabScaffoldState createState() => _DynamicTabScaffoldState();
@@ -186,6 +193,8 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
           builder: (BuildContext context) => MoreTab(
                 maxTabs: widget.maxTabs,
                 adaptive: widget.adaptive,
+                primaryColor: widget?.moreTabPrimaryColor,
+                accentColor: widget?.moreTabAccentColor,
                 tabs: _items,
                 tabsChanged: (List<DynamicTab> tabs) {
                   setState(() {
@@ -197,6 +206,8 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
         );
       }
       return MoreTab(
+        primaryColor: widget?.moreTabPrimaryColor,
+        accentColor: widget?.moreTabAccentColor,
         maxTabs: widget.maxTabs,
         adaptive: widget.adaptive,
         tabs: _items,

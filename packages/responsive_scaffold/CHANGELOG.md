@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Removing `noItems` and `nullItems`
+
 ## 0.0.5
 
 * Added Mobile Navigator BuildContext `navigatorContext`

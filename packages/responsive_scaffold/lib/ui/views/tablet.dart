@@ -10,8 +10,6 @@ class TabletView extends StatefulWidget {
     @required this.children,
     @required this.itemBuilder,
     @required this.itemCount,
-    @required this.noItems,
-    @required this.nullItems,
     @required this.itemNotSelected,
     @required this.sideMenu,
     this.flexListView = 4,
@@ -39,8 +37,6 @@ class TabletView extends StatefulWidget {
   final List<Widget> children;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
-  final Widget noItems;
-  final Widget nullItems;
   final Widget itemNotSelected;
   final Flexible sideMenu;
   final int flexListView;
@@ -109,33 +105,28 @@ class _TabletViewState extends State<TabletView> {
               drawer: widget?.drawer,
               endDrawer: widget?.endDrawer,
               appBar: widget?.appBar,
-              body: widget?.itemCount == null
-                  ? widget?.nullItems ??
-                      Center(child: CircularProgressIndicator())
-                  : widget.itemCount == 0
-                      ? widget?.noItems ?? Center(child: Text("No Items Found"))
-                      : CustomScrollView(
-                          slivers: <Widget>[]
-                            ..addAll(widget.slivers ?? [])
-                            ..add(SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _details = widget.detailBuilder(
-                                            context, index, true);
-                                      });
-                                    },
-                                    child: widget.children == null
-                                        ? widget.itemBuilder(context, index)
-                                        : widget.children[index],
-                                  );
-                                },
-                                childCount: widget.itemCount,
-                              ),
-                            )),
-                        ),
+              body: CustomScrollView(
+                slivers: <Widget>[]
+                  ..addAll(widget.slivers ?? [])
+                  ..add(SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _details =
+                                  widget.detailBuilder(context, index, true);
+                            });
+                          },
+                          child: widget.children == null
+                              ? widget.itemBuilder(context, index)
+                              : widget.children[index],
+                        );
+                      },
+                      childCount: widget.itemCount,
+                    ),
+                  )),
+              ),
             ),
           ),
           Flexible(
