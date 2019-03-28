@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c0d1e53-518f-4576-8c4a-1fd45ec31490" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/flutter_sms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_sms.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -80,6 +75,15 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1551781019">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -90,11 +94,6 @@
               <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pubspec.lock">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -111,15 +110,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
               <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -150,8 +140,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="600">
+              <caret line="40" column="52" selection-start-line="40" selection-start-column="52" selection-end-line="40" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -182,10 +172,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1723" />
-    <option name="y" value="129" />
-    <option name="width" value="1911" />
-    <option name="height" value="1402" />
+    <option name="x" value="35" />
+    <option name="y" value="23" />
+    <option name="width" value="1903" />
+    <option name="height" value="2137" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -195,8 +185,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -214,7 +205,6 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -288,10 +278,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1723" y="129" width="1911" height="1402" extended-state="0" />
-    <editor active="true" />
+    <frame x="35" y="23" width="1903" height="2137" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22685929" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2278345" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -312,7 +301,7 @@
       <window_info anchor="bottom" id="Multi-OS Engine" order="10" />
       <window_info anchor="bottom" id="Logcat" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="13" visible="true" weight="0.32977098" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="13" visible="true" weight="0.21124694" />
       <window_info anchor="bottom" id="Flutter Performance" order="14" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="15" visible="true" weight="0.3299539" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -337,15 +326,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.lock" />
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" />
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.lock">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/example/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -358,13 +346,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -394,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="600">
+          <caret line="40" column="52" selection-start-line="40" selection-start-column="52" selection-end-line="40" selection-end-column="52" />
         </state>
       </provider>
     </entry>
