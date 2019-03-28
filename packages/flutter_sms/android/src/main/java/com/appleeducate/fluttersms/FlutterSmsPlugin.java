@@ -32,7 +32,7 @@ public class FlutterSmsPlugin implements MethodCallHandler {
   public void onMethodCall(MethodCall call, Result result) {
     if (call.method.equals("sendSMS")) {
       String message = call.argument("message");
-      ArrayList<String> recipients = call.argument("recipients");
+      String recipients = call.argument("recipients");
       sendSMS(recipients, message);
       result.success("SMS Sent!" );
     } else {
@@ -44,26 +44,13 @@ public class FlutterSmsPlugin implements MethodCallHandler {
     this.activity = activity;
   }
 
-  private void sendSMS(ArrayList<String> phones, String message) {
-   if (phones.size() == 1) {
-     Intent intent = new Intent(Intent.ACTION_SEND);
-     String _phone =  phones.get(0);
-     intent.setData(Uri.parse("smsto:" + _phone));
+  private void sendSMS(String phones, String message) {
+     Intent intent = new Intent(Intent.ACTION_VIEW);
+     intent.setData(Uri.parse("smsto:" + phones));
      intent.putExtra("sms_body", message);
 //     intent.putExtra(Intent.EXTRA_STREAM, attachment);
      if (intent.resolveActivity( activity.getPackageManager()) != null) {
        activity.startActivity(intent);
      }
-   } else {
-     Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-     Object[] objectList = phones.toArray();
-     String[] _phones =  Arrays.copyOf(objectList,objectList.length,String[].class);
-     intent.setData(Uri.parse("smsto:" + _phones));
-     intent.putExtra("sms_body", message);
-//     intent.putExtra(Intent.EXTRA_STREAM, attachment);
-     if (intent.resolveActivity( activity.getPackageManager()) != null) {
-       activity.startActivity(intent);
-     }
-   }
   }
 }

@@ -1,3 +1,8 @@
+## 0.1.0
+
+* Fix for Android Multiple People
+* Fixes Issues #8 and #4
+
 ## 0.0.5
 
 * Removed SMS Permissions on Android
