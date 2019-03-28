@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import androidx.core.app.ActivityCompat;
 import io.flutter.plugin.common.MethodCall;
@@ -44,8 +45,25 @@ public class FlutterSmsPlugin implements MethodCallHandler {
   }
 
   private void sendSMS(ArrayList<String> phones, String message) {
-    Intent sendIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phones));
-    sendIntent.putExtra("sms_body", message);
-    activity.startActivity(sendIntent);
+   if (phones.size() == 1) {
+     Intent intent = new Intent(Intent.ACTION_SEND);
+     String _phone =  phones.get(0);
+     intent.setData(Uri.parse("smsto:" + _phone));
+     intent.putExtra("sms_body", message);
+//     intent.putExtra(Intent.EXTRA_STREAM, attachment);
+     if (intent.resolveActivity( activity.getPackageManager()) != null) {
+       activity.startActivity(intent);
+     }
+   } else {
+     Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+     Object[] objectList = phones.toArray();
+     String[] _phones =  Arrays.copyOf(objectList,objectList.length,String[].class);
+     intent.setData(Uri.parse("smsto:" + _phones));
+     intent.putExtra("sms_body", message);
+//     intent.putExtra(Intent.EXTRA_STREAM, attachment);
+     if (intent.resolveActivity( activity.getPackageManager()) != null) {
+       activity.startActivity(intent);
+     }
+   }
   }
 }
