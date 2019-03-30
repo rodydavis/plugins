@@ -24,6 +24,7 @@ dev_dependencies:
 flutter:
 
   assets:
+   - assets/html/sheet_music.html
    # Clef
    - assets/images/clef/treble_clef.png
    - assets/images/clef/bass_clef.png

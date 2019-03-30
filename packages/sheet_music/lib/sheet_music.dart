@@ -1,6 +1,11 @@
 library sheet_music;
 
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'util/clef_asset.dart';
 import 'util/pitch_asset.dart';
@@ -8,8 +13,71 @@ import 'util/scale_asset.dart';
 
 const String sheetMusicPackageName = "sheet_music";
 
+const String kNavigationExamplePage = '''
+<html>
+
+<head>
+	<title> Sheet Music View </title>
+</head>
+
+<body>
+
+	<div id="osmdCanvas" />
+
+	<input type="file" id="files" name="files[]" multiple />
+	<output id="list"></output>
+
+	<script
+		src="https://github.com/opensheetmusicdisplay/opensheetmusicdisplay/releases/download/0.7.0/opensheetmusicdisplay.min.js"></script>
+	<script>
+		function handleFileSelect(evt) {
+			var maxOSMDDisplays = 10; // how many scores can be displayed at once (in a vertical layout)
+			var files = evt.target.files; // FileList object
+			var osmdDisplays = Math.min(files.length, maxOSMDDisplays);
+
+			var output = [];
+			for (var i = 0, file = files[i]; i < osmdDisplays; i++) {
+				output.push("<li><strong>", escape(file.name), "</strong> </li>");
+				output.push("<div id='osmdCanvas" + i + "'/>");
+			}
+			document.getElementById("list").innerHTML = "<ul>" + output.join("") + "</ul>";
+
+			for (var i = 0, file = files[i]; i < osmdDisplays; i++) {
+				if (!file.name.match('.*\.xml') && !file.name.match('.*\.musicxml')) {
+					alert('You selected a non-xml file. Please select only music xml files.');
+					continue;
+				}
+
+				var reader = new FileReader();
+
+				reader.onload = (function (theFile) {
+					return function (e) {
+						var openSheetMusicDisplay = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas");
+						openSheetMusicDisplay
+							.load(e.target.result)
+							.then(
+								function () {
+									//console.log("e.target.result: " + e.target.result);
+									openSheetMusicDisplay.render();
+									
+								}
+							);
+					}
+				})(file);
+				reader.readAsText(file);
+			}
+		}
+
+		document.getElementById("files").addEventListener("change", handleFileSelect, false);
+	</script>
+	<noscript>Sorry, your browser does not support JavaScript!</noscript>
+</body>
+
+</html>
+''';
+
 /// Transparent Sheet Music View with [black] color.
-class SheetMusic extends StatelessWidget {
+class SheetMusic extends StatefulWidget {
   final bool trebleClef;
   final String pitch, scale;
 
@@ -45,81 +113,34 @@ class SheetMusic extends StatelessWidget {
     this.height,
   });
 
-  Widget _buildClef({double width, double height}) {
-    final double _width = width * 0.1979;
-    return Container(
-      child: InkWell(
-        onTap: clefTap,
-        child: SizedBox(
-          height: height,
-          width: _width,
-          child: Image.asset(
-            getClefAsset(trebleClef),
-            package: sheetMusicPackageName,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-      ),
-    );
-  }
+  @override
+  _SheetMusicState createState() => _SheetMusicState();
+}
 
-  Widget _buildScale({double width, double height}) {
-    final double _width = width * 0.5076;
-    return Container(
-      child: InkWell(
-        onTap: scaleTap,
-        child: SizedBox(
-          height: height,
-          width: _width,
-          child: Image.asset(
-            getScaleAsset(scale, trebleClef: trebleClef),
-            package: sheetMusicPackageName,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-      ),
-    );
-  }
+class _SheetMusicState extends State<SheetMusic> {
+  WebViewController _controller;
 
-  Widget _buildPitch({double width, double height}) {
-    final double _width = width * 0.2944;
-    return Container(
-      child: InkWell(
-        onTap: pitchTap,
-        child: SizedBox(
-          height: height,
-          width: _width,
-          child: Image.asset(
-            getPitchAsset(pitch, trebleClef: trebleClef),
-            package: sheetMusicPackageName,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    _loadHtmlFromAssets();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (hide != null && hide) return Container();
-    final double _width = ((height ?? 100.0) * 197.0) / 100.0;
-    final double _height = ((width ?? 197.0) * 100.0) / 197.0;
+    return Builder(builder: (BuildContext context) {
+      return WebView(
+        initialUrl: '',
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller = webViewController;
+        },
+      );
+    });
+  }
 
-    return SizedBox(
-      width: _width,
-      height: _height,
-      child: Container(
-        color: backgroundColor,
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              _buildClef(width: _width, height: _height),
-              _buildScale(width: _width, height: _height),
-              _buildPitch(width: _width, height: _height),
-            ]),
-      ),
-    );
+  _loadHtmlFromAssets() async {
+    _controller.loadUrl(Uri.dataFromString(kNavigationExamplePage,
+            mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+        .toString());
   }
 }
