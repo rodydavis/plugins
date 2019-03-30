@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jaguar/jaguar.dart';
 
 import 'package:sheet_music/sheet_music.dart';
+import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 
-void main() => runApp(MyApp());
+main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,17 +17,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Sheet Music Example'),
-        ),
-        body: Center(
-          child: SheetMusic(
-            scale: "C Major",
-            pitch: "C4",
-            trebleClef: true,
-          ),
-        ),
+      home: SheetMusic(
+        scale: "C Major",
+        pitch: "C4",
+        trebleClef: true,
       ),
     );
   }

@@ -10,71 +10,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'util/clef_asset.dart';
 import 'util/pitch_asset.dart';
 import 'util/scale_asset.dart';
+import 'package:jaguar/jaguar.dart';
+
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 
 const String sheetMusicPackageName = "sheet_music";
-
-const String kNavigationExamplePage = '''
-<html>
-
-<head>
-	<title> Sheet Music View </title>
-</head>
-
-<body>
-
-	<div id="osmdCanvas" />
-
-	<input type="file" id="files" name="files[]" multiple />
-	<output id="list"></output>
-
-	<script
-		src="https://github.com/opensheetmusicdisplay/opensheetmusicdisplay/releases/download/0.7.0/opensheetmusicdisplay.min.js"></script>
-	<script>
-		function handleFileSelect(evt) {
-			var maxOSMDDisplays = 10; // how many scores can be displayed at once (in a vertical layout)
-			var files = evt.target.files; // FileList object
-			var osmdDisplays = Math.min(files.length, maxOSMDDisplays);
-
-			var output = [];
-			for (var i = 0, file = files[i]; i < osmdDisplays; i++) {
-				output.push("<li><strong>", escape(file.name), "</strong> </li>");
-				output.push("<div id='osmdCanvas" + i + "'/>");
-			}
-			document.getElementById("list").innerHTML = "<ul>" + output.join("") + "</ul>";
-
-			for (var i = 0, file = files[i]; i < osmdDisplays; i++) {
-				if (!file.name.match('.*\.xml') && !file.name.match('.*\.musicxml')) {
-					alert('You selected a non-xml file. Please select only music xml files.');
-					continue;
-				}
-
-				var reader = new FileReader();
-
-				reader.onload = (function (theFile) {
-					return function (e) {
-						var openSheetMusicDisplay = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas");
-						openSheetMusicDisplay
-							.load(e.target.result)
-							.then(
-								function () {
-									//console.log("e.target.result: " + e.target.result);
-									openSheetMusicDisplay.render();
-									
-								}
-							);
-					}
-				})(file);
-				reader.readAsText(file);
-			}
-		}
-
-		document.getElementById("files").addEventListener("change", handleFileSelect, false);
-	</script>
-	<noscript>Sorry, your browser does not support JavaScript!</noscript>
-</body>
-
-</html>
-''';
 
 /// Transparent Sheet Music View with [black] color.
 class SheetMusic extends StatefulWidget {
@@ -118,29 +59,35 @@ class SheetMusic extends StatefulWidget {
 }
 
 class _SheetMusicState extends State<SheetMusic> {
-  WebViewController _controller;
-
-  @override
-  void initState() {
-    _loadHtmlFromAssets();
-    super.initState();
-  }
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (BuildContext context) {
-      return WebView(
-        initialUrl: '',
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller = webViewController;
-        },
-      );
-    });
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sheet Music View"),
+      ),
+      body: FutureBuilder<String>(
+          future: LocalLoader().loadLocal(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return WebView(
+                initialUrl:
+                    new Uri.dataFromString(snapshot.data, mimeType: 'text/html')
+                        .toString(),
+                javascriptMode: JavascriptMode.unrestricted,
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return CircularProgressIndicator();
+          }),
+    );
   }
+}
 
-  _loadHtmlFromAssets() async {
-    _controller.loadUrl(Uri.dataFromString(kNavigationExamplePage,
-            mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
-        .toString());
+class LocalLoader {
+  Future<String> loadLocal() async {
+    return await rootBundle.loadString('assets/sheet_music.html');
   }
 }
