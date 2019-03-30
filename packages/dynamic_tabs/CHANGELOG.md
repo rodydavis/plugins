@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Adding Material Options for `.adaptive` Scaffold
+
 ## 0.1.0
 
 * Adding Color Options for More Tab

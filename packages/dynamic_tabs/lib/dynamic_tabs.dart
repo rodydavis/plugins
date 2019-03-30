@@ -36,9 +36,11 @@ class DynamicTabScaffold extends StatefulWidget {
     @required this.routes,
     this.moreTabPrimaryColor,
     this.moreTabAccentColor,
+    BottomNavigationBarType materialType = BottomNavigationBarType.fixed,
+    double materialIconSize,
   })  : adaptive = true,
-        type = null,
-        iconSize = null,
+        type = materialType,
+        iconSize = materialIconSize,
         assert(tabs != null),
         assert(tabs.length >= 2);
 
