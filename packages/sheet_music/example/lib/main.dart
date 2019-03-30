@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:sheet_music/sheet_music.dart';
 
 void main() => runApp(MyApp());
@@ -17,10 +15,14 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Sheet Music Example'),
         ),
         body: Center(
-          child: Text('Running on'),
+          child: SheetMusic(
+            scale: "C Major",
+            pitch: "C4",
+            trebleClef: true,
+          ),
         ),
       ),
     );
