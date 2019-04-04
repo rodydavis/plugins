@@ -14,6 +14,7 @@ dependencies:
   webview_flutter: ^0.3.5+2
   flutter_webview_plugin: ^0.3.3
   jaguar_flutter_asset: ^2.2.0
+  image: ^2.0.7
 
 dev_dependencies:
   flutter_test:
