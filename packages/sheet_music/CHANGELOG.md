@@ -1,3 +1,7 @@
+## [0.2.0] - 04-04-2019
+
+* Support for Dark Mode
+
 ## [0.1.1] - Updating
 
 * Fixing Scale Midi Bug
