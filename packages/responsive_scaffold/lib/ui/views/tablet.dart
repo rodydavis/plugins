@@ -180,7 +180,6 @@ class _TabletViewState extends State<TabletView> {
               body: CustomScrollView(
                 slivers: <Widget>[]
                   ..addAll(widget.slivers ?? [])
-                          child: widget.children == null
                   ..add(Builder(
                     builder: (BuildContext context) {
                       SliverChildDelegate _childDelagate =
