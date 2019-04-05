@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:responsive_scaffold/responsive_scaffold.dart';
 
 class TabletView extends StatefulWidget {
-  const TabletView({
+  TabletView({
     Key key,
     @required this.slivers,
     @required this.detailBuilder,
-    @required this.children,
-    @required this.itemBuilder,
-    @required this.itemCount,
+    @required List<Widget> children,
     @required this.itemNotSelected,
     @required this.sideMenu,
     this.flexListView = 4,
@@ -30,17 +28,89 @@ class TabletView extends StatefulWidget {
     @required this.resizeToAvoidBottomPadding,
     @required this.scaffoldkey,
     @required this.detailScaffoldKey,
+    @required this.nullItems,
+    @required this.emptyItems,
+  })  : childDelagate = SliverChildListDelegate(
+          children,
+          addAutomaticKeepAlives: false,
+          addRepaintBoundaries: false,
+          addSemanticIndexes: false,
+        ),
+        super(key: key);
+
+  TabletView.builder({
+    Key key,
+    @required this.slivers,
+    @required this.detailBuilder,
+    @required int itemCount,
+    @required IndexedWidgetBuilder itemBuilder,
+    @required this.itemNotSelected,
+    @required this.sideMenu,
+    this.flexListView = 4,
+    this.flexDetailView = 8,
+    @required this.appBar,
+    @required this.backgroundColor,
+    @required this.bottomNavigationBar,
+    @required this.bottomSheet,
+    @required this.drawer,
+    @required this.drawerDragStartBehavior,
+    @required this.endDrawer,
+    @required this.floatingActionButton,
+    @required this.floatingActionButtonAnimator,
+    @required this.floatingActionButtonLocation,
+    @required this.persistentFooterButtons,
+    @required this.primary,
+    @required this.resizeToAvoidBottomInset,
+    @required this.resizeToAvoidBottomPadding,
+    @required this.scaffoldkey,
+    @required this.detailScaffoldKey,
+    @required this.nullItems,
+    @required this.emptyItems,
+  })  : childDelagate = SliverChildBuilderDelegate(
+          itemBuilder,
+          childCount: itemCount,
+          addAutomaticKeepAlives: false,
+          addRepaintBoundaries: false,
+          addSemanticIndexes: false,
+        ),
+        super(key: key);
+
+  TabletView.custom({
+    Key key,
+    @required this.slivers,
+    @required this.detailBuilder,
+    @required this.childDelagate,
+    @required this.itemNotSelected,
+    @required this.sideMenu,
+    this.flexListView = 4,
+    this.flexDetailView = 8,
+    @required this.appBar,
+    @required this.backgroundColor,
+    @required this.bottomNavigationBar,
+    @required this.bottomSheet,
+    @required this.drawer,
+    @required this.drawerDragStartBehavior,
+    @required this.endDrawer,
+    @required this.floatingActionButton,
+    @required this.floatingActionButtonAnimator,
+    @required this.floatingActionButtonLocation,
+    @required this.persistentFooterButtons,
+    @required this.primary,
+    @required this.resizeToAvoidBottomInset,
+    @required this.resizeToAvoidBottomPadding,
+    @required this.scaffoldkey,
+    @required this.detailScaffoldKey,
+    @required this.nullItems,
+    @required this.emptyItems,
   }) : super(key: key);
 
   final List<Widget> slivers;
   final DetailWidgetBuilder detailBuilder;
-  final List<Widget> children;
-  final IndexedWidgetBuilder itemBuilder;
-  final int itemCount;
   final Widget itemNotSelected;
   final Flexible sideMenu;
   final int flexListView;
   final int flexDetailView;
+  final Widget nullItems, emptyItems;
 
   final Widget floatingActionButton;
 
@@ -71,6 +141,8 @@ class TabletView extends StatefulWidget {
   final PreferredSizeWidget appBar;
 
   final Widget drawer, endDrawer;
+
+  final SliverChildDelegate childDelagate;
 
   @override
   _TabletViewState createState() => _TabletViewState();
@@ -108,23 +180,47 @@ class _TabletViewState extends State<TabletView> {
               body: CustomScrollView(
                 slivers: <Widget>[]
                   ..addAll(widget.slivers ?? [])
-                  ..add(SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _details =
-                                  widget.detailBuilder(context, index, true);
-                            });
-                          },
                           child: widget.children == null
-                              ? widget.itemBuilder(context, index)
-                              : widget.children[index],
-                        );
-                      },
-                      childCount: widget.itemCount,
-                    ),
+                  ..add(Builder(
+                    builder: (BuildContext context) {
+                      SliverChildDelegate _childDelagate =
+                          widget?.childDelagate;
+                      if (_childDelagate?.estimatedChildCount == null &&
+                          widget?.nullItems != null)
+                        return SliverFillRemaining(child: widget.nullItems);
+                      if (_childDelagate?.estimatedChildCount != null &&
+                          _childDelagate.estimatedChildCount == 0 &&
+                          widget?.emptyItems != null)
+                        return SliverFillRemaining(child: widget.emptyItems);
+                      return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return new KeepAlive(
+                            keepAlive: true,
+                            child: new IndexedSemantics(
+                              index: index,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _details = widget.detailBuilder(
+                                        context, index, true);
+                                  });
+                                },
+                                child: new Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: _childDelagate.build(context, index),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        childCount: _childDelagate?.estimatedChildCount ?? 0,
+                        addAutomaticKeepAlives: false,
+                        addRepaintBoundaries: false,
+                        addSemanticIndexes: false,
+                      ));
+                    },
                   )),
               ),
             ),
