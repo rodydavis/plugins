@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
             body: Scaffold(
               appBar: AppBar(
                 elevation: 0.0,
+                automaticallyImplyLeading: !tablet,
                 title: Text("Details"),
                 actions: [
                   IconButton(
@@ -69,17 +70,13 @@ class _MyAppState extends State<MyApp> {
             ),
           );
         },
+        nullItems: Center(child: CircularProgressIndicator()),
+        emptyItems: Center(child: Text("No Items Found")),
         slivers: <Widget>[
           SliverAppBar(
             title: Text("App Bar"),
           ),
         ],
-        // bottomNavigationBar: BottomAppBar(
-        //   child: Container(
-        //     height: 50.0,
-        //     color: Colors.green,
-        //   ),
-        // ),
         itemCount: 100,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
