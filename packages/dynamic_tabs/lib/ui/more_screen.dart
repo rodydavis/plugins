@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_controllers/cupertino_controllers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/classes/tab.dart';
 import 'edit_screen.dart';
 
-class MoreTab extends StatelessWidget {
+class MoreTab extends StatefulWidget {
   const MoreTab({
     this.adaptive = false,
     @required this.tabs,
@@ -15,6 +16,10 @@ class MoreTab extends StatelessWidget {
     @required this.maxTabs,
     @required this.primaryColor,
     @required this.accentColor,
+    @required this.currentIndex,
+    @required this.persitIndex,
+    @required this.navigator,
+    @required this.tag,
   });
 
   final bool adaptive;
@@ -23,27 +28,73 @@ class MoreTab extends StatelessWidget {
   final int maxTabs;
   final Color primaryColor;
   final Color accentColor;
+  final bool persitIndex;
+  final currentIndex;
+  final NavigatorState navigator;
+  final String tag;
+
+  @override
+  _MoreTabState createState() => _MoreTabState();
+}
+
+class _MoreTabState extends State<MoreTab> {
+  SharedPreferences _prefs;
+  @override
+  void initState() {
+    if (widget.persitIndex) {
+      SharedPreferences.getInstance().then((value) {
+        _prefs = value;
+        _loadIndex();
+      });
+    }
+    super.initState();
+  }
+
+  void _loadIndex() {
+    int _index = _prefs.getInt(navKey);
+    if (_index > widget.tabs.length) {
+      _saveIndex(0);
+    }
+    if (_index != null) {
+      final _extraItems =
+          widget.tabs.getRange(widget.maxTabs, widget.tabs.length).toList();
+      widget.navigator.push(MaterialPageRoute(
+        builder: (context) => _extraItems[_index].child,
+      ));
+    }
+  }
+
+  void _saveIndex(int index) {
+    print("Saving Index: $index...");
+    if (widget.persitIndex) _prefs.setInt(navKey, index);
+  }
+
+  // void _resetIndex() {
+  //   print("Reseting Index...");
+  //   if (widget.persitIndex) _prefs.setInt(navKey, null);
+  // }
+
+  String get navKey => "${(widget?.tag ?? "") + "_"}more_nav_index";
 
   @override
   Widget build(BuildContext context) {
-    final _extraItems = tabs.getRange(maxTabs, tabs.length).toList();
-    if (adaptive && Platform.isIOS) {
+    final _extraItems =
+        widget.tabs.getRange(widget.maxTabs, widget.tabs.length).toList();
+    if (widget.adaptive && Platform.isIOS) {
       return CupertinoPageScaffold(
         child: CustomScrollView(
           slivers: <Widget>[
-        CupertinoSliverNavigationBar(
-                  backgroundColor: primaryColor,
-                  actionsForegroundColor: accentColor,
-                  largeTitle: Text("More"),
-                  trailing: CupertinoButton(
-                    child: Text("Edit"),
-                    padding: EdgeInsets.all(0.0),
-                    onPressed: () => _goToEditScreen(context),
-                  ),
-                ),
+            CupertinoSliverNavigationBar(
+              backgroundColor: widget.primaryColor,
+              actionsForegroundColor: widget.accentColor,
+              largeTitle: Text("More"),
+              trailing: CupertinoButton(
+                child: Text("Edit"),
+                padding: EdgeInsets.all(0.0),
+                onPressed: () => _goToEditScreen(context),
+              ),
+            ),
             SliverPadding(
-              // Top media padding consumed by CupertinoSliverNavigationBar.
-              // Left/Right media padding consumed by Tab1RowItem.
               padding: MediaQuery.of(context)
                   .removePadding(
                     removeTop: true,
@@ -67,12 +118,14 @@ class MoreTab extends StatelessWidget {
                             style: CupertinoCellStyle.subtitle,
                             accessory: CupertinoAccessory.disclosureIndicator,
                           ),
-                          onTap: () => Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => i.child,
-                                ),
+                          onTap: () async {
+                            _saveIndex(index);
+                            await widget.navigator.push(
+                              CupertinoPageRoute(
+                                builder: (context) => i.child,
                               ),
+                            );
+                          },
                         ));
                   },
                   childCount: _extraItems.length,
@@ -95,7 +148,6 @@ class MoreTab extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView.builder(
-            // separatorBuilder: (BuildContext context, int index) => Divider(),
             padding: EdgeInsets.all(0.0),
             itemCount: _extraItems.length,
             itemBuilder: (BuildContext context, int index) {
@@ -103,13 +155,16 @@ class MoreTab extends StatelessWidget {
               return ListTile(
                 leading: i.tab.icon,
                 title: i.tab.title,
-                trailing: adaptive ? Icon(Icons.keyboard_arrow_right) : null,
-                onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => i.child,
-                      ),
+                trailing:
+                    widget.adaptive ? Icon(Icons.keyboard_arrow_right) : null,
+                onTap: () async {
+                  _saveIndex(index);
+                  await widget.navigator.push(
+                    MaterialPageRoute(
+                      builder: (context) => i.child,
                     ),
+                  );
+                },
               );
             },
           ),
@@ -120,14 +175,14 @@ class MoreTab extends StatelessWidget {
     Navigator.of(context, rootNavigator: true)
         .push<List<DynamicTab>>(MaterialPageRoute(
       builder: (context) => EditScreen(
-            maxTabs: maxTabs,
-            adaptive: adaptive,
-            tabs: tabs,
+            maxTabs: widget.maxTabs,
+            adaptive: widget.adaptive,
+            tabs: widget.tabs,
           ),
       fullscreenDialog: true,
     ))
         .then((newTabs) {
-      if (newTabs != null) tabsChanged(newTabs);
+      if (newTabs != null) widget.tabsChanged(newTabs);
     });
   }
 }

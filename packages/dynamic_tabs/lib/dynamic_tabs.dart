@@ -193,10 +193,14 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
         return CupertinoTabView(
           routes: widget.routes,
           builder: (BuildContext context) => MoreTab(
+                tag: widget?.tag ?? "",
                 maxTabs: widget.maxTabs,
                 adaptive: widget.adaptive,
+                currentIndex: _currentIndex,
+                persitIndex: widget.persistIndex,
                 primaryColor: widget?.moreTabPrimaryColor,
                 accentColor: widget?.moreTabAccentColor,
+                navigator: Navigator.of(context),
                 tabs: _items,
                 tabsChanged: (List<DynamicTab> tabs) {
                   setState(() {
@@ -211,7 +215,11 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
         primaryColor: widget?.moreTabPrimaryColor,
         accentColor: widget?.moreTabAccentColor,
         maxTabs: widget.maxTabs,
+        currentIndex: _currentIndex,
         adaptive: widget.adaptive,
+        tag: widget?.tag ?? "",
+        persitIndex: widget.persistIndex,
+        navigator: Navigator.of(context),
         tabs: _items,
         tabsChanged: (List<DynamicTab> tabs) {
           setState(() {

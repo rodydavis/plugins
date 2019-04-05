@@ -1,3 +1,7 @@
+## 0.3.0 - 04.05.2019
+
+* Persisting Index on More Tab
+
 ## 0.2.0
 
 * Adding Material Options for `.adaptive` Scaffold
