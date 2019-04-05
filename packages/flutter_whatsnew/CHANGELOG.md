@@ -1,3 +1,7 @@
+## 0.2.1 - 04.05.2019
+
+* `tb2761` Added Button Colors
+
 ## [0.2.0] - Breaking Changes
 
 * Updated Example
