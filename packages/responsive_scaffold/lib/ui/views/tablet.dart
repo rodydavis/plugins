@@ -149,7 +149,20 @@ class TabletView extends StatefulWidget {
 }
 
 class _TabletViewState extends State<TabletView> {
-  DetailsScreen _details;
+  int _index;
+
+  void reset() {
+    setState(() {
+      _index = null;
+    });
+  }
+
+  // void update(DetailsScreen value) {
+  //   setState(() {
+  //     _index = value;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,8 +214,7 @@ class _TabletViewState extends State<TabletView> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    _details = widget.detailBuilder(
-                                        context, index, true);
+                                    _index = index;
                                   });
                                 },
                                 child: new Container(
@@ -228,7 +240,10 @@ class _TabletViewState extends State<TabletView> {
             flex: widget.flexDetailView,
             child: new DetailView(
               detailScaffoldKey: widget?.detailScaffoldKey,
-              details: _details,
+              details: _index == null ||
+                      _index > widget.childDelagate.estimatedChildCount - 1
+                  ? null
+                  : widget.detailBuilder(context, _index, true),
               itemNotSelected: widget?.itemNotSelected,
             ),
           ),
