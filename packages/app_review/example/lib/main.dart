@@ -12,8 +12,6 @@ void main() {
   // Desktop platforms aren't a valid platform.
   _setTargetPlatformForDesktop();
 
-  runApp(new MyApp());
-  // Or
   return runApp(MyApp());
 }
 

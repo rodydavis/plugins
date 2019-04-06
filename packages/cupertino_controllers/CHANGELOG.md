@@ -1,3 +1,7 @@
+## 0.1.0 - 04.06.2019
+
+* Updating Example for Desktop
+
 ## 0.0.3
 
 * Now Just Pure Dart

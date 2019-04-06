@@ -1,7 +1,6 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import com.appleeducate.cupertinocontrollers.CupertinoControllersPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -11,7 +10,6 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    CupertinoControllersPlugin.registerWith(registry.registrarFor("com.appleeducate.cupertinocontrollers.CupertinoControllersPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
