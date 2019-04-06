@@ -1,3 +1,7 @@
+## 0.3.0 - 04.06.2019
+
+* Updating Example to be desktop
+
 ## 0.2.1
 
 * Updating Example

@@ -1,6 +1,6 @@
 name: responsive_scaffold
 description: On mobile it shows a list and pushes to details and on tablet it shows the List and the selected item.
-version: 0.2.1
+version: 0.3.0
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
