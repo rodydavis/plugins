@@ -23,8 +23,7 @@ class DarkAccentColorPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
-              child: !showOnlyDarkMode ||
-                      model.settings.darkMode && showOnlyDarkMode
+              child: !showOnlyDarkMode || model.darkMode && showOnlyDarkMode
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
@@ -33,7 +32,7 @@ class DarkAccentColorPicker extends StatelessWidget {
                         width: 100.0,
                         height: 20.0,
                         decoration: BoxDecoration(
-                            color: model.settings.darkAccentColor,
+                            color: model.darkAccentColor,
                             borderRadius: BorderRadius.circular(8.0)),
                       ),
                       onTap: () {
@@ -44,7 +43,7 @@ class DarkAccentColorPicker extends StatelessWidget {
                                 content: SingleChildScrollView(
                                   child: CustomColorPicker(
                                     type: type,
-                                    value: model.settings.darkAccentColor,
+                                    value: model.darkAccentColor,
                                     onChanged: model.changeDarkAccentColor,
                                   ),
                                 ),

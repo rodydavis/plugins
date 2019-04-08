@@ -18,14 +18,13 @@ class CustomThemeSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
-              child: !showOnlyLightMode ||
-                      !model.settings.darkMode && showOnlyLightMode
+              child: !showOnlyLightMode || !model.darkMode && showOnlyLightMode
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
                       title: title,
                       trailing: Switch.adaptive(
-                        value: model.settings.customTheme,
+                        value: model.customTheme,
                         onChanged: model.changeCustomTheme,
                       ),
                     )

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:scoped_model/scoped_model.dart';
-
-import '../../persist_theme.dart';
-import '../file_storage.dart';
-import '../persistence_repository.dart';
 
 enum ThemeType { light, dark, custom, black }
 
@@ -13,76 +10,70 @@ class ThemeModel extends Model {
     this.customLightTheme,
     this.customDarkTheme,
     this.customCustomTheme,
-    this.type = ThemeType.light,
-  });
-
-  ThemeType type;
-
-  ThemeType get _type {
-    if (_settings?.darkMode ?? false) {
-      if (_settings?.trueBlack ?? false) return ThemeType.black;
-      return ThemeType.dark;
-    }
-    if (_settings?.customTheme ?? false) return ThemeType.custom;
-    return ThemeType.light;
-  }
+    String key,
+  }) : _storage = LocalStorage(key ?? "app_theme");
 
   final ThemeData customLightTheme,
       customDarkTheme,
       customBlackTheme,
       customCustomTheme;
 
+  int _accentColor = Colors.redAccent.value;
+  bool _customTheme = false;
+  int _darkAccentColor = Colors.greenAccent.value;
+  bool _darkMode = false;
+  int _primaryColor = Colors.blue.value;
+  LocalStorage _storage;
+  bool _trueBlack = false;
+
+  ThemeType get type {
+    if (_darkMode ?? false) {
+      if (_trueBlack ?? false) return ThemeType.black;
+      return ThemeType.dark;
+    }
+    if (_customTheme ?? false) return ThemeType.custom;
+    return ThemeType.light;
+  }
+
   void changeDarkMode(bool value) {
-    _settings?.darkMode = value;
-    type = _type;
-    print("Loaded Theme: $type");
+    _darkMode = value;
+    _storage.setItem("dark_mode", _darkMode);
     notifyListeners();
-    _saveToDisk();
   }
 
   void changeTrueBlack(bool value) {
-    _settings?.trueBlack = value;
-    type = _type;
-    print("Loaded Theme: $type");
+    _trueBlack = value;
+    _storage.setItem("true_black", _trueBlack);
     notifyListeners();
-    _saveToDisk();
   }
 
   void changeCustomTheme(bool value) {
-    _settings?.customTheme = value;
-    type = _type;
-    print("Loaded Theme: $type");
+    _customTheme = value;
+    _storage.setItem("custom_theme", _customTheme);
     notifyListeners();
-    _saveToDisk();
   }
 
   void changePrimaryColor(Color value) {
-    _settings?.primaryColor = value;
-    type = _type;
-    print("Loaded Theme: $type");
+    _primaryColor = value.value;
+    _storage.setItem("primary_color", _primaryColor);
     notifyListeners();
-    _saveToDisk();
   }
 
   void changeAccentColor(Color value) {
-    _settings?.accentColor = value;
-    type = _type;
-    print("Loaded Theme: $type");
+    _accentColor = value.value;
+    _storage.setItem("accent_color", _accentColor);
     notifyListeners();
-    _saveToDisk();
   }
 
   void changeDarkAccentColor(Color value) {
-    _settings?.darkAccentColor = value;
-    type = _type;
-    print("Loaded Theme: $type");
+    _darkAccentColor = value.value;
+    _storage.setItem("dark_accent_color", _darkAccentColor);
     notifyListeners();
-    _saveToDisk();
   }
 
   ThemeData get theme {
-    if (_settings == null) {
-      loadFromDisk();
+    if (_storage == null) {
+      init();
     }
     switch (type) {
       case ThemeType.light:
@@ -90,7 +81,7 @@ class ThemeModel extends Model {
       case ThemeType.dark:
         return customDarkTheme ??
             ThemeData.dark().copyWith(
-              accentColor: _settings?.darkAccentColor ?? null,
+              accentColor: darkAccentColor ?? null,
             );
       case ThemeType.black:
         return customBlackTheme ??
@@ -99,105 +90,99 @@ class ThemeModel extends Model {
               backgroundColor: Colors.black,
               bottomAppBarColor: Colors.black,
               primaryColorDark: Colors.black,
-              accentColor: _settings?.darkAccentColor ?? null,
+              accentColor: darkAccentColor ?? null,
             );
       case ThemeType.custom:
         return customCustomTheme != null
             ? customCustomTheme.copyWith(
-                primaryColor: _settings?.primaryColor ?? Colors.blue,
-                accentColor: _settings?.accentColor ?? Colors.redAccent,
+                primaryColor: primaryColor ?? Colors.blue,
+                accentColor: accentColor ?? Colors.redAccent,
               )
             : ThemeData.light().copyWith(
-                primaryColor: _settings?.primaryColor ?? Colors.blue,
-                accentColor: _settings?.accentColor ?? Colors.redAccent,
+                primaryColor: primaryColor ?? Colors.blue,
+                accentColor: accentColor ?? Colors.redAccent,
               );
       default:
         return customLightTheme ?? ThemeData.light().copyWith();
     }
   }
 
-  bool get isLoaded => loaded;
-
   Color get backgroundColor {
-    if (_settings?.darkMode ?? false) {
-      if (_settings?.trueBlack ?? false) return Colors.black;
+    if (darkMode ?? false) {
+      if (trueBlack ?? false) return Colors.black;
       return ThemeData.dark().scaffoldBackgroundColor;
     }
-    if (_settings?.customTheme ?? false) return _settings.primaryColor;
+    if (customTheme ?? false) return primaryColor;
     return null;
   }
 
-  Color get primaryColor => theme.primaryColor;
-  Color get accentColor => theme.accentColor;
-
   Color get textColor {
-    if (_settings?.customTheme ?? false) return Colors.white;
-    if (_settings?.darkMode ?? false) return Colors.white;
+    if (customTheme ?? false) return Colors.white;
+    if (darkMode ?? false) return Colors.white;
     return Colors.black;
   }
 
-  bool loaded = false;
-  bool loading = false;
-
-  CustomThemeData get _defaultSettings => CustomThemeData(
-        darkMode: type == ThemeType.dark || type == ThemeType.black,
-        trueBlack: type == ThemeType.black,
-        customTheme: type == ThemeType.custom,
-        primaryColor: type == ThemeType.dark
-            ? ThemeData.dark().primaryColor
-            : ThemeData.light().primaryColor,
-        accentColor: ThemeData.light().accentColor,
-        darkAccentColor: ThemeData.dark().accentColor,
-      );
-
-  CustomThemeData _settings;
-
-  CustomThemeData get settings {
-    if (_settings == null) {
-      loadFromDisk();
-      return _defaultSettings;
-    }
-    return _settings;
-  }
-
-  Future loadFromDisk() async {
-    if (!loading) {
-      loading = true;
-      CustomThemeData _appSettings;
-      try {
-        _appSettings = await storage.loadState();
-      } catch (e) {
-        print("Error Loading App State => $e");
-      }
-      if (_appSettings == null) {
-        _settings = _defaultSettings;
-      } else {
-        _settings = _appSettings;
-        if (_settings.darkMode) {
-          if (_settings.trueBlack) {
-            type = ThemeType.black;
-          } else {
-            type = ThemeType.dark;
-          }
-        } else if (_settings.customTheme) {
-          type = ThemeType.custom;
-        } else {
-          type = ThemeType.light;
-        }
-      }
-
-      loading = false;
-      loaded = true;
+  Future init() async {
+    if (await _storage.ready) {
+      _darkMode = _storage.getItem("dark_mode");
+      _trueBlack = _storage.getItem("true_black");
+      _customTheme = _storage.getItem("custom_theme");
+      _primaryColor = _storage.getItem("primary_color");
+      _accentColor = _storage.getItem("accent_color");
+      _darkAccentColor = _storage.getItem("dark_accent_color");
       notifyListeners();
+    } else {
+      print("Error Loading Theme...");
     }
   }
 
-  void _saveToDisk() {
-    storage.saveState(_settings);
+  bool get darkMode =>
+      _darkMode ?? (type == ThemeType.dark || type == ThemeType.black);
+
+  bool get trueBlack => _trueBlack ?? type == ThemeType.black;
+
+  bool get customTheme => _customTheme ?? type == ThemeType.custom;
+
+  Color get primaryColor {
+    if (_primaryColor == null) {
+      return type == ThemeType.dark
+          ? ThemeData.dark().primaryColor
+          : ThemeData.light().primaryColor;
+    }
+    return Color(_primaryColor);
   }
 
-  PersistenceRepository get storage =>
-      PersistenceRepository(fileStorage: FileStorage(module));
+  Color get accentColor {
+    if (type == ThemeType.dark || type == ThemeType.black) {
+      if (_darkAccentColor == null) {
+        return ThemeData.dark().accentColor;
+      }
+      return Color(_darkAccentColor);
+    }
 
-  String get module => "custom_theme";
+    if (_accentColor == null) {
+      return ThemeData.light().accentColor;
+    }
+
+    if (_customTheme) {
+      return Color(_accentColor);
+    }
+
+    return Colors.redAccent;
+  }
+
+  Color get darkAccentColor {
+    if (_darkAccentColor == null) return ThemeData.dark().accentColor;
+    return Color(_darkAccentColor);
+  }
+
+  void reset() {
+    _storage.clear();
+    _darkMode = false;
+    _trueBlack = false;
+    _customTheme = false;
+    _primaryColor = Colors.blue.value;
+    _accentColor = Colors.redAccent.value;
+    _darkAccentColor = Colors.greenAccent.value;
+  }
 }

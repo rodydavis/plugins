@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     try {
-      _model.loadFromDisk();
+      _model.init();
     } catch (e) {
       print("Error Loading Theme: $e");
     }
@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _theme = ScopedModel.of<ThemeModel>(context, rebuildOnChange: true);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Persist Theme'),
@@ -78,9 +79,15 @@ class HomeScreen extends StatelessWidget {
                 DarkAccentColorPicker(type: PickerType.block),
               ],
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: _theme.accentColor,
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
     );
   }
 }
+
 ```
 
 ## Customization

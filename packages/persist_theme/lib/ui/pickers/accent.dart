@@ -24,9 +24,9 @@ class AccentColorPicker extends StatelessWidget {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
               child: !showOnlyCustomTheme ||
-                      (model.settings.customTheme &&
+                      (model.customTheme &&
                           showOnlyCustomTheme &&
-                          !model.settings.darkMode)
+                          !model.darkMode)
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
@@ -35,7 +35,7 @@ class AccentColorPicker extends StatelessWidget {
                         width: 100.0,
                         height: 20.0,
                         decoration: BoxDecoration(
-                            color: model.settings.accentColor,
+                            color: model.accentColor,
                             borderRadius: BorderRadius.circular(8.0)),
                       ),
                       onTap: () {
@@ -46,7 +46,7 @@ class AccentColorPicker extends StatelessWidget {
                                 content: SingleChildScrollView(
                                   child: CustomColorPicker(
                                     type: type,
-                                    value: model.settings.accentColor,
+                                    value: model.accentColor,
                                     onChanged: model.changeAccentColor,
                                   ),
                                 ),
