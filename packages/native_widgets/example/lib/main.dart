@@ -7,9 +7,35 @@ import 'screens/page_2.dart';
 import 'screens/page_3.dart';
 import 'screens/page_4.dart';
 import 'screens/page_5.dart';
-//import 'screens/page_4.dart';
 
-void main() => runApp(new MyApp());
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
+
+// The existing imports
+// !! Keep your existing impots here !!
+
+/// main is entry point of Flutter application
+void main() {
+  // Desktop platforms aren't a valid platform.
+  _setTargetPlatformForDesktop();
+
+  return runApp(MyApp());
+}
+
+/// If the current platform is desktop, override the default platform to
+/// a supported platform (iOS for macOS, Android for Linux and Windows).
+/// Otherwise, do nothing.
+void _setTargetPlatformForDesktop() {
+  TargetPlatform targetPlatform;
+  if (Platform.isMacOS) {
+    targetPlatform = TargetPlatform.iOS;
+  } else if (Platform.isLinux || Platform.isWindows) {
+    targetPlatform = TargetPlatform.android;
+  }
+  if (targetPlatform != null) {
+    debugDefaultTargetPlatformOverride = targetPlatform;
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override

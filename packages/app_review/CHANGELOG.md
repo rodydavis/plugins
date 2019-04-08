@@ -1,3 +1,7 @@
+## 0.1.1 - 04.06.2019
+
+* Making Example able to Run on the Desktop
+
 ## [0.1.0]
 
 * Migration to AndroidX

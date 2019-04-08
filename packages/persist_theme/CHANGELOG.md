@@ -11,6 +11,9 @@
 * Changing `readFromDisk` to `init`
 * Added `reset` option
 
+## 0.1.0 - 04.06.2019
+
+* Updating Example to be Desktop Aware
 ## 0.0.3
 
 * Adding Support for ThemeData overrides

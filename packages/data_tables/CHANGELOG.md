@@ -1,3 +1,7 @@
+## 0.3.0 - 04.06.2019
+
+* Making Example Desktop Aware
+
 ## 0.2.4
 
 * Fixed Padding on Refresh

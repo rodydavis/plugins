@@ -1,3 +1,7 @@
+## 0.2.0 - 04.06.2019
+
+* Updating Example to be desktop aware
+
 ## 0.1.1
 
 * Added Ability to Change .sf2 File Being Played

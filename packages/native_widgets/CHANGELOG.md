@@ -1,3 +1,7 @@
+## 1.2.0 - 04.06.2019
+
+* Making Example Desktop Aware
+
 ## [1.0.1]
 
 * Added current index to NativeScaffold's PlatformNavBar.

@@ -1,3 +1,7 @@
+## 0.2.0 - 04.06.2019
+
+* Updating example to be desktop aware
+
 ## 0.1.0
 
 * Fix for Android Multiple People

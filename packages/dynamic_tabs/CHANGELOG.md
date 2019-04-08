@@ -1,3 +1,7 @@
+## 04.06.2019
+
+* Updating Example to be desktop aware
+
 ## 0.3.0 - 04.05.2019
 
 * Persisting Index on More Tab

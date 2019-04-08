@@ -1,3 +1,12 @@
+## 0.3.0 - 04.06.2019
+
+* Updating Example to be desktop
+
+## 0.2.1
+
+* Updating Example
+* Fixing SetState for Tablet View
+
 ## 0.2.0
 
 * Adding Back `emptyItems` and `nullItems`
