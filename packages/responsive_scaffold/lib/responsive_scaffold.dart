@@ -40,7 +40,7 @@ class ResponsiveScaffold extends StatelessWidget {
     this.mobileRootNavigator = false,
     this.mobileNavigator,
   }) : childDelagate = SliverChildListDelegate(
-          children,
+          children ?? <Widget>[nullItems ?? Center(child: CircularProgressIndicator())],
           addAutomaticKeepAlives: false,
           addRepaintBoundaries: false,
           addSemanticIndexes: false,
