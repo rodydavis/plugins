@@ -29,21 +29,25 @@ class _ARKitImageDetectionState extends State<ARKitImageDetection> {
           fit: StackFit.expand,
           children: [
             ARKitSceneView(
+              showStatistics: true,
               detectionImagesGroupName: 'AR Resources',
               onARKitViewCreated: onARKitViewCreated,
             ),
-            anchorWasFound
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Point the camera at the earth image from the article about Earth on Wikipedia.',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline
-                          .copyWith(color: Colors.white),
-                    ),
+            Builder(
+              builder: (BuildContext context) {
+                if (anchorWasFound) return Container();
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Point the camera at the earth image from the article about Earth on Wikipedia.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline
+                        .copyWith(color: Colors.white),
                   ),
+                );
+              },
+            )
           ],
         ),
       );
@@ -56,7 +60,6 @@ class _ARKitImageDetectionState extends State<ARKitImageDetection> {
   void onAnchorWasFound(ARKitAnchor anchor) {
     if (anchor is ARKitImageAnchor) {
       setState(() => anchorWasFound = true);
-
       final material = ARKitMaterial(
         lightingModelName: ARKitLightingModel.lambert,
         diffuse: ARKitMaterialProperty(image: 'earth.jpg'),

@@ -13,7 +13,7 @@ class FlutterARView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) return ARKitImageDetection();
-    if (Platform.isAndroid) return ARCoreImageDetection();
+    if (Platform.isAndroid) return Center(child: ARCoreImageDetection());
     return Container();
   }
 }

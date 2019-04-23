@@ -19,9 +19,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Flutter AR Example'),
         ),
-        body: Center(
-          child: FlutterARView(),
-        ),
+        body: FlutterARView(),
       ),
     );
   }
