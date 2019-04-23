@@ -17,10 +17,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Flutter AR Example'),
         ),
         body: Center(
-          child: Text('Running on: \n'),
+          child: FlutterARView(),
         ),
       ),
     );
