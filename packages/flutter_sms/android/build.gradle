@@ -35,7 +35,3 @@ android {
         disable 'InvalidPackage'
     }
 }
-
-dependencies {
-    api 'androidx.appcompat:appcompat:1.0.0-beta01'
-}
