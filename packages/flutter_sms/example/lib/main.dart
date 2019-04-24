@@ -40,6 +40,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   TextEditingController _controllerPeople, _controllerMessage;
   String _message, body;
+  String _canSendSMSMessage = "Check is not run.";
   List<String> people = [];
 
   @override
@@ -54,9 +55,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _sendSMS(String message, List<String> recipents) async {
-    String _result =
-        await FlutterSms.sendSMS(message: message, recipients: recipents);
-    setState(() => _message = _result);
+    try {
+      String _result =
+          await FlutterSms.sendSMS(message: message, recipients: recipents);
+      setState(() => _message = _result);
+    } catch (error) {
+      setState(() => _message = error.toString());
+    }
+  }
+
+  void _canSendSMS() async {
+    bool _result = await FlutterSms.canSendSMS();
+    setState(() => _canSendSMSMessage =
+        _result ? 'This unit can send SMS' : 'This unit cannot send SMS');
   }
 
   Widget _phoneTile(String name) {
@@ -191,6 +202,31 @@ class _MyAppState extends State<MyApp> {
                 ),
               ],
             ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                "Can send SMS",
+                style: Theme.of(context).textTheme.title,
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(_canSendSMSMessage,
+                    style: Theme.of(context).textTheme.body1)),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
+              child: RaisedButton(
+                color: Theme.of(context).accentColor,
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Text("RUN CHECK",
+                    style: Theme.of(context).accentTextTheme.button),
+                onPressed: () {
+                  _canSendSMS();
+                },
+              ),
+            )
           ],
         ),
       ),

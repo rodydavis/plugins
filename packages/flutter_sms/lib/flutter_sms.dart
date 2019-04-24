@@ -24,4 +24,9 @@ class FlutterSms {
       return result;
     }
   }
+
+  static Future<bool> canSendSMS() async {
+    final bool result = await _channel.invokeMethod('canSendSMS');
+    return result;
+  }
 }
