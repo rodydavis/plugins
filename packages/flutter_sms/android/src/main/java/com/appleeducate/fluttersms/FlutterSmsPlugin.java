@@ -59,7 +59,7 @@ public class FlutterSmsPlugin implements MethodCallHandler {
     if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
       return false;
 
-    Intent intent = new Intent(Intent.ACTION_VIEW);
+    Intent intent = new Intent(Intent.ACTION_SENDTO);
     intent.setData(Uri.parse("smsto:"));
     ActivityInfo activityInfo = intent.resolveActivityInfo(activity.getPackageManager(), intent.getFlags());
     if (activityInfo == null || !activityInfo.exported)
@@ -69,9 +69,10 @@ public class FlutterSmsPlugin implements MethodCallHandler {
   }
 
   private void sendSMS(String phones, String message) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
+    Intent intent = new Intent(Intent.ACTION_SENDTO);
     intent.setData(Uri.parse("smsto:" + phones));
     intent.putExtra("sms_body", message);
+    intent.putExtra(Intent.EXTRA_TEXT, message);
 //     intent.putExtra(Intent.EXTRA_STREAM, attachment);
     activity.startActivity(intent);
   }
