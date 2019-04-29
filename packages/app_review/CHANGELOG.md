@@ -1,3 +1,7 @@
+## 1.0.0 - 04.29.2019
+
+* Supporting Android SDK 16
+
 ## 0.1.1 - 04.06.2019
 
 * Making Example able to Run on the Desktop
