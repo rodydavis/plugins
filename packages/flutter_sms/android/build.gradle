@@ -27,15 +27,11 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 18
+        minSdkVersion 16
         targetSdkVersion 28
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
     }
-}
-
-dependencies {
-    api 'androidx.appcompat:appcompat:1.0.0-beta01'
 }

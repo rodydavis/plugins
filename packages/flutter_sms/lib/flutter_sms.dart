@@ -18,14 +18,15 @@ class FlutterSms {
       final String result = await _channel.invokeMethod('sendSMS', mapData);
       return result;
     } else {
-      String _phones = "";
-      for (var p in recipients) {
-        _phones += p + ",";
-      }
-      _phones = _phones.substring(0, _phones.length - 1);
+      String _phones = recipients.join(",");
       mapData["recipients"] = _phones;
       final String result = await _channel.invokeMethod('sendSMS', mapData);
       return result;
     }
+  }
+
+  static Future<bool> canSendSMS() async {
+    final bool result = await _channel.invokeMethod('canSendSMS');
+    return result;
   }
 }
