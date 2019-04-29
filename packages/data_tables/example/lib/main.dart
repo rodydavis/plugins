@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'data/dessert.dart';
 
-
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 
@@ -14,7 +13,6 @@ import 'package:flutter/foundation.dart';
 void main() {
   // Desktop platforms aren't a valid platform.
   _setTargetPlatformForDesktop();
-
   return runApp(MyApp());
 }
 
@@ -157,12 +155,12 @@ class _MyAppState extends State<MyApp> {
             });
             print("New Rows: $value");
           },
-          // mobileItemBuilder: (BuildContext context, int index) {
-          //   final i = _desserts[index];
-          //   return ListTile(
-          //     title: Text(i?.name),
-          //   );
-          // },
+          mobileItemBuilder: (BuildContext context, int index) {
+            final i = _desserts[index];
+            return ListTile(
+              title: Text(i?.name),
+            );
+          },
           onSelectAll: (bool value) {
             for (var row in _items) {
               setState(() {
