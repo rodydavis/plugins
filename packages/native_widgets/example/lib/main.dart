@@ -6,8 +6,6 @@ import 'screens/page_1.dart';
 import 'screens/page_2.dart';
 import 'screens/page_3.dart';
 import 'screens/page_4.dart';
-import 'screens/page_5.dart';
-
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 
@@ -71,14 +69,6 @@ class NativeAppLook extends StatelessWidget {
           icon: Icon(Icons.list),
           title: Text("Table"),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.select_all),
-          title: Text("Selection"),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.star),
-          title: Text("Master Detail"),
-        ),
       ],
       pages: <NativeTabView>[
         NativeTabView(
@@ -92,15 +82,6 @@ class NativeAppLook extends StatelessWidget {
         NativeTabView(
           title: "Table View",
           child: Page3(),
-        ),
-        NativeTabView(
-          title: "Selection Demo",
-//          child: CupertinoNavigationDemo(),
-          child: CupertinoPickerDemo(),
-        ),
-        NativeTabView(
-          title: "Master Detail",
-          child: Page5(),
         ),
       ],
     );

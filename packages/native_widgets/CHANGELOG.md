@@ -1,3 +1,9 @@
+## 1.3.0 - 05.03.2019
+
+* Adding Support for Desktop
+* Updating Example
+* Adding Desktop Targets to Example
+
 ## 1.2.0 - 04.06.2019
 
 * Making Example Desktop Aware
