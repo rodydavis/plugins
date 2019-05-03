@@ -1,7 +1,27 @@
+
+//
+//  AudioUnitMIDISynth.swift
+//  MIDISynth
+//
+//  Created by Gene De Lisa on 2/6/16.
+//  Copyright © 2016 Gene De Lisa. All rights reserved.
+//
+
+
 import Foundation
 import AudioToolbox
 import CoreAudio
 
+// swiftlint:disable function_body_length
+// swiftlint:disable type_body_length
+// swiftlint:disable file_length
+// swiftlint:disable line_length
+/// # A Core Audio MIDISynth `AudioUnit` example.
+/// This will add a polyphonic `kAudioUnitSubType_MIDISynth` audio unit to the `AUGraph`.
+///
+/// - author: Gene De Lisa
+/// - copyright: 2016 Gene De Lisa
+/// - date: February 2016
 class AudioUnitMIDISynth: NSObject {
 
     var processingGraph: AUGraph?
