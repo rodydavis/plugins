@@ -1,7 +1,6 @@
 part of native_widgets;
 
 class NativeDatePicker extends StatelessWidget {
-  
   NativeDatePicker({
     Key key,
   });

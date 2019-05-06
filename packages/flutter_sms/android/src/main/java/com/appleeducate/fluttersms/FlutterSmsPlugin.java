@@ -1,17 +1,10 @@
 package com.appleeducate.fluttersms;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.Settings;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -33,17 +26,16 @@ public class FlutterSmsPlugin implements MethodCallHandler {
     if (call.method.equals("sendSMS")) {
       if (!canSendSMS()) {
         result.error(
-          "device_not_capable",
-          "The current device is not capable of sending text messages.",
-          "A device may be unable to send messages if it does not support messaging or if it is not currently configured to send messages. This only applies to the ability to send text messages via iMessage, SMS, and MMS."
-        );
+            "device_not_capable",
+            "The current device is not capable of sending text messages.",
+            "A device may be unable to send messages if it does not support messaging or if it is not currently configured to send messages. This only applies to the ability to send text messages via iMessage, SMS, and MMS.");
         return;
       }
 
       String message = call.argument("message");
       String recipients = call.argument("recipients");
       sendSMS(recipients, message);
-      result.success("SMS Sent!" );
+      result.success("SMS Sent!");
     } else if (call.method.equals("canSendSMS")) {
       result.success(canSendSMS());
     } else {
@@ -61,9 +53,9 @@ public class FlutterSmsPlugin implements MethodCallHandler {
 
     Intent intent = new Intent(Intent.ACTION_SENDTO);
     intent.setData(Uri.parse("smsto:"));
-    ActivityInfo activityInfo = intent.resolveActivityInfo(activity.getPackageManager(), intent.getFlags());
-    if (activityInfo == null || !activityInfo.exported)
-      return false;
+    ActivityInfo activityInfo =
+        intent.resolveActivityInfo(activity.getPackageManager(), intent.getFlags());
+    if (activityInfo == null || !activityInfo.exported) return false;
 
     return true;
   }
@@ -73,7 +65,7 @@ public class FlutterSmsPlugin implements MethodCallHandler {
     intent.setData(Uri.parse("smsto:" + phones));
     intent.putExtra("sms_body", message);
     intent.putExtra(Intent.EXTRA_TEXT, message);
-//     intent.putExtra(Intent.EXTRA_STREAM, attachment);
+    //     intent.putExtra(Intent.EXTRA_STREAM, attachment);
     activity.startActivity(intent);
   }
 }

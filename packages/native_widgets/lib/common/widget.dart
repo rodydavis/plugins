@@ -29,6 +29,6 @@ class NativeWidget extends StatelessWidget {
     } else if (Platform.isIOS) {
       return Container(key: key, child: ios ?? child);
     }
-    return Container(key: key, child:  child);
+    return Container(key: key, child: child);
   }
 }

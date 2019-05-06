@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_whatsnew/flutter_whatsnew.dart';
 
-
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 
@@ -37,7 +36,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(
+    return MaterialApp(
+        home: Scaffold(
       body: SafeArea(
           child: Center(
         child: Column(

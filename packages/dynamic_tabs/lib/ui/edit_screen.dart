@@ -219,7 +219,7 @@ class _BottomEditableTabBarState extends State<BottomEditableTabBar> {
           _tabs.insert(_oldIndex, _baseTab);
 
           widget.onChanged(_tabs);
-          
+
           setState(() {
             _previewIndex = null;
           });

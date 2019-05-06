@@ -24,8 +24,8 @@ class NativeTabScaffold extends StatelessWidget {
                 return pages[index]?.child;
               },
               defaultTitle: pages[index]?.title,
-            );;
-
+            );
+            ;
           },
         );
       },
