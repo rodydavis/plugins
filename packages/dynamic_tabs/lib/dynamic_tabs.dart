@@ -1,14 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:dynamic_tabs/data/classes/local.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localstorage/localstorage.dart';
 
 import 'data/classes/tab.dart';
 import 'ui/more_screen.dart';
+
 export 'data/classes/tab.dart';
 
 class DynamicTabScaffold extends StatefulWidget {
@@ -69,32 +67,41 @@ class DynamicTabScaffold extends StatefulWidget {
 
 class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   int _currentIndex = 0;
-
-  SharedPreferences _prefs;
-
+  LocalStorage _storage;
   List<DynamicTab> _items;
 
   @override
   void initState() {
-    _items = widget.tabs;
-    SharedPreferences.getInstance().then((value) {
-      _prefs = value;
-      _loadSavedTabs();
-      if (widget.persistIndex) _loadIndex();
-    });
+    init();
     super.initState();
   }
 
-  void _loadSavedTabs() async {
-    SavedLocal data;
-    try {
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/$tabsKey.json');
-      data = json.decode(await file.readAsString());
-    } catch (e) {
-      print("Couldn't read file");
+  @override
+  void didUpdateWidget(DynamicTabScaffold oldWidget) {
+    if (oldWidget.tabs != widget.tabs) {
+      init();
     }
-    List<String> _tabs = data?.data ?? [];
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void init() {
+    _items = widget.tabs;
+    _storage = new LocalStorage((widget?.tag ?? "app_dynamic_tabs"));
+    _storage.ready.then((value) {
+      _loadSavedTabs();
+      if (widget.persistIndex) _loadIndex();
+    });
+  }
+
+  void _loadSavedTabs() async {
+    List<String> _list = [];
+    try {
+      final _data = _storage.getItem(tabsKey);
+      _list = List.from(_data);
+    } catch (e) {
+      print("Couldn't read file: $e");
+    }
+    List<String> _tabs = _list ?? [];
     print("List: ${widget?.tabs?.length ?? 0} $_tabs");
     if (_tabs != null && _tabs.isNotEmpty) {
       List<DynamicTab> _newOrder = [];
@@ -110,14 +117,12 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   void _saveNewTabs() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/$tabsKey.json');
     final _list = _items.map((t) => t.tag).toList();
-    await file.writeAsString(json.encode(SavedLocal(data: _list).toJson()));
+    await _storage.setItem(tabsKey, _list);
   }
 
   void _loadIndex() {
-    int _index = _prefs.getInt(navKey);
+    int _index = _storage.getItem(navKey);
     if (_index > widget.maxTabs) {
       _index = 0;
       _saveIndex();
@@ -132,7 +137,7 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   void _saveIndex() {
-    _prefs.setInt(navKey, _currentIndex);
+    _storage.setItem(navKey, _currentIndex);
   }
 
   String get tabsKey => "${(widget?.tag ?? "") + "_"}bottom_tabs";
@@ -160,6 +165,39 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
       );
     }
 
+    if (widget.adaptive && _isDesktop()) {
+      return Scaffold(
+        body: _getBody(context),
+        drawer: Drawer(
+          child: Container(
+            child: SafeArea(
+              child: Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      for (var i = 0; i < _items.length; i++) ...[
+                        ListTile(
+                          selected: i == _currentIndex,
+                          leading: _items[i].tab.icon,
+                          title: _items[i].tab.title,
+                          onTap: () {
+                            if (mounted)
+                              setState(() {
+                                _tabChanged(i);
+                              });
+                          },
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: _getBody(context),
       bottomNavigationBar: BottomNavigationBar(
@@ -179,6 +217,10 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     );
   }
 
+  bool _isDesktop() {
+    return Platform.isMacOS || Platform.isLinux || Platform.isWindows;
+  }
+
   void _tabChanged(int index) {
     print("Index: $index");
     setState(() {
@@ -188,7 +230,7 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
   }
 
   Widget _getBody(BuildContext context) {
-    if (_showEditTab && _moreTab) {
+    if (_showEditTab && _moreTab && !_isDesktop()) {
       if (widget.adaptive && Platform.isIOS) {
         return CupertinoTabView(
           routes: widget.routes,
@@ -233,7 +275,8 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     if (widget.adaptive && Platform.isIOS) {
       return CupertinoTabView(
         routes: widget.routes,
-        builder: (BuildContext context) => _items[_currentIndex].child,
+        builder: (BuildContext context) =>
+            Material(child: _items[_currentIndex].child),
       );
     }
 

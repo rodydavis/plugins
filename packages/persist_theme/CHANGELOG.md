@@ -1,3 +1,7 @@
+## 1.0.2 - 05.04.2019
+
+* Support for Desktop
+
 ## 1.0.1 - 04.07.2019
 
 * Updated Example

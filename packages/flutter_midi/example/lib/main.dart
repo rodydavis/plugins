@@ -49,10 +49,10 @@ class _MyAppState extends State<MyApp> {
     ByteData _byte = await rootBundle.load(asset);
     //assets/sf2/SmallTimGM6mb.sf2
     //assets/sf2/Piano.SF2
-    FlutterMidi.prepare(sf2: _byte, name: _value.replaceAll("assets/sf2/", ""));
+    FlutterMidi.prepare(sf2: _byte, name: _value.replaceAll("assets/", ""));
   }
 
-  String _value = "assets/sf2/SmallTimGM6mb.sf2";
+  String _value = "assets/Piano.sf2";
 
   @override
   Widget build(BuildContext context) {
@@ -67,25 +67,25 @@ class _MyAppState extends State<MyApp> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DropdownButton<String>(
-              value: _value,
-              items: [
-                DropdownMenuItem(
-                  child: Text("Soft Piano"),
-                  value: "assets/sf2/SmallTimGM6mb.sf2",
-                ),
-                DropdownMenuItem(
-                  child: Text("Loud Piano"),
-                  value: "assets/sf2/Piano.SF2",
-                ),
-              ],
-              onChanged: (String value) {
-                setState(() {
-                  _value = value;
-                });
-                load(_value);
-              },
-            ),
+            // DropdownButton<String>(
+            //   value: _value,
+            //   items: [
+            //     DropdownMenuItem(
+            //       child: Text("Soft Piano"),
+            //       value: "assets/sf2/SmallTimGM6mb.sf2",
+            //     ),
+            //     DropdownMenuItem(
+            //       child: Text("Loud Piano"),
+            //       value: "assets/sf2/Piano.SF2",
+            //     ),
+            //   ],
+            //   onChanged: (String value) {
+            //     setState(() {
+            //       _value = value;
+            //     });
+            //     load(_value);
+            //   },
+            // ),
             RaisedButton(
               child: Text("Play C"),
               onPressed: () {

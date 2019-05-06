@@ -33,8 +33,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/sf2/Piano.SF2
-   - assets/sf2/SmallTimGM6mb.sf2
+   - assets/Piano.sf2
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

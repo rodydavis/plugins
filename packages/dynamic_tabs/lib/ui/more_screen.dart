@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_controllers/cupertino_controllers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:localstorage/localstorage.dart';
 import '../data/classes/tab.dart';
 import 'edit_screen.dart';
 
@@ -38,12 +37,13 @@ class MoreTab extends StatefulWidget {
 }
 
 class _MoreTabState extends State<MoreTab> {
-  SharedPreferences _prefs;
+  LocalStorage _storage;
+
   @override
   void initState() {
     if (widget.persitIndex) {
-      SharedPreferences.getInstance().then((value) {
-        _prefs = value;
+      _storage = new LocalStorage((widget?.tag ?? "app_dynamic_tabs"));
+      _storage.ready.then((value) {
         _loadIndex();
       });
     }
@@ -51,7 +51,7 @@ class _MoreTabState extends State<MoreTab> {
   }
 
   void _loadIndex() {
-    int _index = _prefs.getInt(navKey);
+    int _index = _storage.getItem(navKey);
     if (_index > widget.tabs.length) {
       _saveIndex(0);
     }
@@ -66,13 +66,8 @@ class _MoreTabState extends State<MoreTab> {
 
   void _saveIndex(int index) {
     print("Saving Index: $index...");
-    if (widget.persitIndex) _prefs.setInt(navKey, index);
+    if (widget.persitIndex) _storage.setItem(navKey, index);
   }
-
-  // void _resetIndex() {
-  //   print("Reseting Index...");
-  //   if (widget.persitIndex) _prefs.setInt(navKey, null);
-  // }
 
   String get navKey => "${(widget?.tag ?? "") + "_"}more_nav_index";
 
