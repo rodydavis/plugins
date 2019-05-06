@@ -50,4 +50,5 @@ These are the available plugins in this repository.
 | [sheet_music](./packages/sheet_music/) | [![pub package](https://img.shields.io/pub/v/sheet_music.svg)](https://pub.dartlang.org/packages/sheet_music) |
 | [floating_search_bar](./packages/floating_search_bar/) | [![pub package](https://img.shields.io/pub/v/floating_search_bar.svg)](https://pub.dartlang.org/packages/floating_search_bar) |
 | [responsive_scaffold](./packages/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
+| [mobile_popup](./packages/mobile_popup/) | [![pub package](https://img.shields.io/pub/v/mobile_popup.svg)](https://pub.dartlang.org/packages/mobile_popup) |
 
