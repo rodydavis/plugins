@@ -4,7 +4,9 @@ Demonstrates how to use the mobile_sidebar plugin.
 
 ## Screenshots
 
-
+![](/screenshots/1.png)
+![](/screenshots/2.png)
+![](/screenshots/3.png)
 
 ## Example
 
