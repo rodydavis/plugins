@@ -4,9 +4,9 @@ A Flutter plugin to show a sidebar on tablet and desktop then a list or gridview
 
 ## Screenshots
 
-![](/screenshots/1.png)
-![](/screenshots/2.png)
-![](/screenshots/3.png)
+![](https://github.com/AppleEducate/plugins/tree/master/packages/mobile_sidebar/screenshots/1.png)
+![](https://github.com/AppleEducate/plugins/tree/master/packages/mobile_sidebar/screenshots/2.png)
+![](https://github.com/AppleEducate/plugins/tree/master/packages/mobile_sidebar/screenshots/3.png)
 
 ## Example
 
