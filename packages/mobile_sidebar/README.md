@@ -2,6 +2,11 @@
 
 A Flutter plugin to show a sidebar on tablet and desktop then a list or gridview on mobile.
 
+## Screenshots
+
+![](/screenshots/1.png)
+![](/screenshots/2.png)
+![](/screenshots/3.png)
 
 ## Example
 
