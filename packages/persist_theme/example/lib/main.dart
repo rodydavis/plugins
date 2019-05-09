@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
       child: new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => MaterialApp(
               theme: model.theme,
+              darkTheme: model.darkTheme,
               home: HomeScreen(),
             ),
       ),

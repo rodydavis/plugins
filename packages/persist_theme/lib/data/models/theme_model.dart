@@ -107,6 +107,27 @@ class ThemeModel extends Model {
     }
   }
 
+  ThemeData get darkTheme {
+    if (_storage == null) {
+      init();
+    }
+
+    if (_trueBlack ?? false) {
+      return customBlackTheme ??
+          ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: Colors.black,
+            backgroundColor: Colors.black,
+            bottomAppBarColor: Colors.black,
+            primaryColorDark: Colors.black,
+            accentColor: darkAccentColor ?? null,
+          );
+    }
+    return customDarkTheme ??
+        ThemeData.dark().copyWith(
+          accentColor: darkAccentColor ?? null,
+        );
+  }
+
   Color get backgroundColor {
     if (darkMode ?? false) {
       if (trueBlack ?? false) return Colors.black;

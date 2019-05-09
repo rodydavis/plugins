@@ -1,3 +1,8 @@
+## 1.0.3 - 05.09.2019
+
+* Support for `get darkTheme` for System wide dark mode
+* Updated Example
+
 ## 1.0.2 - 05.04.2019
 
 * Support for Desktop
