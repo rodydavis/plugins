@@ -35,7 +35,7 @@ and send a [pull request](https://github.com/AppleEducate/plugins/pulls).
 These are the available plugins in this repository.
 
 | Plugin | Pub | Example |
-|--------|-----|
+|--------|-----|---------|
 | [get_version](./packages/get_version/) | [![pub package](https://img.shields.io/pub/v/get_version.svg)](https://pub.dartlang.org/packages/get_version) | [example](./packages/get_version/example) |
 | [app_review](./packages/app_review/) | [![pub package](https://img.shields.io/pub/v/app_review.svg)](https://pub.dartlang.org/packages/app_review) | [example](./packages/app_review/example) |
 | [flutter_sms](./packages/flutter_sms/) | [![pub package](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dartlang.org/packages/flutter_sms) | [example](./packages/flutter_sms/example) |
