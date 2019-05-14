@@ -18,14 +18,13 @@ class TrueBlackSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
-              child: !showOnlyDarkMode ||
-                      model.settings.darkMode && showOnlyDarkMode
+              child: !showOnlyDarkMode || model.darkMode && showOnlyDarkMode
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
                       title: title,
                       trailing: Switch.adaptive(
-                        value: model.settings.trueBlack,
+                        value: model.trueBlack,
                         onChanged: model.changeTrueBlack,
                       ),
                     )

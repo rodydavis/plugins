@@ -1,11 +1,36 @@
-import 'package:dynamic_tabs_example/ui/about/screen.dart';
-import 'package:dynamic_tabs_example/ui/faq/screen.dart';
-import 'package:dynamic_tabs_example/ui/help/screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dynamic_tabs/dynamic_tabs.dart';
 
-void main() => runApp(MyApp());
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
+
+// The existing imports
+// !! Keep your existing impots here !!
+
+/// main is entry point of Flutter application
+void main() {
+  // Desktop platforms aren't a valid platform.
+  _setTargetPlatformForDesktop();
+  
+  return runApp(MyApp());
+}
+
+/// If the current platform is desktop, override the default platform to
+/// a supported platform (iOS for macOS, Android for Linux and Windows).
+/// Otherwise, do nothing.
+void _setTargetPlatformForDesktop() {
+  TargetPlatform targetPlatform;
+  if (Platform.isMacOS) {
+    targetPlatform = TargetPlatform.iOS;
+  } else if (Platform.isLinux || Platform.isWindows) {
+    targetPlatform = TargetPlatform.android;
+  }
+  if (targetPlatform != null) {
+    debugDefaultTargetPlatformOverride = targetPlatform;
+  }
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -25,8 +50,14 @@ class _MyAppState extends State<MyApp> {
 
 Map<String, WidgetBuilder> _buildRoutes(BuildContext context) =>
     <String, WidgetBuilder>{
-      '/help': (BuildContext context) => HelpScreen(),
-      '/about': (BuildContext context) => AboutScreen(),
+      '/help': (BuildContext context) => RandomScreen(
+            color: Colors.redAccent,
+            title: "Info",
+          ),
+      '/about': (BuildContext context) => RandomScreen(
+            color: Colors.amber,
+            title: "Account",
+          ),
     };
 
 class HomeScreen extends StatefulWidget {
@@ -47,8 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
       maxTabs: 4,
       tabs: <DynamicTab>[
         DynamicTab(
-          child: Container(
+          child: RandomScreen(
             color: Colors.redAccent,
+            title: "Info",
           ),
           tab: BottomNavigationBarItem(
             title: Text("Info"),
@@ -57,8 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: "info", // Must Be Unique
         ),
         DynamicTab(
-          child: Container(
+          child: RandomScreen(
             color: Colors.amber,
+            title: "Account",
           ),
           tab: BottomNavigationBarItem(
             title: Text("Account"),
@@ -67,7 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: "account", // Must Be Unique
         ),
         DynamicTab(
-          child: HelpScreen(),
+          child: RandomScreen(
+            color: Colors.blueGrey,
+            title: "Help",
+          ),
           tab: BottomNavigationBarItem(
             title: Text("Help"),
             icon: Icon(Icons.help),
@@ -75,8 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: "help", // Must Be Unique
         ),
         DynamicTab(
-          child: Container(
+          child: RandomScreen(
             color: Colors.purple,
+            title: "Settings",
           ),
           tab: BottomNavigationBarItem(
             title: Text("Settings"),
@@ -85,8 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: "settings", // Must Be Unique
         ),
         DynamicTab(
-          child: Container(
+          child: RandomScreen(
             color: Colors.yellow,
+            title: "Theme",
           ),
           tab: BottomNavigationBarItem(
             title: Text("Theme"),
@@ -95,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: "theme", // Must Be Unique
         ),
         DynamicTab(
-          child: FAQScreen(),
+          child: RandomScreen(
+            color: Colors.grey,
+            title: "FAQ",
+          ),
           tab: BottomNavigationBarItem(
             title: Text("FAQ"),
             icon: Icon(Icons.perm_contact_calendar),
@@ -103,8 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: "faq", // Must Be Unique
         ),
         DynamicTab(
-          child: Container(
-            color: Colors.yellow,
+          child: RandomScreen(
+            color: Colors.pink,
+            title: "Contacts",
           ),
           tab: BottomNavigationBarItem(
             title: Text("Contacts"),
@@ -112,65 +154,46 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           tag: "contacts", // Must Be Unique
         ),
-        DynamicTab(
-          child: Container(
-            color: Colors.yellow,
-          ),
-          tab: BottomNavigationBarItem(
-            title: Text("Contacts8"),
-            icon: Icon(Icons.people),
-          ),
-          tag: "contacts8", // Must Be Unique
+      ],
+    );
+  }
+}
+
+class RandomScreen extends StatelessWidget {
+  RandomScreen({
+    @required this.title,
+    @required this.color,
+  });
+  final String title;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    if (Platform.isIOS) {
+      return CupertinoPageScaffold(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text(title),
+              previousPageTitle: "More",
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                color: color,
+              ),
+            ),
+          ],
         ),
-        DynamicTab(
-          child: Container(
-            color: Colors.yellow,
-          ),
-          tab: BottomNavigationBarItem(
-            title: Text("Contacts9"),
-            icon: Icon(Icons.people),
-          ),
-          tag: "contacts9", // Must Be Unique
+      );
+    }
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          title: Text(title),
         ),
-        DynamicTab(
+        SliverFillRemaining(
           child: Container(
-            color: Colors.yellow,
+            color: color,
           ),
-          tab: BottomNavigationBarItem(
-            title: Text("Contacts10"),
-            icon: Icon(Icons.people),
-          ),
-          tag: "contacts10", // Must Be Unique
-        ),
-        DynamicTab(
-          child: Container(
-            color: Colors.yellow,
-          ),
-          tab: BottomNavigationBarItem(
-            title: Text("Contacts11"),
-            icon: Icon(Icons.people),
-          ),
-          tag: "contacts11", // Must Be Unique
-        ),
-        DynamicTab(
-          child: Container(
-            color: Colors.yellow,
-          ),
-          tab: BottomNavigationBarItem(
-            title: Text("Contacts12"),
-            icon: Icon(Icons.people),
-          ),
-          tag: "contacts12", // Must Be Unique
-        ),
-        DynamicTab(
-          child: Container(
-            color: Colors.yellow,
-          ),
-          tab: BottomNavigationBarItem(
-            title: Text("Contacts13"),
-            icon: Icon(Icons.people),
-          ),
-          tag: "contacts13", // Must Be Unique
         ),
       ],
     );

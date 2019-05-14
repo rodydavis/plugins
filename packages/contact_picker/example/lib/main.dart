@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _requestPermissions() async {
-    final  granted =
+    final granted =
         await SimplePermissions.requestPermission(Permission.ReadContacts);
     setState(() {
       _hasPermissions = granted == PermissionStatus.authorized;

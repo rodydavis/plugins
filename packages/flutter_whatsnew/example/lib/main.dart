@@ -2,16 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_whatsnew/flutter_whatsnew.dart';
 
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
+
+// The existing imports
+// !! Keep your existing impots here !!
+
+/// main is entry point of Flutter application
 void main() {
-  runApp(MaterialApp(home: ShowWhatsNew()));
+  // Desktop platforms aren't a valid platform.
+  _setTargetPlatformForDesktop();
+
+  return runApp(MyApp());
 }
 
-class ShowWhatsNew extends StatelessWidget {
+/// If the current platform is desktop, override the default platform to
+/// a supported platform (iOS for macOS, Android for Linux and Windows).
+/// Otherwise, do nothing.
+void _setTargetPlatformForDesktop() {
+  TargetPlatform targetPlatform;
+  if (Platform.isMacOS) {
+    targetPlatform = TargetPlatform.iOS;
+  } else if (Platform.isLinux || Platform.isWindows) {
+    targetPlatform = TargetPlatform.android;
+  }
+  if (targetPlatform != null) {
+    debugDefaultTargetPlatformOverride = targetPlatform;
+  }
+}
+
+class MyApp extends StatelessWidget {
   final double textScaleFactor = 1.0;
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return MaterialApp(
+        home: Scaffold(
       body: SafeArea(
           child: Center(
         child: Column(
@@ -130,6 +156,6 @@ class ShowWhatsNew extends StatelessWidget {
           ],
         ),
       )),
-    );
+    ));
   }
 }

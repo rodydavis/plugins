@@ -21,7 +21,7 @@ class DarkModeSwitch extends StatelessWidget {
                 subtitle: subtitle,
                 title: title,
                 trailing: Switch.adaptive(
-                  value: model.settings.darkMode,
+                  value: model.darkMode,
                   onChanged: model.changeDarkMode,
                 ),
               ),

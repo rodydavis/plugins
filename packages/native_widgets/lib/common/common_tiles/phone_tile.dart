@@ -7,7 +7,7 @@ class CupertinoPhoneListTile extends StatelessWidget {
   final String subtitle, title;
   final List<Widget> actions;
   final NativeIcon icon;
-  final bool  hideLeadingIcon;
+  final bool hideLeadingIcon;
 
   const CupertinoPhoneListTile({
     this.actions,
@@ -109,6 +109,6 @@ class CupertinoPhoneListTile extends StatelessWidget {
       );
     }
 
-   return row;
+    return row;
   }
 }

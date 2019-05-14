@@ -1,3 +1,6 @@
+[![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-yellow.svg)](https://www.buymeacoffee.com/rodydavis)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WSH3GVC49GNNJ)
+
 # persist_theme
 
 A Flutter plugin for persiting and dynamicly changing the theme.
@@ -21,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     try {
-      _model.loadFromDisk();
+      _model.init();
     } catch (e) {
       print("Error Loading Theme: $e");
     }
@@ -45,6 +48,7 @@ class _MyAppState extends State<MyApp> {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _theme = ScopedModel.of<ThemeModel>(context, rebuildOnChange: true);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Persist Theme'),
@@ -78,9 +82,15 @@ class HomeScreen extends StatelessWidget {
                 DarkAccentColorPicker(type: PickerType.block),
               ],
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: _theme.accentColor,
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
     );
   }
 }
+
 ```
 
 ## Customization

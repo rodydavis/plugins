@@ -88,7 +88,7 @@ class NativeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title,
       trailingActions: actions,
       leading: leading,
-      automaticallyImplyLeading:automaticallyImplyLeading,
+      automaticallyImplyLeading: automaticallyImplyLeading,
       ios: (BuildContext context) => ios,
       android: (BuildContext context) => android,
     );

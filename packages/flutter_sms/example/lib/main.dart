@@ -3,7 +3,34 @@ import 'dart:async';
 
 import 'package:flutter_sms/flutter_sms.dart';
 
-void main() => runApp(new MyApp());
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
+
+// The existing imports
+// !! Keep your existing impots here !!
+
+/// main is entry point of Flutter application
+void main() {
+  // Desktop platforms aren't a valid platform.
+  _setTargetPlatformForDesktop();
+
+  return runApp(MyApp());
+}
+
+/// If the current platform is desktop, override the default platform to
+/// a supported platform (iOS for macOS, Android for Linux and Windows).
+/// Otherwise, do nothing.
+void _setTargetPlatformForDesktop() {
+  TargetPlatform targetPlatform;
+  if (Platform.isMacOS) {
+    targetPlatform = TargetPlatform.iOS;
+  } else if (Platform.isLinux || Platform.isWindows) {
+    targetPlatform = TargetPlatform.android;
+  }
+  if (targetPlatform != null) {
+    debugDefaultTargetPlatformOverride = targetPlatform;
+  }
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,6 +40,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   TextEditingController _controllerPeople, _controllerMessage;
   String _message, body;
+  String _canSendSMSMessage = "Check is not run.";
   List<String> people = [];
 
   @override
@@ -27,9 +55,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _sendSMS(String message, List<String> recipents) async {
-    String _result =
-        await FlutterSms.sendSMS(message: message, recipients: recipents);
-    setState(() => _message = _result);
+    try {
+      String _result =
+          await FlutterSms.sendSMS(message: message, recipients: recipents);
+      setState(() => _message = _result);
+    } catch (error) {
+      setState(() => _message = error.toString());
+    }
+  }
+
+  void _canSendSMS() async {
+    bool _result = await FlutterSms.canSendSMS();
+    setState(() => _canSendSMSMessage =
+        _result ? 'This unit can send SMS' : 'This unit cannot send SMS');
   }
 
   Widget _phoneTile(String name) {
@@ -164,6 +202,31 @@ class _MyAppState extends State<MyApp> {
                 ),
               ],
             ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                "Can send SMS",
+                style: Theme.of(context).textTheme.title,
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(_canSendSMSMessage,
+                    style: Theme.of(context).textTheme.body1)),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
+              child: RaisedButton(
+                color: Theme.of(context).accentColor,
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Text("RUN CHECK",
+                    style: Theme.of(context).accentTextTheme.button),
+                onPressed: () {
+                  _canSendSMS();
+                },
+              ),
+            )
           ],
         ),
       ),

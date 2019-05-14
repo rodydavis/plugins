@@ -1,3 +1,20 @@
+## 1.0.1 - 04.06.2019
+
+* Fixing Bugs on Mobile
+* Added `alwaysShowDataTable`
+
+## 1.0.0 - 04.26.2019
+
+* Adding Desktop to Example
+* Requiring `Dart 2.2.2`
+* Fixing Sort Fields
+* Fixing Bottom Bar
+* Fixed Mobile Item Builder
+
+## 0.3.0 - 04.06.2019
+
+* Making Example Desktop Aware
+
 ## 0.2.4
 
 * Fixed Padding on Refresh
