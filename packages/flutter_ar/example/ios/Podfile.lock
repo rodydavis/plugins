@@ -1,0 +1,28 @@
+PODS:
+  - arcore_plugin (0.0.1):
+    - Flutter
+  - arkit_plugin (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - arcore_plugin (from `.symlinks/plugins/arcore_plugin/ios`)
+  - arkit_plugin (from `.symlinks/plugins/arkit_plugin/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+
+EXTERNAL SOURCES:
+  arcore_plugin:
+    :path: ".symlinks/plugins/arcore_plugin/ios"
+  arkit_plugin:
+    :path: ".symlinks/plugins/arkit_plugin/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+
+SPEC CHECKSUMS:
+  arcore_plugin: 0ffad281461efd5daebe524d5aa7ba477ba7d992
+  arkit_plugin: 203f4d97cddf916d97c24ec83da54e205cf57f23
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+
+PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
+
+COCOAPODS: 1.5.3

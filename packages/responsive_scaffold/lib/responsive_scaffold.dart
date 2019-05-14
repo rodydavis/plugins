@@ -16,7 +16,7 @@ class ResponsiveScaffold extends StatelessWidget {
     this.drawer,
     this.slivers,
     this.endDrawer,
-    @required this.children,
+    @required List<Widget> children,
     this.primary = true,
     // this.extendBody = false,
     this.drawerDragStartBehavior = DragStartBehavior.start,
@@ -31,14 +31,20 @@ class ResponsiveScaffold extends StatelessWidget {
     this.resizeToAvoidBottomPadding,
     this.tabletItemNotSelected,
     this.tabletSideMenu,
+    this.nullItems,
+    this.emptyItems,
     this.tabletFlexDetailView = 8,
     this.tabletFlexListView = 3,
     this.scaffoldKey,
     this.detailScaffoldKey,
     this.mobileRootNavigator = false,
     this.mobileNavigator,
-  })  : itemBuilder = null,
-        itemCount = children?.length ?? 0;
+  }) : childDelagate = SliverChildListDelegate(
+          children,
+          addAutomaticKeepAlives: false,
+          addRepaintBoundaries: false,
+          addSemanticIndexes: false,
+        );
 
   ResponsiveScaffold.builder({
     this.tabletBreakpoint = const Size(480.0, 480.0),
@@ -47,8 +53,8 @@ class ResponsiveScaffold extends StatelessWidget {
     this.drawer,
     this.slivers,
     this.endDrawer,
-    @required this.itemBuilder,
-    @required this.itemCount,
+    @required int itemCount,
+    @required IndexedWidgetBuilder itemBuilder,
     this.primary = true,
     // this.extendBody = false,
     this.drawerDragStartBehavior = DragStartBehavior.start,
@@ -56,6 +62,8 @@ class ResponsiveScaffold extends StatelessWidget {
     this.bottomNavigationBar,
     this.bottomSheet,
     this.floatingActionButton,
+    this.nullItems,
+    this.emptyItems,
     this.floatingActionButtonAnimator,
     this.floatingActionButtonLocation,
     this.persistentFooterButtons,
@@ -69,23 +77,55 @@ class ResponsiveScaffold extends StatelessWidget {
     this.detailScaffoldKey,
     this.mobileRootNavigator = false,
     this.mobileNavigator,
-  }) : children = null;
+  }) : childDelagate = SliverChildBuilderDelegate(
+          itemBuilder,
+          childCount: itemCount,
+          addAutomaticKeepAlives: false,
+          addRepaintBoundaries: false,
+          addSemanticIndexes: false,
+        );
+
+  ResponsiveScaffold.custom({
+    this.tabletBreakpoint = const Size(480.0, 480.0),
+    @required this.detailBuilder,
+    this.appBar,
+    this.drawer,
+    this.slivers,
+    this.endDrawer,
+    @required this.childDelagate,
+    this.primary = true,
+    // this.extendBody = false,
+    this.drawerDragStartBehavior = DragStartBehavior.start,
+    this.backgroundColor,
+    this.bottomNavigationBar,
+    this.bottomSheet,
+    this.floatingActionButton,
+    this.nullItems,
+    this.emptyItems,
+    this.floatingActionButtonAnimator,
+    this.floatingActionButtonLocation,
+    this.persistentFooterButtons,
+    this.resizeToAvoidBottomInset,
+    this.resizeToAvoidBottomPadding,
+    this.tabletItemNotSelected,
+    this.tabletSideMenu,
+    this.tabletFlexDetailView = 8,
+    this.tabletFlexListView = 4,
+    this.scaffoldKey,
+    this.detailScaffoldKey,
+    this.mobileRootNavigator = false,
+    this.mobileNavigator,
+  });
 
   final Size tabletBreakpoint;
 
   final DetailWidgetBuilder detailBuilder;
-
-  final IndexedWidgetBuilder itemBuilder;
-
-  final int itemCount;
 
   final PreferredSizeWidget appBar;
 
   final Widget drawer, endDrawer;
 
   final List<Widget> slivers;
-
-  final List<Widget> children;
 
   final Widget floatingActionButton;
 
@@ -125,12 +165,18 @@ class ResponsiveScaffold extends StatelessWidget {
 
   final NavigatorState mobileNavigator;
 
+  final Widget nullItems, emptyItems;
+
+  final SliverChildDelegate childDelagate;
+
   @override
   Widget build(BuildContext context) {
     if (isTablet(context, breakpoint: tabletBreakpoint)) {
       // Tablet
-      return TabletView(
+      return TabletView.custom(
         key: key,
+        nullItems: nullItems,
+        emptyItems: emptyItems,
         scaffoldkey: scaffoldKey,
         detailScaffoldKey: detailScaffoldKey,
         drawerDragStartBehavior: drawerDragStartBehavior,
@@ -150,9 +196,7 @@ class ResponsiveScaffold extends StatelessWidget {
         appBar: appBar,
         slivers: slivers,
         detailBuilder: detailBuilder,
-        children: children,
-        itemBuilder: itemBuilder,
-        itemCount: itemCount,
+        childDelagate: childDelagate,
         flexDetailView: tabletFlexDetailView,
         flexListView: tabletFlexListView,
         sideMenu: tabletSideMenu,
@@ -177,14 +221,14 @@ class ResponsiveScaffold extends StatelessWidget {
       drawer: drawer,
       endDrawer: endDrawer,
       appBar: appBar,
-      body: MobileView(
+      body: MobileView.custom(
         useRootNavigator: mobileRootNavigator,
+        nullItems: nullItems,
+        emptyItems: emptyItems,
         slivers: slivers,
         detailScaffoldKey: detailScaffoldKey,
         detailBuilder: detailBuilder,
-        children: children,
-        itemBuilder: itemBuilder,
-        itemCount: itemCount,
+        childDelagate: childDelagate,
         navigator: mobileNavigator,
       ),
     );

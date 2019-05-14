@@ -1,3 +1,18 @@
+## 1.0.0 - 05.04.2019
+
+* Support for Dynamicly Generated Drawer on Desktop (Adaptive)
+* Updated Example
+* Fixing Bug in how data is stored on Desktop and Mobile
+* Requires Flutter `master` Channel or Dart `sdk: ">=2.2.2 <3.0.0"`
+
+## 0.3.1 - 04.06.2019
+
+* Updating Example to be desktop aware
+
+## 0.3.0 - 04.05.2019
+
+* Persisting Index on More Tab
+
 ## 0.2.0
 
 * Adding Material Options for `.adaptive` Scaffold

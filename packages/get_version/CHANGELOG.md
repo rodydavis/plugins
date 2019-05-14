@@ -1,3 +1,7 @@
+## 0.1.0 - 04.06.2019
+
+* Making Example Desktop Aware
+
 ## [0.0.8] - Updating Dependencies
 
 * Updating Kotlin Version

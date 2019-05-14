@@ -37,7 +37,8 @@ class WhatsNewPage extends StatelessWidget {
   })  : changelog = true,
         items = null;
 
-  static void showDetailPopUp(BuildContext context, String title, String detail) async {
+  static void showDetailPopUp(
+      BuildContext context, String title, String detail) async {
     void showDemoDialog<T>({BuildContext context, Widget child}) {
       showDialog<T>(
         context: context,
@@ -77,7 +78,8 @@ class WhatsNewPage extends StatelessWidget {
   Widget _buildAndroid(BuildContext context) {
     if (changelog) {
       return Scaffold(
-        backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor:
+            backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
           child: Stack(
             fit: StackFit.loose,
@@ -119,7 +121,8 @@ class WhatsNewPage extends StatelessWidget {
       );
     }
     return Scaffold(
-      backgroundColor: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor:
+          backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Stack(
           fit: StackFit.loose,

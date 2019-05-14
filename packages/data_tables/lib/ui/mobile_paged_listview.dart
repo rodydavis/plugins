@@ -81,11 +81,9 @@ class _NativePagedListViewState extends State<PagedListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.vertical,
+    return Column(
       children: <Widget>[
-        Flexible(
-          flex: 10,
+        Expanded(
           child: CustomScrollView(
             controller: _controller,
             slivers: <Widget>[]
@@ -101,34 +99,41 @@ class _NativePagedListViewState extends State<PagedListView> {
                       ? Center(child: widget.noItems)
                       : SliverList(
                           delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              return ExpansionTile(
-                                leading: Checkbox(
-                                  value: widget.rows[index].selected,
-                                  onChanged: (bool value) {
-                                    setState(() {
-                                      widget.rows[index].onSelectChanged(value);
-                                    });
-                                  },
-                                ),
-                                title: widget.rows[index].cells.first.child,
-                                children: _buildMobileChildren(index),
-                              );
-                            },
+                            widget?.mobileItemBuilder ??
+                                (BuildContext context, int index) {
+                                  return ExpansionTile(
+                                    leading: Checkbox(
+                                      value: widget.rows[index].selected,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          widget.rows[index]
+                                              .onSelectChanged(value);
+                                        });
+                                      },
+                                    ),
+                                    title: widget.rows[index].cells.first.child,
+                                    children: _buildMobileChildren(index),
+                                  );
+                                },
                             childCount: widget.rows.length,
                           ),
                         )),
           ),
         ),
-        Flexible(
-            flex: 1,
-            child: Container(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: rowsSelected ? selectedActions ?? actions : actions,
-              ),
+        SafeArea(
+          top: false,
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border(
+              top: cupertino.BorderSide(color: Colors.grey[200]),
             )),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: rowsSelected ? selectedActions ?? actions : actions,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -153,15 +158,11 @@ class _NativePagedListViewState extends State<PagedListView> {
             }
 
             _sortController = Scaffold.of(context).showBottomSheet((context) {
-              final double _perferredHeight =
-                  MediaQuery.of(context).size.height;
-              final double _columnsHeight = widget.columns.length * 70.0;
               final List<DataColumn> _cols =
                   widget.columns.where((c) => c?.onSort != null)?.toList();
+              final bool _sortAsc = widget.sortAscending;
+              final int selectedIndex = widget.sortColumnIndex;
               return Container(
-                height: _columnsHeight >= _perferredHeight
-                    ? _perferredHeight
-                    : _columnsHeight,
                 decoration: BoxDecoration(
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.black38
@@ -170,77 +171,66 @@ class _NativePagedListViewState extends State<PagedListView> {
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0),
                     )),
-                child: Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 8,
-                      child: Scrollbar(
-                        child: ListView.builder(
-                          itemCount: _cols.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            final col = _cols[index];
-                            final bool _sortAsc = widget.sortAscending;
-                            final int selectedIndex = widget.sortColumnIndex;
-                            return ListTile(
-                              dense: true,
-                              selected: selectedIndex == index,
-                              title: col.label,
-                              subtitle: Text(widget.sortAscending
-                                  ? 'Ascending'
-                                  : 'Descending'),
-                              leading: Radio<int>(
-                                groupValue: selectedIndex,
-                                onChanged: (value) {
-                                  _sortController.setState(() {
-                                    col.onSort(index, _sortAsc);
-                                  });
-                                },
-                                value: index,
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(_sortAsc
-                                    ? Icons.arrow_upward
-                                    : Icons.arrow_downward),
-                                onPressed: () {
-                                  _sortController.setState(() {
-                                    col.onSort(index, !_sortAsc);
-                                  });
-                                },
-                              ),
-                              onTap: () {
-                                if (selectedIndex == index) {
-                                  _sortController.setState(() {
-                                    col.onSort(index, !_sortAsc);
-                                  });
-                                } else {
-                                  _sortController.setState(() {
-                                    col.onSort(index, _sortAsc);
-                                  });
-                                }
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        padding: EdgeInsets.only(top: 10.0),
-                        child: FlatButton(
-                          child: Text(
-                            "Close",
-                            style: Theme.of(context).textTheme.headline,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      for (var i = 0; i < _cols.length; i++) ...[
+                        ListTile(
+                          dense: true,
+                          selected: selectedIndex == i,
+                          title: _cols[i].label,
+                          subtitle: Text(widget.sortAscending
+                              ? 'Ascending'
+                              : 'Descending'),
+                          leading: Radio<int>(
+                            groupValue: selectedIndex,
+                            onChanged: (value) {
+                              _sortController.setState(() {
+                                _cols[i].onSort(i, _sortAsc);
+                              });
+                            },
+                            value: i,
                           ),
-                          onPressed: () {
-                            _sortController.close();
+                          trailing: IconButton(
+                            icon: Icon(_sortAsc
+                                ? Icons.arrow_upward
+                                : Icons.arrow_downward),
+                            onPressed: () {
+                              _sortController.setState(() {
+                                _cols[i].onSort(i, !_sortAsc);
+                              });
+                            },
+                          ),
+                          onTap: () {
+                            if (selectedIndex == i) {
+                              _sortController.setState(() {
+                                _cols[i].onSort(i, !_sortAsc);
+                              });
+                            } else {
+                              _sortController.setState(() {
+                                _cols[i].onSort(i, _sortAsc);
+                              });
+                            }
                           },
                         ),
+                      ],
+                      Container(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: Container(
+                          child: FlatButton(
+                            child: Text(
+                              "Close",
+                              style: Theme.of(context).textTheme.headline,
+                            ),
+                            onPressed: () {
+                              _sortController.close();
+                            },
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             });

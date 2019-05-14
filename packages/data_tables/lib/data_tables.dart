@@ -45,6 +45,7 @@ class NativeDataTable extends StatelessWidget {
     this.noItems,
     this.mobileIsLoading,
     this.mobileSlivers,
+    this.alwaysShowDataTable = false,
   });
 
   NativeDataTable.builder({
@@ -70,6 +71,7 @@ class NativeDataTable extends StatelessWidget {
     this.noItems,
     this.mobileIsLoading,
     this.mobileSlivers,
+    this.alwaysShowDataTable = false,
   }) : rows = _buildRows(itemCount, itemBuilder);
 
   final int sortColumnIndex;
@@ -112,10 +114,13 @@ class NativeDataTable extends StatelessWidget {
 
   final List<Widget> mobileSlivers;
 
+  final bool alwaysShowDataTable;
+
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= tabletBreakpoint.width &&
-        MediaQuery.of(context).size.height >= tabletBreakpoint.height) {
+    if (alwaysShowDataTable ||
+        (MediaQuery.of(context).size.width >= tabletBreakpoint.width &&
+            MediaQuery.of(context).size.height >= tabletBreakpoint.height)) {
       return StatelessDataTable(
         rows: rows,
         firstRowIndex: firstRowIndex,

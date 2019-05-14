@@ -24,9 +24,9 @@ class PrimaryColorPicker extends StatelessWidget {
     return new ScopedModelDescendant<ThemeModel>(
         builder: (context, child, model) => Container(
               child: !showOnlyCustomTheme ||
-                      (model.settings.customTheme &&
+                      (model.customTheme &&
                           showOnlyCustomTheme &&
-                          !model.settings.darkMode)
+                          !model.darkMode)
                   ? ListTile(
                       leading: leading,
                       subtitle: subtitle,
@@ -35,7 +35,7 @@ class PrimaryColorPicker extends StatelessWidget {
                         width: 100.0,
                         height: 20.0,
                         decoration: BoxDecoration(
-                            color: model.settings.primaryColor,
+                            color: model.primaryColor,
                             borderRadius: BorderRadius.circular(8.0)),
                       ),
                       onTap: () {
@@ -46,7 +46,7 @@ class PrimaryColorPicker extends StatelessWidget {
                                 content: SingleChildScrollView(
                                   child: CustomColorPicker(
                                     type: type,
-                                    value: model.settings.primaryColor,
+                                    value: model.primaryColor,
                                     onChanged: model.changePrimaryColor,
                                   ),
                                 ),

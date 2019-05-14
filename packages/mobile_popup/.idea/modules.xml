@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mobile_popup.iml" filepath="$PROJECT_DIR$/mobile_popup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/mobile_popup_android.iml" filepath="$PROJECT_DIR$/android/mobile_popup_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/mobile_popup_example_android.iml" filepath="$PROJECT_DIR$/example/android/mobile_popup_example_android.iml" />
+    </modules>
+  </component>
+</project>

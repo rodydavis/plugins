@@ -1,9 +1,8 @@
 # Flutter plugins
 
-[![Build Status](https://api.cirrus-ci.com/github/AppleEducate/plugins.svg)](https://cirrus-ci.com/github/flutter/plugins/master)
-<a href="https://github.com/Solido/awesome-flutter">
-   <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
-</a>
+[![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter)
+[![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-yellow.svg)](https://www.buymeacoffee.com/rodydavis)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WSH3GVC49GNNJ)
 
 This repo is a companion repo to the main [flutter
 repo](https://github.com/flutter/flutter). It contains the source code for
@@ -51,4 +50,7 @@ These are the available plugins in this repository.
 | [sheet_music](./packages/sheet_music/) | [![pub package](https://img.shields.io/pub/v/sheet_music.svg)](https://pub.dartlang.org/packages/sheet_music) |
 | [floating_search_bar](./packages/floating_search_bar/) | [![pub package](https://img.shields.io/pub/v/floating_search_bar.svg)](https://pub.dartlang.org/packages/floating_search_bar) |
 | [responsive_scaffold](./packages/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
+| [mobile_popup](./packages/mobile_popup/) | [![pub package](https://img.shields.io/pub/v/mobile_popup.svg)](https://pub.dartlang.org/packages/mobile_popup) |
+| [mobile_sidebar](./packages/mobile_sidebar/) | [![pub package](https://img.shields.io/pub/v/mobile_sidebar.svg)](https://pub.dartlang.org/packages/mobile_sidebar) |
+
 

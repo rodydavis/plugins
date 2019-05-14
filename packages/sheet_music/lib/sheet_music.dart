@@ -45,8 +45,26 @@ class SheetMusic extends StatelessWidget {
     this.height,
   });
 
-  Widget _buildClef({double width, double height}) {
+  Widget _buildClef({double width, double height, bool dark = false}) {
     final double _width = width * 0.1979;
+    if (dark) {
+      return Container(
+        child: InkWell(
+          onTap: clefTap,
+          child: SizedBox(
+            height: height,
+            width: _width,
+            child: Image.asset(
+              getClefAsset(trebleClef),
+              package: sheetMusicPackageName,
+              fit: BoxFit.fitWidth,
+              colorBlendMode: BlendMode.srcATop,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    }
     return Container(
       child: InkWell(
         onTap: clefTap,
@@ -57,14 +75,34 @@ class SheetMusic extends StatelessWidget {
             getClefAsset(trebleClef),
             package: sheetMusicPackageName,
             fit: BoxFit.fitWidth,
+            colorBlendMode: BlendMode.srcATop,
+            color: Colors.black,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildScale({double width, double height}) {
+  Widget _buildScale({double width, double height, bool dark = false}) {
     final double _width = width * 0.5076;
+    if (dark) {
+      return Container(
+        child: InkWell(
+          onTap: scaleTap,
+          child: SizedBox(
+            height: height,
+            width: _width,
+            child: Image.asset(
+              getScaleAsset(scale, trebleClef: trebleClef),
+              package: sheetMusicPackageName,
+              fit: BoxFit.fitWidth,
+              colorBlendMode: BlendMode.srcATop,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    }
     return Container(
       child: InkWell(
         onTap: scaleTap,
@@ -75,14 +113,34 @@ class SheetMusic extends StatelessWidget {
             getScaleAsset(scale, trebleClef: trebleClef),
             package: sheetMusicPackageName,
             fit: BoxFit.fitWidth,
+            colorBlendMode: BlendMode.srcATop,
+            color: Colors.black,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildPitch({double width, double height}) {
+  Widget _buildPitch({double width, double height, bool dark = false}) {
     final double _width = width * 0.2944;
+    if (dark) {
+      return Container(
+        child: InkWell(
+          onTap: pitchTap,
+          child: SizedBox(
+            height: height,
+            width: _width,
+            child: Image.asset(
+              getPitchAsset(pitch, trebleClef: trebleClef),
+              package: sheetMusicPackageName,
+              fit: BoxFit.fitWidth,
+              colorBlendMode: BlendMode.srcATop,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    }
     return Container(
       child: InkWell(
         onTap: pitchTap,
@@ -93,6 +151,8 @@ class SheetMusic extends StatelessWidget {
             getPitchAsset(pitch, trebleClef: trebleClef),
             package: sheetMusicPackageName,
             fit: BoxFit.fitWidth,
+            colorBlendMode: BlendMode.srcATop,
+            color: Colors.black,
           ),
         ),
       ),
@@ -104,21 +164,24 @@ class SheetMusic extends StatelessWidget {
     if (hide != null && hide) return Container();
     final double _width = ((height ?? 100.0) * 197.0) / 100.0;
     final double _height = ((width ?? 197.0) * 100.0) / 197.0;
+    final bool dark = Theme.of(context).brightness == Brightness.dark;
 
-    return SizedBox(
-      width: _width,
-      height: _height,
-      child: Container(
-        color: backgroundColor,
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              _buildClef(width: _width, height: _height),
-              _buildScale(width: _width, height: _height),
-              _buildPitch(width: _width, height: _height),
-            ]),
+    return Material(
+      child: SizedBox(
+        width: _width,
+        height: _height,
+        child: Container(
+          color: backgroundColor,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                _buildClef(width: _width, height: _height, dark: dark),
+                _buildScale(width: _width, height: _height, dark: dark),
+                _buildPitch(width: _width, height: _height, dark: dark),
+              ]),
+        ),
       ),
     );
   }

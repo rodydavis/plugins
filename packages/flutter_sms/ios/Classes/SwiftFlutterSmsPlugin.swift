@@ -40,6 +40,18 @@ public class SwiftFlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControl
           )
         }
       #endif
+
+    case "canSendSMS":
+      #if targetEnvironment(simulator)
+        result(false)
+      #else
+        if (MFMessageComposeViewController.canSendText()) {
+          result(true)
+        } else {
+          result(false)
+        }
+      #endif
+
     default:
         result(FlutterMethodNotImplemented)
       break

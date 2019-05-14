@@ -1,6 +1,6 @@
 name: sheet_music
 description: A Flutter Widget for Sheet Music (All Major Flat and Sharp Scales, Notes from 5 below and 5 above the bar, Treble and Bass Clef).
-version: 0.1.1+2
+version: 0.3.0
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
