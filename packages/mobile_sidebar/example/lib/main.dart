@@ -99,6 +99,36 @@ class _HomeScreenState extends State<HomeScreen> {
               name: 'Yellow Screen',
             ),
           ),
+          MenuItem(
+            icon: Icons.inbox,
+            color: Colors.green,
+            title: 'Green',
+            subtitle: 'Green Screen',
+            child: NewScreen(
+              color: Colors.green,
+              name: 'Green Screen',
+            ),
+          ),
+          MenuItem(
+            icon: Icons.perm_camera_mic,
+            color: Colors.brown,
+            title: 'Brown',
+            subtitle: 'Brown Screen',
+            child: NewScreen(
+              color: Colors.brown,
+              name: 'Brown Screen',
+            ),
+          ),
+          MenuItem(
+            icon: Icons.bluetooth,
+            color: Colors.lightBlue,
+            title: 'Light Blue',
+            subtitle: 'Light Blue Screen',
+            child: NewScreen(
+              color: Colors.lightBlue,
+              name: 'Light Blue Screen',
+            ),
+          ),
         ],
         showList: _showList,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -15,6 +15,7 @@ class MobileSidebar extends StatefulWidget {
     this.mobileBottomNavigation = false,
     this.tag = 'index',
     this.nestedNavigation = false,
+    this.maxTabs = 4,
   });
   final List<MenuItem> items;
   final bool showList;
@@ -24,7 +25,7 @@ class MobileSidebar extends StatefulWidget {
   final bool persistIndex;
   final bool mobileBottomNavigation;
   final String tag;
-
+  final int maxTabs;
   // Navigation is Saved Per Tab
   final bool nestedNavigation;
 
@@ -44,6 +45,14 @@ class _MobileSidebarState extends State<MobileSidebar> {
     init();
   }
 
+  @override
+  void didUpdateWidget(MobileSidebar oldWidget) {
+    if (oldWidget.items != widget.items) {
+      init();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   void init() async {
     if (widget.nestedNavigation) {
       for (var item in widget.items) {
@@ -61,18 +70,64 @@ class _MobileSidebarState extends State<MobileSidebar> {
     }
   }
 
-  void _updateIndex(int value) async {
-    _changeIndex(value);
-    if (widget.persistIndex) {
-      await _storage.setItem(key, value);
+  void _updateIndex(BuildContext context, int value) async {
+    final _maxTabs = widget.maxTabs;
+    if (value == _maxTabs) {
+      showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return AnimatedPadding(
+              padding: MediaQuery.of(context).viewInsets,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.decelerate,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(10.0),
+                        topRight: const Radius.circular(10.0))),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    for (int i = _maxTabs; i < widget.items.length; i++) ...[
+                      ListTile(
+                        selected: _index == i,
+                        leading: Icon(widget.items[i].icon),
+                        title: Text(widget.items[i].title),
+                        onTap: () async {
+                          if (i == _index) {
+                            _keys[_index]
+                                .currentState
+                                .popUntil((route) => route.isFirst);
+                            Navigator.pop(context);
+                          } else {
+                            _changeIndex(i);
+                            Navigator.pop(context);
+                          }
+                        },
+                      )
+                    ],
+                  ],
+                ),
+              ));
+        },
+      );
+    } else if (_index == value) {
+      _keys[_index].currentState.popUntil((route) => route.isFirst);
+    } else {
+      _changeIndex(value);
     }
   }
 
-  void _changeIndex(int value) {
+  void _changeIndex(int value) async {
     if (mounted)
       setState(() {
         _index = value;
       });
+
+    if (widget.persistIndex) {
+      await _storage.setItem(key, value);
+    }
   }
 
   @override
@@ -88,24 +143,32 @@ class _MobileSidebarState extends State<MobileSidebar> {
             items: widget.items,
             nestedNavigation: widget.nestedNavigation,
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _index,
-            onTap: (index) {
-              if (index == _index) {
-                _keys[_index].currentState.popUntil((route) => route.isFirst);
-              } else {
-                _updateIndex(index);
+          bottomNavigationBar: Builder(
+            builder: (_) {
+              int tabIndex = _index;
+              final _max = widget.maxTabs;
+              if (tabIndex > _max) {
+                tabIndex = _max;
               }
+              return BottomNavigationBar(
+                currentIndex: tabIndex,
+                onTap: (index) => _updateIndex(context, index),
+                type: BottomNavigationBarType.fixed,
+                items: [
+                  for (int i = 0; i < _max && i < widget.items.length; i++) ...[
+                    BottomNavigationBarItem(
+                      icon: Icon(widget.items[i].icon),
+                      title: Text(widget.items[i].title),
+                    )
+                  ],
+                  if (widget.items.length > widget.maxTabs)
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.more_horiz),
+                      title: Text('More'),
+                    ),
+                ],
+              );
             },
-            type: BottomNavigationBarType.fixed,
-            items: [
-              for (var item in widget.items) ...[
-                BottomNavigationBarItem(
-                  icon: Icon(item.icon),
-                  title: Text(item.title),
-                )
-              ],
-            ],
           ),
         );
       }
@@ -200,8 +263,8 @@ class _MobileSidebarState extends State<MobileSidebar> {
                                 onLongPress: () {
                                   item.push(context);
                                 },
-                                onTap: () =>
-                                    _updateIndex(widget.items.indexOf(item)),
+                                onTap: () => _updateIndex(
+                                    context, widget.items.indexOf(item)),
                               ),
                             ],
                           ],

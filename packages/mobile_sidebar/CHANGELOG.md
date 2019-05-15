@@ -1,3 +1,9 @@
+## 1.6.0 - 05.15.2019
+
+* Support for More Tab on Bottom Navigation
+* Added `maxTabs` Option
+* Updated Example
+
 ## 1.5.1 - 05.15.2019
 
 * Adding Support or Nested Navigation for Bottom Tabs if `nestedNavigation` is `true`
