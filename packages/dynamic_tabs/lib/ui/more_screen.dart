@@ -1,9 +1,10 @@
 import 'dart:io';
 
+import 'package:cupertino_controllers/cupertino_controllers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cupertino_controllers/cupertino_controllers.dart';
 import 'package:localstorage/localstorage.dart';
+
 import '../data/classes/tab.dart';
 import 'edit_screen.dart';
 
@@ -52,10 +53,10 @@ class _MoreTabState extends State<MoreTab> {
 
   void _loadIndex() {
     int _index = _storage.getItem(navKey);
-    if (_index > widget.tabs.length) {
-      _saveIndex(0);
-    }
     if (_index != null) {
+      if (_index > widget.tabs.length) {
+        _saveIndex(0);
+      }
       final _extraItems =
           widget.tabs.getRange(widget.maxTabs, widget.tabs.length).toList();
       widget.navigator.push(MaterialPageRoute(

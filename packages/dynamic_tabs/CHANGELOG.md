@@ -1,3 +1,7 @@
+## 1.0.1 - 05.14.2019
+
+* Upgrading Dependencies
+
 ## 1.0.0 - 05.04.2019
 
 * Support for Dynamicly Generated Drawer on Desktop (Adaptive)

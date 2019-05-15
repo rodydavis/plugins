@@ -1,3 +1,7 @@
+## 1.0.4 - 05.14.2019
+
+* Upgrading Dependencies
+
 ## 1.0.3 - 05.09.2019
 
 * Support for `get darkTheme` for System wide dark mode

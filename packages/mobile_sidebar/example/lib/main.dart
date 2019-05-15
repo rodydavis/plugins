@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: new HomeScreen(),
     );
   }
@@ -42,6 +43,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _showList = false;
+  bool _bottomNav = false;
   final _breakpoint = 800.0;
   @override
   Widget build(BuildContext context) {
@@ -58,11 +60,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     _showList = !_showList;
                   });
               },
-            )
+            ),
+            IconButton(
+              icon: Icon(Icons.border_bottom),
+              onPressed: () {
+                if (mounted)
+                  setState(() {
+                    _bottomNav = !_bottomNav;
+                  });
+              },
+            ),
           ]
         ],
       ),
       body: MobileSidebar(
+        persistIndex: true,
+        mobileBottomNavigation: _bottomNav,
         items: <MenuItem>[
           MenuItem(
             icon: Icons.edit,

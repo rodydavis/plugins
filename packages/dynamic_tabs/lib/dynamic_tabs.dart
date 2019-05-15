@@ -97,12 +97,14 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
     List<String> _list = [];
     try {
       final _data = _storage.getItem(tabsKey);
-      _list = List.from(_data);
+      if (_data != null) {
+        _list = List.from(_data);
+      }
     } catch (e) {
       print("Couldn't read file: $e");
     }
     List<String> _tabs = _list ?? [];
-    print("List: ${widget?.tabs?.length ?? 0} $_tabs");
+    // print("List: ${widget?.tabs?.length ?? 0} $_tabs");
     if (_tabs != null && _tabs.isNotEmpty) {
       List<DynamicTab> _newOrder = [];
       for (var item in _tabs) {
@@ -123,11 +125,12 @@ class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
 
   void _loadIndex() {
     int _index = _storage.getItem(navKey);
-    if (_index > widget.maxTabs) {
-      _index = 0;
-      _saveIndex();
-    }
+
     if (_index != null) {
+      if (_index > widget.maxTabs) {
+        _index = 0;
+        _saveIndex();
+      }
       setState(() {
         _currentIndex = _index;
       });

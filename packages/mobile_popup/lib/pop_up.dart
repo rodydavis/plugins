@@ -1,10 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 Future<T> showMobilePopup<T>({
   @required BuildContext context,
   bool barrierDismissible = true,
+  bool mobilePush = false,
   WidgetBuilder builder,
 }) {
+  if (mobilePush && (Platform.isIOS || Platform.isAndroid)) {
+    return Navigator.of(context).push<T>(
+      MaterialPageRoute(builder: builder),
+    );
+  }
+
   assert(debugCheckHasMaterialLocalizations(context));
 
   final ThemeData theme = Theme.of(context, shadowThemeOnly: true);

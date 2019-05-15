@@ -1,6 +1,6 @@
 name: dynamic_tabs
 description: A Flutter plugin for letting the user edit the bottom tabs like the Curpertino iTunes App.
-version: 1.0.0
+version: 1.0.1
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  localstorage: ^1.3.0
+  localstorage: ^2.0.0
   auto_size_text: ^1.1.2
   cupertino_controllers: ^0.1.0
 

@@ -59,8 +59,9 @@ class HomeScreen extends StatelessWidget {
               context: context,
               builder: (context) => MobilePopUp(
                     title: 'App Settings',
+                    showFullScreen: true,
                     leadingColor: Colors.white,
-                    builder: Builder(
+                    child: Builder(
                       builder: (navigator) => Scaffold(
                             body: SingleChildScrollView(
                               child: Column(

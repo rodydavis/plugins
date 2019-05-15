@@ -17,19 +17,20 @@ export 'pop_up.dart';
 class MobilePopUp extends StatefulWidget {
   const MobilePopUp({
     this.title = 'Info',
-    this.builder,
+    this.child,
     this.routes,
     this.leadingColor,
     this.width = 600,
     this.fadeDuration = const Duration(milliseconds: 50),
     this.breakpoint = const Size(800, 800),
+    this.showFullScreen = true,
   }) : super();
 
   /// Title of pop up
   final String title;
 
   /// Builder is needed to get the context
-  final Widget builder;
+  final Widget child;
 
   /// Need to Pass in the routes of the app so that the nested navigation will work correctly
   final Map<String, WidgetBuilder> routes;
@@ -46,12 +47,15 @@ class MobilePopUp extends StatefulWidget {
   /// Preferred width of popup
   final double width;
 
+  final bool showFullScreen;
+
   @override
   _MobilePopUpState createState() => _MobilePopUpState();
 }
 
 class _MobilePopUpState extends State<MobilePopUp> {
   Color leadingColor;
+  bool fullscreen = false;
 
   @override
   void didUpdateWidget(MobilePopUp oldWidget) {
@@ -79,34 +83,32 @@ class _MobilePopUpState extends State<MobilePopUp> {
     final _size = MediaQuery.of(context).size;
     final _mobile = _size.width < widget.breakpoint.width ||
         _size.height < widget.breakpoint.height;
-
+    final _full = _mobile || fullscreen;
+    final _content = _PopUpContent(
+      title: widget?.title,
+      child: widget?.child,
+      routes: widget?.routes,
+      leadingColor: leadingColor,
+      fullscreen: !widget.showFullScreen ? null : fullscreen,
+      toggleFullscreen: (value) {
+        if (mounted)
+          setState(() {
+            fullscreen = value;
+          });
+      },
+    );
     return AnimatedContainer(
       duration: widget.fadeDuration,
-      padding: _mobile
-          ? null
-          : EdgeInsets.symmetric(
-              vertical: _size.height / 5,
-              horizontal: (_size.width - widget.width) / 2,
-            ),
+      padding: EdgeInsets.symmetric(
+        vertical: _full ? 0 : _size.height / 5,
+        horizontal: _full ? 0 : (_size.width - widget.width) / 2,
+      ),
       child: Builder(
-        builder: (context) {
-          if (_mobile) {
-            return _PopUpContent(
-              title: widget?.title,
-              child: widget?.builder,
-              routes: widget?.routes,
-              leadingColor: leadingColor,
-            );
-          }
-
+        builder: (_) {
+          if (_full) return _content;
           return CupertinoPopupSurface(
             isSurfacePainted: true,
-            child: _PopUpContent(
-              title: widget?.title,
-              child: widget?.builder,
-              routes: widget?.routes,
-              leadingColor: leadingColor,
-            ),
+            child: _content,
           );
         },
       ),
@@ -120,6 +122,8 @@ class _PopUpContent extends StatelessWidget {
     @required this.title,
     this.leadingColor,
     this.child,
+    this.toggleFullscreen,
+    this.fullscreen,
     this.routes,
   }) : super(key: key);
 
@@ -127,6 +131,8 @@ class _PopUpContent extends StatelessWidget {
   final Widget child;
   final Map<String, WidgetBuilder> routes;
   final Color leadingColor;
+  final ValueChanged<bool> toggleFullscreen;
+  final bool fullscreen;
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +142,18 @@ class _PopUpContent extends StatelessWidget {
       theme: Theme.of(context),
       home: Scaffold(
         appBar: AppBar(
-          leading: _ExitButton(color: leadingColor),
+          leading: _ExitButton(
+            color: leadingColor,
+            navigator: Navigator.of(context),
+          ),
+          actions: <Widget>[
+            if (fullscreen != null)
+              IconButton(
+                icon:
+                    Icon(fullscreen ? Icons.fullscreen_exit : Icons.fullscreen),
+                onPressed: () => toggleFullscreen(!fullscreen),
+              )
+          ],
           title: title == null ? null : Text(title),
         ),
         body: child,
@@ -146,8 +163,12 @@ class _PopUpContent extends StatelessWidget {
 }
 
 class _ExitButton extends StatelessWidget {
-  _ExitButton({this.color});
+  _ExitButton({
+    this.color,
+    @required this.navigator,
+  });
   final Color color;
+  final NavigatorState navigator;
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS || Platform.isMacOS) {
@@ -162,7 +183,7 @@ class _ExitButton extends StatelessWidget {
           excludeFromSemantics: true,
         ),
         onPressed: () {
-          Navigator.of(context, rootNavigator: true).pop();
+          navigator.pop();
         },
       );
     }
@@ -172,7 +193,7 @@ class _ExitButton extends StatelessWidget {
       tooltip: 'Back',
       padding: EdgeInsets.zero,
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        navigator.pop();
       },
     );
   }
