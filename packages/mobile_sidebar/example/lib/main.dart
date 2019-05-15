@@ -47,66 +47,73 @@ class _HomeScreenState extends State<HomeScreen> {
   final _breakpoint = 800.0;
   @override
   Widget build(BuildContext context) {
-    return MobileSidebar(
-      breakPoint: _breakpoint,
-      persistIndex: true,
-      mobileBottomNavigation: _bottomNav,
-      nestedNavigation: true,
-      items: <MenuItem>[
-        MenuItem(
-          icon: Icons.edit,
-          color: Colors.black,
-          title: 'Manage',
-          subtitle: 'Edit, Share, Delete',
-          child: NewScreen(
-            color: Colors.blueAccent,
-            name: 'Blue Screen',
-          ),
-        ),
-        MenuItem(
-          icon: Icons.event,
-          color: Colors.blueAccent,
-          title: 'Tasks',
-          subtitle: 'Personal Tasks',
-          child: NewScreen(
-            color: Colors.purpleAccent,
-            name: 'Purple Screen',
-          ),
-        ),
-        MenuItem(
-          icon: Icons.timer,
-          color: Colors.blueGrey,
-          title: 'Log',
-          subtitle: 'History of Results',
-          child: NewScreen(
+    return Scaffold(
+      appBar: !_bottomNav
+          ? AppBar(
+              title: Text('Mobile Sidebar Example'),
+            )
+          : null,
+      body: MobileSidebar(
+        breakPoint: _breakpoint,
+        persistIndex: true,
+        mobileBottomNavigation: _bottomNav,
+        nestedNavigation: true,
+        items: <MenuItem>[
+          MenuItem(
+            icon: Icons.edit,
             color: Colors.black,
-            name: 'Black Screen',
+            title: 'Manage',
+            subtitle: 'Edit, Share, Delete',
+            child: NewScreen(
+              color: Colors.blueAccent,
+              name: 'Blue Screen',
+            ),
           ),
-        ),
-        MenuItem(
-          icon: Icons.star,
-          color: Colors.amber,
-          title: 'Favorites',
-          subtitle: 'Custom List',
-          child: NewScreen(
-            color: Colors.yellow,
-            name: 'Yellow Screen',
+          MenuItem(
+            icon: Icons.event,
+            color: Colors.blueAccent,
+            title: 'Tasks',
+            subtitle: 'Personal Tasks',
+            child: NewScreen(
+              color: Colors.purpleAccent,
+              name: 'Purple Screen',
+            ),
           ),
+          MenuItem(
+            icon: Icons.timer,
+            color: Colors.blueGrey,
+            title: 'Log',
+            subtitle: 'History of Results',
+            child: NewScreen(
+              color: Colors.black,
+              name: 'Black Screen',
+            ),
+          ),
+          MenuItem(
+            icon: Icons.star,
+            color: Colors.amber,
+            title: 'Favorites',
+            subtitle: 'Custom List',
+            child: NewScreen(
+              color: Colors.yellow,
+              name: 'Yellow Screen',
+            ),
+          ),
+        ],
+        showList: _showList,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.redAccent,
+          heroTag: 'toggle_grid',
+          label: Text('${_bottomNav ? 'Hide' : 'Show'} Bottom Bar'),
+          icon: Icon(Icons.border_bottom),
+          onPressed: () {
+            if (mounted)
+              setState(() {
+                _bottomNav = !_bottomNav;
+              });
+          },
         ),
-      ],
-      showList: _showList,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.redAccent,
-        heroTag: 'toggle_grid',
-        label: Text('${_bottomNav ? 'Hide' : 'Show'} Bottom Bar'),
-        icon: Icon(Icons.border_bottom),
-        onPressed: () {
-          if (mounted)
-            setState(() {
-              _bottomNav = !_bottomNav;
-            });
-        },
       ),
     );
   }
