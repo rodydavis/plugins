@@ -25,18 +25,24 @@ class MenuItem {
 class _MobileView extends StatelessWidget {
   const _MobileView({
     Key key,
+    this.appBar = false,
     @required this.item,
   }) : super(key: key);
 
   final MenuItem item;
+  final bool appBar;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(item.title),
-      ),
-      body: item.child,
-    );
+    if (appBar) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(item.title),
+        ),
+        body: item.child,
+      );
+    }
+
+    return item.child;
   }
 }

@@ -1,3 +1,8 @@
+## 1.5.1 - 05.15.2019
+
+* Adding Support or Nested Navigation for Bottom Tabs if `nestedNavigation` is `true`
+* Updated Example
+
 ## 1.5.0 - 05.15.2019
 
 * Adding Option to Persist Index

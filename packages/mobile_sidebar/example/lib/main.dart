@@ -47,73 +47,99 @@ class _HomeScreenState extends State<HomeScreen> {
   final _breakpoint = 800.0;
   @override
   Widget build(BuildContext context) {
+    return MobileSidebar(
+      breakPoint: _breakpoint,
+      persistIndex: true,
+      mobileBottomNavigation: _bottomNav,
+      nestedNavigation: true,
+      items: <MenuItem>[
+        MenuItem(
+          icon: Icons.edit,
+          color: Colors.black,
+          title: 'Manage',
+          subtitle: 'Edit, Share, Delete',
+          child: NewScreen(
+            color: Colors.blueAccent,
+            name: 'Blue Screen',
+          ),
+        ),
+        MenuItem(
+          icon: Icons.event,
+          color: Colors.blueAccent,
+          title: 'Tasks',
+          subtitle: 'Personal Tasks',
+          child: NewScreen(
+            color: Colors.purpleAccent,
+            name: 'Purple Screen',
+          ),
+        ),
+        MenuItem(
+          icon: Icons.timer,
+          color: Colors.blueGrey,
+          title: 'Log',
+          subtitle: 'History of Results',
+          child: NewScreen(
+            color: Colors.black,
+            name: 'Black Screen',
+          ),
+        ),
+        MenuItem(
+          icon: Icons.star,
+          color: Colors.amber,
+          title: 'Favorites',
+          subtitle: 'Custom List',
+          child: NewScreen(
+            color: Colors.yellow,
+            name: 'Yellow Screen',
+          ),
+        ),
+      ],
+      showList: _showList,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.redAccent,
+        heroTag: 'toggle_grid',
+        label: Text('${_bottomNav ? 'Hide' : 'Show'} Bottom Bar'),
+        icon: Icon(Icons.border_bottom),
+        onPressed: () {
+          if (mounted)
+            setState(() {
+              _bottomNav = !_bottomNav;
+            });
+        },
+      ),
+    );
+  }
+}
+
+class NewScreen extends StatelessWidget {
+  const NewScreen({
+    Key key,
+    @required this.color,
+    @required this.name,
+  }) : super(key: key);
+
+  final Color color;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mobile Side Menu Example'),
-        actions: <Widget>[
-          if (MediaQuery.of(context).size.width < _breakpoint) ...[
-            IconButton(
-              icon: Icon(_showList ? Icons.grid_on : Icons.grid_off),
-              onPressed: () {
-                if (mounted)
-                  setState(() {
-                    _showList = !_showList;
-                  });
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.border_bottom),
-              onPressed: () {
-                if (mounted)
-                  setState(() {
-                    _bottomNav = !_bottomNav;
-                  });
-              },
-            ),
-          ]
-        ],
+        title: Text('$name'),
       ),
-      body: MobileSidebar(
-        persistIndex: true,
-        mobileBottomNavigation: _bottomNav,
-        items: <MenuItem>[
-          MenuItem(
-            icon: Icons.edit,
-            color: Colors.black,
-            title: 'Manage',
-            subtitle: 'Edit, Share, Delete',
-            child: Container(color: Colors.blueAccent),
+      body: Container(
+        color: color,
+        child: Center(
+          child: RaisedButton.icon(
+            icon: Icon(Icons.arrow_right),
+            label: Text("Push to Screen"),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => NewScreen(color: color, name: name),
+              ));
+            },
           ),
-          MenuItem(
-            icon: Icons.event,
-            color: Colors.blueAccent,
-            title: 'Tasks',
-            subtitle: 'Personal Tasks',
-            child: Container(color: Colors.purpleAccent),
-          ),
-          MenuItem(
-            icon: Icons.timer,
-            color: Colors.blueGrey,
-            title: 'Log',
-            subtitle: 'History of Results',
-            child: Container(color: Colors.black),
-          ),
-          MenuItem(
-            icon: Icons.star,
-            color: Colors.amber,
-            title: 'Favorites',
-            subtitle: 'Custom List',
-            child: Container(color: Colors.yellowAccent),
-          ),
-        ],
-        showList: _showList,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.redAccent,
-          heroTag: 'create-contact',
-          label: Text('Add new item'),
-          icon: Icon(Icons.add),
-          onPressed: () {},
         ),
       ),
     );
