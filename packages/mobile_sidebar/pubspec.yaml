@@ -1,6 +1,6 @@
 name: mobile_sidebar
 description: A Flutter plugin to show a sidebar on tablet and desktop then a list or gridview on mobile.
-version: 1.5.0+1
+version: 1.5.0+2
 author: Rody Davis Jr <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 

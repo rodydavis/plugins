@@ -24,6 +24,7 @@ class MobilePopUp extends StatefulWidget {
     this.fadeDuration = const Duration(milliseconds: 50),
     this.breakpoint = const Size(800, 800),
     this.showFullScreen = true,
+    this.showDoneButton = true,
   }) : super();
 
   /// Title of pop up
@@ -48,6 +49,8 @@ class MobilePopUp extends StatefulWidget {
   final double width;
 
   final bool showFullScreen;
+
+  final showDoneButton;
 
   @override
   _MobilePopUpState createState() => _MobilePopUpState();
@@ -86,6 +89,7 @@ class _MobilePopUpState extends State<MobilePopUp> {
     final _full = _mobile || fullscreen;
     final _content = _PopUpContent(
       title: widget?.title,
+      showDoneButton: widget.showDoneButton,
       child: widget?.child,
       routes: widget?.routes,
       leadingColor: leadingColor,
@@ -125,6 +129,7 @@ class _PopUpContent extends StatelessWidget {
     this.toggleFullscreen,
     this.fullscreen,
     this.routes,
+    @required this.showDoneButton,
   }) : super(key: key);
 
   final String title;
@@ -133,6 +138,7 @@ class _PopUpContent extends StatelessWidget {
   final Color leadingColor;
   final ValueChanged<bool> toggleFullscreen;
   final bool fullscreen;
+  final bool showDoneButton;
 
   @override
   Widget build(BuildContext context) {
@@ -142,10 +148,12 @@ class _PopUpContent extends StatelessWidget {
       theme: Theme.of(context),
       home: Scaffold(
         appBar: AppBar(
-          leading: _ExitButton(
-            color: leadingColor,
-            navigator: Navigator.of(context),
-          ),
+          leading: showDoneButton
+              ? _ExitButton(
+                  color: leadingColor,
+                  navigator: Navigator.of(context),
+                )
+              : null,
           actions: <Widget>[
             if (fullscreen != null)
               IconButton(

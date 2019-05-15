@@ -13,6 +13,7 @@ class MobileSidebar extends StatefulWidget {
     this.floatingActionButtonLocation,
     this.breakPoint = 800,
     this.mobileBottomNavigation = false,
+    this.tag = 'index',
   });
   final List<MenuItem> items;
   final bool showList;
@@ -21,6 +22,7 @@ class MobileSidebar extends StatefulWidget {
   final double breakPoint;
   final bool persistIndex;
   final bool mobileBottomNavigation;
+  final String tag;
 
   @override
   _MobileSidebarState createState() => _MobileSidebarState();
@@ -29,6 +31,7 @@ class MobileSidebar extends StatefulWidget {
 class _MobileSidebarState extends State<MobileSidebar> {
   final LocalStorage _storage = LocalStorage('mobile_side_bar_settings');
   int _index = 0;
+  String get key => '${widget?.tag ?? 'index'}';
 
   @override
   void initState() {
@@ -39,7 +42,8 @@ class _MobileSidebarState extends State<MobileSidebar> {
   void init() async {
     if (widget.persistIndex) {
       await _storage.ready;
-      final int _data = _storage.getItem('index');
+
+      final int _data = _storage.getItem(key);
       if (_data != null && _data != _index && _data <= widget.items.length) {
         _changeIndex(_data);
       }
@@ -49,7 +53,7 @@ class _MobileSidebarState extends State<MobileSidebar> {
   void _updateIndex(int value) async {
     _changeIndex(value);
     if (widget.persistIndex) {
-      await _storage.setItem('index', value);
+      await _storage.setItem(key, value);
     }
   }
 
