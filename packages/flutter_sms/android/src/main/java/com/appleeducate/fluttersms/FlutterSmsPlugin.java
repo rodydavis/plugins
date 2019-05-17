@@ -82,7 +82,8 @@ public class FlutterSmsPlugin implements MethodCallHandler,  ActivityResultListe
     if(requestCode == REQUEST_CODE_SEND_SMS && result!=null){
       result.success("finished");
       result = null;
+      return true;
     }
-    return true;
+    return false;
   }
 }
