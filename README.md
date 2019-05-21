@@ -52,6 +52,6 @@ These are the available plugins in this repository.
 | [responsive_scaffold](./packages/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
 | [mobile_popup](./packages/mobile_popup/) | [![pub package](https://img.shields.io/pub/v/mobile_popup.svg)](https://pub.dartlang.org/packages/mobile_popup) |
 | [mobile_sidebar](./packages/mobile_sidebar/) | [![pub package](https://img.shields.io/pub/v/mobile_sidebar.svg)](https://pub.dartlang.org/packages/mobile_sidebar) |
-| [firebase_api](./packages/firebase_api/) | [![pub package](https://img.shields.io/pub/v/firebase_api.svg)](https://pub.dartlang.org/packages/firebase_api) |
+| [dart_firebase](./packages/dart_firebase/) | [![pub package](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dartlang.org/packages/dart_firebase) |
 
 
