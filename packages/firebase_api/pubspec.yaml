@@ -1,7 +1,7 @@
 name: firestore_api
 description: "Access Firebase Firestore from a REST API"
 version: 0.0.1
-homepage: "https://github.com/AppleEducate/firebase.dart"
+homepage: "https://github.com/AppleEducate/plugins"
 authors:
 - "Kenneth Endfinger <kaendfinger@gmail.com>"
 - "Rody Davis Jr <rody.davis.jr@gmail.com>"
