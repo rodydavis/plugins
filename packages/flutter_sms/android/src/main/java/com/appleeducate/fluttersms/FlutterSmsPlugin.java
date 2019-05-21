@@ -10,15 +10,19 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.flutter.plugin.common.PluginRegistry.ActivityResultListener;
 
 /** FlutterSmsPlugin */
-public class FlutterSmsPlugin implements MethodCallHandler {
+public class FlutterSmsPlugin implements MethodCallHandler,  ActivityResultListener {
+  private static final int REQUEST_CODE_SEND_SMS = 0315;
+
+
   Activity activity;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_sms");
-    channel.setMethodCallHandler(new FlutterSmsPlugin(registrar.activity()));
+    channel.setMethodCallHandler(new FlutterSmsPlugin(registrar));
   }
 
   @Override
@@ -34,8 +38,8 @@ public class FlutterSmsPlugin implements MethodCallHandler {
 
       String message = call.argument("message");
       String recipients = call.argument("recipients");
-      sendSMS(recipients, message);
-      result.success("SMS Sent!");
+      sendSMS(result, recipients, message);
+      //result.success("SMS Sent!");
     } else if (call.method.equals("canSendSMS")) {
       result.success(canSendSMS());
     } else {
@@ -43,8 +47,9 @@ public class FlutterSmsPlugin implements MethodCallHandler {
     }
   }
 
-  private FlutterSmsPlugin(Activity activity) {
-    this.activity = activity;
+  private FlutterSmsPlugin(Registrar registrar) {
+    this.activity = registrar.activity();
+    registrar.addActivityResultListener(this);
   }
 
   private boolean canSendSMS() {
@@ -60,12 +65,25 @@ public class FlutterSmsPlugin implements MethodCallHandler {
     return true;
   }
 
-  private void sendSMS(String phones, String message) {
+  private Result result;
+
+  private void sendSMS(Result result, String phones, String message) {
+    this.result = result;
     Intent intent = new Intent(Intent.ACTION_SENDTO);
     intent.setData(Uri.parse("smsto:" + phones));
     intent.putExtra("sms_body", message);
     intent.putExtra(Intent.EXTRA_TEXT, message);
     //     intent.putExtra(Intent.EXTRA_STREAM, attachment);
-    activity.startActivity(intent);
+    activity.startActivityForResult(intent, REQUEST_CODE_SEND_SMS);
+  }
+
+  @Override
+  public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+    if(requestCode == REQUEST_CODE_SEND_SMS && result!=null){
+      result.success("finished");
+      result = null;
+      return true;
+    }
+    return false;
   }
 }
