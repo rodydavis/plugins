@@ -1,0 +1,9 @@
+name: firestore_api
+description: "Access Firebase Firestore from a REST API"
+version: 0.0.1
+homepage: "https://github.com/SpinlockLabs/tesla.dart"
+authors:
+- "Kenneth Endfinger <kaendfinger@gmail.com>"
+- "Rody Davis Jr <rody.davis.jr@gmail.com>"
+environment:
+  sdk: ">=2.0.0 <3.0.0"
