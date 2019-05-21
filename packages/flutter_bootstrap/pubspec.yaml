@@ -1,7 +1,9 @@
 name: flutter_bootstrap
 description: A Flutter package to provide bootstrap layout and widgets for Flutter.
 version: 0.0.1
-author:
+authors:
+  - Rody Davis Jr. <rody.davis.jr@gmail.com>
+  - Yasin Ilhan <yasinilhan61@gmail.com>
 homepage:
 
 environment:
