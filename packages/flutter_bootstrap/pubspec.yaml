@@ -4,7 +4,7 @@ version: 0.0.1
 authors:
   - Rody Davis Jr. <rody.davis.jr@gmail.com>
   - Yasin Ilhan <yasinilhan61@gmail.com>
-homepage:
+homepage: https://github.com/AppleEducate/plugins
 
 environment:
   sdk: ">=2.2.2 <3.0.0"

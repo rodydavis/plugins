@@ -11,13 +11,17 @@ class MainPage extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         if (constraints.maxWidth <= 800) {
-          return Center(
-            child: Text("küçük"),
+          return Material(
+            child: Center(
+              child: Text("küçük"),
+            ),
           );
         } else if (constraints.maxWidth <= 1280 &&
             constraints.maxWidth >= 800) {
-          return Center(
-            child: Text("ddede"),
+          return Material(
+            child: Center(
+              child: Text("ddede"),
+            ),
           );
         } else if (constraints.maxWidth >= 1280) {
           return Material(
