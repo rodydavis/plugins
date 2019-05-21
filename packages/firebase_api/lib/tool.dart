@@ -1,4 +1,4 @@
-library firestore_api.tool;
+library dart_firebase.tool;
 
 import 'dart:io';
 import 'dart:convert';

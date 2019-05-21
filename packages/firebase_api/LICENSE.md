@@ -1,4 +1,4 @@
-# firestore_api License
+# dart_firebase License
 
 ```
 The MIT License (MIT)

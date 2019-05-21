@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firestore_api/api.dart';
+import 'package:dart_firebase/api.dart';
 
 void main() => runApp(MyApp());
 

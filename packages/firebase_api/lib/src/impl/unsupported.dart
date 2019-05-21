@@ -1,4 +1,4 @@
-library firestore_api.impl.unsupported;
+library dart_firebase.impl.unsupported;
 
 import 'dart:async';
 

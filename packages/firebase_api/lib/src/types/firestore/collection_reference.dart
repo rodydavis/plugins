@@ -1,4 +1,4 @@
-part of firestore_api;
+part of dart_firebase;
 
 class CollectionReference implements FirestoreReference {
   CollectionReference(this.client, this.pathComponents)

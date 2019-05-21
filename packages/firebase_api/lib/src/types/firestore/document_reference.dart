@@ -1,4 +1,4 @@
-part of firestore_api;
+part of dart_firebase;
 
 class DocumentReference implements FirestoreReference {
   DocumentReference(this.client, this.pathComponents)

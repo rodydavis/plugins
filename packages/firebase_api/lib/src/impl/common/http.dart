@@ -1,4 +1,4 @@
-library firestore_api.impl.common.http;
+library dart_firebase.impl.common.http;
 
 import 'dart:async';
 

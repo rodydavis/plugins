@@ -1,4 +1,4 @@
-part of firestore_api;
+part of dart_firebase;
 
 class DocumentSnapshot implements FirestoreObject {
   DocumentSnapshot(this.client, this.json);

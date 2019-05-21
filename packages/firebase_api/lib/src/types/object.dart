@@ -1,4 +1,4 @@
-part of firestore_api;
+part of dart_firebase;
 
 abstract class FirestoreObject {
   FirestoreClient get client;

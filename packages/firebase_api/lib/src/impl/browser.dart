@@ -1,4 +1,4 @@
-library firestore_api.impl.browser;
+library dart_firebase.impl.browser;
 
 import 'dart:async';
 import 'dart:convert';

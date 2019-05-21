@@ -1,9 +1,9 @@
-library firestore_api;
+library dart_firebase;
 
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firestore_api/utils/push_id_generator.dart';
+import 'package:dart_firebase/utils/push_id_generator.dart';
 
 import 'src/impl/unsupported.dart'
     if (dart.library.html) 'src/impl/browser.dart'
