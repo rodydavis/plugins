@@ -48,12 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: !_bottomNav
-          ? AppBar(
-              title: Text('Mobile Sidebar Example'),
-            )
-          : null,
       body: MobileSidebar(
+        showAppBar: !_bottomNav,
+        title: 'Mobile Sidebar Example',
         breakPoint: _breakpoint,
         persistIndex: true,
         mobileBottomNavigation: _bottomNav,
@@ -78,6 +75,12 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.purpleAccent,
               name: 'Purple Screen',
             ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.info),
+                onPressed: () {},
+              )
+            ],
           ),
           MenuItem(
             icon: Icons.timer,
@@ -88,6 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.black,
               name: 'Black Screen',
             ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.access_alarm),
+                onPressed: () {},
+              )
+            ],
           ),
           MenuItem(
             icon: Icons.star,
@@ -161,22 +170,17 @@ class NewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('$name'),
-      ),
-      body: Container(
-        color: color,
-        child: Center(
-          child: RaisedButton.icon(
-            icon: Icon(Icons.arrow_right),
-            label: Text("Push to Screen"),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (_) => NewScreen(color: color, name: name),
-              ));
-            },
-          ),
+    return Container(
+      color: color,
+      child: Center(
+        child: RaisedButton.icon(
+          icon: Icon(Icons.arrow_right),
+          label: Text("Push to Screen"),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => NewScreen(color: color, name: name),
+            ));
+          },
         ),
       ),
     );
