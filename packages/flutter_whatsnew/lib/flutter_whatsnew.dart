@@ -1,5 +1,7 @@
 library flutter_whatsnew;
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:native_widgets/native_widgets.dart';
@@ -46,24 +48,34 @@ class WhatsNewPage extends StatelessWidget {
     }
 
     return showDemoDialog<Null>(
-        context: context,
-        child: NativeDialog(
-          title: Text(title),
-          content: Text(detail),
-          actions: <NativeDialogAction>[
-            NativeDialogAction(
-                text: Text('OK'),
-                isDestructive: false,
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-          ],
-        ));
+      context: context,
+      child: NativeDialog(
+        title: Text(title),
+        content: Text(detail),
+        actions: <NativeDialogAction>[
+          NativeDialogAction(
+            text: Text('OK'),
+            isDestructive: false,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     print("Changelog: $changelog");
+    if (Platform.isAndroid) {
+      return _buildIOS(context);
+    }
+
+    return _buildAndroid(context);
+  }
+
+  Widget _buildAndroid(BuildContext context) {
     if (changelog) {
       return Scaffold(
         backgroundColor:
@@ -88,20 +100,21 @@ class WhatsNewPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  bottom: 5.0,
-                  right: 10.0,
-                  left: 10.0,
-                  child: ListTile(
-                    title: NativeButton(
-                      child: buttonText,
-                      color: buttonColor ?? Colors.blue,
-                      onPressed: onButtonPressed != null
-                          ? onButtonPressed
-                          : () {
-                              Navigator.pop(context);
-                            },
-                    ),
-                  )),
+                bottom: 5.0,
+                right: 10.0,
+                left: 10.0,
+                child: ListTile(
+                  title: NativeButton(
+                    child: buttonText,
+                    color: buttonColor ?? Colors.blue,
+                    onPressed: onButtonPressed != null
+                        ? onButtonPressed
+                        : () {
+                            Navigator.pop(context);
+                          },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -126,36 +139,70 @@ class WhatsNewPage extends StatelessWidget {
               top: 50.0,
               bottom: 80.0,
               child: ListView(
-                  children: items
-                      .map(
-                        (ListTile item) => ListTile(
-                              title: item.title,
-                              subtitle: item.subtitle,
-                              leading: item.leading,
-                              trailing: item.trailing,
-                              onTap: item.onTap,
-                              onLongPress: item.onLongPress,
-                            ),
-                      )
-                      .toList()),
+                children: items
+                    .map(
+                      (ListTile item) => ListTile(
+                            title: item.title,
+                            subtitle: item.subtitle,
+                            leading: item.leading,
+                            trailing: item.trailing,
+                            onTap: item.onTap,
+                            onLongPress: item.onLongPress,
+                          ),
+                    )
+                    .toList(),
+              ),
             ),
             Positioned(
-                bottom: 5.0,
-                right: 10.0,
-                left: 10.0,
-                child: ListTile(
-                  title: NativeButton(
-                    child: buttonText,
-                    color: buttonColor ?? Colors.blue,
-                    onPressed: onButtonPressed != null
-                        ? onButtonPressed
-                        : () {
-                            Navigator.pop(context);
-                          },
-                  ),
-                )),
+              bottom: 5.0,
+              right: 10.0,
+              left: 10.0,
+              child: ListTile(
+                title: NativeButton(
+                  child: buttonText,
+                  color: buttonColor ?? Colors.blue,
+                  onPressed: onButtonPressed != null
+                      ? onButtonPressed
+                      : () {
+                          Navigator.pop(context);
+                        },
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildIOS(BuildContext context) {
+    Widget child;
+    if (changelog) {
+      child = ChangeLogView(
+        changes: changes,
+      );
+    } else {
+      child = Material(
+        child: ListView(
+          children: items,
+        ),
+      );
+    }
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: title,
+        automaticallyImplyMiddle: false,
+        trailing: CupertinoButton(
+          child: buttonText,
+          onPressed: onButtonPressed != null
+              ? onButtonPressed
+              : () {
+                  Navigator.pop(context);
+                },
+        ),
+      ),
+      child: SafeArea(
+        child: child,
       ),
     );
   }

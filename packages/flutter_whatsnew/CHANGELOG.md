@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Addign Cupertino UI
+
 ## 0.3.0 - 04.06.2019
 
 * Making Example Desktop Aware

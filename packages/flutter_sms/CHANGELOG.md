@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Android result added
+
 ## 1.0.0 * 04.29.2019
 
 * Reduce minSdkVersion to 16
