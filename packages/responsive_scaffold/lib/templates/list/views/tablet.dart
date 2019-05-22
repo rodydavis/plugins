@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_scaffold/responsive_scaffold.dart';
+
+import '../../../responsive_scaffold.dart';
+import '../responsive_list.dart';
 
 class TabletView extends StatefulWidget {
   TabletView({
@@ -238,7 +240,7 @@ class _TabletViewState extends State<TabletView> {
           ),
           Flexible(
             flex: widget.flexDetailView,
-            child: new DetailView(
+            child: new _DetailView(
               detailScaffoldKey: widget?.detailScaffoldKey,
               details: _index == null ||
                       _index > widget.childDelagate.estimatedChildCount - 1
@@ -253,8 +255,8 @@ class _TabletViewState extends State<TabletView> {
   }
 }
 
-class DetailView extends StatelessWidget {
-  const DetailView({
+class _DetailView extends StatelessWidget {
+  const _DetailView({
     Key key,
     @required DetailsScreen details,
     @required this.itemNotSelected,

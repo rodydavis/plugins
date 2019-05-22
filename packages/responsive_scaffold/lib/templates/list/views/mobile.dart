@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_scaffold/responsive_scaffold.dart';
+
+import '../../../responsive_scaffold.dart';
+import '../responsive_list.dart';
 
 class MobileView extends StatelessWidget {
   MobileView({

@@ -7,20 +7,124 @@ On mobile it shows a list and pushes to details and on tablet it shows the List 
 
 ## Getting Started
 
+### Responsive Layout
+
+Follows Material Design Layout [Docs](https://material.io/design/layout/responsive-layout-grid.html#grid-behavior). 
+
+![md-layout](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/md-layout.gif)
+
+Here is a demo on various sizes.
+
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/1.png)
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/2.png)
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/3.png)
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/4.png)
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/5.png)
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/6.png)
+
+##### Example
+
+``` dart 
+import 'package:flutter/material.dart';
+import 'package:responsive_scaffold/responsive_scaffold.dart';
+
+class LayoutExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveScaffold(
+      title: Text('Responsive Layout Example'),
+      drawer: ListView(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings Page'),
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('Info Page'),
+          ),
+          ListTile(
+            leading: Icon(Icons.library_books),
+            title: Text('Library Page'),
+          ),
+          ListTile(
+            leading: Icon(Icons.help),
+            title: Text('Help Page'),
+          ),
+        ],
+      ),
+      endIcon: Icons.filter_list,
+      endDrawer: ListView(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.filter_list),
+            title: Text('Filter List'),
+            subtitle: Text('Hide and show items'),
+            trailing: Switch(
+              value: true,
+              onChanged: (val) {},
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.image_aspect_ratio),
+            title: Text('Size Settings'),
+            subtitle: Text('Change size of images'),
+          ),
+          ListTile(
+            title: Slider(
+              value: 0.5,
+              onChanged: (val) {},
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.sort_by_alpha),
+            title: Text('Sort List'),
+            subtitle: Text('Change layout behavior'),
+            trailing: Switch(
+              value: false,
+              onChanged: (val) {},
+            ),
+          ),
+        ],
+      ),
+      trailing: IconButton(
+        icon: Icon(Icons.search),
+        onPressed: () {},
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).accentColor,
+        onPressed: () {},
+      ),
+    );
+  }
+}
+
+
+```
+
+### Responsive List
+
 * You can use this in two modes `ResponsiveScaffold` and `ResponsiveScaffold.builder`.
 * On Mobile the ListView will push to the details screen
 
+![tablet](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/tablet.png)
+![push](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/push.png)
 ![mobile](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/mobile.png)
 
-![push](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/push.png)
-
 * On Tablet it will show a Master Detail View.
-
-![tablet](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/tablet.png)
-
 * You can add additional Slivers to the Scrollview and the AppBar is optional.
 
-## Example
+
+##### Example
 
 ``` dart 
 import 'package:flutter/material.dart';
@@ -129,6 +233,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 ```
