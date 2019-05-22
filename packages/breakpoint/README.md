@@ -8,7 +8,7 @@
 
 Follows Material Design [Docs](https://material.io/design/layout/responsive-layout-grid.html#breakpoints).
 
-![breakpoint](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/breakpoint.png)
+![breakpoint](https://github.com/AppleEducate/plugins/blob/master/packages/breakpoint/screenshots/breakpoint.png)
 
 ## Usage
 
