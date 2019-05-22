@@ -1,11 +1,11 @@
-name: responsive_scaffold
-description: On mobile it shows a list and pushes to details and on tablet it shows the List and the selected item.
-version: 1.0.0+1
+name: breakpoint
+description: A Flutter plugin to calculate the material design breakpoints.
+version: 1.0.0
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -16,3 +16,4 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  

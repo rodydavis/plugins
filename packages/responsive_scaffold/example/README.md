@@ -110,7 +110,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ResponsiveScaffold.builder(
+      home: ResponsiveListScaffold.builder(
         scaffoldKey: _scaffoldKey,
         detailBuilder: (BuildContext context, int index, bool tablet) {
           return DetailsScreen(

@@ -114,7 +114,7 @@ class LayoutExample extends StatelessWidget {
 
 ### Responsive List
 
-* You can use this in two modes `ResponsiveScaffold` and `ResponsiveScaffold.builder`.
+* You can use this in two modes `ResponsiveListScaffold` and `ResponsiveListScaffold.builder`.
 * On Mobile the ListView will push to the details screen
 
 ![tablet](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/tablet.png)
@@ -145,7 +145,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ResponsiveScaffold.builder(
+      home: ResponsiveListScaffold.builder(
         scaffoldKey: _scaffoldKey,
         detailBuilder: (BuildContext context, int index, bool tablet) {
           return DetailsScreen(

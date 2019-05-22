@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/breakpoint.dart';
 import 'responsive_list.dart';
 import 'views/index.dart';
 
@@ -9,7 +8,7 @@ export 'package:responsive_scaffold/data/classes/details.dart';
 
 class ResponsiveListScaffold extends StatelessWidget {
   ResponsiveListScaffold({
-    this.tabletBreakpoint = const Size(480.0, 480.0),
+    this.tabletBreakpoint = 720.0,
     @required this.detailBuilder,
     this.appBar,
     this.drawer,
@@ -46,7 +45,7 @@ class ResponsiveListScaffold extends StatelessWidget {
         );
 
   ResponsiveListScaffold.builder({
-    this.tabletBreakpoint = const Size(480.0, 480.0),
+    this.tabletBreakpoint = 720.0,
     @required this.detailBuilder,
     this.appBar,
     this.drawer,
@@ -85,7 +84,7 @@ class ResponsiveListScaffold extends StatelessWidget {
         );
 
   ResponsiveListScaffold.custom({
-    this.tabletBreakpoint = const Size(480.0, 480.0),
+    this.tabletBreakpoint = 720.0,
     @required this.detailBuilder,
     this.appBar,
     this.drawer,
@@ -116,7 +115,7 @@ class ResponsiveListScaffold extends StatelessWidget {
     this.mobileNavigator,
   });
 
-  final Size tabletBreakpoint;
+  final double tabletBreakpoint;
 
   final DetailWidgetBuilder detailBuilder;
 
@@ -170,66 +169,70 @@ class ResponsiveListScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isTablet(context, breakpoint: tabletBreakpoint)) {
-      // Tablet
-      return TabletView.custom(
-        key: key,
-        nullItems: nullItems,
-        emptyItems: emptyItems,
-        scaffoldkey: scaffoldKey,
-        detailScaffoldKey: detailScaffoldKey,
-        drawerDragStartBehavior: drawerDragStartBehavior,
-        floatingActionButton: floatingActionButton,
-        floatingActionButtonLocation: floatingActionButtonLocation,
-        bottomNavigationBar: bottomNavigationBar,
-        bottomSheet: bottomSheet,
-        persistentFooterButtons: persistentFooterButtons,
-        floatingActionButtonAnimator: floatingActionButtonAnimator,
-        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-        resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
-        primary: primary,
-        // extendBody: extendBody,
-        backgroundColor: backgroundColor,
-        drawer: drawer,
-        endDrawer: endDrawer,
-        appBar: appBar,
-        slivers: slivers,
-        detailBuilder: detailBuilder,
-        childDelagate: childDelagate,
-        flexDetailView: tabletFlexDetailView,
-        flexListView: tabletFlexListView,
-        sideMenu: tabletSideMenu,
-        itemNotSelected: tabletItemNotSelected,
-      );
-    }
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        if (constraints.maxWidth >= tabletBreakpoint) {
+          // Tablet
+          return TabletView.custom(
+            key: key,
+            nullItems: nullItems,
+            emptyItems: emptyItems,
+            scaffoldkey: scaffoldKey,
+            detailScaffoldKey: detailScaffoldKey,
+            drawerDragStartBehavior: drawerDragStartBehavior,
+            floatingActionButton: floatingActionButton,
+            floatingActionButtonLocation: floatingActionButtonLocation,
+            bottomNavigationBar: bottomNavigationBar,
+            bottomSheet: bottomSheet,
+            persistentFooterButtons: persistentFooterButtons,
+            floatingActionButtonAnimator: floatingActionButtonAnimator,
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+            resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
+            primary: primary,
+            // extendBody: extendBody,
+            backgroundColor: backgroundColor,
+            drawer: drawer,
+            endDrawer: endDrawer,
+            appBar: appBar,
+            slivers: slivers,
+            detailBuilder: detailBuilder,
+            childDelagate: childDelagate,
+            flexDetailView: tabletFlexDetailView,
+            flexListView: tabletFlexListView,
+            sideMenu: tabletSideMenu,
+            itemNotSelected: tabletItemNotSelected,
+          );
+        }
 
-    // Mobile
-    return Scaffold(
-      key: scaffoldKey,
-      floatingActionButton: floatingActionButton,
-      floatingActionButtonLocation: floatingActionButtonLocation,
-      bottomNavigationBar: bottomNavigationBar,
-      bottomSheet: bottomSheet,
-      persistentFooterButtons: persistentFooterButtons,
-      floatingActionButtonAnimator: floatingActionButtonAnimator,
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
-      primary: primary,
-      // extendBody: extendBody,
-      backgroundColor: backgroundColor,
-      drawer: drawer,
-      endDrawer: endDrawer,
-      appBar: appBar,
-      body: MobileView.custom(
-        useRootNavigator: mobileRootNavigator,
-        nullItems: nullItems,
-        emptyItems: emptyItems,
-        slivers: slivers,
-        detailScaffoldKey: detailScaffoldKey,
-        detailBuilder: detailBuilder,
-        childDelagate: childDelagate,
-        navigator: mobileNavigator,
-      ),
+        // Mobile
+        return Scaffold(
+          key: scaffoldKey,
+          floatingActionButton: floatingActionButton,
+          floatingActionButtonLocation: floatingActionButtonLocation,
+          bottomNavigationBar: bottomNavigationBar,
+          bottomSheet: bottomSheet,
+          persistentFooterButtons: persistentFooterButtons,
+          floatingActionButtonAnimator: floatingActionButtonAnimator,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
+          primary: primary,
+          // extendBody: extendBody,
+          backgroundColor: backgroundColor,
+          drawer: drawer,
+          endDrawer: endDrawer,
+          appBar: appBar,
+          body: MobileView.custom(
+            useRootNavigator: mobileRootNavigator,
+            nullItems: nullItems,
+            emptyItems: emptyItems,
+            slivers: slivers,
+            detailScaffoldKey: detailScaffoldKey,
+            detailBuilder: detailBuilder,
+            childDelagate: childDelagate,
+            navigator: mobileNavigator,
+          ),
+        );
+      },
     );
   }
 }
