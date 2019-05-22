@@ -17,10 +17,11 @@ Here is a demo on various sizes.
 
 ![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/1.png)
 ![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/2.png)
+![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/6.png)
 ![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/3.png)
 ![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/4.png)
 ![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/5.png)
-![image](https://github.com/AppleEducate/plugins/blob/master/packages/responsive_scaffold/screenshots/layout/6.png)
+
 
 ##### Example
 
