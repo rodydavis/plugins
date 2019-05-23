@@ -85,10 +85,19 @@ class WorksheetDataTable extends StatelessWidget {
   final double rowHeight;
 
   String getColumnLetter(int index) {
-    if (index < _letters.length) {
-      return _letters[index];
-    }
-    return '';
+    final _list = List.generate(index + 1, (val) {
+      int _index = val;
+      int _base = (val / _letters.length).round();
+      String _result = '';
+      while (_base != 0) {
+        _result += _letters[_base];
+        _base--;
+        _index -= _letters.length;
+      }
+      _result += _letters[_index];
+      return _result;
+    });
+    return _list[index];
   }
 }
 
