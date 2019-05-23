@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../responsive_scaffold.dart';
-import '../responsive_list.dart';
+import '../list.dart';
 
 class TabletView extends StatefulWidget {
   TabletView({

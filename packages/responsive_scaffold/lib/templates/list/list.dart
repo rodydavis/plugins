@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_scaffold/responsive_scaffold.dart';
 
-import 'responsive_list.dart';
 import 'views/index.dart';
 
 export 'package:responsive_scaffold/data/classes/details.dart';

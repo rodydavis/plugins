@@ -1,6 +1,6 @@
 name: responsive_scaffold
 description: On mobile it shows a list and pushes to details and on tablet it shows the List and the selected item.
-version: 1.0.0+1
+version: 1.0.0+2
 author: Rody Davis <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  breakpoint: ^1.0.0
 
 dev_dependencies:
   flutter_test:
