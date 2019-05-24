@@ -1,6 +1,6 @@
 name: persist_theme
 description: A flutter plugin for persisting the theme data. Support for Dark Modes.
-version: 1.0.4
+version: 1.5.0+1
 author: Rody Davis Jr <rody.davis.jr@gmail.com>
 homepage: https://github.com/AppleEducate/plugins
 
@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   localstorage: ^2.0.0
-  flutter_colorpicker: ^0.2.3
-  scoped_model: ^1.0.1
+  provider: ^2.0.1
+  flutter_material_color_picker: ^1.0.0
 
 
 dev_dependencies:

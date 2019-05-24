@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../persist_theme.dart';
 
@@ -14,8 +14,8 @@ class DarkModeSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ScopedModelDescendant<ThemeModel>(
-        builder: (context, child, model) => Container(
+    return new Consumer<ThemeModel>(
+        builder: (context, model, child) => Container(
               child: ListTile(
                 leading: leading,
                 subtitle: subtitle,

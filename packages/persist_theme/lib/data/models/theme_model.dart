@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 enum ThemeType { light, dark, custom, black }
 
-class ThemeModel extends Model {
+class ThemeModel extends ChangeNotifier {
   ThemeModel({
     this.customBlackTheme,
     this.customLightTheme,
@@ -107,6 +107,13 @@ class ThemeModel extends Model {
     }
   }
 
+  void checkPlatformBrightness(BuildContext context) {
+    if (!darkMode &&
+        MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      changeDarkMode(true);
+    }
+  }
+
   ThemeData get darkTheme {
     if (_storage == null) {
       init();
@@ -141,6 +148,12 @@ class ThemeModel extends Model {
     if (customTheme ?? false) return Colors.white;
     if (darkMode ?? false) return Colors.white;
     return Colors.black;
+  }
+
+  Color get textColorInvert {
+    if (customTheme ?? false) return Colors.black;
+    if (darkMode ?? false) return Colors.black;
+    return Colors.white;
   }
 
   Future init() async {

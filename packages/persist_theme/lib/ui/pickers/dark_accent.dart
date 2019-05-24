@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../persist_theme.dart';
 import 'picker.dart';
@@ -8,21 +8,19 @@ class DarkAccentColorPicker extends StatelessWidget {
   const DarkAccentColorPicker({
     this.leading,
     this.subtitle,
-    this.type = PickerType.normal,
     this.label = "Accent Color",
     this.title = const Text("Accent Color"),
     this.showOnlyDarkMode = true,
   });
 
   final Widget leading, subtitle, title;
-  final PickerType type;
   final String label;
   final bool showOnlyDarkMode;
 
   @override
   Widget build(BuildContext context) {
-    return new ScopedModelDescendant<ThemeModel>(
-        builder: (context, child, model) => Container(
+    return new Consumer<ThemeModel>(
+        builder: (context, model, child) => Container(
               child: !showOnlyDarkMode || model.darkMode && showOnlyDarkMode
                   ? ListTile(
                       leading: leading,
@@ -42,7 +40,6 @@ class DarkAccentColorPicker extends StatelessWidget {
                                 title: Text(label),
                                 content: SingleChildScrollView(
                                   child: CustomColorPicker(
-                                    type: type,
                                     value: model.darkAccentColor,
                                     onChanged: model.changeDarkAccentColor,
                                   ),

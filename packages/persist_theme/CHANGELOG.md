@@ -1,3 +1,10 @@
+## 1.5.0 - [BREAKING CHANGE] - 05.24.2019
+
+* Fixing Color [Bug](https://github.com/AppleEducate/plugins/issues/50)
+* Switched to Provider
+* Updated Example
+* Added check for platform brightness
+
 ## 1.0.4 - 05.14.2019
 
 * Upgrading Dependencies

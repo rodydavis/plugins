@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../persist_theme.dart';
 import 'picker.dart';
@@ -8,21 +8,19 @@ class PrimaryColorPicker extends StatelessWidget {
   const PrimaryColorPicker({
     this.leading,
     this.subtitle,
-    this.type = PickerType.normal,
     this.label = "Primary Color",
     this.title = const Text("Primary Color"),
     this.showOnlyCustomTheme = true,
   });
 
   final Widget leading, subtitle, title;
-  final PickerType type;
   final String label;
   final bool showOnlyCustomTheme;
 
   @override
   Widget build(BuildContext context) {
-    return new ScopedModelDescendant<ThemeModel>(
-        builder: (context, child, model) => Container(
+    return new Consumer<ThemeModel>(
+        builder: (context, model, child) => Container(
               child: !showOnlyCustomTheme ||
                       (model.customTheme &&
                           showOnlyCustomTheme &&
@@ -45,7 +43,6 @@ class PrimaryColorPicker extends StatelessWidget {
                                 title: Text(label),
                                 content: SingleChildScrollView(
                                   child: CustomColorPicker(
-                                    type: type,
                                     value: model.primaryColor,
                                     onChanged: model.changePrimaryColor,
                                   ),
