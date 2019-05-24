@@ -107,11 +107,10 @@ class WhatsNewPage extends StatelessWidget {
                   title: NativeButton(
                     child: buttonText,
                     color: buttonColor ?? Colors.blue,
-                    onPressed: onButtonPressed != null
-                        ? onButtonPressed
-                        : () {
-                            Navigator.pop(context);
-                          },
+                    onPressed: onButtonPressed ??
+                        () {
+                          Navigator.pop(context);
+                        },
                   ),
                 ),
               ),
@@ -160,11 +159,10 @@ class WhatsNewPage extends StatelessWidget {
                 title: NativeButton(
                   child: buttonText,
                   color: buttonColor ?? Colors.blue,
-                  onPressed: onButtonPressed != null
-                      ? onButtonPressed
-                      : () {
-                          Navigator.pop(context);
-                        },
+                  onPressed: onButtonPressed ??
+                      () {
+                        Navigator.pop(context);
+                      },
                 ),
               ),
             ),
@@ -193,11 +191,10 @@ class WhatsNewPage extends StatelessWidget {
         automaticallyImplyMiddle: false,
         trailing: CupertinoButton(
           child: buttonText,
-          onPressed: onButtonPressed != null
-              ? onButtonPressed
-              : () {
-                  Navigator.pop(context);
-                },
+          onPressed: onButtonPressed ??
+              () {
+                Navigator.pop(context);
+              },
         ),
       ),
       child: SafeArea(
