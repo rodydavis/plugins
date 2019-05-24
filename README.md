@@ -40,7 +40,7 @@ These are the available plugins in this repository.
 | [app_review](./packages/app_review/) | [![pub package](https://img.shields.io/pub/v/app_review.svg)](https://pub.dartlang.org/packages/app_review) |
 | [flutter_sms](./packages/flutter_sms/) | [![pub package](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dartlang.org/packages/flutter_sms) |
 | [flutter_whatsnew](./packages/flutter_whatsnew/) | [![pub package](https://img.shields.io/pub/v/flutter_whatsnew.svg)](https://pub.dartlang.org/packages/flutter_whatsnew) |
-| [native_widgets](./packages/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
+| [native_widgets]((https://github.com/appleeducate/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
 | [number_control](./packages/number_control/) | [![pub package](https://img.shields.io/pub/v/number_control.svg)](https://pub.dartlang.org/packages/number_control) |
 | [flutter_midi](./packages/flutter_midi/) | [![pub package](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dartlang.org/packages/flutter_midi) |
 | [cupertino_controllers](./packages/cupertino_controllers/) | [![pub package](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dartlang.org/packages/cupertino_controllers) |
