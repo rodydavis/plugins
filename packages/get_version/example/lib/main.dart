@@ -33,7 +33,7 @@ void _setTargetPlatformForDesktop() {
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -107,45 +107,45 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Get Version Example'),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Get Version Example'),
         ),
-        body: new SingleChildScrollView(
-          child: new ListBody(
+        body: SingleChildScrollView(
+          child: ListBody(
             children: <Widget>[
-              new Container(
+              Container(
                 height: 10.0,
               ),
-              new ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Name'),
-                subtitle: new Text(_projectName),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('Name'),
+                subtitle: Text(_projectName),
               ),
-              const Divider(height: 20.0),
-              new ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Running on'),
-                subtitle: new Text(_platformVersion),
+              Divider(height: 20.0),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('Running on'),
+                subtitle: Text(_platformVersion),
               ),
-              const Divider(height: 20.0),
-              new ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Version Name'),
-                subtitle: new Text(_projectVersion),
+              Divider(height: 20.0),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('Version Name'),
+                subtitle: Text(_projectVersion),
               ),
-              const Divider(height: 20.0),
-              new ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Version Code'),
-                subtitle: new Text(_projectCode),
+              Divider(height: 20.0),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('Version Code'),
+                subtitle: Text(_projectCode),
               ),
-              const Divider(height: 20.0),
-              new ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('App ID'),
-                subtitle: new Text(_projectAppID),
+              Divider(height: 20.0),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text('App ID'),
+                subtitle: Text(_projectAppID),
               ),
             ],
           ),
