@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../persist_theme.dart';
 import 'picker.dart';
@@ -7,7 +7,6 @@ import 'picker.dart';
 class AccentColorPicker extends StatelessWidget {
   const AccentColorPicker({
     this.leading,
-    this.type = PickerType.normal,
     this.label = "Accent Color",
     this.subtitle,
     this.title = const Text("Accent Color"),
@@ -15,14 +14,13 @@ class AccentColorPicker extends StatelessWidget {
   });
 
   final Widget leading, subtitle, title;
-  final PickerType type;
   final String label;
   final bool showOnlyCustomTheme;
 
   @override
   Widget build(BuildContext context) {
-    return new ScopedModelDescendant<ThemeModel>(
-        builder: (context, child, model) => Container(
+    return new Consumer<ThemeModel>(
+        builder: (context, model, child) => Container(
               child: !showOnlyCustomTheme ||
                       (model.customTheme &&
                           showOnlyCustomTheme &&
@@ -45,7 +43,6 @@ class AccentColorPicker extends StatelessWidget {
                                 title: Text(label),
                                 content: SingleChildScrollView(
                                   child: CustomColorPicker(
-                                    type: type,
                                     value: model.accentColor,
                                     onChanged: model.changeAccentColor,
                                   ),

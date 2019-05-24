@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/block_picker.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_colorpicker/material_picker.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 
-enum PickerType { normal, material, block }
-
-class CustomColorPicker extends StatelessWidget {
+class CustomColorPicker extends StatefulWidget {
   const CustomColorPicker({
-    this.type = PickerType.normal,
     this.onChanged,
     @required this.value,
   });
 
-  final PickerType type;
   final ValueChanged<Color> onChanged;
   final Color value;
 
   @override
+  _CustomColorPickerState createState() => _CustomColorPickerState();
+}
+
+class _CustomColorPickerState extends State<CustomColorPicker> {
+  Color main;
+
+  @override
+  void initState() {
+    main = widget.value;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (type == PickerType.block) {
-      return BlockPicker(
-        pickerColor: value,
-        onColorChanged: onChanged,
-      );
-    }
-    if (type == PickerType.material) {
-      return MaterialPicker(
-        pickerColor: value,
-        onColorChanged: onChanged,
-        enableLabel: true, // only on portrait mode
-      );
-    }
-    return ColorPicker(
-      pickerColor: value,
-      onColorChanged: onChanged,
-      enableLabel: true,
-      pickerAreaHeightPercent: 0.8,
+    return MaterialColorPicker(
+      selectedColor: main,
+      onMainColorChange: (ColorSwatch color) {
+        if (mounted)
+          setState(() {
+            main = color;
+          });
+      },
+      onColorChange: (color) => widget.onChanged(color),
     );
   }
 }

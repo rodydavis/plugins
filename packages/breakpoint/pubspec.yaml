@@ -1,0 +1,19 @@
+name: breakpoint
+description: A Flutter plugin to calculate the material design breakpoints.
+version: 1.0.0
+author: Rody Davis <rody.davis.jr@gmail.com>
+homepage: https://github.com/AppleEducate/plugins
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  

@@ -16,6 +16,8 @@ class MobileSidebar extends StatefulWidget {
     this.tag = 'index',
     this.nestedNavigation = false,
     this.maxTabs = 4,
+    this.title = '',
+    this.showAppBar = false,
   });
   final List<MenuItem> items;
   final bool showList;
@@ -28,6 +30,8 @@ class MobileSidebar extends StatefulWidget {
   final int maxTabs;
   // Navigation is Saved Per Tab
   final bool nestedNavigation;
+  final bool showAppBar;
+  final String title;
 
   @override
   _MobileSidebarState createState() => _MobileSidebarState();
@@ -135,6 +139,7 @@ class _MobileSidebarState extends State<MobileSidebar> {
     if (MediaQuery.of(context).size.width < widget.breakPoint) {
       if (widget.mobileBottomNavigation) {
         return Scaffold(
+          appBar: _buildAppBar(context),
           floatingActionButton: widget?.floatingActionButton,
           floatingActionButtonLocation: widget?.floatingActionButtonLocation,
           body: _NestedWidget(
@@ -173,6 +178,7 @@ class _MobileSidebarState extends State<MobileSidebar> {
         );
       }
       return Scaffold(
+        appBar: _buildAppBar(context),
         floatingActionButton: widget?.floatingActionButton,
         floatingActionButtonLocation: widget?.floatingActionButtonLocation,
         body: SafeArea(
@@ -228,6 +234,7 @@ class _MobileSidebarState extends State<MobileSidebar> {
     }
 
     return Scaffold(
+      appBar: _buildAppBar(context),
       body: CustomScrollView(
         physics: NeverScrollableScrollPhysics(),
         slivers: <Widget>[
@@ -288,6 +295,19 @@ class _MobileSidebarState extends State<MobileSidebar> {
         ],
       ),
     );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return widget.showAppBar
+        ? AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text(widget?.title ?? ''),
+            actions: <Widget>[
+              if (widget.items[_index]?.actions != null)
+                ...widget.items[_index].actions
+            ],
+          )
+        : null;
   }
 }
 

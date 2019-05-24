@@ -1,3 +1,10 @@
+## 1.0.0 - (BREAKING CHANGE) - [05.22.2019]
+
+* Changing ResponsiveScaffold to Layout
+* Moved Responsive List to seperate Widget
+* Updating Example
+
+
 ## 0.3.0 - 04.06.2019
 
 * Updating Example to be desktop

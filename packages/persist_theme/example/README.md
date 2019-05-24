@@ -4,37 +4,49 @@
 import 'package:flutter/material.dart';
 
 import 'package:persist_theme/persist_theme.dart';
+import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-void main() => runApp(MyApp());
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+/// main is entry point of Flutter application
+void main() {
+  // Desktop platforms aren't a valid platform.
+  _setTargetPlatformForDesktop();
+
+  return runApp(MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
-  final ThemeModel _model = ThemeModel();
-
-  @override
-  void initState() {
-    try {
-      _model.init();
-    } catch (e) {
-      print("Error Loading Theme: $e");
-    }
-    super.initState();
+/// If the current platform is desktop, override the default platform to
+/// a supported platform (iOS for macOS, Android for Linux and Windows).
+/// Otherwise, do nothing.
+void _setTargetPlatformForDesktop() {
+  TargetPlatform targetPlatform;
+  if (Platform.isMacOS) {
+    targetPlatform = TargetPlatform.iOS;
+  } else if (Platform.isLinux || Platform.isWindows) {
+    targetPlatform = TargetPlatform.android;
   }
+  if (targetPlatform != null) {
+    debugDefaultTargetPlatformOverride = targetPlatform;
+  }
+}
 
+final _model = ThemeModel();
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<ThemeModel>(
-      model: _model,
-      child: new ScopedModelDescendant<ThemeModel>(
-        builder: (context, child, model) => MaterialApp(
-              theme: model.theme,
-              home: HomeScreen(),
-            ),
+    return ListenableProvider<ThemeModel>(
+      builder: (_) => _model..init(),
+      child: Consumer<ThemeModel>(
+        builder: (context, model, child) {
+          return MaterialApp(
+            theme: model.theme,
+            home: HomeScreen(),
+          );
+        },
       ),
     );
   }
@@ -43,7 +55,7 @@ class _MyAppState extends State<MyApp> {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _theme = ScopedModel.of<ThemeModel>(context, rebuildOnChange: true);
+    final _theme = Provider.of<ThemeModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Persist Theme'),
@@ -62,19 +74,19 @@ class HomeScreen extends StatelessWidget {
                 Flex(
                   direction: Axis.horizontal,
                   children: <Widget>[
-                    Flexible(child: PrimaryColorPicker(type: PickerType.block)),
-                    Flexible(child: AccentColorPicker(type: PickerType.block)),
+                    Flexible(child: PrimaryColorPicker()),
+                    Flexible(child: AccentColorPicker()),
                   ],
                 ),
-                DarkAccentColorPicker(type: PickerType.block),
+                DarkAccentColorPicker(),
               ]
             : <Widget>[
                 DarkModeSwitch(),
                 TrueBlackSwitch(),
                 CustomThemeSwitch(),
-                PrimaryColorPicker(type: PickerType.block),
-                AccentColorPicker(type: PickerType.block),
-                DarkAccentColorPicker(type: PickerType.block),
+                PrimaryColorPicker(),
+                AccentColorPicker(),
+                DarkAccentColorPicker(),
               ],
       ),
       floatingActionButton: FloatingActionButton(
