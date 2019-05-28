@@ -38,6 +38,8 @@ class MoreTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return ListenableProvider<TabState>(
         builder: (_) => tabState,
         child: LayoutBuilder(
@@ -45,21 +47,23 @@ class MoreTab extends StatelessWidget {
             return Consumer<TabState>(
               builder: (context, model, child) {
                 if (adaptive && Platform.isIOS) {
-                  if (MediaQuery.of(context).orientation ==
-                          Orientation.landscape &&
+                  if (_landscape &&
                       masterDetail &&
                       constraints.maxWidth >= breakpoint) {
                     return Row(
                       children: <Widget>[
                         Container(
-                          width: 400,
+                          width: 350,
                           child: CupertinoPage(
                             primaryColor: primaryColor,
                             accentColor: accentColor,
                             masterDetail: masterDetail,
-                            navigator: navigator,
                             onEdit: () => _goToEditScreen(context, model),
-                            onTap: model.changeTab,
+                            onTap: (index) {
+                              final _index =
+                                  model.allTabs.indexOf(model.extraTabs[index]);
+                              model.changeTab(_index);
+                            },
                           ),
                         ),
                         Expanded(child: model.child),
@@ -70,10 +74,11 @@ class MoreTab extends StatelessWidget {
                     primaryColor: primaryColor,
                     accentColor: accentColor,
                     masterDetail: masterDetail,
-                    navigator: navigator,
                     onEdit: () => _goToEditScreen(context, model),
                     onTap: (index) async {
-                      model.changeTab(index);
+                      final _index =
+                          model.allTabs.indexOf(model.extraTabs[index]);
+                      model.changeTab(_index);
                       await navigator.push(
                         CupertinoPageRoute(
                           builder: (context) => model.child,
@@ -82,40 +87,40 @@ class MoreTab extends StatelessWidget {
                     },
                   );
                 }
-                return Scaffold(
-                    appBar: AppBar(
-                      title: Text("More"),
-                      actions: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () => _goToEditScreen(context, model),
+
+                if (_landscape &&
+                    masterDetail &&
+                    constraints.maxWidth >= breakpoint) {
+                  return Row(
+                    children: <Widget>[
+                      Container(
+                        width: 350,
+                        child: new MaterialPage(
+                          primaryColor: primaryColor,
+                          accentColor: accentColor,
+                          masterDetail: masterDetail,
+                          onEdit: () => _goToEditScreen(context, model),
+                          onTap: model.changeTab,
                         ),
-                      ],
-                    ),
-                    body: SafeArea(
-                      child: ListView.builder(
-                        padding: EdgeInsets.all(0.0),
-                        itemCount: model.extraTabs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final i = model.extraTabs[index];
-                          return ListTile(
-                            leading: i.tab.icon,
-                            title: i.tab.title,
-                            trailing: !masterDetail && adaptive
-                                ? Icon(Icons.keyboard_arrow_right)
-                                : null,
-                            onTap: () async {
-                              model.changeTab(index);
-                              await navigator.push(
-                                MaterialPageRoute(
-                                  builder: (context) => i.child,
-                                ),
-                              );
-                            },
-                          );
-                        },
                       ),
-                    ));
+                      Expanded(child: model.child),
+                    ],
+                  );
+                }
+                return MaterialPage(
+                  primaryColor: primaryColor,
+                  accentColor: accentColor,
+                  masterDetail: masterDetail,
+                  onEdit: () => _goToEditScreen(context, model),
+                  onTap: (index) async {
+                    model.changeTab(index);
+                    await navigator.push(
+                      MaterialPageRoute(
+                        builder: (context) => model.child,
+                      ),
+                    );
+                  },
+                );
               },
             );
           },
@@ -141,12 +146,61 @@ class MoreTab extends StatelessWidget {
   }
 }
 
+class MaterialPage extends StatelessWidget {
+  const MaterialPage({
+    Key key,
+    @required this.primaryColor,
+    @required this.accentColor,
+    @required this.masterDetail,
+    @required this.onEdit,
+    @required this.onTap,
+  }) : super(key: key);
+
+  final bool masterDetail;
+  final VoidCallback onEdit;
+  final ValueChanged<int> onTap;
+  final Color primaryColor;
+  final Color accentColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TabState>(
+      builder: (context, model, child) => Scaffold(
+          appBar: AppBar(
+            title: Text("More"),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: onEdit,
+              ),
+            ],
+          ),
+          body: SafeArea(
+            child: ListView.builder(
+              padding: EdgeInsets.all(0.0),
+              itemCount: model.extraTabs.length,
+              itemBuilder: (BuildContext context, int index) {
+                final i = model.extraTabs[index];
+                return ListTile(
+                  leading: i.tab.icon,
+                  title: i.tab.title,
+                  selected: masterDetail ? index == model.subIndex : false,
+                  trailing:
+                      !masterDetail ? Icon(Icons.keyboard_arrow_right) : null,
+                  onTap: () => onTap(index),
+                );
+              },
+            ),
+          )),
+    );
+  }
+}
+
 class CupertinoPage extends StatelessWidget {
   const CupertinoPage({
     Key key,
     @required this.primaryColor,
     @required this.accentColor,
-    @required this.navigator,
     @required this.onTap,
     @required this.onEdit,
     @required this.masterDetail,
@@ -154,7 +208,6 @@ class CupertinoPage extends StatelessWidget {
 
   final Color primaryColor;
   final Color accentColor;
-  final NavigatorState navigator;
   final ValueChanged<int> onTap;
   final VoidCallback onEdit;
   final bool masterDetail;
@@ -198,7 +251,7 @@ class CupertinoPage extends StatelessWidget {
                               leading: _icon.icon,
                               title: _text,
                               selected: masterDetail
-                                  ? index == model.currentIndex
+                                  ? index == model.subIndex
                                   : false,
                               lastItem: false,
                               ios: CupertinoListTileData(

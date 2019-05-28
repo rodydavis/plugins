@@ -33,7 +33,7 @@ class TabState extends ChangeNotifier {
     _loadIndex();
   }
 
-  bool get isMoreTab => _currentIndex == _maxTabs;
+  bool get isMoreTab => _currentIndex >= _maxTabs;
   bool get showEditTab => (_items?.length ?? 0) > _maxTabs;
   Widget get child => _items[_currentIndex].child;
 
@@ -46,6 +46,9 @@ class TabState extends ChangeNotifier {
   List<DynamicTab> get mainTabs => allTabs.take(_maxTabs).toList();
   List<DynamicTab> get extraTabs => allTabs.skip(_maxTabs).toList();
   List<DynamicTab> get allTabs => _items ?? [];
+
+  int get adjustedIndex => isMoreTab ? maxTabs : _currentIndex;
+  int get subIndex => isMoreTab ? _currentIndex - _maxTabs : _currentIndex;
 
   void _loadSavedTabs() async {
     List<String> _list = [];

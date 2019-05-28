@@ -152,7 +152,7 @@ class MaterialView extends StatelessWidget {
                       icon: Icon(Icons.more_horiz),
                     )))
                   : model.allTabs.map((t) => t.tab).toList(),
-              currentIndex: model.currentIndex,
+              currentIndex: model.adjustedIndex,
               onTap: model.changeTab,
               fixedColor: backgroundColor ?? Theme.of(context).primaryColor,
               type: type,
@@ -257,7 +257,7 @@ class CupertinoView extends StatelessWidget {
                       icon: Icon(Icons.more_horiz),
                     )))
                   : model.allTabs.map((t) => t.tab).toList(),
-              currentIndex: model.currentIndex,
+              currentIndex: model.adjustedIndex,
               onTap: model.changeTab,
               backgroundColor: backgroundColor,
             ),

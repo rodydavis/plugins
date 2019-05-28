@@ -13,7 +13,7 @@ import 'package:flutter/foundation.dart';
 void main() {
   // Desktop platforms aren't a valid platform.
   _setTargetPlatformForDesktop();
-  
+
   return runApp(MyApp());
 }
 
