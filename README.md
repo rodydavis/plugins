@@ -36,23 +36,23 @@ These are the available plugins in this repository.
 
 | Plugin | Pub |
 |--------|-----|
-| [get_version](./packages/get_version/) | [![pub package](https://img.shields.io/pub/v/get_version.svg)](https://pub.dartlang.org/packages/get_version) |
-| [app_review](./packages/app_review/) | [![pub package](https://img.shields.io/pub/v/app_review.svg)](https://pub.dartlang.org/packages/app_review) |
-| [flutter_sms](./packages/flutter_sms/) | [![pub package](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dartlang.org/packages/flutter_sms) |
+| [get_version](https://github.com/appleeducate/get_version/) | [![pub package](https://img.shields.io/pub/v/get_version.svg)](https://pub.dartlang.org/packages/get_version) |
+| [app_review](https://github.com/appleeducate/app_review/) | [![pub package](https://img.shields.io/pub/v/app_review.svg)](https://pub.dartlang.org/packages/app_review) |
+| [flutter_sms](https://github.com/appleeducate/flutter_sms/) | [![pub package](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dartlang.org/packages/flutter_sms) |
 | [flutter_whatsnew](./packages/flutter_whatsnew/) | [![pub package](https://img.shields.io/pub/v/flutter_whatsnew.svg)](https://pub.dartlang.org/packages/flutter_whatsnew) |
-| [native_widgets](./packages/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
+| [native_widgets](https://github.com/appleeducate/native_widgets/) | [![pub package](https://img.shields.io/pub/v/native_widgets.svg)](https://pub.dartlang.org/packages/native_widgets) |
 | [number_control](./packages/number_control/) | [![pub package](https://img.shields.io/pub/v/number_control.svg)](https://pub.dartlang.org/packages/number_control) |
 | [flutter_midi](./packages/flutter_midi/) | [![pub package](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dartlang.org/packages/flutter_midi) |
 | [cupertino_controllers](./packages/cupertino_controllers/) | [![pub package](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dartlang.org/packages/cupertino_controllers) |
-| [persist_theme](./packages/persist_theme/) | [![pub package](https://img.shields.io/pub/v/persist_theme.svg)](https://pub.dartlang.org/packages/persist_theme) |
+| [persist_theme](https://github.com/appleeducate/persist_theme/) | [![pub package](https://img.shields.io/pub/v/persist_theme.svg)](https://pub.dartlang.org/packages/persist_theme) |
 | [data_tables](./packages/data_tables/) | [![pub package](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dartlang.org/packages/data_tables) |
 | [dynamic_tabs](./packages/dynamic_tabs/) | [![pub package](https://img.shields.io/pub/v/dynamic_tabs.svg)](https://pub.dartlang.org/packages/dynamic_tabs) |
 | [sheet_music](./packages/sheet_music/) | [![pub package](https://img.shields.io/pub/v/sheet_music.svg)](https://pub.dartlang.org/packages/sheet_music) |
 | [floating_search_bar](./packages/floating_search_bar/) | [![pub package](https://img.shields.io/pub/v/floating_search_bar.svg)](https://pub.dartlang.org/packages/floating_search_bar) |
-| [responsive_scaffold](./packages/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
+| [responsive_scaffold](https://github.com/appleeducate/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
 | [mobile_popup](./packages/mobile_popup/) | [![pub package](https://img.shields.io/pub/v/mobile_popup.svg)](https://pub.dartlang.org/packages/mobile_popup) |
 | [mobile_sidebar](./packages/mobile_sidebar/) | [![pub package](https://img.shields.io/pub/v/mobile_sidebar.svg)](https://pub.dartlang.org/packages/mobile_sidebar) |
 | [dart_firebase](./packages/dart_firebase/) | [![pub package](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dartlang.org/packages/dart_firebase) |
-| [breakpoint](./packages/breakpoint/) | [![pub package](https://img.shields.io/pub/v/breakpoint.svg)](https://pub.dartlang.org/packages/breakpoint) |
+| [breakpoint](https://github.com/appleeducate/breakpoint/) | [![pub package](https://img.shields.io/pub/v/breakpoint.svg)](https://pub.dartlang.org/packages/breakpoint) |
 
 
