@@ -3,13 +3,15 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:provider/provider.dart';
 
 import 'data/classes/tab.dart';
+import 'data/models/index.dart';
 import 'ui/more_screen.dart';
 
 export 'data/classes/tab.dart';
 
-class DynamicTabScaffold extends StatefulWidget {
+class DynamicTabScaffold extends StatelessWidget {
   DynamicTabScaffold({
     @required this.tabs,
     this.backgroundColor,
@@ -20,6 +22,7 @@ class DynamicTabScaffold extends StatefulWidget {
     this.type = BottomNavigationBarType.fixed,
     this.moreTabPrimaryColor,
     this.moreTabAccentColor,
+    this.selectedColor,
   })  : adaptive = false,
         routes = null,
         assert(tabs != null),
@@ -36,6 +39,7 @@ class DynamicTabScaffold extends StatefulWidget {
     this.moreTabAccentColor,
     BottomNavigationBarType materialType = BottomNavigationBarType.fixed,
     double materialIconSize,
+    this.selectedColor,
   })  : adaptive = true,
         type = materialType,
         iconSize = materialIconSize,
@@ -48,6 +52,7 @@ class DynamicTabScaffold extends StatefulWidget {
   final bool persistIndex;
   final int maxTabs;
   final Map<String, WidgetBuilder> routes;
+  final Color selectedColor;
 
   // Unique Tag for each set of dynamic tabs
   final String tag;
@@ -62,231 +67,253 @@ class DynamicTabScaffold extends StatefulWidget {
   final Color moreTabAccentColor;
 
   @override
-  _DynamicTabScaffoldState createState() => _DynamicTabScaffoldState();
+  Widget build(BuildContext context) {
+    return ListenableProvider<TabState>(
+      builder: (_) =>
+          TabState()..init(tag, tabs, max: maxTabs, persist: persistIndex),
+      child: Builder(
+        builder: (_) {
+          if (adaptive && Platform.isIOS) {
+            return CupertinoView(
+              selectedColor: selectedColor,
+              backgroundColor: backgroundColor,
+              routes: routes,
+              adaptive: adaptive,
+              maxTabs: maxTabs,
+              moreTabAccentColor: moreTabAccentColor,
+              moreTabPrimaryColor: moreTabPrimaryColor,
+            );
+          }
+
+          if (adaptive &&
+              (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
+            return new DesktopView(
+              routes: routes,
+              adaptive: adaptive,
+              moreTabAccentColor: moreTabAccentColor,
+              moreTabPrimaryColor: moreTabPrimaryColor,
+            );
+          }
+
+          return new MaterialView(
+            routes: routes,
+            adaptive: adaptive,
+            moreTabAccentColor: moreTabAccentColor,
+            moreTabPrimaryColor: moreTabPrimaryColor,
+            selectedColor: selectedColor,
+            maxTabs: maxTabs,
+            backgroundColor: backgroundColor,
+            type: type,
+          );
+        },
+      ),
+    );
+  }
 }
 
-class _DynamicTabScaffoldState extends State<DynamicTabScaffold> {
-  int _currentIndex = 0;
-  LocalStorage _storage;
-  List<DynamicTab> _items;
+class MaterialView extends StatelessWidget {
+  const MaterialView({
+    Key key,
+    @required this.routes,
+    @required this.adaptive,
+    @required this.moreTabAccentColor,
+    @required this.moreTabPrimaryColor,
+    @required this.selectedColor,
+    @required this.maxTabs,
+    @required this.backgroundColor,
+    @required this.type,
+  }) : super(key: key);
 
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(DynamicTabScaffold oldWidget) {
-    if (oldWidget.tabs != widget.tabs) {
-      init();
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  void init() {
-    _items = widget.tabs;
-    _storage = new LocalStorage((widget?.tag ?? "app_dynamic_tabs"));
-    _storage.ready.then((value) {
-      _loadSavedTabs();
-      if (widget.persistIndex) _loadIndex();
-    });
-  }
-
-  void _loadSavedTabs() async {
-    List<String> _list = [];
-    try {
-      final _data = _storage.getItem(tabsKey);
-      if (_data != null) {
-        _list = List.from(_data);
-      }
-    } catch (e) {
-      print("Couldn't read file: $e");
-    }
-    List<String> _tabs = _list ?? [];
-    // print("List: ${widget?.tabs?.length ?? 0} $_tabs");
-    if (_tabs != null && _tabs.isNotEmpty) {
-      List<DynamicTab> _newOrder = [];
-      for (var item in _tabs) {
-        _newOrder.add(_items.firstWhere((t) => t.tag == item));
-      }
-      setState(() {
-        _items = _newOrder;
-      });
-    } else {
-      _saveNewTabs();
-    }
-  }
-
-  void _saveNewTabs() async {
-    final _list = _items.map((t) => t.tag).toList();
-    await _storage.setItem(tabsKey, _list);
-  }
-
-  void _loadIndex() {
-    int _index = _storage.getItem(navKey);
-
-    if (_index != null) {
-      if (_index > widget.maxTabs) {
-        _index = 0;
-        _saveIndex();
-      }
-      setState(() {
-        _currentIndex = _index;
-      });
-    } else {
-      _saveIndex();
-    }
-  }
-
-  void _saveIndex() {
-    _storage.setItem(navKey, _currentIndex);
-  }
-
-  String get tabsKey => "${(widget?.tag ?? "") + "_"}bottom_tabs";
-  String get navKey => "${(widget?.tag ?? "") + "_"}nav_index";
+  final Map routes;
+  final bool adaptive;
+  final Color moreTabAccentColor;
+  final Color moreTabPrimaryColor;
+  final Color selectedColor;
+  final int maxTabs;
+  final Color backgroundColor;
+  final BottomNavigationBarType type;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.adaptive && Platform.isIOS) {
-      return CupertinoTabScaffold(
-        tabBuilder: (BuildContext context, int index) {
-          return _getBody(context);
-        },
-        tabBar: CupertinoTabBar(
-          items: _showEditTab
-              ? (_items.take(widget.maxTabs).toList().map((t) => t.tab).toList()
-                ..add(BottomNavigationBarItem(
-                  title: Text("More"),
-                  icon: Icon(Icons.more_horiz),
-                )))
-              : _items.map((t) => t.tab).toList(),
-          currentIndex: _currentIndex,
-          onTap: _tabChanged,
-          backgroundColor: widget?.backgroundColor,
-        ),
-      );
-    }
+    return Consumer<TabState>(
+      builder: (context, model, child) => Scaffold(
+            body: ContentView(
+              routes: routes,
+              adaptive: adaptive,
+              moreTabAccentColor: moreTabAccentColor,
+              moreTabPrimaryColor: moreTabPrimaryColor,
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: selectedColor,
+              items: model.showEditTab
+                  ? (model.mainTabs.map((t) => t.tab).toList()
+                    ..add(BottomNavigationBarItem(
+                      title: Text("More"),
+                      icon: Icon(Icons.more_horiz),
+                    )))
+                  : model.allTabs.map((t) => t.tab).toList(),
+              currentIndex: model.currentIndex,
+              onTap: model.changeTab,
+              fixedColor: backgroundColor ?? Theme.of(context).primaryColor,
+              type: type,
+              // unselectedItemColor: unselectedItemColor ?? Colors.grey,
+            ),
+          ),
+    );
+  }
+}
 
-    if (widget.adaptive && _isDesktop()) {
-      return Scaffold(
-        body: _getBody(context),
-        drawer: Drawer(
-          child: Container(
-            child: SafeArea(
+class DesktopView extends StatelessWidget {
+  const DesktopView({
+    Key key,
+    @required this.routes,
+    @required this.adaptive,
+    @required this.moreTabAccentColor,
+    @required this.moreTabPrimaryColor,
+  }) : super(key: key);
+
+  final Map routes;
+  final bool adaptive;
+  final Color moreTabAccentColor;
+  final Color moreTabPrimaryColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TabState>(
+      builder: (context, model, child) => Scaffold(
+            body: ContentView(
+              routes: routes,
+              adaptive: adaptive,
+              moreTabAccentColor: moreTabAccentColor,
+              moreTabPrimaryColor: moreTabPrimaryColor,
+            ),
+            drawer: Drawer(
               child: Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      for (var i = 0; i < _items.length; i++) ...[
-                        ListTile(
-                          selected: i == _currentIndex,
-                          leading: _items[i].tab.icon,
-                          title: _items[i].tab.title,
-                          onTap: () {
-                            if (mounted)
-                              setState(() {
-                                _tabChanged(i);
-                              });
-                          },
-                        ),
-                      ],
-                    ],
+                child: SafeArea(
+                  child: Container(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          for (var i = 0; i < model.allTabs.length; i++) ...[
+                            ListTile(
+                              selected: i == model.currentIndex,
+                              leading: model.allTabs[i].tab.icon,
+                              title: model.allTabs[i].tab.title,
+                              onTap: () {
+                                model.changeTab(i);
+                              },
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      );
-    }
-
-    return Scaffold(
-      body: _getBody(context),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _showEditTab
-            ? (_items.take(widget.maxTabs).toList().map((t) => t.tab).toList()
-              ..add(BottomNavigationBarItem(
-                title: Text("More"),
-                icon: Icon(Icons.more_horiz),
-              )))
-            : _items.map((t) => t.tab).toList(),
-        currentIndex: _currentIndex,
-        onTap: _tabChanged,
-        fixedColor: widget?.backgroundColor ?? Theme.of(context).primaryColor,
-        type: widget?.type,
-        // unselectedItemColor: widget?.unselectedItemColor ?? Colors.grey,
-      ),
     );
   }
+}
 
-  bool _isDesktop() {
-    return Platform.isMacOS || Platform.isLinux || Platform.isWindows;
+class CupertinoView extends StatelessWidget {
+  const CupertinoView({
+    Key key,
+    @required this.selectedColor,
+    @required this.maxTabs,
+    @required this.backgroundColor,
+    @required this.adaptive,
+    @required this.routes,
+    @required this.moreTabAccentColor,
+    @required this.moreTabPrimaryColor,
+  }) : super(key: key);
+
+  final Color selectedColor;
+  final int maxTabs;
+  final Color backgroundColor;
+  final bool adaptive;
+  final Map<String, WidgetBuilder> routes;
+  final Color moreTabPrimaryColor;
+  final Color moreTabAccentColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TabState>(
+      builder: (context, model, child) => CupertinoTabScaffold(
+            tabBuilder: (BuildContext context, int index) {
+              return ContentView(
+                routes: routes,
+                adaptive: adaptive,
+                moreTabAccentColor: moreTabAccentColor,
+                moreTabPrimaryColor: moreTabPrimaryColor,
+              );
+            },
+            tabBar: CupertinoTabBar(
+              activeColor: selectedColor,
+              items: model.showEditTab
+                  ? (model.mainTabs.map((t) => t.tab).toList()
+                    ..add(BottomNavigationBarItem(
+                      title: Text("More"),
+                      icon: Icon(Icons.more_horiz),
+                    )))
+                  : model.allTabs.map((t) => t.tab).toList(),
+              currentIndex: model.currentIndex,
+              onTap: model.changeTab,
+              backgroundColor: backgroundColor,
+            ),
+          ),
+    );
   }
+}
 
-  void _tabChanged(int index) {
-    print("Index: $index");
-    setState(() {
-      _currentIndex = index;
-    });
-    if (widget.persistIndex) _saveIndex();
+class ContentView extends StatelessWidget {
+  ContentView({
+    @required this.adaptive,
+    @required this.routes,
+    @required this.moreTabAccentColor,
+    @required this.moreTabPrimaryColor,
+  });
+  final bool adaptive;
+  final Map<String, WidgetBuilder> routes;
+  final Color moreTabPrimaryColor;
+  final Color moreTabAccentColor;
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TabState>(
+      builder: (context, model, child) {
+        if (model.showEditTab &&
+            model.isMoreTab &&
+            !(Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
+          if (adaptive && Platform.isIOS) {
+            return CupertinoTabView(
+              routes: routes,
+              builder: (BuildContext context) => MoreTab.fluid(
+                    tabState: model,
+                    adaptive: adaptive,
+                    primaryColor: moreTabPrimaryColor,
+                    accentColor: moreTabAccentColor,
+                    navigator: Navigator.of(context),
+                  ),
+            );
+          }
+          return MoreTab.fluid(
+            primaryColor: moreTabPrimaryColor,
+            accentColor: moreTabAccentColor,
+            adaptive: adaptive,
+            tabState: model,
+            navigator: Navigator.of(context),
+          );
+        }
+
+        if (adaptive && Platform.isIOS) {
+          return CupertinoTabView(
+            routes: routes,
+            builder: (BuildContext context) => Material(child: model.child),
+          );
+        }
+
+        return model.child;
+      },
+    );
   }
-
-  Widget _getBody(BuildContext context) {
-    if (_showEditTab && _moreTab && !_isDesktop()) {
-      if (widget.adaptive && Platform.isIOS) {
-        return CupertinoTabView(
-          routes: widget.routes,
-          builder: (BuildContext context) => MoreTab(
-                tag: widget?.tag ?? "",
-                maxTabs: widget.maxTabs,
-                adaptive: widget.adaptive,
-                currentIndex: _currentIndex,
-                persitIndex: widget.persistIndex,
-                primaryColor: widget?.moreTabPrimaryColor,
-                accentColor: widget?.moreTabAccentColor,
-                navigator: Navigator.of(context),
-                tabs: _items,
-                tabsChanged: (List<DynamicTab> tabs) {
-                  setState(() {
-                    _items = tabs;
-                  });
-                  _saveNewTabs();
-                },
-              ),
-        );
-      }
-      return MoreTab(
-        primaryColor: widget?.moreTabPrimaryColor,
-        accentColor: widget?.moreTabAccentColor,
-        maxTabs: widget.maxTabs,
-        currentIndex: _currentIndex,
-        adaptive: widget.adaptive,
-        tag: widget?.tag ?? "",
-        persitIndex: widget.persistIndex,
-        navigator: Navigator.of(context),
-        tabs: _items,
-        tabsChanged: (List<DynamicTab> tabs) {
-          setState(() {
-            _items = tabs;
-          });
-          _saveNewTabs();
-        },
-      );
-    }
-
-    if (widget.adaptive && Platform.isIOS) {
-      return CupertinoTabView(
-        routes: widget.routes,
-        builder: (BuildContext context) =>
-            Material(child: _items[_currentIndex].child),
-      );
-    }
-
-    return _items[_currentIndex].child;
-  }
-
-  bool get _moreTab => _currentIndex == widget.maxTabs;
-
-  bool get _showEditTab => _items.length > widget.maxTabs;
 }
