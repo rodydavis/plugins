@@ -44,6 +44,8 @@ class MoreTab extends StatelessWidget {
         builder: (_) => tabState,
         child: LayoutBuilder(
           builder: (context, constraints) {
+            final _expanded =
+                masterDetail && constraints.maxWidth >= breakpoint;
             return Consumer<TabState>(
               builder: (context, model, child) {
                 if (adaptive && Platform.isIOS) {
@@ -57,7 +59,7 @@ class MoreTab extends StatelessWidget {
                           child: CupertinoPage(
                             primaryColor: primaryColor,
                             accentColor: accentColor,
-                            masterDetail: masterDetail,
+                            expanded: _expanded,
                             onEdit: () => _goToEditScreen(context, model),
                             onTap: (index) {
                               final _index =
@@ -73,7 +75,7 @@ class MoreTab extends StatelessWidget {
                   return CupertinoPage(
                     primaryColor: primaryColor,
                     accentColor: accentColor,
-                    masterDetail: masterDetail,
+                    expanded: _expanded,
                     onEdit: () => _goToEditScreen(context, model),
                     onTap: (index) async {
                       final _index =
@@ -98,7 +100,7 @@ class MoreTab extends StatelessWidget {
                         child: new MaterialPage(
                           primaryColor: primaryColor,
                           accentColor: accentColor,
-                          masterDetail: masterDetail,
+                          expanded: _expanded,
                           onEdit: () => _goToEditScreen(context, model),
                           onTap: model.changeTab,
                         ),
@@ -110,7 +112,7 @@ class MoreTab extends StatelessWidget {
                 return MaterialPage(
                   primaryColor: primaryColor,
                   accentColor: accentColor,
-                  masterDetail: masterDetail,
+                  expanded: _expanded,
                   onEdit: () => _goToEditScreen(context, model),
                   onTap: (index) async {
                     model.changeTab(index);
@@ -151,12 +153,12 @@ class MaterialPage extends StatelessWidget {
     Key key,
     @required this.primaryColor,
     @required this.accentColor,
-    @required this.masterDetail,
+    @required this.expanded,
     @required this.onEdit,
     @required this.onTap,
   }) : super(key: key);
 
-  final bool masterDetail;
+  final bool expanded;
   final VoidCallback onEdit;
   final ValueChanged<int> onTap;
   final Color primaryColor;
@@ -184,9 +186,8 @@ class MaterialPage extends StatelessWidget {
                 return ListTile(
                   leading: i.tab.icon,
                   title: i.tab.title,
-                  selected: masterDetail ? index == model.subIndex : false,
-                  trailing:
-                      !masterDetail ? Icon(Icons.keyboard_arrow_right) : null,
+                  selected: expanded ? index == model.subIndex : false,
+                  trailing: !expanded ? Icon(Icons.keyboard_arrow_right) : null,
                   onTap: () => onTap(index),
                 );
               },
@@ -203,14 +204,14 @@ class CupertinoPage extends StatelessWidget {
     @required this.accentColor,
     @required this.onTap,
     @required this.onEdit,
-    @required this.masterDetail,
+    @required this.expanded,
   }) : super(key: key);
 
   final Color primaryColor;
   final Color accentColor;
   final ValueChanged<int> onTap;
   final VoidCallback onEdit;
-  final bool masterDetail;
+  final bool expanded;
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +222,7 @@ class CupertinoPage extends StatelessWidget {
                 CupertinoSliverNavigationBar(
                   backgroundColor: primaryColor,
                   actionsForegroundColor: accentColor,
-                  transitionBetweenRoutes: !masterDetail,
+                  transitionBetweenRoutes: !expanded,
                   heroTag: Key('more-tab'),
                   largeTitle: Text("More"),
                   trailing: CupertinoButton(
@@ -250,13 +251,12 @@ class CupertinoPage extends StatelessWidget {
                             child: CupertinoListTile(
                               leading: _icon.icon,
                               title: _text,
-                              selected: masterDetail
-                                  ? index == model.subIndex
-                                  : false,
+                              selected:
+                                  expanded ? index == model.subIndex : false,
                               lastItem: false,
                               ios: CupertinoListTileData(
                                 style: CupertinoCellStyle.subtitle,
-                                accessory: masterDetail
+                                accessory: expanded
                                     ? CupertinoAccessory.none
                                     : CupertinoAccessory.disclosureIndicator,
                               ),

@@ -60,7 +60,9 @@ class TabState extends ChangeNotifier {
     } catch (e) {
       print("Couldn't read tabs: $e");
     }
-    changeTabOrder(_list);
+    if (_list.length == _items.length) {
+      changeTabOrder(_list);
+    }
   }
 
   void changeTabOrder(List<String> _list) {
