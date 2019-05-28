@@ -22,6 +22,8 @@ class DynamicTabScaffold extends StatelessWidget {
     this.type = BottomNavigationBarType.fixed,
     this.moreTabPrimaryColor,
     this.moreTabAccentColor,
+    this.masterDetailOnMoreTab = false,
+    this.breakpoint = 720,
     this.selectedColor,
   })  : adaptive = false,
         routes = null,
@@ -36,6 +38,8 @@ class DynamicTabScaffold extends StatelessWidget {
     this.tag = "",
     @required this.routes,
     this.moreTabPrimaryColor,
+    this.masterDetailOnMoreTab = false,
+    this.breakpoint = 720,
     this.moreTabAccentColor,
     BottomNavigationBarType materialType = BottomNavigationBarType.fixed,
     double materialIconSize,
@@ -46,25 +50,28 @@ class DynamicTabScaffold extends StatelessWidget {
         assert(tabs != null),
         assert(tabs.length >= 2);
 
-  final List<DynamicTab> tabs;
   final bool adaptive;
   final Color backgroundColor;
-  final bool persistIndex;
-  final int maxTabs;
-  final Map<String, WidgetBuilder> routes;
-  final Color selectedColor;
-
-  // Unique Tag for each set of dynamic tabs
-  final String tag;
-
+  final double breakpoint;
   // Material Only
   final double iconSize;
-  // final Color fixedColor;
-  final BottomNavigationBarType type;
+
+  final bool masterDetailOnMoreTab;
+  final int maxTabs;
+  final Color moreTabAccentColor;
   // final Color unselectedItemColor;
 
   final Color moreTabPrimaryColor;
-  final Color moreTabAccentColor;
+
+  final bool persistIndex;
+  final Map<String, WidgetBuilder> routes;
+  final Color selectedColor;
+  final List<DynamicTab> tabs;
+  // Unique Tag for each set of dynamic tabs
+  final String tag;
+
+  // final Color fixedColor;
+  final BottomNavigationBarType type;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +87,8 @@ class DynamicTabScaffold extends StatelessWidget {
               routes: routes,
               adaptive: adaptive,
               maxTabs: maxTabs,
+              breakpoint: breakpoint,
+              masterDetailOnMoreTab: masterDetailOnMoreTab,
               moreTabAccentColor: moreTabAccentColor,
               moreTabPrimaryColor: moreTabPrimaryColor,
             );
@@ -89,6 +98,8 @@ class DynamicTabScaffold extends StatelessWidget {
               (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
             return new DesktopView(
               routes: routes,
+              breakpoint: breakpoint,
+              masterDetailOnMoreTab: masterDetailOnMoreTab,
               adaptive: adaptive,
               moreTabAccentColor: moreTabAccentColor,
               moreTabPrimaryColor: moreTabPrimaryColor,
@@ -97,6 +108,8 @@ class DynamicTabScaffold extends StatelessWidget {
 
           return new MaterialView(
             routes: routes,
+            breakpoint: breakpoint,
+            masterDetailOnMoreTab: masterDetailOnMoreTab,
             adaptive: adaptive,
             moreTabAccentColor: moreTabAccentColor,
             moreTabPrimaryColor: moreTabPrimaryColor,
@@ -122,16 +135,20 @@ class MaterialView extends StatelessWidget {
     @required this.maxTabs,
     @required this.backgroundColor,
     @required this.type,
+    @required this.breakpoint,
+    @required this.masterDetailOnMoreTab,
   }) : super(key: key);
 
-  final Map routes;
   final bool adaptive;
+  final Color backgroundColor;
+  final int maxTabs;
   final Color moreTabAccentColor;
   final Color moreTabPrimaryColor;
+  final Map routes;
   final Color selectedColor;
-  final int maxTabs;
-  final Color backgroundColor;
   final BottomNavigationBarType type;
+  final bool masterDetailOnMoreTab;
+  final double breakpoint;
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +157,8 @@ class MaterialView extends StatelessWidget {
             body: ContentView(
               routes: routes,
               adaptive: adaptive,
+              breakpoint: breakpoint,
+              masterDetailOnMoreTab: masterDetailOnMoreTab,
               moreTabAccentColor: moreTabAccentColor,
               moreTabPrimaryColor: moreTabPrimaryColor,
             ),
@@ -170,12 +189,16 @@ class DesktopView extends StatelessWidget {
     @required this.adaptive,
     @required this.moreTabAccentColor,
     @required this.moreTabPrimaryColor,
+    @required this.breakpoint,
+    @required this.masterDetailOnMoreTab,
   }) : super(key: key);
 
-  final Map routes;
   final bool adaptive;
   final Color moreTabAccentColor;
   final Color moreTabPrimaryColor;
+  final Map routes;
+  final bool masterDetailOnMoreTab;
+  final double breakpoint;
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +207,8 @@ class DesktopView extends StatelessWidget {
             body: ContentView(
               routes: routes,
               adaptive: adaptive,
+              breakpoint: breakpoint,
+              masterDetailOnMoreTab: masterDetailOnMoreTab,
               moreTabAccentColor: moreTabAccentColor,
               moreTabPrimaryColor: moreTabPrimaryColor,
             ),
@@ -226,15 +251,19 @@ class CupertinoView extends StatelessWidget {
     @required this.routes,
     @required this.moreTabAccentColor,
     @required this.moreTabPrimaryColor,
+    @required this.breakpoint,
+    @required this.masterDetailOnMoreTab,
   }) : super(key: key);
 
-  final Color selectedColor;
-  final int maxTabs;
-  final Color backgroundColor;
   final bool adaptive;
-  final Map<String, WidgetBuilder> routes;
-  final Color moreTabPrimaryColor;
+  final Color backgroundColor;
+  final int maxTabs;
   final Color moreTabAccentColor;
+  final Color moreTabPrimaryColor;
+  final Map<String, WidgetBuilder> routes;
+  final Color selectedColor;
+  final bool masterDetailOnMoreTab;
+  final double breakpoint;
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +273,8 @@ class CupertinoView extends StatelessWidget {
               return ContentView(
                 routes: routes,
                 adaptive: adaptive,
+                breakpoint: breakpoint,
+                masterDetailOnMoreTab: masterDetailOnMoreTab,
                 moreTabAccentColor: moreTabAccentColor,
                 moreTabPrimaryColor: moreTabPrimaryColor,
               );
@@ -272,11 +303,17 @@ class ContentView extends StatelessWidget {
     @required this.routes,
     @required this.moreTabAccentColor,
     @required this.moreTabPrimaryColor,
+    @required this.breakpoint,
+    @required this.masterDetailOnMoreTab,
   });
+
   final bool adaptive;
-  final Map<String, WidgetBuilder> routes;
-  final Color moreTabPrimaryColor;
   final Color moreTabAccentColor;
+  final Color moreTabPrimaryColor;
+  final Map<String, WidgetBuilder> routes;
+  final bool masterDetailOnMoreTab;
+  final double breakpoint;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TabState>(
@@ -287,16 +324,38 @@ class ContentView extends StatelessWidget {
           if (adaptive && Platform.isIOS) {
             return CupertinoTabView(
               routes: routes,
-              builder: (BuildContext context) => MoreTab.fluid(
+              builder: (BuildContext context) {
+                if (masterDetailOnMoreTab) {
+                  return MoreTab.fluid(
                     tabState: model,
+                    breakpoint: breakpoint,
                     adaptive: adaptive,
                     primaryColor: moreTabPrimaryColor,
                     accentColor: moreTabAccentColor,
                     navigator: Navigator.of(context),
-                  ),
+                  );
+                }
+                return MoreTab(
+                  tabState: model,
+                  adaptive: adaptive,
+                  primaryColor: moreTabPrimaryColor,
+                  accentColor: moreTabAccentColor,
+                  navigator: Navigator.of(context),
+                );
+              },
             );
           }
-          return MoreTab.fluid(
+          if (masterDetailOnMoreTab) {
+            return MoreTab.fluid(
+              primaryColor: moreTabPrimaryColor,
+              accentColor: moreTabAccentColor,
+              adaptive: adaptive,
+              breakpoint: breakpoint,
+              tabState: model,
+              navigator: Navigator.of(context),
+            );
+          }
+          return MoreTab(
             primaryColor: moreTabPrimaryColor,
             accentColor: moreTabAccentColor,
             adaptive: adaptive,

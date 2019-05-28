@@ -1,3 +1,8 @@
+## 1.0.2 - 05.28.2019
+
+* Adding `masterDetailOnMoreTab` which will show a splitview for tablets in landscape
+* Updated Example
+
 ## 1.0.1 - 05.14.2019
 
 * Upgrading Dependencies

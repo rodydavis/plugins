@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
       routes: _buildRoutes(context),
       persistIndex: true,
       maxTabs: 4,
+      masterDetailOnMoreTab: true,
       tabs: <DynamicTab>[
         DynamicTab(
           child: RandomScreen(
