@@ -36,33 +36,37 @@ class _EditScreenState extends State<EditScreen> {
           style: CupertinoTheme.of(context).textTheme.textStyle,
           child: CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
+              transitionBetweenRoutes: false,
+              heroTag: 'more-tab',
               trailing: CupertinoButton(
                 padding: EdgeInsets.all(0.0),
                 child: Text("Save"),
                 onPressed: () => _saveTabs(context),
               ),
             ),
-            child: Flex(
-              direction: Axis.vertical,
-              children: <Widget>[
-                Flexible(
-                  flex: MediaQuery.of(context).size.height < 400 ? 5 : 9,
-                  child: _buildBody(context),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: BottomEditableTabBar(
-                    adaptive: widget.adaptive,
-                    maxTabs: widget.maxTabs,
-                    tabs: _tabs,
-                    onChanged: (List<DynamicTab> tabs) {
-                      setState(() {
-                        _tabs = tabs;
-                      });
-                    },
-                  ),
-                ),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: _buildBody(context, constraints),
+                    ),
+                    Container(
+                      height: 100.0,
+                      child: BottomEditableTabBar(
+                        adaptive: widget.adaptive,
+                        maxTabs: widget.maxTabs,
+                        tabs: _tabs,
+                        onChanged: (List<DynamicTab> tabs) {
+                          setState(() {
+                            _tabs = tabs;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ));
     }
@@ -77,32 +81,34 @@ class _EditScreenState extends State<EditScreen> {
               ),
             ],
           ),
-          body: Flex(
-            direction: Axis.vertical,
-            children: <Widget>[
-              Flexible(
-                flex: MediaQuery.of(context).size.height < 400 ? 5 : 9,
-                child: _buildBody(context),
-              ),
-              Flexible(
-                flex: 1,
-                child: BottomEditableTabBar(
-                  adaptive: widget.adaptive,
-                  maxTabs: widget.maxTabs,
-                  tabs: _tabs,
-                  onChanged: (List<DynamicTab> tabs) {
-                    setState(() {
-                      _tabs = tabs;
-                    });
-                  },
-                ),
-              ),
-            ],
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                children: <Widget>[
+                  Expanded(
+                    child: _buildBody(context, constraints),
+                  ),
+                  Container(
+                    height: 100.0,
+                    child: BottomEditableTabBar(
+                      adaptive: widget.adaptive,
+                      maxTabs: widget.maxTabs,
+                      tabs: _tabs,
+                      onChanged: (List<DynamicTab> tabs) {
+                        setState(() {
+                          _tabs = tabs;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ));
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context, BoxConstraints constraints) {
     return Center(
       child: SafeArea(
         child: Column(
@@ -123,12 +129,7 @@ class _EditScreenState extends State<EditScreen> {
                 padding: EdgeInsets.all(10.0),
                 child: GridView.count(
                   shrinkWrap: true,
-                  crossAxisCount: (MediaQuery.of(context).orientation ==
-                                  Orientation.landscape &&
-                              MediaQuery.of(context).size.width > 600) ||
-                          MediaQuery.of(context).size.width > 600
-                      ? 6
-                      : 4,
+                  crossAxisCount: (constraints.maxWidth / 100).round(),
                   children: _tabs
                       .map(
                         (t) => GridTabItem(
