@@ -171,12 +171,13 @@ class CupertinoTableCell extends StatelessWidget {
     return Slidable(
       key: key,
       controller: slideableController,
-      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
-        onDismissed: (SlideActionType actionType) {
+      dismissal: SlidableDismissal(
+        child: SlidableDrawerDismissal(),
+        onDismissed: (actionType) {
           onDelete();
         },
       ),
-      delegate: new SlidableScrollDelegate(),
+      actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: _child,
       actions: leadingActions,

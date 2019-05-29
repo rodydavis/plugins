@@ -1,3 +1,8 @@
+## 1.3.2 - 05.0629.2019
+
+* Upgrading Packages
+* Working with Flutter dev channel
+
 ## 1.2.1 - 05.06.2019
 
 * Upgrading Packages

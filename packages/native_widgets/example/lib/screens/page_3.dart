@@ -224,9 +224,10 @@ class Page3State extends State<Page3> with SingleTickerProviderStateMixin {
       default:
     }
     return new Slidable(
+      actionPane: SlidableDrawerActionPane(),
       key: Key(item[0]),
-      delegate: new SlidableDrawerDelegate(),
-      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
+      dismissal: SlidableDismissal(
+        child: SlidableDrawerDismissal(),
         onDismissed: (actionType) {
           _removeItem(item);
         },

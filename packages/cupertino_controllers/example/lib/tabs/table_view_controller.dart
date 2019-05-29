@@ -213,12 +213,14 @@ class TableViewScreenState extends State<TableViewScreen>
     }
     return new Slidable(
       key: Key(item[0]),
-      delegate: new SlidableDrawerDelegate(),
-      slideToDismissDelegate: new SlideToDismissDrawerDelegate(
+
+      dismissal: SlidableDismissal(
+        child: SlidableDrawerDismissal(),
         onDismissed: (actionType) {
           _removeItem(item);
         },
       ),
+      actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       closeOnScroll: true,
       child: CupertinoListTile(

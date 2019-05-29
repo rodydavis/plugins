@@ -1,8 +1,9 @@
 name: native_widgets
 description: A new Flutter package for using Android and iOS natively on each platform.
-version: 1.3.1
+version: 1.3.2
 author: Rhodes Davis Jr. <rody.davis.jr@gmail.com>
-homepage: https://github.com/AppleEducate/plugins
+homepage: https://github.com/fluttercommunity/native_widgets
+maintainer: Rody Davis (@AppleEducate)
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
@@ -12,12 +13,12 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_sticky_header: ^0.3.4
+  flutter_sticky_header: ^0.4.0
   uuid: ^2.0.1
   intl: ^0.15.8
   flutter_list_drag_and_drop: ^0.1.6
-  flutter_slidable: ^0.4.9
-  flutter_platform_widgets: ^0.9.6
+  flutter_slidable: ^0.5.3
+  flutter_platform_widgets: ^0.10.0
 
 dev_dependencies:
   flutter_test:
