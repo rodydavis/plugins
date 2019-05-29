@@ -115,10 +115,14 @@ class MoreTab extends StatelessWidget {
                   expanded: _expanded,
                   onEdit: () => _goToEditScreen(context, model),
                   onTap: (index) async {
-                    model.changeTab(index);
+                    final _index =
+                        model.allTabs.indexOf(model.extraTabs[index]);
+                    model.changeTab(_index);
                     await navigator.push(
                       MaterialPageRoute(
-                        builder: (context) => model.child,
+                        builder: (context) {
+                          return Material(child: model.child);
+                        },
                       ),
                     );
                   },
