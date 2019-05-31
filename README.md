@@ -49,7 +49,7 @@ These are the available plugins in this repository.
 | [dynamic_tabs](./packages/dynamic_tabs/) | [![pub package](https://img.shields.io/pub/v/dynamic_tabs.svg)](https://pub.dartlang.org/packages/dynamic_tabs) |
 | [sheet_music](./packages/sheet_music/) | [![pub package](https://img.shields.io/pub/v/sheet_music.svg)](https://pub.dartlang.org/packages/sheet_music) |
 | [floating_search_bar](./packages/floating_search_bar/) | [![pub package](https://img.shields.io/pub/v/floating_search_bar.svg)](https://pub.dartlang.org/packages/floating_search_bar) |
-| [responsive_scaffold](https://github.com/appleeducate/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
+| [responsive_scaffold](https://github.com/fluttercommunity/responsive_scaffold/) | [![pub package](https://img.shields.io/pub/v/responsive_scaffold.svg)](https://pub.dartlang.org/packages/responsive_scaffold) |
 | [mobile_popup](./packages/mobile_popup/) | [![pub package](https://img.shields.io/pub/v/mobile_popup.svg)](https://pub.dartlang.org/packages/mobile_popup) |
 | [mobile_sidebar](./packages/mobile_sidebar/) | [![pub package](https://img.shields.io/pub/v/mobile_sidebar.svg)](https://pub.dartlang.org/packages/mobile_sidebar) |
 | [dart_firebase](./packages/dart_firebase/) | [![pub package](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dartlang.org/packages/dart_firebase) |
