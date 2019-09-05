@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "561515444898",
+    "firebase_url": "https://ampstor.firebaseio.com",
+    "project_id": "ampstor",
+    "storage_bucket": "ampstor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561515444898:android:c44e88c6742ee33b2db5fb",
+        "android_client_info": {
+          "package_name": "com.ampstor.ampstorEditor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561515444898-iclpvacguldmm52dhtbeicrfo1rliad5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpF7pc7lpLZXP2zp_c8nTdA1q3uGUsK3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561515444898-bgep805c1svq9p8r282oqbu5spla02ff.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "561515444898-8eeqkmhu3cku8iqlmrb9jlvdnp9ge1aa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ampstor.ampstorEditor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
