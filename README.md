@@ -54,5 +54,4 @@ These are the available plugins in this repository.
 | [mobile_sidebar](./packages/mobile_sidebar/) | [![pub package](https://img.shields.io/pub/v/mobile_sidebar.svg)](https://pub.dartlang.org/packages/mobile_sidebar) |
 | [dart_firebase](./packages/dart_firebase/) | [![pub package](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dartlang.org/packages/dart_firebase) |
 | [breakpoint](https://github.com/appleeducate/breakpoint/) | [![pub package](https://img.shields.io/pub/v/breakpoint.svg)](https://pub.dartlang.org/packages/breakpoint) |
-
-
+| [fb_auth](https://github.com/appleeducate/fb_auth/) | [![pub package](https://img.shields.io/pub/v/fb_auth.svg)](https://pub.dartlang.org/packages/fb_auth) |
