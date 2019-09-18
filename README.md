@@ -55,4 +55,4 @@ These are the available plugins in this repository.
 | [dart_firebase](./packages/dart_firebase/) | [![pub package](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dartlang.org/packages/dart_firebase) |
 | [breakpoint](https://github.com/fluttercommunity/breakpoint/) | [![pub package](https://img.shields.io/pub/v/breakpoint.svg)](https://pub.dartlang.org/packages/breakpoint) |
 | [fb_auth](https://github.com/appleeducate/fb_auth/) | [![pub package](https://img.shields.io/pub/v/fb_auth.svg)](https://pub.dartlang.org/packages/fb_auth) |
-| [fb_auth](https://github.com/fluttercommunity/page_turn) | [![pub package](https://img.shields.io/pub/v/page_turn.svg)](https://pub.dartlang.org/packages/page_turn) |
+| [page_turn](https://github.com/fluttercommunity/page_turn) | [![pub package](https://img.shields.io/pub/v/page_turn.svg)](https://pub.dartlang.org/packages/page_turn) |
