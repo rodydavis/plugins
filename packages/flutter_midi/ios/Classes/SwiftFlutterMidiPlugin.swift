@@ -14,10 +14,6 @@ public class SwiftFlutterMidiPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    #if targetEnvironment(simulator)
-      let message = "Could Not Load Midi on this Device. (Cannot run on simulator), have you included the sound font?"
-      result(message)
-    #else
     switch call.method {
       case "prepare_midi":
        var map = call.arguments as? Dictionary<String, String>
@@ -59,6 +55,5 @@ public class SwiftFlutterMidiPlugin: NSObject, FlutterPlugin {
         result(FlutterMethodNotImplemented)
         break
     }
-    #endif
   }
 }
