@@ -40,10 +40,10 @@ public class FlutterMidiPlugin implements MethodCallHandler {
         recv = synth.getReceiver();
         result.success("success");
       } catch (IOException e) {
-        result.error(e.getMessage());
+        result.error("error", e.getMessage(), null);
         e.printStackTrace();
       } catch (MidiUnavailableException e) {
-        result.error(e.getMessage());
+        result.error("error", e.getMessage(), null);
         e.printStackTrace();
       }
     } else if (call.method.equals("change_sound")) {
@@ -59,10 +59,10 @@ public class FlutterMidiPlugin implements MethodCallHandler {
         recv = synth.getReceiver();
         result.success("success");
       } catch (IOException e) {
-        result.error(e.getMessage());
+        result.error("error", e.getMessage(), null);
         e.printStackTrace();
       } catch (MidiUnavailableException e) {
-        result.error(e.getMessage());
+        result.error("error", e.getMessage(), null);
         e.printStackTrace();
       }
     } else if (call.method.equals("play_midi_note")) {
@@ -73,7 +73,7 @@ public class FlutterMidiPlugin implements MethodCallHandler {
         recv.send(msg, -1);
         result.success("success");
       } catch (InvalidMidiDataException e) {
-        result.error(e.getMessage());
+        result.error("error", e.getMessage(), null);
         e.printStackTrace();
       }
     } else if (call.method.equals("stop_midi_note")) {
@@ -84,7 +84,7 @@ public class FlutterMidiPlugin implements MethodCallHandler {
         recv.send(msg, -1);
         result.success("success");
       } catch (InvalidMidiDataException e) {
-        result.error(e.getMessage());
+        result.error("error", e.getMessage(), null);
         e.printStackTrace();
       }
     } else {
