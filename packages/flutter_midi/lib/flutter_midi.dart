@@ -66,6 +66,8 @@ class FlutterMidi {
     final Map<dynamic, dynamic> mapData = <dynamic, dynamic>{};
     print("Pressed: $midi");
     mapData["note"] = midi;
-    return await _channel.invokeMethod('play_midi_note', mapData);
+    final String result =
+        await _channel.invokeMethod('play_midi_note', mapData);
+    return result;
   }
 }
