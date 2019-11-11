@@ -88,7 +88,7 @@ public class FlutterMidiPlugin implements MethodCallHandler {
         e.printStackTrace();
       }
     } else {
-      result.notImplemented();
+      result.success(null);
     }
   }
 }
