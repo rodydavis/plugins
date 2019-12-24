@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,31 +5,32 @@ import 'package:flutter/widgets.dart';
 import 'package:mobile_sidebar/mobile_sidebar.dart';
 
 void main() {
-  _setTargetPlatformForDesktop();
+  // _setTargetPlatformForDesktop();
   runApp(MyApp());
 }
 
-/// If the current platform is desktop, override the default platform to
-/// a supported platform (iOS for macOS, Android for Linux and Windows).
-/// Otherwise, do nothing.
-void _setTargetPlatformForDesktop() {
-  TargetPlatform targetPlatform;
-  if (Platform.isMacOS) {
-    targetPlatform = TargetPlatform.iOS;
-  } else if (Platform.isLinux || Platform.isWindows) {
-    targetPlatform = TargetPlatform.android;
-  }
-  if (targetPlatform != null) {
-    debugDefaultTargetPlatformOverride = targetPlatform;
-  }
-}
+// /// If the current platform is desktop, override the default platform to
+// /// a supported platform (iOS for macOS, Android for Linux and Windows).
+// /// Otherwise, do nothing.
+// void _setTargetPlatformForDesktop() {
+//   TargetPlatform targetPlatform;
+//   if (Platform.isMacOS) {
+//     targetPlatform = TargetPlatform.iOS;
+//   } else if (Platform.isLinux || Platform.isWindows) {
+//     targetPlatform = TargetPlatform.android;
+//   }
+//   if (targetPlatform != null) {
+//     debugDefaultTargetPlatformOverride = targetPlatform;
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new HomeScreen(),
+      theme: ThemeData.light(),
+      home: HomeScreen(),
     );
   }
 }
@@ -42,118 +41,142 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _showList = false;
-  bool _bottomNav = false;
-  final _breakpoint = 800.0;
+  int index = 0;
+  bool searching = false;
   @override
   Widget build(BuildContext context) {
+    bool _loggedIn = false;
     return Scaffold(
       body: MobileSidebar(
-        showAppBar: !_bottomNav,
-        title: 'Mobile Sidebar Example',
-        breakPoint: _breakpoint,
-        persistIndex: true,
-        mobileBottomNavigation: _bottomNav,
-        nestedNavigation: true,
-        items: <MenuItem>[
-          MenuItem(
-            icon: Icons.edit,
-            color: Colors.black,
-            title: 'Manage',
-            subtitle: 'Edit, Share, Delete',
-            child: NewScreen(
-              color: Colors.blueAccent,
-              name: 'Blue Screen',
-            ),
-          ),
-          MenuItem(
-            icon: Icons.event,
-            color: Colors.blueAccent,
-            title: 'Tasks',
-            subtitle: 'Personal Tasks',
-            child: NewScreen(
-              color: Colors.purpleAccent,
-              name: 'Purple Screen',
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.info),
-                onPressed: () {},
-              )
-            ],
-          ),
-          MenuItem(
-            icon: Icons.timer,
-            color: Colors.blueGrey,
-            title: 'Log',
-            subtitle: 'History of Results',
-            child: NewScreen(
-              color: Colors.black,
-              name: 'Black Screen',
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.access_alarm),
-                onPressed: () {},
-              )
-            ],
-          ),
-          MenuItem(
-            icon: Icons.star,
-            color: Colors.amber,
-            title: 'Favorites',
-            subtitle: 'Custom List',
-            child: NewScreen(
-              color: Colors.yellow,
-              name: 'Yellow Screen',
-            ),
-          ),
-          MenuItem(
-            icon: Icons.inbox,
-            color: Colors.green,
-            title: 'Green',
-            subtitle: 'Green Screen',
-            child: NewScreen(
-              color: Colors.green,
-              name: 'Green Screen',
-            ),
-          ),
-          MenuItem(
-            icon: Icons.perm_camera_mic,
-            color: Colors.brown,
-            title: 'Brown',
-            subtitle: 'Brown Screen',
-            child: NewScreen(
-              color: Colors.brown,
-              name: 'Brown Screen',
-            ),
-          ),
-          MenuItem(
-            icon: Icons.bluetooth,
-            color: Colors.lightBlue,
+        currentIndex: index,
+        onTabChanged: (val) {
+          if (mounted)
+            setState(() {
+              index = val;
+            });
+        },
+        isSearching: searching,
+        isSearchChanged: (val) {
+          if (mounted)
+            setState(() {
+              searching = val;
+            });
+        },
+        titleBuilder: (context) {
+          return FancyTitle(
+            title: Text("My Logo"),
+            logo: FlutterLogo(),
+          );
+        },
+        accountBuilder: (context) {
+          if (_loggedIn) {
+            return CircleAvatar(
+              child: Icon(Icons.person),
+            );
+          }
+          return FlatButton(
+            child: Text("Sign In"),
+            onPressed: () {},
+          );
+        },
+        showSearchButton: true,
+        tabs: <TabChild>[
+          TabChild(
+            icon: Icon(Icons.bluetooth),
             title: 'Light Blue',
-            subtitle: 'Light Blue Screen',
-            child: NewScreen(
+            builder: (context) => NewScreen(
               color: Colors.lightBlue,
               name: 'Light Blue Screen',
             ),
           ),
+          TabChild(
+            icon: Icon(Icons.info),
+            title: 'Light Green',
+            builder: (context) => NewScreen(
+              color: Colors.lightGreen,
+              name: 'Light Green Screen',
+            ),
+          ),
+          TabChild(
+            icon: Icon(Icons.person),
+            title: 'Red',
+            builder: (context) => NewScreen(
+              color: Colors.red,
+              name: 'Red Screen',
+            ),
+          ),
+          TabChild(
+            icon: Icon(Icons.info),
+            title: 'Light Green 3',
+            builder: (context) => NewScreen(
+              color: Colors.lightGreen,
+              name: 'Light Green Screen',
+            ),
+          ),
+          TabChild(
+            icon: Icon(Icons.person),
+            title: 'Red 3',
+            builder: (context) => NewScreen(
+              color: Colors.red,
+              name: 'Red Screen',
+            ),
+          ),
+          TabChild(
+            icon: Icon(Icons.info),
+            title: 'Light Green 4',
+            builder: (context) => NewScreen(
+              color: Colors.lightGreen,
+              name: 'Light Green Screen',
+            ),
+          ),
+          TabChild(
+            icon: Icon(Icons.person),
+            title: 'Red 4',
+            builder: (context) => NewScreen(
+              color: Colors.red,
+              name: 'Red Screen',
+            ),
+          ),
         ],
-        showList: _showList,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.redAccent,
-          heroTag: 'toggle_grid',
-          label: Text('${_bottomNav ? 'Hide' : 'Show'} Bottom Bar'),
-          icon: Icon(Icons.border_bottom),
-          onPressed: () {
-            if (mounted)
-              setState(() {
-                _bottomNav = !_bottomNav;
-              });
-          },
-        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // floatingActionButton: FloatingActionButton.extended(
+        //   backgroundColor: Colors.redAccent,
+        //   heroTag: 'toggle_grid',
+        //   label: Text('${_bottomNav ? 'Hide' : 'Show'} Bottom Bar'),
+        //   icon: Icon(Icons.border_bottom),
+        //   onPressed: () {
+        //     if (mounted)
+        //       setState(() {
+        //         _bottomNav = !_bottomNav;
+        //       });
+        //   },
+        // ),
       ),
+    );
+  }
+}
+
+class FancyTitle extends StatelessWidget {
+  const FancyTitle({
+    Key key,
+    @required this.title,
+    this.logo,
+  }) : super(key: key);
+
+  final Widget title;
+  final Widget logo;
+
+  @override
+  Widget build(BuildContext context) {
+    if (logo == null) {
+      return logo;
+    }
+    return Row(
+      children: <Widget>[
+        logo,
+        Container(width: 4.0),
+        title,
+      ],
     );
   }
 }
@@ -178,7 +201,10 @@ class NewScreen extends StatelessWidget {
           label: Text("Push to Screen"),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => NewScreen(color: color, name: name),
+              builder: (_) => Scaffold(
+                appBar: AppBar(),
+                body: NewScreen(color: color, name: name),
+              ),
             ));
           },
         ),
