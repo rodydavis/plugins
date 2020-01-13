@@ -1,15 +1,6 @@
 [submodule "packages/fb_auth"]
 	path = packages/fb_auth
 	url = git@github.com:rodydavis/fb_auth.git
-[submodule "packages/get_version"]
-	path = packages/get_version
-	url = git@github.com:rodydavis/get_version.git
-[submodule "packages/app_review"]
-	path = packages/app_review
-	url = git@github.com:rodydavis/app_review.git
-[submodule "packages/flutter_whatsnew"]
-	path = packages/flutter_whatsnew
-	url = git@github.com:rodydavis/flutter_whatsnew.git
 [submodule "packages/cupertino_controllers"]
 	path = packages/cupertino_controllers
 	url = git@github.com:rodydavis/cupertino_controllers.git
@@ -22,9 +13,6 @@
 [submodule "packages/dynamic_tabs"]
 	url = git@github.com:rodydavis/dynamic_tabs.git
 	path = packages/dynamic_tabs
-[submodule "packages/floating_search_bar"]
-	path = packages/floating_search_bar
-	url = git@github.com:rodydavis/floating_search_bar.git
 [submodule "packages/floating_search_bar"]
 	path = packages/floating_search_bar
 	url = git@github.com:rodydavis/floating_search_bar.git
