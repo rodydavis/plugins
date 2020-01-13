@@ -39,3 +39,9 @@
 [submodule "packages/sheet_music"]
 	path = packages/sheet_music
 	url = git@github.com:rodydavis/sheet_music.git
+[submodule "packages/fb_firestore"]
+	path = packages/fb_firestore
+	url = git@github.com:rodydavis/fb_firestore.git
+[submodule "packages/fb_storage"]
+	path = packages/fb_storage
+	url = git@github.com:rodydavis/fb_storage.git

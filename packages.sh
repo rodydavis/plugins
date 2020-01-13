@@ -1,0 +1,12 @@
+git submodule add git@github.com:rodydavis/app_review.git packages/app_review
+git submodule add git@github.com:rodydavis/get_version.git packages/get_version
+git submodule add git@github.com:rodydavis/fb_auth.git packages/fb_auth
+git submodule add git@github.com:rodydavis/floating_search_bar.git packages/floating_search_bar
+git submodule add git@github.com:rodydavis/flutter_midi.git packages/flutter_midi
+git submodule add git@github.com:rodydavis/flutter_whatsnew.git packages/flutter_whatsnew
+git submodule add git@github.com:rodydavis/mobile_popup.git packages/mobile_popup
+git submodule add git@github.com:rodydavis/mobile_sidebar.git packages/mobile_sidebar
+git submodule add git@github.com:rodydavis/sheet_music.git packages/sheet_music
+git submodule add git@github.com:rodydavis/dynamic_tabs.git packages/dynamic_tabs
+git submodule add git@github.com:rodydavis/fb_firestore.git packages/fb_firestore
+git submodule add git@github.com:rodydavis/fb_storage.git packages/fb_storage
