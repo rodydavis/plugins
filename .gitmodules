@@ -61,3 +61,4 @@
 [submodule "packages/dart_firebase"]
 	path = packages/dart_firebase
 	url = git@github.com:rodydavis/dart_firebase.git
+
