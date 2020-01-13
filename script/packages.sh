@@ -17,6 +17,6 @@ git submodule add git@github.com:fluttercommunity/flutter_whatsnew.git community
 git submodule add git@github.com:fluttercommunity/app_review.git community/app_review
 git submodule add git@github.com:fluttercommunity/get_version.git community/get_version
 git submodule add git@github.com:fluttercommunity/flutter_sms.git community/flutter_sms
-git submodule add git@github.com:fluttercommunity/native_widgets.git temp/native_widgets
+git submodule add git@github.com:fluttercommunity/native_widgets.git community/native_widgets
 git submodule add git@github.com:fluttercommunity/responsive_scaffold.git community/responsive_scaffold
 git submodule add git@github.com:fluttercommunity/breakpoint.git community/breakpoint

@@ -62,3 +62,6 @@
 	path = packages/dart_firebase
 	url = git@github.com:rodydavis/dart_firebase.git
 
+[submodule "community/native_widgets"]
+	path = community/native_widgets
+	url = git@github.com:fluttercommunity/native_widgets.git
