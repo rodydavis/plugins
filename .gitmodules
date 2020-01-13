@@ -21,6 +21,7 @@
 	url = git@github.com:rodydavis/data_tables.git
 [submodule "packages/dynamic_tabs"]
 	url = git@github.com:rodydavis/dynamic_tabs.git
+	path = packages/dynamic_tabs
 [submodule "packages/floating_search_bar"]
 	path = packages/floating_search_bar
 	url = git@github.com:rodydavis/floating_search_bar.git
@@ -45,3 +46,27 @@
 [submodule "packages/fb_storage"]
 	path = packages/fb_storage
 	url = git@github.com:rodydavis/fb_storage.git
+[submodule "community/persist_theme"]
+	path = community/persist_theme
+	url = git@github.com:fluttercommunity/persist_theme.git
+[submodule "packages/easy_web_view"]
+	path = packages/easy_web_view
+	url = git@github.com:rodydavis/easy_web_view.git
+[submodule "packages/easy_google_maps"]
+	path = packages/easy_google_maps
+	url = git@github.com:rodydavis/easy_google_maps.git
+[submodule "community/flutter_whatsnew"]
+	path = community/flutter_whatsnew
+	url = git@github.com:fluttercommunity/flutter_whatsnew.git
+[submodule "community/app_review"]
+	path = community/app_review
+	url = git@github.com:fluttercommunity/app_review.git
+[submodule "community/get_version"]
+	path = community/get_version
+	url = git@github.com:fluttercommunity/get_version.git
+[submodule "community/flutter_sms"]
+	path = community/flutter_sms
+	url = git@github.com:fluttercommunity/flutter_sms.git
+[submodule "community/native_widgets"]
+	path = community/native_widgets
+	url = git@github.com:fluttercommunity/native_widgets.git
