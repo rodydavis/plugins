@@ -1,0 +1,3 @@
+[submodule "packages/fb_auth"]
+	path = packages/fb_auth
+	url = git@github.com:rodydavis/fb_auth.git
