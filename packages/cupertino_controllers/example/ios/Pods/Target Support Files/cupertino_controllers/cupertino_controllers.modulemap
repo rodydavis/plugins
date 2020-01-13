@@ -1,6 +1,0 @@
-framework module cupertino_controllers {
-  umbrella header "cupertino_controllers-umbrella.h"
-
-  export *
-  module * { export * }
-}

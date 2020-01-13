@@ -1,3 +1,12 @@
 [submodule "packages/fb_auth"]
 	path = packages/fb_auth
 	url = git@github.com:rodydavis/fb_auth.git
+[submodule "packages/get_version"]
+	path = packages/get_version
+	url = git@github.com:rodydavis/get_version.git
+[submodule "packages/app_review"]
+	path = packages/app_review
+	url = git@github.com:rodydavis/app_review.git
+[submodule "packages/flutter_whatsnew"]
+	path = packages/flutter_whatsnew
+	url = git@github.com:rodydavis/flutter_whatsnew.git
