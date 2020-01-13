@@ -67,6 +67,9 @@
 [submodule "community/flutter_sms"]
 	path = community/flutter_sms
 	url = git@github.com:fluttercommunity/flutter_sms.git
-[submodule "community/native_widgets"]
-	path = community/native_widgets
-	url = git@github.com:fluttercommunity/native_widgets.git
+[submodule "community/responsive_scaffold"]
+	path = community/responsive_scaffold
+	url = git@github.com:fluttercommunity/responsive_scaffold.git
+[submodule "community/breakpoint"]
+	path = community/breakpoint
+	url = git@github.com:fluttercommunity/breakpoint.git
