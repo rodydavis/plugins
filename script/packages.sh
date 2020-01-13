@@ -6,6 +6,9 @@ git submodule add git@github.com:rodydavis/mobile_popup.git packages/mobile_popu
 git submodule add git@github.com:rodydavis/mobile_sidebar.git packages/mobile_sidebar
 git submodule add git@github.com:rodydavis/sheet_music.git packages/sheet_music
 git submodule add git@github.com:rodydavis/dynamic_tabs.git packages/dynamic_tabs
+git submodule add git@github.com:rodydavis/data_tables.git packages/data_tables
+git submodule add git@github.com:rodydavis/cupertino_controllers.git packages/cupertino_controllers
+git submodule add git@github.com:rodydavis/dart_firebase.git packages/dart_firebase
 git submodule add git@github.com:rodydavis/floating_search_bar.git packages/floating_search_bar
 git submodule add git@github.com:rodydavis/easy_web_view.git packages/easy_web_view
 git submodule add git@github.com:rodydavis/easy_google_maps.git packages/easy_google_maps

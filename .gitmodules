@@ -1,15 +1,6 @@
 [submodule "packages/fb_auth"]
 	path = packages/fb_auth
 	url = git@github.com:rodydavis/fb_auth.git
-[submodule "packages/cupertino_controllers"]
-	path = packages/cupertino_controllers
-	url = git@github.com:rodydavis/cupertino_controllers.git
-[submodule "packages/dart_firebase"]
-	path = packages/dart_firebase
-	url = git@github.com:rodydavis/dart_firebase.git
-[submodule "packages/data_tables"]
-	path = packages/data_tables
-	url = git@github.com:rodydavis/data_tables.git
 [submodule "packages/dynamic_tabs"]
 	url = git@github.com:rodydavis/dynamic_tabs.git
 	path = packages/dynamic_tabs
@@ -61,3 +52,12 @@
 [submodule "community/breakpoint"]
 	path = community/breakpoint
 	url = git@github.com:fluttercommunity/breakpoint.git
+[submodule "packages/data_tables"]
+	path = packages/data_tables
+	url = git@github.com:rodydavis/data_tables.git
+[submodule "packages/cupertino_controllers"]
+	path = packages/cupertino_controllers
+	url = git@github.com:rodydavis/cupertino_controllers.git
+[submodule "packages/dart_firebase"]
+	path = packages/dart_firebase
+	url = git@github.com:rodydavis/dart_firebase.git
