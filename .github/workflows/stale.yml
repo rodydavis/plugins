@@ -17,3 +17,6 @@ jobs:
         stale-pr-message: 'This PR has been closed due to inactivity.'
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'
+        exempt-issue-label: 'awaiting-approval'
+        days-before-stale: 30
+        days-before-close: 5
