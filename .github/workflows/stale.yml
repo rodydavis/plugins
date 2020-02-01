@@ -13,8 +13,8 @@ jobs:
     - uses: actions/stale@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has been closed due to inactivity.'
-        stale-pr-message: 'This PR has been closed due to inactivity.'
+        stale-issue-message: 'This issue has been marked stale to inactivity.'
+        stale-pr-message: 'This PR has been marked stale due to inactivity.'
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'
         exempt-issue-label: 'awaiting-approval'
