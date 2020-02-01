@@ -65,3 +65,6 @@
 [submodule "community/native_widgets"]
 	path = community/native_widgets
 	url = git@github.com:fluttercommunity/native_widgets.git
+[submodule "packages/navigation_rail"]
+	path = packages/navigation_rail
+	url = git@github.com:rodydavis/navigation_rail.git

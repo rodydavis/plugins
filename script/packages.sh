@@ -20,3 +20,4 @@ git submodule add git@github.com:fluttercommunity/flutter_sms.git community/flut
 git submodule add git@github.com:fluttercommunity/native_widgets.git community/native_widgets
 git submodule add git@github.com:fluttercommunity/responsive_scaffold.git community/responsive_scaffold
 git submodule add git@github.com:fluttercommunity/breakpoint.git community/breakpoint
+git submodule add git@github.com:rodydavis/navigation_rail.git packages/navigation_rail
