@@ -13,7 +13,7 @@ Flutter plugins enable access to platform-specific APIs. For more information
 about plugins, and how to use them, see
 [https://flutter.io/platform-plugins/](https://flutter.io/platform-plugins/).
 
-## Packages
+## Packages (39)
 
 ✅ null safe | 🖥 desktop | 🌐 web
 
@@ -60,7 +60,7 @@ about plugins, and how to use them, see
 ## Issues
 
 Please file any issues, bugs, or feature requests in the [
-repo](https://github.com/AppleEducate/plugins/issues/new).
+repo](https://github.com/rodydavis/plugins/issues/new).
 
 ## Contributing
 
@@ -72,5 +72,5 @@ is ready you can [publish](https://flutter.io/developing-packages/#publish)
 to the [pub repository](https://pub.dartlang.org/).
 
 If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/AppleEducate/plugins/blob/master/CONTRIBUTING.md),
-and send a [pull request](https://github.com/AppleEducate/plugins/pulls).
+please review our [contribution guide](https://github.com/rodydavis/plugins/blob/master/CONTRIBUTING.md),
+and send a [pull request](https://github.com/rodydavis/plugins/pulls).
