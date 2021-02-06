@@ -15,16 +15,13 @@ about plugins, and how to use them, see
 
 ## Packages
 
-✅ - null safe
-🖥 - desktop
-🌐 - web
-
+✅ null safe | 🖥 desktop | 🌐 web
 
 * [app_review](/packages/app_review) ✅
+* [breakpoint](/packages/breakpoint) ✅ - [demo](https://fluttercommunity.github.io/breakpoint/)
 * [fb_storage](/packages/fb_storage)
 * [flutter_wasm_interop](/packages/flutter_wasm_interop)
 * [persist_theme](/packages/persist_theme)
-* [breakpoint](/packages/breakpoint) ✅ - [demo](https://fluttercommunity.github.io/breakpoint/)
 * [features](/packages/features)
 * [flutter_whatsnew](/packages/flutter_whatsnew)
 * [project_gen](/packages/project_gen)
