@@ -12,7 +12,7 @@
 	url = git@github.com:rodydavis/flutter_midi.git
 [submodule "packages/mobile_popup"]
 	path = packages/mobile_popup
-	url = git@github.com:rodydavis/mobile_popup.git
+	url = https://github.com/rodydavis/mobile_popup
 [submodule "packages/mobile_sidebar"]
 	path = packages/mobile_sidebar
 	url = git@github.com:rodydavis/mobile_sidebar.git
@@ -70,3 +70,27 @@
 [submodule "packages/undo"]
 	path = packages/undo
 	url = https://github.com/rodydavis/undo
+[submodule "packages/scaffold_tab_bar"]
+	path = packages/scaffold_tab_bar
+	url = https://github.com/rodydavis/scaffold_tab_bar
+[submodule "packages/file_access"]
+	path = packages/file_access
+	url = https://github.com/rodydavis/file_access
+[submodule "packages/storyboard"]
+	path = packages/storyboard
+	url = https://github.com/rodydavis/storyboard
+[submodule "packages/golden_layout"]
+	path = packages/golden_layout
+	url = https://github.com/rodydavis/golden_layout
+[submodule "packages/native_color_picker"]
+	path = packages/native_color_picker
+	url = https://github.com/rodydavis/native_color_picker
+[submodule "packages/features"]
+	path = packages/features
+	url = https://github.com/rodydavis/features
+[submodule "packages/image_resizer"]
+	path = packages/image_resizer
+	url = https://github.com/rodydavis/image_resizer
+[submodule "packages/settings_manager"]
+	path = packages/settings_manager
+	url = https://github.com/rodydavis/settings_manager
