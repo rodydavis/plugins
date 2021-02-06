@@ -94,3 +94,24 @@
 [submodule "packages/settings_manager"]
 	path = packages/settings_manager
 	url = https://github.com/rodydavis/settings_manager
+[submodule "packages/project_gen"]
+	path = packages/project_gen
+	url = https://github.com/rodydavis/project_gen
+[submodule "packages/flutter_cli"]
+	path = packages/flutter_cli
+	url = https://github.com/rodydavis/flutter_cli
+[submodule "packages/flutter_wasm_interop"]
+	path = packages/flutter_wasm_interop
+	url = https://github.com/rodydavis/flutter_wasm_interop
+[submodule "packages/flutter_dynamic_widget"]
+	path = packages/flutter_dynamic_widget
+	url = https://github.com/rodydavis/flutter_dynamic_widget
+[submodule "packages/widget_gen"]
+	path = packages/widget_gen
+	url = https://github.com/rodydavis/widget_gen
+[submodule "packages/flutter_ast"]
+	path = packages/flutter_ast
+	url = https://github.com/rodydavis/flutter_ast
+[submodule "packages/flutter_multi_window"]
+	path = packages/flutter_multi_window
+	url = https://github.com/rodydavis/flutter_multi_window
