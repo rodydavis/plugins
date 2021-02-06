@@ -12,7 +12,7 @@
 	url = git@github.com:rodydavis/flutter_midi.git
 [submodule "packages/mobile_popup"]
 	path = packages/mobile_popup
-	url = git@github.com:rodydavis/mobile_popup.git
+	url = https://github.com/rodydavis/mobile_popup
 [submodule "packages/mobile_sidebar"]
 	path = packages/mobile_sidebar
 	url = git@github.com:rodydavis/mobile_sidebar.git
@@ -25,8 +25,8 @@
 [submodule "packages/fb_storage"]
 	path = packages/fb_storage
 	url = git@github.com:rodydavis/fb_storage.git
-[submodule "community/persist_theme"]
-	path = community/persist_theme
+[submodule "packages/persist_theme"]
+	path = packages/persist_theme
 	url = git@github.com:fluttercommunity/persist_theme.git
 [submodule "packages/easy_web_view"]
 	path = packages/easy_web_view
@@ -34,23 +34,23 @@
 [submodule "packages/easy_google_maps"]
 	path = packages/easy_google_maps
 	url = git@github.com:rodydavis/easy_google_maps.git
-[submodule "community/flutter_whatsnew"]
-	path = community/flutter_whatsnew
+[submodule "packages/flutter_whatsnew"]
+	path = packages/flutter_whatsnew
 	url = git@github.com:fluttercommunity/flutter_whatsnew.git
-[submodule "community/app_review"]
-	path = community/app_review
+[submodule "packages/app_review"]
+	path = packages/app_review
 	url = git@github.com:fluttercommunity/app_review.git
-[submodule "community/get_version"]
-	path = community/get_version
+[submodule "packages/get_version"]
+	path = packages/get_version
 	url = git@github.com:fluttercommunity/get_version.git
-[submodule "community/flutter_sms"]
-	path = community/flutter_sms
+[submodule "packages/flutter_sms"]
+	path = packages/flutter_sms
 	url = git@github.com:fluttercommunity/flutter_sms.git
-[submodule "community/responsive_scaffold"]
-	path = community/responsive_scaffold
+[submodule "packages/responsive_scaffold"]
+	path = packages/responsive_scaffold
 	url = git@github.com:fluttercommunity/responsive_scaffold.git
-[submodule "community/breakpoint"]
-	path = community/breakpoint
+[submodule "packages/breakpoint"]
+	path = packages/breakpoint
 	url = git@github.com:fluttercommunity/breakpoint.git
 [submodule "packages/data_tables"]
 	path = packages/data_tables
@@ -61,10 +61,57 @@
 [submodule "packages/dart_firebase"]
 	path = packages/dart_firebase
 	url = git@github.com:rodydavis/dart_firebase.git
-
-[submodule "community/native_widgets"]
-	path = community/native_widgets
+[submodule "packages/native_widgets"]
+	path = packages/native_widgets
 	url = git@github.com:fluttercommunity/native_widgets.git
 [submodule "packages/navigation_rail"]
 	path = packages/navigation_rail
 	url = git@github.com:rodydavis/navigation_rail.git
+[submodule "packages/undo"]
+	path = packages/undo
+	url = https://github.com/rodydavis/undo
+[submodule "packages/scaffold_tab_bar"]
+	path = packages/scaffold_tab_bar
+	url = https://github.com/rodydavis/scaffold_tab_bar
+[submodule "packages/file_access"]
+	path = packages/file_access
+	url = https://github.com/rodydavis/file_access
+[submodule "packages/storyboard"]
+	path = packages/storyboard
+	url = https://github.com/rodydavis/storyboard
+[submodule "packages/golden_layout"]
+	path = packages/golden_layout
+	url = https://github.com/rodydavis/golden_layout
+[submodule "packages/native_color_picker"]
+	path = packages/native_color_picker
+	url = https://github.com/rodydavis/native_color_picker
+[submodule "packages/features"]
+	path = packages/features
+	url = https://github.com/rodydavis/features
+[submodule "packages/image_resizer"]
+	path = packages/image_resizer
+	url = https://github.com/rodydavis/image_resizer
+[submodule "packages/settings_manager"]
+	path = packages/settings_manager
+	url = https://github.com/rodydavis/settings_manager
+[submodule "packages/project_gen"]
+	path = packages/project_gen
+	url = https://github.com/rodydavis/project_gen
+[submodule "packages/flutter_cli"]
+	path = packages/flutter_cli
+	url = https://github.com/rodydavis/flutter_cli
+[submodule "packages/flutter_wasm_interop"]
+	path = packages/flutter_wasm_interop
+	url = https://github.com/rodydavis/flutter_wasm_interop
+[submodule "packages/flutter_dynamic_widget"]
+	path = packages/flutter_dynamic_widget
+	url = https://github.com/rodydavis/flutter_dynamic_widget
+[submodule "packages/widget_gen"]
+	path = packages/widget_gen
+	url = https://github.com/rodydavis/widget_gen
+[submodule "packages/flutter_ast"]
+	path = packages/flutter_ast
+	url = https://github.com/rodydavis/flutter_ast
+[submodule "packages/flutter_multi_window"]
+	path = packages/flutter_multi_window
+	url = https://github.com/rodydavis/flutter_multi_window
