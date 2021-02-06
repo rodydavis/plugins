@@ -25,8 +25,8 @@
 [submodule "packages/fb_storage"]
 	path = packages/fb_storage
 	url = git@github.com:rodydavis/fb_storage.git
-[submodule "community/persist_theme"]
-	path = community/persist_theme
+[submodule "packages/persist_theme"]
+	path = packages/persist_theme
 	url = git@github.com:fluttercommunity/persist_theme.git
 [submodule "packages/easy_web_view"]
 	path = packages/easy_web_view
@@ -34,23 +34,23 @@
 [submodule "packages/easy_google_maps"]
 	path = packages/easy_google_maps
 	url = git@github.com:rodydavis/easy_google_maps.git
-[submodule "community/flutter_whatsnew"]
-	path = community/flutter_whatsnew
+[submodule "packages/flutter_whatsnew"]
+	path = packages/flutter_whatsnew
 	url = git@github.com:fluttercommunity/flutter_whatsnew.git
-[submodule "community/app_review"]
-	path = community/app_review
+[submodule "packages/app_review"]
+	path = packages/app_review
 	url = git@github.com:fluttercommunity/app_review.git
-[submodule "community/get_version"]
-	path = community/get_version
+[submodule "packages/get_version"]
+	path = packages/get_version
 	url = git@github.com:fluttercommunity/get_version.git
-[submodule "community/flutter_sms"]
-	path = community/flutter_sms
+[submodule "packages/flutter_sms"]
+	path = packages/flutter_sms
 	url = git@github.com:fluttercommunity/flutter_sms.git
-[submodule "community/responsive_scaffold"]
-	path = community/responsive_scaffold
+[submodule "packages/responsive_scaffold"]
+	path = packages/responsive_scaffold
 	url = git@github.com:fluttercommunity/responsive_scaffold.git
-[submodule "community/breakpoint"]
-	path = community/breakpoint
+[submodule "packages/breakpoint"]
+	path = packages/breakpoint
 	url = git@github.com:fluttercommunity/breakpoint.git
 [submodule "packages/data_tables"]
 	path = packages/data_tables
@@ -61,10 +61,12 @@
 [submodule "packages/dart_firebase"]
 	path = packages/dart_firebase
 	url = git@github.com:rodydavis/dart_firebase.git
-
-[submodule "community/native_widgets"]
-	path = community/native_widgets
+[submodule "packages/native_widgets"]
+	path = packages/native_widgets
 	url = git@github.com:fluttercommunity/native_widgets.git
 [submodule "packages/navigation_rail"]
 	path = packages/navigation_rail
 	url = git@github.com:rodydavis/navigation_rail.git
+[submodule "packages/undo"]
+	path = packages/undo
+	url = https://github.com/rodydavis/undo
