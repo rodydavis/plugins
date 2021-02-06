@@ -21,10 +21,10 @@ about plugins, and how to use them, see
 
 
 * [app_review](/packages/app_review) ✅
-* [fb_storage](/packages/fb_storage) ✅
+* [fb_storage](/packages/fb_storage)
 * [flutter_wasm_interop](/packages/flutter_wasm_interop)
 * [persist_theme](/packages/persist_theme)
-* [breakpoint](/packages/breakpoint)
+* [breakpoint](/packages/breakpoint) ✅ - [demo](https://fluttercommunity.github.io/breakpoint/)
 * [features](/packages/features)
 * [flutter_whatsnew](/packages/flutter_whatsnew)
 * [project_gen](/packages/project_gen)
