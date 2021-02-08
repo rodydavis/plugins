@@ -13,6 +13,8 @@ Flutter plugins enable access to platform-specific APIs. For more information
 about plugins, and how to use them, see
 [https://flutter.io/platform-plugins/](https://flutter.io/platform-plugins/).
 
+Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.com/packages)
+
 ## Packages (39)
 
 ✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web
