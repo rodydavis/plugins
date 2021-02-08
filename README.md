@@ -15,47 +15,47 @@ about plugins, and how to use them, see
 
 ## Packages (39)
 
-✅ null safe | 🖥 desktop | 🌐 web
+✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web
 
-* [app_review](/packages/app_review) ✅
-* [breakpoint](/packages/breakpoint) ✅ - [demo](https://fluttercommunity.github.io/breakpoint/)
-* [cupertino_controllers](/packages/cupertino_controllers)
-* [dart_firebase](/packages/dart_firebase)
-* [data_tables](/packages/data_tables)
-* [dynamic_tabs](/packages/dynamic_tabs)
-* [easy_google_maps](/packages/easy_google_maps)
-* [easy_web_view](/packages/easy_web_view)
-* [fb_auth](/packages/fb_auth)
-* [fb_firestore](/packages/fb_firestore)
-* [fb_storage](/packages/fb_storage)
-* [features](/packages/features)
-* [file_access](/packages/file_access)
-* [floating_search_bar](/packages/floating_search_bar)
-* [flutter_ast](/packages/flutter_ast)
-* [flutter_cli](/packages/flutter_cli)
-* [flutter_dynamic_widget](/packages/flutter_dynamic_widget)
-* [flutter_midi](/packages/flutter_midi)
-* [flutter_multi_window](/packages/flutter_multi_window)
-* [flutter_sms](/packages/flutter_sms)
-* [flutter_wasm_interop](/packages/flutter_wasm_interop)
-* [flutter_whatsnew](/packages/flutter_whatsnew)
-* [get_version](/packages/get_version)
-* [golden_layout](/packages/golden_layout)
-* [image_resizer](/packages/image_resizer)
-* [mobile_popup](/packages/mobile_popup)
-* [mobile_sidebar](/packages/mobile_sidebar)
-* [native_color_picker](/packages/native_color_picker)
-* [native_widgets](/packages/native_widgets)
-* [navigation_rail](/packages/navigation_rail)
-* [persist_theme](/packages/persist_theme)
-* [project_gen](/packages/project_gen)
-* [responsive_scaffold](/packages/responsive_scaffold)
-* [scaffold_tab_bar](/packages/scaffold_tab_bar)
-* [settings_manager](/packages/settings_manager)
-* [sheet_music](/packages/sheet_music)
-* [storyboard](/packages/storyboard)
-* [undo](/packages/undo)
-* [widget_gen](/packages/widget_gen)
+* [app_review](/packages/app_review) ✅📱
+* [breakpoint](/packages/breakpoint) ✅📱🌐🖥 - [demo](https://fluttercommunity.github.io/breakpoint/)
+* [cupertino_controllers](/packages/cupertino_controllers) 📱🌐🖥
+* [dart_firebase](/packages/dart_firebase) 📱🌐🖥
+* [data_tables](/packages/data_tables) 📱🌐🖥
+* [dynamic_tabs](/packages/dynamic_tabs) 📱🌐🖥
+* [easy_google_maps](/packages/easy_google_maps) 📱🌐
+* [easy_web_view](/packages/easy_web_view) 📱🌐
+* [fb_auth](/packages/fb_auth) 📱🌐🖥
+* [fb_firestore](/packages/fb_firestore) 📱🌐
+* [fb_storage](/packages/fb_storage) 📱🌐
+* [features](/packages/features) 📱🌐🖥
+* [file_access](/packages/file_access) 📱🌐🖥
+* [floating_search_bar](/packages/floating_search_bar) 📱🌐🖥
+* [flutter_ast](/packages/flutter_ast) 📱🌐🖥
+* [flutter_cli](/packages/flutter_cli) 🖥
+* [flutter_dynamic_widget](/packages/flutter_dynamic_widget) 📱🌐🖥
+* [flutter_midi](/packages/flutter_midi) 📱🌐
+* [flutter_multi_window](/packages/flutter_multi_window) 🌐
+* [flutter_sms](/packages/flutter_sms) 📱🌐
+* [flutter_wasm_interop](/packages/flutter_wasm_interop) 🌐
+* [flutter_whatsnew](/packages/flutter_whatsnew) 📱🌐🖥
+* [get_version](/packages/get_version) 📱
+* [golden_layout](/packages/golden_layout) 📱🌐🖥
+* [image_resizer](/packages/image_resizer) 📱🌐🖥
+* [mobile_popup](/packages/mobile_popup) 📱🌐🖥
+* [mobile_sidebar](/packages/mobile_sidebar) 📱🌐🖥
+* [native_color_picker](/packages/native_color_picker) 📱🌐🖥
+* [native_widgets](/packages/native_widgets) 📱🌐🖥
+* [navigation_rail](/packages/navigation_rail) 📱🌐🖥
+* [persist_theme](/packages/persist_theme) 📱🌐🖥
+* [project_gen](/packages/project_gen) 🖥
+* [responsive_scaffold](/packages/responsive_scaffold) 📱🌐🖥
+* [scaffold_tab_bar](/packages/scaffold_tab_bar) 📱🌐🖥
+* [settings_manager](/packages/settings_manager) 📱🌐🖥
+* [sheet_music](/packages/sheet_music) 📱🌐🖥
+* [storyboard](/packages/storyboard) 📱🌐🖥
+* [undo](/packages/undo) 📱🌐🖥
+* [widget_gen](/packages/widget_gen) 📱🌐🖥
 
 ## Issues
 
