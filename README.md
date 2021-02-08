@@ -23,7 +23,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [breakpoint](/packages/breakpoint) ✅📱🌐🖥 - [demo](https://fluttercommunity.github.io/breakpoint/)
 * [cupertino_controllers](/packages/cupertino_controllers) 📱🌐🖥
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
-* [data_tables](/packages/data_tables) 📱🌐🖥
+* [data_tables](/packages/data_tables) ✅📱🌐🖥
 * [dynamic_tabs](/packages/dynamic_tabs) 📱🌐🖥
 * [easy_google_maps](/packages/easy_google_maps) 📱🌐
 * [easy_web_view](/packages/easy_web_view) 📱🌐
