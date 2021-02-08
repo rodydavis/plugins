@@ -21,7 +21,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 * [app_review](/packages/app_review) ✅📱
 * [breakpoint](/packages/breakpoint) ✅📱🌐🖥 - [demo](https://fluttercommunity.github.io/breakpoint/)
-* [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥 - [demo](https://rodydavis.github.io/cupertino_controllers/) - [demo](https://rodydavis.github.io/cupertino_controllers/)
+* [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥 - [demo](https://rodydavis.github.io/cupertino_controllers/)
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
 * [data_tables](/packages/data_tables) ✅📱🌐🖥 - [demo](https://rodydavis.github.io/data_tables/)
 * [dynamic_tabs](/packages/dynamic_tabs) 📱🌐🖥
