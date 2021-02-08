@@ -61,18 +61,12 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ## Issues
 
-Please file any issues, bugs, or feature requests in the [
-repo](https://github.com/rodydavis/plugins/issues/new).
+Please file any issues, bugs, or feature requests in the each individual repo.
 
 ## Contributing
 
-If you wish to contribute a new plugin to the Flutter ecosystem, please
-see the documentation for [developing packages](https://flutter.io/developing-packages/) and
-[platform channels](https://flutter.io/platform-channels/). You can store
-your plugin source code in any GitHub repository. Once your plugin
-is ready you can [publish](https://flutter.io/developing-packages/#publish)
-to the [pub repository](https://pub.dartlang.org/).
+This repo uses sub modules to keep all the repos in one place as a mono repo but retaining the advantages of individual repos.
 
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/rodydavis/plugins/blob/master/CONTRIBUTING.md),
-and send a [pull request](https://github.com/rodydavis/plugins/pulls).
+and send a pull request for the specific repo.
