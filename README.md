@@ -24,8 +24,8 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
 * [data_tables](/packages/data_tables) ✅📱🌐🖥[👀](https://rodydavis.github.io/data_tables/)
 * [dynamic_tabs](/packages/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
-* [easy_google_maps](/packages/easy_google_maps) 📱🌐
-* [easy_web_view](/packages/easy_web_view) 📱🌐
+* [easy_google_maps](/packages/easy_google_maps) ✅📱🌐
+* [easy_web_view](/packages/easy_web_view) ✅📱🌐[👀](https://rodydavis.github.io/easy_web_view/)
 * [fb_auth](/packages/fb_auth) 📱🌐🖥
 * [fb_firestore](/packages/fb_firestore) 📱🌐
 * [fb_storage](/packages/fb_storage) 📱🌐
