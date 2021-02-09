@@ -3,7 +3,7 @@ name: Plugin Not Working
 about: Describe this issue template's purpose here.
 title: ''
 labels: bug
-assignees: AppleEducate
+assignees: rodydavis
 
 ---
 
