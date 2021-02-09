@@ -4,8 +4,7 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-yellow.svg)](https://www.buymeacoffee.com/rodydavis)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WSH3GVC49GNNJ)
 
-This repo is a companion repo to the main [flutter
-repo](https://github.com/flutter/flutter). It contains the source code for
+This repo contains the source code for
 Flutter third-party plugins (i.e., plugins developed by Rody Davis).
 Check the `packages` directory for all plugins.
 
@@ -17,13 +16,13 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ## Packages (39)
 
-✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web
+✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web | 🚨 deprecated | 👀 demo
 
 * [app_review](/packages/app_review) ✅📱
-* [breakpoint](/packages/breakpoint) ✅📱🌐🖥 - [demo](https://fluttercommunity.github.io/breakpoint/)
-* [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥 - [demo](https://rodydavis.github.io/cupertino_controllers/) - [demo](https://rodydavis.github.io/cupertino_controllers/)
+* [breakpoint](/packages/breakpoint) ✅📱🌐🖥[👀](https://fluttercommunity.github.io/breakpoint/)
+* [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥[👀](https://rodydavis.github.io/cupertino_controllers/)
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
-* [data_tables](/packages/data_tables) ✅📱🌐🖥 - [demo](https://rodydavis.github.io/data_tables/)
+* [data_tables](/packages/data_tables) ✅📱🌐🖥[👀](https://rodydavis.github.io/data_tables/)
 * [dynamic_tabs](/packages/dynamic_tabs) 📱🌐🖥
 * [easy_google_maps](/packages/easy_google_maps) 📱🌐
 * [easy_web_view](/packages/easy_web_view) 📱🌐
@@ -61,18 +60,12 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ## Issues
 
-Please file any issues, bugs, or feature requests in the [
-repo](https://github.com/rodydavis/plugins/issues/new).
+Please file any issues, bugs, or feature requests in the each individual repo.
 
 ## Contributing
 
-If you wish to contribute a new plugin to the Flutter ecosystem, please
-see the documentation for [developing packages](https://flutter.io/developing-packages/) and
-[platform channels](https://flutter.io/platform-channels/). You can store
-your plugin source code in any GitHub repository. Once your plugin
-is ready you can [publish](https://flutter.io/developing-packages/#publish)
-to the [pub repository](https://pub.dartlang.org/).
+This repo uses sub modules to keep all the repos in one place as a mono repo but retaining the advantages of individual repos.
 
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/rodydavis/plugins/blob/master/CONTRIBUTING.md),
-and send a [pull request](https://github.com/rodydavis/plugins/pulls).
+and send a pull request for the specific repo.
