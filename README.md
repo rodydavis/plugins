@@ -23,7 +23,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥[👀](https://rodydavis.github.io/cupertino_controllers/)
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
 * [data_tables](/packages/data_tables) ✅📱🌐🖥[👀](https://rodydavis.github.io/data_tables/)
-* [dynamic_tabs](/packages/dynamic_tabs) 📱🌐🖥
+* [dynamic_tabs](/packages/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
 * [easy_google_maps](/packages/easy_google_maps) 📱🌐
 * [easy_web_view](/packages/easy_web_view) 📱🌐
 * [fb_auth](/packages/fb_auth) 📱🌐🖥
