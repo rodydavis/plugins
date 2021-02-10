@@ -29,7 +29,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [fb_auth](/packages/fb_auth) 🚨📱🌐🖥
 * [fb_firestore](/packages/fb_firestore) 🚨📱🌐
 * [fb_storage](/packages/fb_storage) 🚨📱🌐
-* [features](/packages/features) ✅📱🌐🖥
+* [features](/packages/features) ✅📱🌐🖥[👀](https://rodydavis.github.io/features/)
 * [file_access](/packages/file_access) 📱🌐🖥
 * [floating_search_bar](/packages/floating_search_bar) 📱🌐🖥
 * [flutter_ast](/packages/flutter_ast) 📱🌐🖥
