@@ -37,7 +37,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [flutter_dynamic_widget](/packages/flutter_dynamic_widget) 📱🌐🖥
 * [flutter_midi](/packages/flutter_midi) 📱🌐
 * [flutter_multi_window](/packages/flutter_multi_window) 🌐
-* [flutter_sms](/packages/flutter_sms) 📱🌐
+* [flutter_sms](/packages/flutter_sms) 📱🌐🖥
 * [flutter_wasm_interop](/packages/flutter_wasm_interop) 🌐
 * [flutter_whatsnew](/packages/flutter_whatsnew) 📱🌐🖥
 * [get_version](/packages/get_version) 📱
