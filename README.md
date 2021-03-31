@@ -134,7 +134,7 @@ Set of common iOS controllers for Flutter.
 [![data_tables](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dev/packages/data_tables)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/data_tables?color=blue)](https://github.com/rodydavis/data_tables)
 
-Set of common iOS controllers for Flutter.
+Powerfult data tables for flutter including a builder and from json constructor.
 
 [View Source](https://github.com/rodydavis/data_tables)
 
