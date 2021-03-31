@@ -115,7 +115,7 @@ Set of common iOS controllers for Flutter.
 [![dart_firebase](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dev/packages/dart_firebase)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/dart_firebase?color=blue)](https://github.com/rodydavis/dart_firebase)
 
-Set of common iOS controllers for Flutter.
+Dart only version of some firebase apis.
 
 [View Source](https://github.com/rodydavis/dart_firebase)
 
@@ -134,7 +134,7 @@ Set of common iOS controllers for Flutter.
 [![data_tables](https://img.shields.io/pub/v/data_tables.svg)](https://pub.dev/packages/data_tables)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/data_tables?color=blue)](https://github.com/rodydavis/data_tables)
 
-Set of common iOS controllers for Flutter.
+Powerful data tables for flutter including a builder and from json constructor.
 
 [View Source](https://github.com/rodydavis/data_tables)
 
