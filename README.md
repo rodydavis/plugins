@@ -98,7 +98,7 @@ Material Design [breakpoints](https://material.io/design/layout/responsive-layou
 [![cupertino_controllers](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dev/packages/cupertino_controllers)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/cupertino_controllers?color=blue)](https://github.com/rodydavis/cupertino_controllers)
 
-Material Design [cupertino_controllerss](https://material.io/design/layout/responsive-layout-grid.html#cupertino_controllerss) for flutter.
+Set of common iOS controllers for Flutter.
 
 [View Source](https://github.com/rodydavis/cupertino_controllers)
 
