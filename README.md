@@ -18,7 +18,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web | 🚨 deprecated | 👀 demo
 
-* [app_review](/packages/app_review) ✅📱
 * [breakpoint](/packages/breakpoint) ✅📱🌐🖥[👀](https://fluttercommunity.github.io/breakpoint/)
 * [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥[👀](https://rodydavis.github.io/cupertino_controllers/)
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
@@ -57,6 +56,25 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [storyboard](/packages/storyboard) 📱🌐🖥
 * [undo](/packages/undo) 📱🌐🖥
 * [widget_gen](/packages/widget_gen) 📱🌐🖥
+
+---
+
+### `app_review`
+
+[![app_review](https://img.shields.io/pub/v/app_review.svg)](https://pub.dev/packages/app_review)
+[![GitHub stars](https://img.shields.io/github/stars/fluttercommunity/app_review?color=blue)](https://github.com/fluttercommunity/app_review)
+
+Request a review on iOS and Android!
+
+[View Source](https://github.com/fluttercommunity/app_review)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Web |
+|:-------:|:---:|:-----:|:---:|
+|    ✔️    |  ✔️  |      |    |
+
+----
 
 ## Issues
 

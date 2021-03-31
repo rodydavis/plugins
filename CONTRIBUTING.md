@@ -90,3 +90,6 @@ organization's) name and contact info to the [AUTHORS](AUTHORS) file.
 
 We grant commit access to people who have gained our trust and demonstrated
 a commitment to Flutter.
+
+
+`melos run`
