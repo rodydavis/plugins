@@ -69,9 +69,9 @@ Request a review on iOS and Android!
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web |
-|:-------:|:---:|:-----:|:---:|
-|    ✔️    |  ✔️  |      |    |
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|----:|
+|    ✔️    |  ✔️  |       |         |       |     |
 
 ----
 
@@ -88,9 +88,9 @@ Material Design [breakpoints](https://material.io/design/layout/responsive-layou
 
 #### Platform Support
 
-| Android | iOS | MacOS | Web |
-|:-------:|:---:|:-----:|:---:|
-|    ✔️    |  ✔️  |   ✔️   |  ✔️  |
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|----:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
 
 ----
 
