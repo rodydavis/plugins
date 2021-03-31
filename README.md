@@ -76,6 +76,25 @@ Request a review on iOS and Android!
 
 ----
 
+### `breakpoint`
+
+[![breakpoint](https://img.shields.io/pub/v/breakpoint.svg)](https://pub.dev/packages/breakpoint)
+[![GitHub stars](https://img.shields.io/github/stars/fluttercommunity/breakpoint?color=blue)](https://github.com/fluttercommunity/breakpoint)
+
+Material Design [breakpoints](https://material.io/design/layout/responsive-layout-grid.html#breakpoints) for flutter.
+
+[View Source](https://github.com/fluttercommunity/breakpoint)
+
+[Online Demo](https://fluttercommunity.github.io/breakpoint/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Web |
+|:-------:|:---:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |  ✔️  |
+
+----
+
 ## Issues
 
 Please file any issues, bugs, or feature requests in the each individual repo.
