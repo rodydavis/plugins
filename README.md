@@ -1,4 +1,4 @@
-# Flutter plugins
+# Flutter plugins by @rodydavis
 
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter)
 [![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-yellow.svg)](https://www.buymeacoffee.com/rodydavis)
@@ -36,7 +36,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [flutter_dynamic_widget](/packages/flutter_dynamic_widget) 📱🌐🖥
 * [flutter_midi](/packages/flutter_midi) 📱🌐
 * [flutter_multi_window](/packages/flutter_multi_window) 🌐
-* [flutter_sms](/packages/flutter_sms) 📱🌐
+* [flutter_sms](/packages/flutter_sms) 📱🌐🖥
 * [flutter_wasm_interop](/packages/flutter_wasm_interop) 🌐
 * [flutter_whatsnew](/packages/flutter_whatsnew) 📱🌐🖥
 * [get_version](/packages/get_version) 📱
