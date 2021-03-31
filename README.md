@@ -18,7 +18,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web | 🚨 deprecated | 👀 demo
 
-* [cupertino_controllers](/packages/cupertino_controllers) ✅📱🌐🖥[👀](https://rodydavis.github.io/cupertino_controllers/)
 * [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
 * [data_tables](/packages/data_tables) ✅📱🌐🖥[👀](https://rodydavis.github.io/data_tables/)
 * [dynamic_tabs](/packages/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
@@ -85,6 +84,25 @@ Material Design [breakpoints](https://material.io/design/layout/responsive-layou
 [View Source](https://github.com/fluttercommunity/breakpoint)
 
 [Online Demo](https://fluttercommunity.github.io/breakpoint/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
+
+----
+
+### `cupertino_controllers`
+
+[![cupertino_controllers](https://img.shields.io/pub/v/cupertino_controllers.svg)](https://pub.dev/packages/cupertino_controllers)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/cupertino_controllers?color=blue)](https://github.com/rodydavis/cupertino_controllers)
+
+Material Design [cupertino_controllerss](https://material.io/design/layout/responsive-layout-grid.html#cupertino_controllerss) for flutter.
+
+[View Source](https://github.com/rodydavis/cupertino_controllers)
+
+[Online Demo](https://rodydavis.github.io/cupertino_controllers/#/)
 
 #### Platform Support
 
