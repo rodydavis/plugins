@@ -18,7 +18,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web | 🚨 deprecated | 👀 demo
 
-* [dart_firebase](/packages/dart_firebase) ✅📱🌐🖥
 * [data_tables](/packages/data_tables) ✅📱🌐🖥[👀](https://rodydavis.github.io/data_tables/)
 * [dynamic_tabs](/packages/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
 * [easy_google_maps](/packages/easy_google_maps) ✅📱🌐
@@ -103,6 +102,25 @@ Set of common iOS controllers for Flutter.
 [View Source](https://github.com/rodydavis/cupertino_controllers)
 
 [Online Demo](https://rodydavis.github.io/cupertino_controllers/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
+
+----
+
+### `dart_firebase`
+
+[![dart_firebase](https://img.shields.io/pub/v/dart_firebase.svg)](https://pub.dev/packages/dart_firebase)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/dart_firebase?color=blue)](https://github.com/rodydavis/dart_firebase)
+
+Set of common iOS controllers for Flutter.
+
+[View Source](https://github.com/rodydavis/dart_firebase)
+
+[Online Demo](https://rodydavis.github.io/dart_firebase/#/)
 
 #### Platform Support
 
