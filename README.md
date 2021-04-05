@@ -32,7 +32,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [flutter_dynamic_widget](/packages/flutter_dynamic_widget) 📱🌐🖥
 * [flutter_midi](/packages/flutter_midi) 📱🌐
 * [flutter_multi_window](/packages/flutter_multi_window) 🌐
-* [flutter_sms](/packages/flutter_sms) 📱🌐🖥
 * [flutter_wasm_interop](/packages/flutter_wasm_interop) 🌐
 * [flutter_whatsnew](/packages/flutter_whatsnew) 📱🌐🖥
 * [get_version](/packages/get_version) 📱
@@ -53,7 +52,7 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [undo](/packages/undo) 📱🌐🖥
 * [widget_gen](/packages/widget_gen) 📱🌐🖥
 
----
+----
 
 ### `app_review`
 
@@ -145,6 +144,23 @@ Powerful data tables for flutter including a builder and from json constructor.
 | Android | iOS | MacOS | Windows | Linux | Web |
 |:-------:|:---:|:-----:|:-------:|:-----:|:---:|
 |    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
+
+----
+
+### `flutter_sms`
+
+[![flutter_sms](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dev/packages/flutter_sms)
+[![GitHub stars](https://img.shields.io/github/stars/fluttercommunity/flutter_sms?color=blue)](https://github.com/fluttercommunity/flutter_sms)
+
+Request a review on iOS and Android!
+
+[View Source](https://github.com/fluttercommunity/flutter_sms)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |       |         |       |  ✔️  |
 
 ----
 
