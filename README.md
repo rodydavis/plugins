@@ -152,7 +152,7 @@ Powerful data tables for flutter including a builder and from json constructor.
 [![flutter_sms](https://img.shields.io/pub/v/flutter_sms.svg)](https://pub.dev/packages/flutter_sms)
 [![GitHub stars](https://img.shields.io/github/stars/fluttercommunity/flutter_sms?color=blue)](https://github.com/fluttercommunity/flutter_sms)
 
-Request a review on iOS and Android!
+Send an sms to an individual or a group with support for the native SMS dialog or cross platform url scheme!
 
 [View Source](https://github.com/fluttercommunity/flutter_sms)
 
