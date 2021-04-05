@@ -156,6 +156,8 @@ Send an sms to an individual or a group with support for the native SMS dialog o
 
 [View Source](https://github.com/fluttercommunity/flutter_sms)
 
+[Online Demo](https://fluttercommunity.github.io/flutter_sms/#/)
+
 #### Platform Support
 
 | Android | iOS | MacOS | Windows | Linux | Web |
