@@ -48,7 +48,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [scaffold_tab_bar](/packages/scaffold_tab_bar) 📱🌐🖥
 * [settings_manager](/packages/settings_manager) 📱🌐🖥
 * [sheet_music](/packages/sheet_music) 📱🌐🖥
-* [storyboard](/packages/storyboard) 📱🌐🖥
 * [undo](/packages/undo) 📱🌐🖥
 * [widget_gen](/packages/widget_gen) 📱🌐🖥
 
@@ -163,6 +162,25 @@ Send an sms to an individual or a group with support for the native SMS dialog o
 | Android | iOS | MacOS | Windows | Linux | Web |
 |:-------:|:---:|:-----:|:-------:|:-----:|:---:|
 |    ✔️    |  ✔️  |       |         |       |  ✔️  |
+
+----
+
+### `storyboard`
+
+[![storyboard](https://img.shields.io/pub/v/storyboard.svg)](https://pub.dev/packages/storyboard)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/storyboard?color=blue)](https://github.com/rodydavis/storyboard)
+
+Layout your entire app on a canvas!
+
+[View Source](https://github.com/rodydavis/storyboard)
+
+[Online Demo](https://rodydavis.github.io/storyboard/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
 
 ----
 
