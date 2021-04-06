@@ -167,7 +167,7 @@ Send an sms to an individual or a group with support for the native SMS dialog o
 
 ### `storyboard`
 
-[![storyboard](https://img.shields.io/pub/v/storyboard.svg)](https://pub.dev/packages/storyboard)
+[![storyboard](https://img.shields.io/pub/v/flutter_storyboard.svg)](https://pub.dev/packages/flutter_storyboard)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/storyboard?color=blue)](https://github.com/rodydavis/storyboard)
 
 Layout your entire app on a canvas!
