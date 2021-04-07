@@ -20,7 +20,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 * [dynamic_tabs](/packages/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
 * [easy_google_maps](/packages/easy_google_maps) ✅📱🌐
-* [easy_web_view](/packages/easy_web_view) ✅📱🌐[👀](https://rodydavis.github.io/easy_web_view/)
 * [fb_auth](/packages/fb_auth) 🚨📱🌐🖥
 * [fb_firestore](/packages/fb_firestore) 🚨📱🌐
 * [fb_storage](/packages/fb_storage) 🚨📱🌐
@@ -181,6 +180,25 @@ Layout your entire app on a canvas!
 | Android | iOS | MacOS | Windows | Linux | Web |
 |:-------:|:---:|:-----:|:-------:|:-----:|:---:|
 |    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
+
+----
+
+### `easy_web_view`
+
+[![easy_web_view](https://img.shields.io/pub/v/easy_web_view.svg)](https://pub.dev/packages/easy_web_view)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/easy_web_view?color=blue)](https://github.com/rodydavis/easy_web_view)
+
+Flutter webview for web and mobile!
+
+[View Source](https://github.com/rodydavis/easy_web_view)
+
+[Online Demo](https://rodydavis.github.io/easy_web_view/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |       |         |       |  ✔️  |
 
 ----
 
