@@ -219,7 +219,7 @@ Play soundfont instruments in flutter!
 
 ----
 
-### `data_tables`
+### `undo`
 
 [![undo](https://img.shields.io/pub/v/undo.svg)](https://pub.dev/packages/undo)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/undo?color=blue)](https://github.com/rodydavis/undo)
