@@ -17,3 +17,5 @@ packages/flutter_midi/ios/Classes/sound_font.SF2
 *.SF2
 packages/flutter_midi/example/ios/sound_font.SF2
 packages/flutter_midi/example/ios/sound_font.SF2
+
+pubspec.lock
