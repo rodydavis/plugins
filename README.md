@@ -46,7 +46,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [scaffold_tab_bar](/packages/scaffold_tab_bar) 📱🌐🖥
 * [settings_manager](/packages/settings_manager) 📱🌐🖥
 * [sheet_music](/packages/sheet_music) 📱🌐🖥
-* [undo](/packages/undo) 📱🌐🖥
 * [widget_gen](/packages/widget_gen) 📱🌐🖥
 
 ----
@@ -217,6 +216,25 @@ Flutter webview for web and mobile!
 | Android | iOS | MacOS | Windows | Linux | Web |
 |:-------:|:---:|:-----:|:-------:|:-----:|:---:|
 |    ✔️    |  ✔️  |       |         |       |     |
+
+----
+
+### `data_tables`
+
+[![undo](https://img.shields.io/pub/v/undo.svg)](https://pub.dev/packages/undo)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/undo?color=blue)](https://github.com/rodydavis/undo)
+
+An undo redo library for Dart/Flutter.
+
+[View Source](https://github.com/rodydavis/undo)
+
+[Online Demo](https://rodydavis.github.io/undo/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
 
 ----
 
