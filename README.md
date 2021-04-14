@@ -206,7 +206,7 @@ Flutter webview for web and mobile!
 [![flutter_midi](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dev/packages/flutter_midi)
 [![GitHub stars](https://img.shields.io/github/stars/rodydavis/flutter_midi?color=blue)](https://github.com/rodydavis/flutter_midi)
 
-Flutter webview for web and mobile!
+Play soundfont instruments in flutter!
 
 [View Source](https://github.com/rodydavis/flutter_midi)
 
