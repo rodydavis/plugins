@@ -29,7 +29,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 * [flutter_ast](/packages/flutter_ast) 📱🌐🖥
 * [flutter_cli](/packages/flutter_cli) 🖥
 * [flutter_dynamic_widget](/packages/flutter_dynamic_widget) 📱🌐🖥
-* [flutter_midi](/packages/flutter_midi) 📱🌐
 * [flutter_multi_window](/packages/flutter_multi_window) 🌐
 * [flutter_wasm_interop](/packages/flutter_wasm_interop) 🌐
 * [flutter_whatsnew](/packages/flutter_whatsnew) 📱🌐🖥
@@ -193,6 +192,25 @@ Flutter webview for web and mobile!
 [View Source](https://github.com/rodydavis/easy_web_view)
 
 [Online Demo](https://rodydavis.github.io/easy_web_view/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |       |         |       |  ✔️  |
+
+----
+
+### `flutter_midi`
+
+[![flutter_midi](https://img.shields.io/pub/v/flutter_midi.svg)](https://pub.dev/packages/flutter_midi)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/flutter_midi?color=blue)](https://github.com/rodydavis/flutter_midi)
+
+Flutter webview for web and mobile!
+
+[View Source](https://github.com/rodydavis/flutter_midi)
+
+[Online Demo](https://rodydavis.github.io/flutter_midi/#/)
 
 #### Platform Support
 
