@@ -216,7 +216,7 @@ Flutter webview for web and mobile!
 
 | Android | iOS | MacOS | Windows | Linux | Web |
 |:-------:|:---:|:-----:|:-------:|:-----:|:---:|
-|    ✔️    |  ✔️  |       |         |       |  ✔️  |
+|    ✔️    |  ✔️  |       |         |       |     |
 
 ----
 
