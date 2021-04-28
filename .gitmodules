@@ -115,3 +115,6 @@
 [submodule "packages/flutter_multi_window"]
 	path = packages/flutter_multi_window
 	url = https://github.com/rodydavis/flutter_multi_window
+[submodule "packages/flutter_data_view"]
+	path = packages/flutter_data_view
+	url = https://github.com/rodydavis/flutter_data_view

@@ -238,6 +238,25 @@ An undo redo library for Dart/Flutter.
 
 ----
 
+### `flutter_data_view`
+
+[![flutter_data_view](https://img.shields.io/pub/v/flutter_data_view.svg)](https://pub.dev/packages/flutter_data_view)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/flutter_data_view?color=blue)](https://github.com/rodydavis/flutter_data_view)
+
+A Flutter package to simplify creating data views with the same backing data source.
+
+[View Source](https://github.com/rodydavis/flutter_data_view)
+
+[Online Demo](https://rodydavis.github.io/flutter_data_view/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
+
+----
+
 ## Issues
 
 Please file any issues, bugs, or feature requests in the each individual repo.
