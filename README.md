@@ -18,35 +18,35 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web | 🚨 deprecated | 👀 demo
 
-* [dynamic_tabs](/packages/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
-* [easy_google_maps](/packages/easy_google_maps) ✅📱🌐
-* [fb_auth](/packages/fb_auth) 🚨📱🌐🖥
-* [fb_firestore](/packages/fb_firestore) 🚨📱🌐
-* [fb_storage](/packages/fb_storage) 🚨📱🌐
-* [features](/packages/features) ✅📱🌐🖥[👀](https://rodydavis.github.io/features/)
-* [file_access](/packages/file_access) 📱🌐🖥
-* [floating_search_bar](/packages/floating_search_bar) 📱🌐🖥
-* [flutter_ast](/packages/flutter_ast) 📱🌐🖥
-* [flutter_cli](/packages/flutter_cli) 🖥
-* [flutter_dynamic_widget](/packages/flutter_dynamic_widget) 📱🌐🖥
-* [flutter_multi_window](/packages/flutter_multi_window) 🌐
-* [flutter_wasm_interop](/packages/flutter_wasm_interop) 🌐
-* [flutter_whatsnew](/packages/flutter_whatsnew) 📱🌐🖥
-* [get_version](/packages/get_version) 📱
-* [golden_layout](/packages/golden_layout) 📱🌐🖥
-* [image_resizer](/packages/image_resizer) 📱🌐🖥
-* [mobile_popup](/packages/mobile_popup) 📱🌐🖥
-* [mobile_sidebar](/packages/mobile_sidebar) 📱🌐🖥
-* [native_color_picker](/packages/native_color_picker) 📱🌐🖥
-* [native_widgets](/packages/native_widgets) 📱🌐🖥
-* [navigation_rail](/packages/navigation_rail) 📱🌐🖥
-* [persist_theme](/packages/persist_theme) 📱🌐🖥
-* [project_gen](/packages/project_gen) 🖥
-* [responsive_scaffold](/packages/responsive_scaffold) 📱🌐🖥
-* [scaffold_tab_bar](/packages/scaffold_tab_bar) 📱🌐🖥
-* [settings_manager](/packages/settings_manager) 📱🌐🖥
-* [sheet_music](/packages/sheet_music) 📱🌐🖥
-* [widget_gen](/packages/widget_gen) 📱🌐🖥
+* [dynamic_tabs](https://github.com/rodydavis/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
+* [easy_google_maps](https://github.com/rodydavis/easy_google_maps) ✅📱🌐
+* [fb_auth](https://github.com/rodydavis/fb_auth) 🚨📱🌐🖥
+* [fb_firestore](https://github.com/rodydavis/fb_firestore) 🚨📱🌐
+* [fb_storage](https://github.com/rodydavis/fb_storage) 🚨📱🌐
+* [features](https://github.com/rodydavis/features) ✅📱🌐🖥[👀](https://rodydavis.github.io/features/)
+* [file_access](https://github.com/rodydavis/file_access) 📱🌐🖥
+* [floating_search_bar](https://github.com/rodydavis/floating_search_bar) 📱🌐🖥
+* [flutter_ast](https://github.com/rodydavis/flutter_ast) 📱🌐🖥
+* [flutter_cli](https://github.com/rodydavis/flutter_cli) 🖥
+* [flutter_dynamic_widget](https://github.com/rodydavis/flutter_dynamic_widget) 📱🌐🖥
+* [flutter_multi_window](https://github.com/rodydavis/flutter_multi_window) 🌐
+* [flutter_wasm_interop](https://github.com/rodydavis/flutter_wasm_interop) 🌐
+* [flutter_whatsnew](https://github.com/rodydavis/flutter_whatsnew) 📱🌐🖥
+* [get_version](https://github.com/rodydavis/get_version) 📱
+* [golden_layout](https://github.com/rodydavis/golden_layout) 📱🌐🖥
+* [image_resizer](https://github.com/rodydavis/image_resizer) 📱🌐🖥
+* [mobile_popup](https://github.com/rodydavis/mobile_popup) 📱🌐🖥
+* [mobile_sidebar](https://github.com/rodydavis/mobile_sidebar) 📱🌐🖥
+* [native_color_picker](https://github.com/rodydavis/native_color_picker) 📱🌐🖥
+* [native_widgets](https://github.com/rodydavis/native_widgets) 📱🌐🖥
+* [navigation_rail](https://github.com/rodydavis/navigation_rail) 📱🌐🖥
+* [persist_theme](https://github.com/rodydavis/persist_theme) 📱🌐🖥
+* [project_gen](https://github.com/rodydavis/project_gen) 🖥
+* [responsive_scaffold](https://github.com/rodydavis/responsive_scaffold) 📱🌐🖥
+* [scaffold_tab_bar](https://github.com/rodydavis/scaffold_tab_bar) 📱🌐🖥
+* [settings_manager](https://github.com/rodydavis/settings_manager) 📱🌐🖥
+* [sheet_music](https://github.com/rodydavis/sheet_music) 📱🌐🖥
+* [widget_gen](https://github.com/rodydavis/widget_gen) 📱🌐🖥
 
 ----
 
