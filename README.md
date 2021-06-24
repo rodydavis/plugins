@@ -257,6 +257,24 @@ A Flutter package to simplify creating data views with the same backing data sou
 
 ----
 
+### `flutter_vibrate`
+
+[![flutter_vibrate](https://img.shields.io/pub/v/flutter_vibrate.svg)](https://pub.dev/packages/flutter_vibrate)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/flutter_vibrate?color=blue)](https://github.com/rodydavis/flutter_vibrate)
+
+A Flutter plugin to vibrate the device. 
+This uses all the current Haptic Feedback APIs from Apple and provides similar feedback on Android.
+
+[View Source](https://github.com/rodydavis/flutter_vibrate)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |       |         |       |     |
+
+----
+
 ## Issues
 
 Please file any issues, bugs, or feature requests in the each individual repo.

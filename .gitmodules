@@ -118,3 +118,6 @@
 [submodule "packages/flutter_data_view"]
 	path = packages/flutter_data_view
 	url = https://github.com/rodydavis/flutter_data_view
+[submodule "packages/flutter_vibrate"]
+	path = packages/flutter_vibrate
+	url = https://github.com/rodydavis/flutter_vibrate
