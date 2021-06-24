@@ -18,7 +18,6 @@ Published on [pub.dev via rodydavis.com](https://pub.dev/publishers/rodydavis.co
 
 ✅ null safe | 🖥 desktop | 📱 ios/android | 🌐 web | 🚨 deprecated | 👀 demo
 
-* [dynamic_tabs](https://github.com/rodydavis/dynamic_tabs) ✅📱🌐🖥[👀](https://rodydavis.github.io/dynamic_tabs/)
 * [easy_google_maps](https://github.com/rodydavis/easy_google_maps) ✅📱🌐
 * [fb_auth](https://github.com/rodydavis/fb_auth) 🚨📱🌐🖥
 * [fb_firestore](https://github.com/rodydavis/fb_firestore) 🚨📱🌐
@@ -272,6 +271,25 @@ This uses all the current Haptic Feedback APIs from Apple and provides similar f
 | Android | iOS | MacOS | Windows | Linux | Web |
 |:-------:|:---:|:-----:|:-------:|:-----:|:---:|
 |    ✔️    |  ✔️  |       |         |       |     |
+
+----
+
+### `dynamic_tabs`
+
+[![dynamic_tabs](https://img.shields.io/pub/v/dynamic_tabs.svg)](https://pub.dev/packages/dynamic_tabs)
+[![GitHub stars](https://img.shields.io/github/stars/rodydavis/dynamic_tabs?color=blue)](https://github.com/rodydavis/dynamic_tabs)
+
+A Flutter plugin for letting the user edit the bottom tabs like the Cupertino iTunes App.
+
+[View Source](https://github.com/rodydavis/dynamic_tabs)
+
+[Online Demo](https://rodydavis.github.io/dynamic_tabs/#/)
+
+#### Platform Support
+
+| Android | iOS | MacOS | Windows | Linux | Web |
+|:-------:|:---:|:-----:|:-------:|:-----:|:---:|
+|    ✔️    |  ✔️  |   ✔️   |    ✔️    |   ✔️   |  ✔️  |
 
 ----
 
