@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/plugins.iml" filepath="$PROJECT_DIR$/.idea/plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_rodyplugins.iml" filepath="$PROJECT_DIR$/melos_rodyplugins.iml" />
     </modules>
   </component>
 </project>
