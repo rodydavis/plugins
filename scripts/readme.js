@@ -6,8 +6,7 @@ const fs = require('fs');
 const startTag = '<!-- START_PACKAGES -->';
 const endTag = '<!-- END_PACKAGES -->';
 const subModuleFile = '.gitmodules';
-const packagesPath = 'packages';
-const outputFile = `${packagesPath}/README.md`;
+const outputFile = `README.md`;
 
 /**
  * @type {Array<{path?: string, url?: string, name: string}>}
@@ -63,11 +62,6 @@ function updateReadme(file = outputFile) {
     newLines.push(`| Name | Stars | Issues | PRs | Forks |`);
     newLines.push(`| --- | --- | --- |--- |--- |`);
     for (const package of packages) {
-        const githubSuffix = package.url.replace('https://github.com/', '');
-        // ![](https://img.shields.io/github/issues/rodydavis/plugins)
-        // ![](https://img.shields.io/github/issues-pr/rodydavis/plugins)
-        // ![](https://img.shields.io/github/forks/rodydavis/plugins)
-        // ![](https://img.shields.io/github/stars/rodydavis/plugins)
         newLines.push(`| [${package.name}](${package.url}) |  ${shield(package.url, 'stars')} | ${shield(package.url, 'issues')} | ${shield(package.url, 'issues-pr')} | ${shield(package.url, 'forks')} |`);
     }
     newLines.push(...lines.slice(endIdx));
