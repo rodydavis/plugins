@@ -37,7 +37,11 @@ function parseSubModuleFile(file = subModuleFile) {
         if (line.trimStart().startsWith('url =')) {
             const urlStartIdx = line.indexOf('=') + 1;
             const urlEndIdx = line.length;
-            const url = line.substring(urlStartIdx, urlEndIdx).trim();
+            let url = line.substring(urlStartIdx, urlEndIdx).trim();
+            if (url.endsWith('.git')) {
+                url = url.substring(0, url.length - 4);
+                url = url.replace('git@github.com:', 'https://github.com/');
+            }
             packages[packages.length - 1].url = url;
         }
     }
@@ -59,6 +63,7 @@ function updateReadme(file = outputFile) {
     newLines.push(`| Name | Stars | Issues | PRs | Forks |`);
     newLines.push(`| --- | --- | --- |--- |--- |`);
     for (const package of packages) {
+        const githubSuffix = package.url.replace('https://github.com/', '');
         // ![](https://img.shields.io/github/issues/rodydavis/plugins)
         // ![](https://img.shields.io/github/issues-pr/rodydavis/plugins)
         // ![](https://img.shields.io/github/forks/rodydavis/plugins)
@@ -70,7 +75,7 @@ function updateReadme(file = outputFile) {
 }
 
 function shield(url, type) {
-    const githubSuffix = url.replace('https://github.com/', '');
+    const githubSuffix = url.replace('https://github.com/', '').replace('git@github.com:', '');
     const imageUrl = `![](https://img.shields.io/github/${type}/${githubSuffix})`;
     return imageUrl;
 }
