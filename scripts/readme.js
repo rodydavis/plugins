@@ -59,19 +59,26 @@ function updateReadme(file = outputFile) {
     const startIdx = lines.findIndex(line => line.trim() === startTag);
     const endIdx = lines.findIndex(line => line.trim() === endTag);
     const newLines = lines.slice(0, startIdx + 1);
-    newLines.push(`| Name | Stars | Issues | PRs | Forks |`);
-    newLines.push(`| --- | --- | --- |--- |--- |`);
+    newLines.push(`| Name | Package | Stars | Issues | Pull Requests | Forks |`);
+    newLines.push(`| --- | --- | --- | --- | --- | --- |`);
     for (const package of packages) {
-        newLines.push(`| [${package.name}](${package.url}) |  ${shield(package.url, 'stars')} | ${shield(package.url, 'issues')} | ${shield(package.url, 'issues-pr')} | ${shield(package.url, 'forks')} |`);
+        newLines.push(`| [${package.name}](${package.url}) | ${pub(package.name)} |  ${shield(package.url, 'stars')} | ${shield(package.url, 'issues')} | ${shield(package.url, 'issues-pr')} | ${shield(package.url, 'forks')} |`);
     }
     newLines.push(...lines.slice(endIdx));
     fs.writeFileSync(file, newLines.join('\n'));
 }
 
+function githubSuffix(url) {
+    return url.replace('https://github.com/', '').replace('git@github.com:', '');
+}
+
 function shield(url, type) {
-    const githubSuffix = url.replace('https://github.com/', '').replace('git@github.com:', '');
-    const imageUrl = `![](https://img.shields.io/github/${type}/${githubSuffix})`;
+    const imageUrl = `![](https://img.shields.io/github/${type}/${githubSuffix(url)})`;
     return imageUrl;
+}
+
+function pub(name) {
+    return `[![Pub](https://img.shields.io/pub/v/${name}.svg?style=popout)](https://pub.dartlang.org/packages/${name})`;
 }
 
 parseSubModuleFile();
