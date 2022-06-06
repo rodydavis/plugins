@@ -74,3 +74,11 @@ This repo uses sub modules to keep all the repos in one place as a mono repo but
 If you wish to contribute a change to any of the existing plugins in this repo,
 please review our [contribution guide](https://github.com/rodydavis/plugins/blob/master/CONTRIBUTING.md),
 and send a pull request for the specific repo.
+
+## Troubleshooting
+
+Cloning issues:
+
+```
+git submodule  update --init --recursive --remote --force
+```
